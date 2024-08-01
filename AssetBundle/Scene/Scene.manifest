@@ -1,0 +1,49 @@
+ManifestFileVersion: 0
+CRC: 3807679185
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: dragontigerscene
+      Dependencies: {}
+    Info_1:
+      Name: andarbaharscene
+      Dependencies: {}
+    Info_2:
+      Name: roulettescene
+      Dependencies: {}
+    Info_3:
+      Name: carroulette
+      Dependencies: {}
+    Info_4:
+      Name: sevenupanddownscene
+      Dependencies: {}
+    Info_5:
+      Name: ludoscene
+      Dependencies: {}
+    Info_6:
+      Name: jokerscene
+      Dependencies: {}
+    Info_7:
+      Name: akscene
+      Dependencies: {}
+    Info_8:
+      Name: teenpattiscene
+      Dependencies: {}
+    Info_9:
+      Name: pokerscene
+      Dependencies: {}
+    Info_10:
+      Name: jhandimundascene
+      Dependencies: {}
+    Info_11:
+      Name: pointrummyscene
+      Dependencies: {}
+    Info_12:
+      Name: poolrummyscene
+      Dependencies: {}
+    Info_13:
+      Name: dealrummyscene
+      Dependencies: {}
+    Info_14:
+      Name: aviatorscene
+      Dependencies: {}

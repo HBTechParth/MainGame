@@ -1,0 +1,2283 @@
+fileFormatVersion: 2
+guid: c2ac85c10a29eda42a12cc5079db485b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 1
+    textureFormat: 51
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DragonWin_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f496e4c0dd6ced4bad18b06a82eecb7
+      internalID: -277550291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_1
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6d862bbf4ba7f9459d419a436a1858e
+      internalID: -1654772017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_2
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 674d999a3da82304dbee161b6056eb95
+      internalID: -371165214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_3
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23eb78674d0549f4084c71d4150d253c
+      internalID: -798652193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_4
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73b3718a0930494dac336e2adff5be4
+      internalID: 1489971464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_5
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4f9682b9ea8d814ba3b2b1a03eb04c2
+      internalID: -832288591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_6
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2f2bd025c7cf47438531db3557df15c
+      internalID: 1390636977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_7
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a09c627bdc86134889aed6fa129c1b5
+      internalID: 1323630632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_8
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476088fbc783c8143a84ab27b40e8d6c
+      internalID: -834764396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_9
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b5b3f6e1e00964eafb8267686ce802
+      internalID: -621527574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_10
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca3d09e0884f1741891dfa726622bdd
+      internalID: -959496041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_11
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a4e502daaf22149a60e91747f6dd5d
+      internalID: -671656741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_12
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66adadf223630b8469eda6d5d53a9e0f
+      internalID: 1015766511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_13
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7498f111ca4b00c4381ebe750957ddf4
+      internalID: -1665933512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_14
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cdb6f59f7f29fe45b4b25afc65675a6
+      internalID: 681947969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_15
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 5071
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7bfebe323d607f4583ceb7aa0954824
+      internalID: 719128866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14d316955d8b64541838f7c2991a7d97
+      internalID: -1237819780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_17
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4795084b1849f604e81c366c69d1959a
+      internalID: 1370230901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_18
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d34e86d92ca33a64ab69866ccf406fb5
+      internalID: 1580286493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_19
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b03ea3b36f79055448b8254cc48b2351
+      internalID: 559798241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_20
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8bfeb1a4248a0f49b72c06d03d04220
+      internalID: -199745106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_21
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f907454e394e40740a11e2e3124cc11e
+      internalID: -324304127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_22
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fadb78c9dc361440b8f54b6607efa7b
+      internalID: -102835894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_23
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535848055d5130b4fa61c1c5ea9574c0
+      internalID: 326474193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_24
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 398d7874398dcf64db9eff0cca75be0a
+      internalID: 1981637305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_25
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3d1e82b4001e1043a2c121fb2c509a9
+      internalID: 1768425966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_26
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d200b2697d83db4e8bf2b8bb23dff29
+      internalID: 593978892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_27
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4af5295810342b841888df80859b8840
+      internalID: -2119424952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_28
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9298edce73ee0a241b7165f4d60ead3d
+      internalID: 1789741538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_29
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c6bc36d6cfb3948ae8bb572f84ac92
+      internalID: 1922551393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_30
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b1ef1acea202544a1ed6c5fa7f8631
+      internalID: -1581001687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_31
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 4081
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e13d1550ba4745242bb65be0f782f493
+      internalID: -2077992000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b9de5ad6d4f05429eac2d5f6921341
+      internalID: -1258650002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_33
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d871d427522821741ace831d6230d248
+      internalID: -1764057537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_34
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2c91f43a0da4844be42714a67c2516
+      internalID: -1658309558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_35
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8e5318bc6906943a9cab8ab21492d4
+      internalID: 732358482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_36
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ac00bd72f950a04da8264f4d773abb8
+      internalID: -2095008452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_37
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18dba6250f8189a45ad36c58eb50f517
+      internalID: -156249230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_38
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ee8943d81f2cc24cb52a7f868893bd9
+      internalID: -1514956024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_39
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3edc5711a72bf624cb57cae8bcbc1365
+      internalID: 748078698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_40
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9addb5d576acd264fbaf2773c095a406
+      internalID: 755305853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_41
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d21b47d4ea65e564b8dd8c864a6f37e2
+      internalID: -259275052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_42
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72f925ee84d97ec4f80160a6f11040be
+      internalID: 504086951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_43
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec5724aebd785e41a54c33f8eb3ea08
+      internalID: 626459607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_44
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b968b321a89d847ae1fb4a85f30b61
+      internalID: -214002761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_45
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f501f7c15a28fc4eb2558c95fc72abc
+      internalID: 1319247768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_46
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef751b24c5d9364b9eadf7ab520f36a
+      internalID: 1054131622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_47
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 3091
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ddc963fb706e3c4bbd7420d9effbc26
+      internalID: -1610569427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1779f978a5e13749b25c23bcf7fe83d
+      internalID: -1268424717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_49
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11abc98bdbb4edc43a927b3d69c27d1a
+      internalID: 1299459569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_50
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 091db7d748d693740989e7f5a9729315
+      internalID: 721337566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_51
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d66c2152edd5cf489fd41afed6aaf90
+      internalID: 1616037483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_52
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11843634af3cbb4fb748a0f6cb11a1e
+      internalID: 43614150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_53
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2beb4e8134143944acc60fb2a0deee5
+      internalID: 49744302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_54
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13182792e9a30d8489b228f4d9bb611d
+      internalID: -1260702834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_55
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92aeb84d344f4a449a7e9644627457ab
+      internalID: 128069805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_56
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a418d430ab93ffb499279f9855df723f
+      internalID: 1502299992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_57
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b6f5de6e7099bd4e873ad00a62a1d67
+      internalID: -770379303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_58
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fe2c8f6280cca346b82589fb79a3171
+      internalID: 1755424585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_59
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f05730c2ba9404f44946e615653a9d02
+      internalID: 890813946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_60
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f37b72bbbb4a74490c03b383cbdaa0
+      internalID: 649390480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_61
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53bfb2103fc9d0741925784ad81213c4
+      internalID: -27955518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_62
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e256aaa4eb1ed884fab9907ab9b4cb6c
+      internalID: -1104908000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_63
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 2101
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2884edb9814845a4d87958e071070179
+      internalID: 1737268412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a4c134858969e42ae8e0f6e6465b9a
+      internalID: 246971411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_65
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7308cbe86e325f24aa66f429b5b167f8
+      internalID: -1537521828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_66
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed23975471e21094695bdc60deab3ccf
+      internalID: 1798649826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_67
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7743640f4967d1d4793aa9d3b661564e
+      internalID: -1327063073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_68
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64c513b0314a6e74c9a1d0ad8cc5e02a
+      internalID: 86202601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_69
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 435b84f9ea7fb174e9b7b6544a7dea7e
+      internalID: 448757448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_70
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e1acfcb19bee740b96deb6e03e317c
+      internalID: 1147248228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_71
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ba3e62e4acac340a69e72b8ba14972
+      internalID: -1023720437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_72
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c5d97d93fcecc947a99f4857d1d758a
+      internalID: -1308070095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_73
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af9a43739421e924088ea8e0a7854470
+      internalID: -234679479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_74
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f54f877cc5e8ba0439869540054300df
+      internalID: -286313792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_75
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fe77c845b4cae741869756dbebd1a31
+      internalID: -87335263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_76
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c34b7cb2016668441bf7a85bbd3e0498
+      internalID: -387385246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_77
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a8c9a30f73316b4f9f9edf70548e72a
+      internalID: -1226728501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_78
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73242389c1bc9204bbaa81296d785a76
+      internalID: 1887923142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_79
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 1111
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df3eb01774bd41944b5ea9f77a14517f
+      internalID: 1184053549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b6802b502faf6469d6e3e03855e38d
+      internalID: 931137741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_81
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77602390a848c3c45a10bcd4e0402597
+      internalID: 345183238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_82
+      rect:
+        serializedVersion: 2
+        x: 1980
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3f35c8fcf6dcaa4ebf57a3ec7f619e5
+      internalID: -571296199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_83
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0a4c4952cbcd654ca528634a3294b4d
+      internalID: -263276905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_84
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b67deab62728d44aa4b859b093ef04
+      internalID: 372742226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_85
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 461ac03973b840048805a4c0e8466cdf
+      internalID: -1506849139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_86
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa3e7f53c3aa5b4c9ff81dd4aca8361
+      internalID: 1002123395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_87
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e1100fed9d7bf4cb9d37ad6a1a9be7
+      internalID: -2066638757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_88
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c101a957c745814499645bbc5ef03bd
+      internalID: 722401403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_89
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9dcec9c85f892c498cf2cbb1d4a8719
+      internalID: 2041296024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_90
+      rect:
+        serializedVersion: 2
+        x: 9900
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19668ff264ee258408990d5f95fed0a4
+      internalID: -921706102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_91
+      rect:
+        serializedVersion: 2
+        x: 10890
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2b6da5893121944b87556ea48a7250
+      internalID: -491566834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_92
+      rect:
+        serializedVersion: 2
+        x: 11880
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecd368b6d77a2634c81df076c7412408
+      internalID: -1893463973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_93
+      rect:
+        serializedVersion: 2
+        x: 12870
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 888253b7f0b5e8e498970e33d1e62195
+      internalID: -176359401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_94
+      rect:
+        serializedVersion: 2
+        x: 13860
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec12d1b97c3d9da4c9488af6f8ad7978
+      internalID: 1864004450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DragonWin_95
+      rect:
+        serializedVersion: 2
+        x: 14850
+        y: 121
+        width: 990
+        height: 990
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6e9571d06c4ae947be8701c69566555
+      internalID: -1834322068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ea5a8b62d9d62dd4483ec0e834f49fed
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DragonWin_0: -277550291
+      DragonWin_1: -1654772017
+      DragonWin_10: -959496041
+      DragonWin_11: -671656741
+      DragonWin_12: 1015766511
+      DragonWin_13: -1665933512
+      DragonWin_14: 681947969
+      DragonWin_15: 719128866
+      DragonWin_16: -1237819780
+      DragonWin_17: 1370230901
+      DragonWin_18: 1580286493
+      DragonWin_19: 559798241
+      DragonWin_2: -371165214
+      DragonWin_20: -199745106
+      DragonWin_21: -324304127
+      DragonWin_22: -102835894
+      DragonWin_23: 326474193
+      DragonWin_24: 1981637305
+      DragonWin_25: 1768425966
+      DragonWin_26: 593978892
+      DragonWin_27: -2119424952
+      DragonWin_28: 1789741538
+      DragonWin_29: 1922551393
+      DragonWin_3: -798652193
+      DragonWin_30: -1581001687
+      DragonWin_31: -2077992000
+      DragonWin_32: -1258650002
+      DragonWin_33: -1764057537
+      DragonWin_34: -1658309558
+      DragonWin_35: 732358482
+      DragonWin_36: -2095008452
+      DragonWin_37: -156249230
+      DragonWin_38: -1514956024
+      DragonWin_39: 748078698
+      DragonWin_4: 1489971464
+      DragonWin_40: 755305853
+      DragonWin_41: -259275052
+      DragonWin_42: 504086951
+      DragonWin_43: 626459607
+      DragonWin_44: -214002761
+      DragonWin_45: 1319247768
+      DragonWin_46: 1054131622
+      DragonWin_47: -1610569427
+      DragonWin_48: -1268424717
+      DragonWin_49: 1299459569
+      DragonWin_5: -832288591
+      DragonWin_50: 721337566
+      DragonWin_51: 1616037483
+      DragonWin_52: 43614150
+      DragonWin_53: 49744302
+      DragonWin_54: -1260702834
+      DragonWin_55: 128069805
+      DragonWin_56: 1502299992
+      DragonWin_57: -770379303
+      DragonWin_58: 1755424585
+      DragonWin_59: 890813946
+      DragonWin_6: 1390636977
+      DragonWin_60: 649390480
+      DragonWin_61: -27955518
+      DragonWin_62: -1104908000
+      DragonWin_63: 1737268412
+      DragonWin_64: 246971411
+      DragonWin_65: -1537521828
+      DragonWin_66: 1798649826
+      DragonWin_67: -1327063073
+      DragonWin_68: 86202601
+      DragonWin_69: 448757448
+      DragonWin_7: 1323630632
+      DragonWin_70: 1147248228
+      DragonWin_71: -1023720437
+      DragonWin_72: -1308070095
+      DragonWin_73: -234679479
+      DragonWin_74: -286313792
+      DragonWin_75: -87335263
+      DragonWin_76: -387385246
+      DragonWin_77: -1226728501
+      DragonWin_78: 1887923142
+      DragonWin_79: 1184053549
+      DragonWin_8: -834764396
+      DragonWin_80: 931137741
+      DragonWin_81: 345183238
+      DragonWin_82: -571296199
+      DragonWin_83: -263276905
+      DragonWin_84: 372742226
+      DragonWin_85: -1506849139
+      DragonWin_86: 1002123395
+      DragonWin_87: -2066638757
+      DragonWin_88: 722401403
+      DragonWin_89: 2041296024
+      DragonWin_9: -621527574
+      DragonWin_90: -921706102
+      DragonWin_91: -491566834
+      DragonWin_92: -1893463973
+      DragonWin_93: -176359401
+      DragonWin_94: 1864004450
+      DragonWin_95: -1834322068
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

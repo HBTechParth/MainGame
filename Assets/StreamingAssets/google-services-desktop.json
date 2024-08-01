@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "739565234613",
+    "project_id": "teenpatti-black",
+    "storage_bucket": "teenpatti-black.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739565234613:android:e870c3639ff187c3c411fc",
+        "android_client_info": {
+          "package_name": "com.enixo.blackteenpatti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739565234613-5e6p6iqiuf1765hbc48a822ji2jfuidq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enixo.blackteenpatti",
+            "certificate_hash": "d6b20adc4d973fc5fc3f862548c2343bc094344e"
+          }
+        },
+        {
+          "client_id": "739565234613-79bvrneo44q31ak6q40kt721njaalur5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjZsBXqZBfibuk5cApk8QyPok9veiwboA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739565234613-79bvrneo44q31ak6q40kt721njaalur5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

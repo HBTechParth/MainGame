@@ -1,0 +1,2283 @@
+fileFormatVersion: 2
+guid: cf8a323fe3652f54ba6bf72e6a217360
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 1
+    textureFormat: 51
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TigerWin_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc1e701e236156743baef4d7fb882473
+      internalID: 984321246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_1
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea80ecb5d34c25c40b74e550ff227fec
+      internalID: 55708972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_2
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c92a5ea048f7f804dad096f06917da55
+      internalID: 1996970679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_3
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9169b189a3ffa045b6d90ec23a3150e
+      internalID: 1384733481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_4
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b339959ab791704f81f5e07ac511b1d
+      internalID: 1214318660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_5
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e857f8c630aa24e499bb5fefb7242494
+      internalID: 1449558259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_6
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd5950e9bff5be0419d2b7d0725819d0
+      internalID: -642673771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_7
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e775faeb63ed5c44ae2a796743513ae
+      internalID: 1270824485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_8
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6257f36e0e738f04196ae22d5823f8a2
+      internalID: 1223689726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_9
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab98ac57b95a31e42b4d4dacf71d2843
+      internalID: -1496949180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_10
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f31a28682069fd45b7061b139ce902d
+      internalID: -1565418182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_11
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1f9387df1d101a45903805b50bad332
+      internalID: 1983413449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_12
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e483dadabaa1d498d069612ee18b28
+      internalID: -1461675513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_13
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eccc2447fcb4d4a4aa503faf8b2565c2
+      internalID: 2015492923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_14
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48cc65f03cba2004d9999289b52f80c8
+      internalID: 467223109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_15
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 5156
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 733921345c73bf84ab8c4ab8e714a3ce
+      internalID: 1224724834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df7c5111deb16b44ab1383c27128c4f
+      internalID: -1516680281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_17
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c70a9d9f8fd674438a1d6703574163e
+      internalID: -1407650997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_18
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af4c3238a5337c4088030326c7daacd
+      internalID: -1663931529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_19
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc1230f3b472d534fa351f2963a25148
+      internalID: 212197890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_20
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8289d779b1177f4787bf3f93abcbee8
+      internalID: 93292503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_21
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e1717328cdf5674da0fd5a9483d4f40
+      internalID: 2061164726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_22
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57eec869dfb2a4a429f0bf2066f37b69
+      internalID: -1119378096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_23
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a911053944004dc48b3922467f6557eb
+      internalID: 1916131353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_24
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89c6f84f6ddb7734ca6676dcf4ba40e1
+      internalID: 735297725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_25
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfccdee6e7374d5428007746db50589a
+      internalID: 300759192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_26
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c2dc6b7d3a31f49916858cb311adaf
+      internalID: 1758432062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_27
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 362dda51ede07564da8067a55ead2508
+      internalID: -1592157843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_28
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85f1c08b9218d7f4ea9a705cbe853ded
+      internalID: -418699780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_29
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba78071d4f7e52340ae78b7eb2ce2be5
+      internalID: 1045133720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_30
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aea9a1ee2bf1dc4f8888b2363318965
+      internalID: -2646087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_31
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 4176
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fd8c7bc90f652848aaa501de00d778e
+      internalID: 1403442456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ff5ccba2f6be3946a3246189ab79554
+      internalID: 83676964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_33
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1961924c1586a48866f32ddc8ceeb7
+      internalID: -2031895742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_34
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f23ffdea4527f8e47bdfa049a9e40d36
+      internalID: 182455254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_35
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f0f2aed6ae8491478da812a0821cb91
+      internalID: 1748251461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_36
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4390832868f97bd4cb6b8da087f16d05
+      internalID: -1620498890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_37
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a3aca5ce5dbc144be5cf8450850e64
+      internalID: -519694585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_38
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 068d0be4db05d304a9f81224d54d08d4
+      internalID: -1027160166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_39
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1908a20e624a5c34cb5258bf86b19584
+      internalID: -1810994097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_40
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 261257e0cbfbd984a90595a79b754988
+      internalID: 1543735741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_41
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a84e87a941239840be63d7d38754344
+      internalID: -2005287390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_42
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54b629d1900282e44978528b9a5d5677
+      internalID: -1066025371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_43
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf3399de29498c4ea5102da7cbccd6f
+      internalID: 1886804439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_44
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ea93a8b966543043bc933868e0b287e
+      internalID: -988108022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_45
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2792ab94e48ecd74fa76007019e00eef
+      internalID: -1718092466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_46
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d074a81e8299d345b8cb3cca23176c5
+      internalID: 2096388043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_47
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 3196
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 407b6bc55dbe9434fb1e486b8a82852c
+      internalID: 220908162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13cb0696799008d42aa573010f433ce4
+      internalID: 1551445296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_49
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8313bdc83ecc4954784109ec1b7d94df
+      internalID: -1352407767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_50
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e997e3749cf1f04b8485f0f18a60500
+      internalID: 1456732964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_51
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18bcf7c4f36e66f4180746da62a4c215
+      internalID: -977893079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_52
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd90af1457df28f4c8244958c6557185
+      internalID: 1440829436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_53
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24df055ec4ef7b147a1b0cf6d32e4226
+      internalID: 1254688472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_54
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aaf4f8c1d53e274ab1f871c5739fb81
+      internalID: 933404291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_55
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e36700127208a4e9ef772c4a7d58b1
+      internalID: 626047228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_56
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3728b453e3acc04479f0376b8322e7a8
+      internalID: 1875999586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_57
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aecc2aaa61c9f448b9bbc33d762e027
+      internalID: -1592008256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_58
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d68c2cd89981d349bead33a9e656de8
+      internalID: -1363746316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_59
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be6d90ab1f626e741a2ea9b18327bc40
+      internalID: 1322879939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_60
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f886f5fa4ea12374fa19768ff4203caa
+      internalID: -1931432821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_61
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d9866cfeb03c134e8f9fb8e86dd9c4b
+      internalID: -1128711519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_62
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25767b753ed9df4e9ccb7b4ab674ede
+      internalID: 1618174805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_63
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 2216
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21e495344ca57c54fb61ec30688e5967
+      internalID: -597229101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f6990018af96c42a9d1684fa8de063
+      internalID: 436132864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_65
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841b5f54d2971db4a93406840db7c8a7
+      internalID: 1396458575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_66
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c22e3765ab9d53f47b86a89806c447b7
+      internalID: 1182104005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_67
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a7e5dd36bbce0a4d83bced63e093db6
+      internalID: 477023976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_68
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae83b39baa127240a882a635c096374
+      internalID: -2045506532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_69
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fab79142d7077dd488474fd432a7c860
+      internalID: -1946071147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_70
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a075859f2a93b241820eeb35ff80a4a
+      internalID: -2085632258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_71
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982aa70cf19b75a4f9090af850695ce2
+      internalID: 339504476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_72
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c6c54825c9ccc7489b1fecb20fa7efe
+      internalID: 1931505571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_73
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 012691a27254f21478e083ccb1b7b52c
+      internalID: 933664263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_74
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9209e3938e464dc42a1eec48eb0997ee
+      internalID: 1069632257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_75
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcf8dfb2c8cb13c4ebe74ee74ddc0bc9
+      internalID: -1385282617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_76
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec161d7de9524944ca15645bed959fca
+      internalID: -16048694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_77
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 122dfd86e878aa047b2fb6571b913ce3
+      internalID: 567992321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_78
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d516a8515a129354290fded3cbd44f9f
+      internalID: -1552809510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_79
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 1236
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 068f2f318179b0d48b88a6c2eee104a8
+      internalID: -139189682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1690051b6b577e84a96f3cd9654c0f7f
+      internalID: -613888361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_81
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e1185e8415b08f4d82af446bdf00646
+      internalID: -1364250291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_82
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0226746bcfc573047a99269b1f6ad517
+      internalID: -1185662978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_83
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b3ac8f23755af4bab6413db9acdeda
+      internalID: 435080627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_84
+      rect:
+        serializedVersion: 2
+        x: 3920
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ce9062ae8fb5b4ab70681ab7824ef5
+      internalID: 468697942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_85
+      rect:
+        serializedVersion: 2
+        x: 4900
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d522f09760bb9b4794c72072ba81ea5
+      internalID: 1713376233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_86
+      rect:
+        serializedVersion: 2
+        x: 5880
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b7ae1f49f8025b48911e3ade5d56daf
+      internalID: -35371661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_87
+      rect:
+        serializedVersion: 2
+        x: 6860
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42eb8a8d4bf2d904cbcaf2a6b3717134
+      internalID: -498511977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_88
+      rect:
+        serializedVersion: 2
+        x: 7840
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af024a2cf178be041904318bb27acaac
+      internalID: 1406552531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_89
+      rect:
+        serializedVersion: 2
+        x: 8820
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f565218e850ac5c4fbdbbb463096aa13
+      internalID: -777261325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_90
+      rect:
+        serializedVersion: 2
+        x: 9800
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a757fad4200b74db86d065ac07604d
+      internalID: -474059703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_91
+      rect:
+        serializedVersion: 2
+        x: 10780
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b85f7e7ff0219f449409d937b25d347
+      internalID: -212525262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_92
+      rect:
+        serializedVersion: 2
+        x: 11760
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 183b0fc2699268349b300825a957d025
+      internalID: 1014405172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_93
+      rect:
+        serializedVersion: 2
+        x: 12740
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 772d891e462de89499a9186c9182f32c
+      internalID: -2091329045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_94
+      rect:
+        serializedVersion: 2
+        x: 13720
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e6c88408ea7ecd4f81e2e71e6b1652d
+      internalID: 267453705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerWin_95
+      rect:
+        serializedVersion: 2
+        x: 14700
+        y: 256
+        width: 980
+        height: 980
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9bf950343f943b46a0be0472d5fe454
+      internalID: 1052059623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e3904c32c4d0c6342b51ea60f829727b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      TigerWin_0: 984321246
+      TigerWin_1: 55708972
+      TigerWin_10: -1565418182
+      TigerWin_11: 1983413449
+      TigerWin_12: -1461675513
+      TigerWin_13: 2015492923
+      TigerWin_14: 467223109
+      TigerWin_15: 1224724834
+      TigerWin_16: -1516680281
+      TigerWin_17: -1407650997
+      TigerWin_18: -1663931529
+      TigerWin_19: 212197890
+      TigerWin_2: 1996970679
+      TigerWin_20: 93292503
+      TigerWin_21: 2061164726
+      TigerWin_22: -1119378096
+      TigerWin_23: 1916131353
+      TigerWin_24: 735297725
+      TigerWin_25: 300759192
+      TigerWin_26: 1758432062
+      TigerWin_27: -1592157843
+      TigerWin_28: -418699780
+      TigerWin_29: 1045133720
+      TigerWin_3: 1384733481
+      TigerWin_30: -2646087
+      TigerWin_31: 1403442456
+      TigerWin_32: 83676964
+      TigerWin_33: -2031895742
+      TigerWin_34: 182455254
+      TigerWin_35: 1748251461
+      TigerWin_36: -1620498890
+      TigerWin_37: -519694585
+      TigerWin_38: -1027160166
+      TigerWin_39: -1810994097
+      TigerWin_4: 1214318660
+      TigerWin_40: 1543735741
+      TigerWin_41: -2005287390
+      TigerWin_42: -1066025371
+      TigerWin_43: 1886804439
+      TigerWin_44: -988108022
+      TigerWin_45: -1718092466
+      TigerWin_46: 2096388043
+      TigerWin_47: 220908162
+      TigerWin_48: 1551445296
+      TigerWin_49: -1352407767
+      TigerWin_5: 1449558259
+      TigerWin_50: 1456732964
+      TigerWin_51: -977893079
+      TigerWin_52: 1440829436
+      TigerWin_53: 1254688472
+      TigerWin_54: 933404291
+      TigerWin_55: 626047228
+      TigerWin_56: 1875999586
+      TigerWin_57: -1592008256
+      TigerWin_58: -1363746316
+      TigerWin_59: 1322879939
+      TigerWin_6: -642673771
+      TigerWin_60: -1931432821
+      TigerWin_61: -1128711519
+      TigerWin_62: 1618174805
+      TigerWin_63: -597229101
+      TigerWin_64: 436132864
+      TigerWin_65: 1396458575
+      TigerWin_66: 1182104005
+      TigerWin_67: 477023976
+      TigerWin_68: -2045506532
+      TigerWin_69: -1946071147
+      TigerWin_7: 1270824485
+      TigerWin_70: -2085632258
+      TigerWin_71: 339504476
+      TigerWin_72: 1931505571
+      TigerWin_73: 933664263
+      TigerWin_74: 1069632257
+      TigerWin_75: -1385282617
+      TigerWin_76: -16048694
+      TigerWin_77: 567992321
+      TigerWin_78: -1552809510
+      TigerWin_79: -139189682
+      TigerWin_8: 1223689726
+      TigerWin_80: -613888361
+      TigerWin_81: -1364250291
+      TigerWin_82: -1185662978
+      TigerWin_83: 435080627
+      TigerWin_84: 468697942
+      TigerWin_85: 1713376233
+      TigerWin_86: -35371661
+      TigerWin_87: -498511977
+      TigerWin_88: 1406552531
+      TigerWin_89: -777261325
+      TigerWin_9: -1496949180
+      TigerWin_90: -474059703
+      TigerWin_91: -212525262
+      TigerWin_92: 1014405172
+      TigerWin_93: -2091329045
+      TigerWin_94: 267453705
+      TigerWin_95: 1052059623
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

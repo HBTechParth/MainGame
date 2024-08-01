@@ -1,0 +1,1498 @@
+fileFormatVersion: 2
+guid: c11d0d20d2eef894a920f120efcd8797
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 50
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TigerIdle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4cab154a6f693745af93d97d9a96fec
+      internalID: 1440840130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_1
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e1dd1700b5d0e945b576e52e1ec1947
+      internalID: -691765483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_2
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1932ed6a73ccab24197b14f6f13064a4
+      internalID: -123319480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_3
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 525ff6016d2c35f43a8961ce2f12d9a4
+      internalID: -1074511430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_4
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b179671b920904ab5a3bd4f3e32a00
+      internalID: -1208828655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_5
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dc8a789af1340a4092b17e2388d2eaf
+      internalID: 1565744812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_6
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a250810043451a4448d0c152bb1311c5
+      internalID: 308323945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_7
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 3796
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca260ddd1d4755b45a8e76567b48a8f9
+      internalID: -1794768117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec4848acff4a15488dc833d93b4e9ec
+      internalID: 2050671661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_9
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050e582de95d780499bba82f0ecd7f9d
+      internalID: 899132803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_10
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0f24faa1947f54faecf3051f71d10a
+      internalID: 1440504267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_11
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c284326215c3a342b272af696931aa4
+      internalID: -196973476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_12
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 939f7f925ed9498439a833b4f7ac7870
+      internalID: 963842824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_13
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06e10e5c8630f42448e9d091f2be0ac6
+      internalID: 1146124115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_14
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71e462c6d0264d4e89b72c8d61e96c2
+      internalID: 578476863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_15
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 3496
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb464615875d4f42bcfa5fcc15cbe15
+      internalID: 985217892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e50df909974374a4290528da843fc4f1
+      internalID: 184204773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_17
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12afd62c09398dc4c8189aa47f9a8e30
+      internalID: -416970522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_18
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f945a33a7bd5f7747954737900b9d37c
+      internalID: -16274969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_19
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94721d8911266ba4c81e882fd89b140e
+      internalID: -2035999243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_20
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85173dcc93e219d4b890cc7a3504abb6
+      internalID: -815055139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_21
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079f127fc379305479339e32351858d0
+      internalID: -882528804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_22
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffbe9e7d84cf9a84ba490e2dd05e20e3
+      internalID: -1080752951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_23
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 3196
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbeee60d90023624db3d44fa6aa53b23
+      internalID: 1733765039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca3d5c8fc899424e91eba235c00b2e8
+      internalID: 125131398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_25
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba6cab8e180fe042baa86c885e5da53
+      internalID: -292838554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_26
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296e1908e2f907e45944f6573c13b4a2
+      internalID: 647238958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_27
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e88a9d724f43bb44a95d229d927cd09
+      internalID: -1543359010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_28
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4189da6cb413d7649b695434dd9085ee
+      internalID: -861800913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_29
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ad7ba9ca8990b4f868449e84d96f88
+      internalID: 989454583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_30
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eb2b681e0da01b498a87374c2ef1541
+      internalID: 292810047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_31
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 2896
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b5a3a12f4af6594ab8b7a89f6e30065
+      internalID: -1222221634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc539d88743abe4daffb53e48f7dab2
+      internalID: 177679791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_33
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef1b784b63d039846a62f3599a087814
+      internalID: 52583959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_34
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a720ad8d1f624a246a8459ef56bf3613
+      internalID: -783808216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_35
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f06845100d956047a0f194d01f118a0
+      internalID: -99786686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_36
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ecb2db47271224cb42f8a9a9f534ed
+      internalID: -471550144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_37
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ac54a7e3d7ad642880f9987240b6e6
+      internalID: 1381437424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_38
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f5d812b52ecedf4394497fdcbfbb129
+      internalID: -1691037383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_39
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 2596
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18768f1083864cf43803f3f3ca987c45
+      internalID: 982931622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96224ea12227ccf43970819a0b75bc42
+      internalID: -798440952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_41
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960a44427c839ad41909265d923236d1
+      internalID: -321006442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_42
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2088506891107e74983b2bbb7069d25f
+      internalID: -377647535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_43
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f070520a9810b44a9f28236ab84cff
+      internalID: -34547432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_44
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de1337e4b949de5449cd4987b3e8869f
+      internalID: -1548654499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_45
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4f49919a42fe34b816a555a13f93eb
+      internalID: -2142409928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_46
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 751aeea0dca3884448ab171e1c230a2c
+      internalID: -871200861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_47
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 2296
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4869738b9f95bd4783fa35e9c693feb
+      internalID: -1917458438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b9c5bac9e47ed41a3f014b5b1133d4
+      internalID: -1864723618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_49
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a91c40bfd67314b894d19a688cdf3c
+      internalID: 1127973916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_50
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f7f002ce3a3694e95c5501e2f9c0f9
+      internalID: 239952836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_51
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc7dbb9ebe71fc44a988da541a40d231
+      internalID: -361390020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_52
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4896a3ed8512c3b49a83b89513726cf6
+      internalID: -1410075680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_53
+      rect:
+        serializedVersion: 2
+        x: 2500
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1ec317494f50d04b8b3e6114bc073b3
+      internalID: 422831115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_54
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a32e3ebcdfea4548a0e8dda45749d9a
+      internalID: -1591314875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_55
+      rect:
+        serializedVersion: 2
+        x: 3500
+        y: 1996
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aba58dd7b91d6e47826bf4e592ee4cf
+      internalID: -1692157936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1696
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2db8d70c70f5a049a1961903f2c2087
+      internalID: -1658273626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_57
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1696
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bf4847b6f8cc5544bc3efbb8009c81e
+      internalID: -801000819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_58
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1696
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bfca53d64391234bba9c2a0af9e9850
+      internalID: 1218266550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TigerIdle_59
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1696
+        width: 500
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 148a47b7889466547b4e6e91abff8842
+      internalID: -115516028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      TigerIdle_0: 1440840130
+      TigerIdle_1: -691765483
+      TigerIdle_10: 1440504267
+      TigerIdle_11: -196973476
+      TigerIdle_12: 963842824
+      TigerIdle_13: 1146124115
+      TigerIdle_14: 578476863
+      TigerIdle_15: 985217892
+      TigerIdle_16: 184204773
+      TigerIdle_17: -416970522
+      TigerIdle_18: -16274969
+      TigerIdle_19: -2035999243
+      TigerIdle_2: -123319480
+      TigerIdle_20: -815055139
+      TigerIdle_21: -882528804
+      TigerIdle_22: -1080752951
+      TigerIdle_23: 1733765039
+      TigerIdle_24: 125131398
+      TigerIdle_25: -292838554
+      TigerIdle_26: 647238958
+      TigerIdle_27: -1543359010
+      TigerIdle_28: -861800913
+      TigerIdle_29: 989454583
+      TigerIdle_3: -1074511430
+      TigerIdle_30: 292810047
+      TigerIdle_31: -1222221634
+      TigerIdle_32: 177679791
+      TigerIdle_33: 52583959
+      TigerIdle_34: -783808216
+      TigerIdle_35: -99786686
+      TigerIdle_36: -471550144
+      TigerIdle_37: 1381437424
+      TigerIdle_38: -1691037383
+      TigerIdle_39: 982931622
+      TigerIdle_4: -1208828655
+      TigerIdle_40: -798440952
+      TigerIdle_41: -321006442
+      TigerIdle_42: -377647535
+      TigerIdle_43: -34547432
+      TigerIdle_44: -1548654499
+      TigerIdle_45: -2142409928
+      TigerIdle_46: -871200861
+      TigerIdle_47: -1917458438
+      TigerIdle_48: -1864723618
+      TigerIdle_49: 1127973916
+      TigerIdle_5: 1565744812
+      TigerIdle_50: 239952836
+      TigerIdle_51: -361390020
+      TigerIdle_52: -1410075680
+      TigerIdle_53: 422831115
+      TigerIdle_54: -1591314875
+      TigerIdle_55: -1692157936
+      TigerIdle_56: -1658273626
+      TigerIdle_57: -801000819
+      TigerIdle_58: 1218266550
+      TigerIdle_59: -115516028
+      TigerIdle_6: 308323945
+      TigerIdle_60: -301269470
+      TigerIdle_61: -445476636
+      TigerIdle_62: -704997306
+      TigerIdle_63: 1343642978
+      TigerIdle_64: 1874856568
+      TigerIdle_65: 1066870314
+      TigerIdle_66: -1756519338
+      TigerIdle_7: -1794768117
+      TigerIdle_8: 2050671661
+      TigerIdle_9: 899132803
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
