@@ -717,7 +717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5260fe7928305e84587d2fc071585be0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1322,7 +1322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3729,7 +3729,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 36446ac94a91f254091cffd330bd6f84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5335,7 +5335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7483,8 +7483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -162, y: -32.983}
-  m_SizeDelta: {x: 321.1, y: 666.6}
+  m_AnchoredPosition: {x: -193.58997, y: -32.983}
+  m_SizeDelta: {x: 384.28, y: 666.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &499819540
 MonoBehaviour:
@@ -7506,8 +7506,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 415c1bc14f15b2d4a88b121f14fd9a87, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 0921404b5d5464af19ca341a4b1aee74, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7515,7 +7515,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.5
+  m_PixelsPerUnitMultiplier: 2.06
 --- !u!222 &499819541
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9372,7 +9372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10937,7 +10937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -76, y: -25}
+  m_AnchoredPosition: {x: -76, y: -22.499996}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &695303113
@@ -11245,7 +11245,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12340,7 +12340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &776113833
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15370,7 +15370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -17431,7 +17431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -18902,7 +18902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1.8999939}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1112911572
@@ -21427,7 +21427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -22099,7 +22099,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1266681558
 GameObject:
@@ -22390,7 +22390,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -22680,43 +22680,43 @@ MonoBehaviour:
   cardSuffles:
   - cardNo: 1
     color: 1
-    cardSprite: {fileID: 21300000, guid: 922173771295fe041805e8d85808749c, type: 3}
+    cardSprite: {fileID: 21300000, guid: cf241bcc32eadbb47981b7c5a10ac90a, type: 3}
   - cardNo: 2
     color: 1
-    cardSprite: {fileID: 21300000, guid: 1b5084a11b97f534c94a3e6d6f265af1, type: 3}
+    cardSprite: {fileID: 21300000, guid: fc75a0569841ea04191ddadd33278d96, type: 3}
   - cardNo: 3
     color: 1
-    cardSprite: {fileID: 21300000, guid: 8334a5bf45c51554592f02cf2ba21562, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5d9ad1e820a438842a623d4f28b2341a, type: 3}
   - cardNo: 4
     color: 1
-    cardSprite: {fileID: 21300000, guid: 21a7cccf7b2d8b743aff6235824b5e60, type: 3}
+    cardSprite: {fileID: 21300000, guid: a6814ac831b90bb4dab50f960e888437, type: 3}
   - cardNo: 5
     color: 1
-    cardSprite: {fileID: 21300000, guid: 932ebf8480aba0149b53682978cd8f62, type: 3}
+    cardSprite: {fileID: 21300000, guid: cc1a5cf7ed534f14a92871721725f53a, type: 3}
   - cardNo: 6
     color: 1
-    cardSprite: {fileID: 21300000, guid: 8a0c664c7936cdf4c8b5a9ed31ca32f4, type: 3}
+    cardSprite: {fileID: 21300000, guid: a05155f3c8bc21d46ad71ff8c3bd53f7, type: 3}
   - cardNo: 7
     color: 1
-    cardSprite: {fileID: 21300000, guid: 6613c02aab975474698dc5f4e0300373, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5b55b1969c6dc7a439aa89f7f653b84e, type: 3}
   - cardNo: 8
     color: 1
-    cardSprite: {fileID: 21300000, guid: b03f52d53afe60742bd85ad1ddfa3edb, type: 3}
+    cardSprite: {fileID: 21300000, guid: 3238590ad6bc6364887e052297845474, type: 3}
   - cardNo: 9
     color: 1
-    cardSprite: {fileID: 21300000, guid: d3f8350d30378d9458a7e425c18c54d0, type: 3}
+    cardSprite: {fileID: 21300000, guid: 06c454793bb44014082d859db0798609, type: 3}
   - cardNo: 10
     color: 1
-    cardSprite: {fileID: 21300000, guid: 31f79e579e3b6cf42ada99c27c4c8150, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5b6e53ed46dabe345aecae0e5ba2b7e5, type: 3}
   - cardNo: 11
     color: 1
-    cardSprite: {fileID: 21300000, guid: 066fd7a3239af994d9922bbec3b07e34, type: 3}
+    cardSprite: {fileID: 21300000, guid: f1749e565203f4941b3828f2213e4d05, type: 3}
   - cardNo: 12
     color: 1
-    cardSprite: {fileID: 21300000, guid: f2adeea44792d0f40b767140f9c91dc1, type: 3}
+    cardSprite: {fileID: 21300000, guid: 17622350a2deef643ab16c024626d517, type: 3}
   - cardNo: 13
     color: 1
-    cardSprite: {fileID: 21300000, guid: ed7e1c60c83a2574a88dfa6aa8edf0e0, type: 3}
+    cardSprite: {fileID: 21300000, guid: d5d2d798f47329c4883068f5280bdf83, type: 3}
   - cardNo: 1
     color: 2
     cardSprite: {fileID: 21300000, guid: e848dbd7fef93284c9ae173fe2d16b86, type: 3}
@@ -23141,160 +23141,160 @@ MonoBehaviour:
   cardSufflesSort:
   - cardNo: 2
     color: 1
-    cardSprite: {fileID: 21300000, guid: 0f4cc299a092d2d4dbd0de1d2445de63, type: 3}
+    cardSprite: {fileID: 21300000, guid: fc75a0569841ea04191ddadd33278d96, type: 3}
   - cardNo: 2
     color: 2
-    cardSprite: {fileID: 21300000, guid: 880285d7d530c2e43b075d850d40bbc8, type: 3}
+    cardSprite: {fileID: 21300000, guid: b7c5f1e58e7bf8e4f96f91bbdc229395, type: 3}
   - cardNo: 2
     color: 3
-    cardSprite: {fileID: 21300000, guid: f23a6c4ad76659f4b95528ebe2821b4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bd975e77e982189428c93d26584efe4a, type: 3}
   - cardNo: 2
     color: 4
-    cardSprite: {fileID: 21300000, guid: 9cf995688e9145c4aa2979284d62224c, type: 3}
+    cardSprite: {fileID: 21300000, guid: 40489f3df3b90dc47aa9dd2933c70ddd, type: 3}
   - cardNo: 3
     color: 1
-    cardSprite: {fileID: 21300000, guid: 6b257d3fad2ef1b4aa72ad464f248011, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5d9ad1e820a438842a623d4f28b2341a, type: 3}
   - cardNo: 3
     color: 2
-    cardSprite: {fileID: 21300000, guid: a0db387fa2aa85a4ea8944cdb83964a6, type: 3}
+    cardSprite: {fileID: 21300000, guid: e1df07eabe506584e8e8a498f40b24c5, type: 3}
   - cardNo: 3
     color: 3
-    cardSprite: {fileID: 21300000, guid: 2c288afcd73dbbb44b684f2b4a598f51, type: 3}
+    cardSprite: {fileID: 21300000, guid: 885c793b20def48429d536143a87ecf2, type: 3}
   - cardNo: 3
     color: 4
-    cardSprite: {fileID: 21300000, guid: 4a2ed43b85ae18e4c9867a430fa603fa, type: 3}
+    cardSprite: {fileID: 21300000, guid: c14969cca788a39418e7b1278c880181, type: 3}
   - cardNo: 4
     color: 1
-    cardSprite: {fileID: 21300000, guid: 76776beecb24e164cac9077b0a6b6293, type: 3}
+    cardSprite: {fileID: 21300000, guid: a6814ac831b90bb4dab50f960e888437, type: 3}
   - cardNo: 4
     color: 2
-    cardSprite: {fileID: 21300000, guid: fadbb4d50604266478245e6fcbdfb2a0, type: 3}
+    cardSprite: {fileID: 21300000, guid: d738408185c8a14449f56e716022f4dc, type: 3}
   - cardNo: 4
     color: 3
-    cardSprite: {fileID: 21300000, guid: 400d8c0a32ea041438d95dec82eaef66, type: 3}
+    cardSprite: {fileID: 21300000, guid: dcaf0c7c3a058da4489935afded26c69, type: 3}
   - cardNo: 4
     color: 4
-    cardSprite: {fileID: 21300000, guid: 195fe3a673438814e8843d981795e0bf, type: 3}
+    cardSprite: {fileID: 21300000, guid: 67fa331e2ffd204469f1eebcfe44138f, type: 3}
   - cardNo: 5
     color: 1
-    cardSprite: {fileID: 21300000, guid: 88d2b50732552584ca411a9ead7d0035, type: 3}
+    cardSprite: {fileID: 21300000, guid: cc1a5cf7ed534f14a92871721725f53a, type: 3}
   - cardNo: 5
     color: 2
-    cardSprite: {fileID: 21300000, guid: 8ee8bb8178fd06647b9c2575d778cc76, type: 3}
+    cardSprite: {fileID: 21300000, guid: a5cc500fd3010fb4d98c5b1d75c37cc7, type: 3}
   - cardNo: 5
     color: 3
-    cardSprite: {fileID: 21300000, guid: eab00fcddc7df64489f97a9870ba5cec, type: 3}
+    cardSprite: {fileID: 21300000, guid: 504e0f7dd1e9ee14586af39c6844a44f, type: 3}
   - cardNo: 5
     color: 4
-    cardSprite: {fileID: 21300000, guid: 3688c49dc6f2d5c41863a00636b0d265, type: 3}
+    cardSprite: {fileID: 21300000, guid: c1b89741cced59f419fa7053ff7232d0, type: 3}
   - cardNo: 6
     color: 1
-    cardSprite: {fileID: 21300000, guid: 8a0c664c7936cdf4c8b5a9ed31ca32f4, type: 3}
+    cardSprite: {fileID: 21300000, guid: a05155f3c8bc21d46ad71ff8c3bd53f7, type: 3}
   - cardNo: 6
     color: 2
-    cardSprite: {fileID: 21300000, guid: b911aaa26630dd047a853443a392ff96, type: 3}
+    cardSprite: {fileID: 21300000, guid: 21e60fbca7f39c64c87ad2b4c70ea246, type: 3}
   - cardNo: 6
     color: 3
-    cardSprite: {fileID: 21300000, guid: 95f32f99a25e37e4dbf7c060e5d4a0bb, type: 3}
+    cardSprite: {fileID: 21300000, guid: 429cfcb4c7943d24d90d529a7d72e7a8, type: 3}
   - cardNo: 6
     color: 4
-    cardSprite: {fileID: 21300000, guid: 844b53eb497180942b7ff22b3914814f, type: 3}
+    cardSprite: {fileID: 21300000, guid: fb8cd62776f2bea479586899bd8c84bc, type: 3}
   - cardNo: 7
     color: 1
-    cardSprite: {fileID: 21300000, guid: 6613c02aab975474698dc5f4e0300373, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5b55b1969c6dc7a439aa89f7f653b84e, type: 3}
   - cardNo: 7
     color: 2
-    cardSprite: {fileID: 21300000, guid: 6a50ff1189a103942ad40547d384c47e, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6e93a75d93f661b409b2d80ca35966f9, type: 3}
   - cardNo: 7
     color: 3
-    cardSprite: {fileID: 21300000, guid: 200bb3d3b7537cb4eae1010637f5d79f, type: 3}
+    cardSprite: {fileID: 21300000, guid: be8c36b97082a224fb7515e795796831, type: 3}
   - cardNo: 7
     color: 4
-    cardSprite: {fileID: 21300000, guid: 26dafb4cb5cddc6419698b23f4c7071b, type: 3}
+    cardSprite: {fileID: 21300000, guid: 07cfff8cb5dab7c4988ca2086c723cf9, type: 3}
   - cardNo: 8
     color: 1
-    cardSprite: {fileID: 21300000, guid: b03f52d53afe60742bd85ad1ddfa3edb, type: 3}
+    cardSprite: {fileID: 21300000, guid: 3238590ad6bc6364887e052297845474, type: 3}
   - cardNo: 8
     color: 2
-    cardSprite: {fileID: 21300000, guid: cea69ed59f74d1549b6e22a67bd362fb, type: 3}
+    cardSprite: {fileID: 21300000, guid: cd6284fa174669349a917e784ccbb896, type: 3}
   - cardNo: 8
     color: 3
-    cardSprite: {fileID: 21300000, guid: 9d8f9ac5496412849ab1bf7754998242, type: 3}
+    cardSprite: {fileID: 21300000, guid: 35a81b391af8a044ba696074cbf366d3, type: 3}
   - cardNo: 8
     color: 4
-    cardSprite: {fileID: 21300000, guid: d091c6aeaf3f3ee429611b5d0b1ba9d3, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6f6edd9ce61d62846845c87a5b8cfb9b, type: 3}
   - cardNo: 9
     color: 1
-    cardSprite: {fileID: 21300000, guid: d3f8350d30378d9458a7e425c18c54d0, type: 3}
+    cardSprite: {fileID: 21300000, guid: 06c454793bb44014082d859db0798609, type: 3}
   - cardNo: 9
     color: 2
-    cardSprite: {fileID: 21300000, guid: 16d152fc5aa729247af710592fcf3feb, type: 3}
+    cardSprite: {fileID: 21300000, guid: 272a1ea993c4a0549a8c918f7c25deef, type: 3}
   - cardNo: 9
     color: 3
-    cardSprite: {fileID: 21300000, guid: b9b05270479df9442a87b22f90db458a, type: 3}
+    cardSprite: {fileID: 21300000, guid: 7b26830beaf060f4495de03e8880ddb9, type: 3}
   - cardNo: 9
     color: 4
-    cardSprite: {fileID: 21300000, guid: fbd28f123398803469bca18985b8e8a4, type: 3}
+    cardSprite: {fileID: 21300000, guid: c6e74842d1dd94c42a22d46030522bca, type: 3}
   - cardNo: 10
     color: 1
-    cardSprite: {fileID: 21300000, guid: 31f79e579e3b6cf42ada99c27c4c8150, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5b6e53ed46dabe345aecae0e5ba2b7e5, type: 3}
   - cardNo: 10
     color: 2
-    cardSprite: {fileID: 21300000, guid: a49cacc63b99a8c44882ddfb0b913a8a, type: 3}
+    cardSprite: {fileID: 21300000, guid: 391b06606c6c03d438dfa6ecdf65928e, type: 3}
   - cardNo: 10
     color: 3
-    cardSprite: {fileID: 21300000, guid: 4376fb4e4f69bea41a71de90e3764b77, type: 3}
+    cardSprite: {fileID: 21300000, guid: 41b0baddc322a3f47878e6cefe0ee582, type: 3}
   - cardNo: 10
     color: 4
-    cardSprite: {fileID: 21300000, guid: b324f9ce60f71b84387dd3f1538b8beb, type: 3}
+    cardSprite: {fileID: 21300000, guid: f1ca0c11e12e1a34baf9f76194aad1f2, type: 3}
   - cardNo: 13
     color: 1
-    cardSprite: {fileID: 21300000, guid: ed7e1c60c83a2574a88dfa6aa8edf0e0, type: 3}
+    cardSprite: {fileID: 21300000, guid: d5d2d798f47329c4883068f5280bdf83, type: 3}
   - cardNo: 13
     color: 2
-    cardSprite: {fileID: 21300000, guid: 58402c8a47da89644be5cf4024168519, type: 3}
+    cardSprite: {fileID: 21300000, guid: 3975330694efac74b8b201f7c34f7fbf, type: 3}
   - cardNo: 13
     color: 3
-    cardSprite: {fileID: 21300000, guid: ed9cc7da2cbad6146be57136fe44d101, type: 3}
+    cardSprite: {fileID: 21300000, guid: 30b36eb338e47a14ea9c699c83f7475c, type: 3}
   - cardNo: 13
     color: 4
-    cardSprite: {fileID: 21300000, guid: b22de8807f0be3c4c9feb0c76cd405bb, type: 3}
+    cardSprite: {fileID: 21300000, guid: 98b1b7c55522cb44fa0e773c314a65a3, type: 3}
   - cardNo: 12
     color: 1
-    cardSprite: {fileID: 21300000, guid: f2adeea44792d0f40b767140f9c91dc1, type: 3}
+    cardSprite: {fileID: 21300000, guid: 17622350a2deef643ab16c024626d517, type: 3}
   - cardNo: 12
     color: 2
-    cardSprite: {fileID: 21300000, guid: 6997c916d44ab3f439532b3d6b231b9d, type: 3}
+    cardSprite: {fileID: 21300000, guid: d83d06d7b70c35c4ab2180f4185a9d2a, type: 3}
   - cardNo: 12
     color: 3
-    cardSprite: {fileID: 21300000, guid: 9208284e94c983042a59d833f8b86187, type: 3}
+    cardSprite: {fileID: 21300000, guid: 30ebca3a1f5d1154e834d9700e61e471, type: 3}
   - cardNo: 12
     color: 4
-    cardSprite: {fileID: 21300000, guid: e1ccea28b2b81e5419a37030760a7d20, type: 3}
+    cardSprite: {fileID: 21300000, guid: f7aaca6dd2d7d4d449f6c61b1aa8676e, type: 3}
   - cardNo: 11
     color: 1
-    cardSprite: {fileID: 21300000, guid: 066fd7a3239af994d9922bbec3b07e34, type: 3}
+    cardSprite: {fileID: 21300000, guid: f1749e565203f4941b3828f2213e4d05, type: 3}
   - cardNo: 11
     color: 2
-    cardSprite: {fileID: 21300000, guid: a8de239a212f5ec489fe781d52cac1d1, type: 3}
+    cardSprite: {fileID: 21300000, guid: f43afab90b7f83843803683f7e93f1e2, type: 3}
   - cardNo: 11
     color: 3
-    cardSprite: {fileID: 21300000, guid: 2aeeac8dc08fd9f4b8538606e9d11eca, type: 3}
+    cardSprite: {fileID: 21300000, guid: 4c036caa2657ba94dbf56dc435bca394, type: 3}
   - cardNo: 11
     color: 4
-    cardSprite: {fileID: 21300000, guid: 56797daa847e13d4c82e5163bd776e21, type: 3}
+    cardSprite: {fileID: 21300000, guid: faf21784f37673c4a8e510a800a8e115, type: 3}
   - cardNo: 1
     color: 1
-    cardSprite: {fileID: 21300000, guid: c4add5a9f6205454790660892ee08c6a, type: 3}
+    cardSprite: {fileID: 21300000, guid: cf241bcc32eadbb47981b7c5a10ac90a, type: 3}
   - cardNo: 1
     color: 2
-    cardSprite: {fileID: 21300000, guid: e848dbd7fef93284c9ae173fe2d16b86, type: 3}
+    cardSprite: {fileID: 21300000, guid: b599dd6d002f375479e982dbbc7c2300, type: 3}
   - cardNo: 1
     color: 3
-    cardSprite: {fileID: 21300000, guid: 9fdd66efcfb450d40a2d690c70cb4a65, type: 3}
+    cardSprite: {fileID: 21300000, guid: 5642c561d26d0a942947f26bc0dfdf91, type: 3}
   - cardNo: 1
     color: 4
-    cardSprite: {fileID: 21300000, guid: 03db6d313b8273c42a3498f90f398f96, type: 3}
+    cardSprite: {fileID: 21300000, guid: a25cc7323b486564cac35466793b1a1d, type: 3}
   newCardSS: []
   newCardSS1: []
   teenPattiPlayers:
@@ -23309,8 +23309,8 @@ MonoBehaviour:
   player3: {fileID: 1445337009}
   player4: {fileID: 343946684}
   player5: {fileID: 1438653737}
-  packCardSprite: {fileID: 21300000, guid: a21b9b4a838530b4ab64ceb69299eb5b, type: 3}
-  simpleCardSprite: {fileID: 21300000, guid: a21b9b4a838530b4ab64ceb69299eb5b, type: 3}
+  packCardSprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
+  simpleCardSprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
   chipPrice:
   - 5
   - 10
@@ -25441,7 +25441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 36446ac94a91f254091cffd330bd6f84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -28802,7 +28802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1521427216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33673,7 +33673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -34763,7 +34763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -38197,7 +38197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -39285,7 +39285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eda16f03edc154684581b1edff1636, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

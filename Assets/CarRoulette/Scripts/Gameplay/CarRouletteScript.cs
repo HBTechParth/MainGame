@@ -1409,7 +1409,9 @@ public class CarRouletteScript : MonoBehaviour
             }
         }*/
         startBettingObj.SetActive(true);
-        StartANimationPlay();
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(5.0f, 5.0f, 5.0f);
+        StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
 
         //TurnOnButtons();
         yield return new WaitForSeconds(2.5f);
@@ -1431,7 +1433,7 @@ public class CarRouletteScript : MonoBehaviour
         //startBetAnim.SetInteger("FirstClipComplete", 1);
         yield return new WaitForSeconds(1f);
         startBettingObj.SetActive(false);
-        betAnimationONOff();
+        betAnimationONOff(true);
         isActive = true;
         RestartTimer();
         _isClickAvailable = true;
@@ -1448,27 +1450,23 @@ public class CarRouletteScript : MonoBehaviour
             TestSocketIO.Instace.GetCarBetData();
         }
         stopBettingObj.SetActive(true);
-        StopAnimationPlay();
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+        StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         //ClearAllChips();
         //TurnOffButtons();
         yield return new WaitForSeconds(3f);
         // stopBetAnim.SetInteger("FirstClipComplete", 1);
         yield return new WaitForSeconds(1f);
         stopBettingObj.SetActive(false);
-        betAnimationONOff();
+        betAnimationONOff(false);
         //ReGenerateBoard();
         // rouletteBoardObj.SetActive(true);
         StartCoroutine(StartSpinning());
     }
     public List<GameObject> objects;  // List of objects to animate
 
-    public float zoomDuration = 0.1f;
-    public Vector3 zoomScale = new Vector3(6f, 6f, 6f);
-    public float delayBetweenAnimations = 0.09f;
-
-
-
-    public void StartANimationPlay()
+    public void StartAnimationPlay(List<GameObject> objects, Vector3 zoomScale, float zoomDuration, float delayBetweenAnimations)
     {
         Sequence sequence = DOTween.Sequence();
 
@@ -1486,7 +1484,7 @@ public class CarRouletteScript : MonoBehaviour
     public List<GameObject> stopObjects;
     public void StopAnimationPlay()
     {
-        Sequence sequence = DOTween.Sequence();
+       /* Sequence sequence = DOTween.Sequence();
 
         foreach (GameObject obj in stopObjects)
         {
@@ -1497,19 +1495,26 @@ public class CarRouletteScript : MonoBehaviour
         }
 
         // Play the sequence
-        sequence.Play();
+        sequence.Play();*/
     }
 
-    public void betAnimationONOff()
+    public void betAnimationONOff(bool isStart)
     {
-        for (int i = 0; i < stopObjects.Count; i++)
+        if (isStart)
         {
-            stopObjects[i].SetActive(true);
-        }
-        foreach (GameObject obj in objects)
-        {
-            obj.SetActive(false);
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
 
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < stopObjects.Count; i++)
+            {
+                stopObjects[i].SetActive(false);
+            }
         }
     }
     public void ResetData()

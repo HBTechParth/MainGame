@@ -38445,8 +38445,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -124.70996, y: -8.48}
-  m_SizeDelta: {x: 339.37, y: 593.4}
+  m_AnchoredPosition: {x: -182.11, y: -4}
+  m_SizeDelta: {x: 353.22, y: 558.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158611823
 MonoBehaviour:
@@ -38461,15 +38461,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8959436, b: 0.042452812, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 415c1bc14f15b2d4a88b121f14fd9a87, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 0921404b5d5464af19ca341a4b1aee74, type: 3}
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -38477,7 +38477,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.5
+  m_PixelsPerUnitMultiplier: 2.06
 --- !u!222 &1158611824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42895,56 +42895,6 @@ MonoBehaviour:
   - {fileID: 2089447189}
   - {fileID: 837814105}
   - {fileID: 1852500691}
-  allHighlightedObjects:
-  - {fileID: 664670463}
-  - {fileID: 1857173124}
-  - {fileID: 1615546379}
-  - {fileID: 1473003597}
-  - {fileID: 1599260403}
-  - {fileID: 1453006211}
-  - {fileID: 828430861}
-  - {fileID: 1267233759}
-  - {fileID: 1095303474}
-  - {fileID: 2058593791}
-  - {fileID: 1866639873}
-  - {fileID: 243304805}
-  - {fileID: 139883233}
-  - {fileID: 173274848}
-  - {fileID: 342796725}
-  - {fileID: 243341876}
-  - {fileID: 147938009}
-  - {fileID: 685170358}
-  - {fileID: 1909286662}
-  - {fileID: 1248430064}
-  - {fileID: 760327875}
-  - {fileID: 896374268}
-  - {fileID: 1936269005}
-  - {fileID: 1178874746}
-  - {fileID: 1588122011}
-  - {fileID: 305831707}
-  - {fileID: 74857938}
-  - {fileID: 1457116585}
-  - {fileID: 755776085}
-  - {fileID: 1851719871}
-  - {fileID: 1438705599}
-  - {fileID: 265194521}
-  - {fileID: 598476694}
-  - {fileID: 1093615985}
-  - {fileID: 1676097121}
-  - {fileID: 881002923}
-  - {fileID: 811227005}
-  - {fileID: 765589885}
-  - {fileID: 2070256320}
-  - {fileID: 980931912}
-  - {fileID: 1430853097}
-  - {fileID: 1310922303}
-  - {fileID: 709714893}
-  - {fileID: 600408851}
-  - {fileID: 1256862569}
-  - {fileID: 127693505}
-  - {fileID: 826739038}
-  - {fileID: 1867567956}
-  - {fileID: 1051615921}
 --- !u!4 &1289089804
 Transform:
   m_ObjectHideFlags: 0
