@@ -1411,6 +1411,7 @@ public class MainMenuManager : MonoBehaviour
             JSONNode data = JSON.Parse(values["data"].ToString());
             if (values["success"] == false)
             {
+            print("MY");
                 DataManager.Instance.SetLoginValue("N");
                 SceneManager.LoadScene("Splash");
                 yield break;

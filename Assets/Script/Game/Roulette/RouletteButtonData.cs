@@ -12,7 +12,7 @@ public class RouletteButtonData : MonoBehaviour
 
     public int chipNo;
     public List<int> btnAvaliableNo;
-
+    public List<GameObject> highLightObject;
     public GameObject btnParent;
     public bool isMultipleSelectNo;
 
@@ -28,7 +28,13 @@ public class RouletteButtonData : MonoBehaviour
     {
 
     }
-
+    public void ActivateObjects(bool activate)
+    {
+        foreach (GameObject obj in highLightObject)
+        {
+            obj.SetActive(activate);
+        }
+    }
     public void SimpleRebetGenerate(RouleteeBetClass passBetClass)
     {
         bool isMoneyAv = RouletteManager.Instance.CheckMoney(RouletteManager.Instance.GetPrice(passBetClass.betImgNo));

@@ -92,7 +92,7 @@ public class RouletteManager : MonoBehaviour
     public Text userNameTxt;
     public float totalBetPrice;
     public Text userBetTxt;
-    
+
     [Header("--- Recorder ---")]
     public RectTransform content;
     public GameObject PounCarrier;
@@ -164,12 +164,12 @@ public class RouletteManager : MonoBehaviour
     public bool isStopBet;
 
     public float totalCurrentInvest = 0;
-    float interval = 0.5f; 
+    float interval = 0.5f;
     float nextTime = 0;
     public bool isActive;
     private bool called = false;
     private bool _isTimeSet;
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image musicImg;
@@ -189,9 +189,11 @@ public class RouletteManager : MonoBehaviour
         isActive = false;
     }
 
-
+    public float wheelSpeed;
+    public GameObject fakeWheel;
     public void ReGenerateBoard()
     {
+        Debug.Log("ReGenBoard");
         for (int i = 0; i < triggerObj.Count; i++)
         {
             triggerObj[i].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
@@ -221,7 +223,7 @@ public class RouletteManager : MonoBehaviour
         ballRoulette.UpdateBallSecond();
         isRoundOn = false;
         isGameRouletteStart = true;
-        
+
     }
 
     public void PounRecorder()
@@ -242,13 +244,16 @@ public class RouletteManager : MonoBehaviour
     public void UpdateNameBalance()
     {
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
-        balanceTxt.text ="₹ " + DataManager.Instance.playerData.balance.ToString();
+        balanceTxt.text = "₹ " + DataManager.Instance.playerData.balance.ToString();
     }
 
     public void ObjectAvaliable()
     {
         //print(findTriggerObj.gameObject.name);
         findTriggerObj.transform.GetChild(0).gameObject.SetActive(true);
+       
+      //  BallRoulette.instance.body.velocity = new Vector2(0.5f, 0.5f);
+
     }
 
     bool isStart = false;
@@ -268,7 +273,7 @@ public class RouletteManager : MonoBehaviour
         }
         rebetButton.interactable = false;
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), avatarImg));
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , avatarImg);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), avatarImg);
         GetBotPlayers();
         SetBotPlayer();
         NewPlayerEnter();
@@ -313,7 +318,7 @@ public class RouletteManager : MonoBehaviour
         //RestartTimer();
         StartCoroutine(StartBettingOff());
     }
-
+    public bool betStatus;
     IEnumerator StartBettingOff()
     {
         print("______________________start betting is called_________________________________");
@@ -326,6 +331,7 @@ public class RouletteManager : MonoBehaviour
         }
         SoundManager.Instance.CasinoTurnSound();
         isStopBet = true;
+        betStatus = true;
         for (int i = 0; i < blackPanelObj.Count; i++)
         {
             blackPanelObj[i].SetActive(false);
@@ -338,46 +344,111 @@ public class RouletteManager : MonoBehaviour
             }
         }
         startBettingObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+        StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
+
         TurnOnButtons();
         yield return new WaitForSeconds(2.5f);
 
         rouleteeBetsBefore.Clear();
 
-        
+
         for (int i = 0; i < rouleteeBets.Count; i++)
         {
             RouleteeBetClass rouleteeBet = rouleteeBets[i];
             rouleteeBetsBefore.Add(rouleteeBet);
         }
-        
+
         if (rouleteeBetsBefore.Count > 0)
         {
             rebetButton.interactable = true;
         }
         rouleteeBets.Clear();
-        startBetAnim.SetInteger("FirstClipComplete", 1);
+
+        //startBetAnim.SetInteger("FirstClipComplete", 1);
         yield return new WaitForSeconds(1f);
         startBettingObj.SetActive(false);
+        betAnimationONOff(true);
+
         isActive = true;
         RestartTimer();
     }
+    public List<GameObject> objects;  // List of objects to animate
 
+    public void StartAnimationPlay(List<GameObject> objects, Vector3 zoomScale, float zoomDuration, float delayBetweenAnimations)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in objects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
+    }
+    public List<GameObject> stopObjects;
+    public void StopAnimationPlay()
+    {
+        /*Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in stopObjects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();*/
+    }
+
+    public void betAnimationONOff(bool isStart)
+    {
+        if (isStart)
+        {
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
+
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < stopObjects.Count; i++)
+            {
+                stopObjects[i].SetActive(false);
+            }
+        }
+    }
     IEnumerator StopBettingOff()
     {
-        print("______________________Stop betting is called_________________________________");
+        print("______________________Stop betting is called _________________________________");
         isActive = false;
+        betStatus = false;
+
         if (isAdmin)
         {
             DataManager.Instance.rouletteGameStatus = false;
             TestSocketIO.Instace.GetBetData();
         }
         stopBettingObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
+        StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         ClearAllChips();
         TurnOffButtons();
         yield return new WaitForSeconds(3f);
-        stopBetAnim.SetInteger("FirstClipComplete", 0);
+        //stopBetAnim.SetInteger("FirstClipComplete", 0);
         yield return new WaitForSeconds(1f);
         stopBettingObj.SetActive(false);
+        betAnimationONOff(false);
         ReGenerateBoard();
         rouletteBoardObj.SetActive(true);
     }
@@ -416,7 +487,7 @@ public class RouletteManager : MonoBehaviour
         //        Destroy(btnParentPanelObj[i].transform.GetChild(j));
         //    }
         //}
-        
+
         isStopBet = false;
         isEnterTheRoulette = false;
         timerValue = ((int)fixTimeSet);
@@ -427,7 +498,7 @@ public class RouletteManager : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if(timerValue == 0 && isEnterTheRoulette == false && waitNextRoundScreenObj.activeSelf == false)
+        if (timerValue == 0 && isEnterTheRoulette == false && waitNextRoundScreenObj.activeSelf == false)
         {
             isEnterTheRoulette = true;
             _isTimeSet = false;
@@ -452,7 +523,7 @@ public class RouletteManager : MonoBehaviour
             {
                 AdjustTime();
                 _isTimeSet = true;
-                print("---------------------------Time is sent-------------------------");
+                print("--------------------------- Time is sent -------------------------");
             }
         }
         if (!isActive) return;
@@ -462,7 +533,7 @@ public class RouletteManager : MonoBehaviour
             nextTime += interval;
         }
     }
-    
+
     #region Menu Screen
 
     public void OpenMenuScreen()
@@ -666,7 +737,7 @@ public class RouletteManager : MonoBehaviour
     #endregion
 
     #region Other
-    
+
     public void ChipButtonClick(int no)
     {
         SoundManager.Instance.ButtonClick();
@@ -718,15 +789,15 @@ public class RouletteManager : MonoBehaviour
         ChipGenerate(chipGen, endChip);
         Destroy(chipGen, 1f);
     }
-    
+
     public void ChipGenerate(GameObject chip, Vector3 endPos)
     {
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
         chip.transform.DOMove(endPos, 0.2f).OnComplete(() =>
         {
-           // chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
-           // {
-           //     chip.transform.DOScale(Vector3.one, 0.07f);
+            // chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
+            // {
+            //     chip.transform.DOScale(Vector3.one, 0.07f);
             //});
         });
     }
@@ -736,16 +807,16 @@ public class RouletteManager : MonoBehaviour
         int[] avatars = Enumerable.Range(0, BotManager.Instance.botUser_Profile_URL.Count).ToArray();
         avatars.Shuffle();
         int[] randomAvatars = avatars.Take(botPlayersList.Count).ToArray();
-        
+
         int[] names = Enumerable.Range(0, BotManager.Instance.botUserName.Count).ToArray();
         names.Shuffle();
         int[] randomNames = names.Take(botPlayersList.Count).ToArray();
-        
+
         for (int i = 0; i < botPlayersList.Count; i++)
         {
             BotPlayersData t = new BotPlayersData();
             t.avatar = BotManager.Instance.botUser_Profile_URL[randomAvatars[i]];
-            t.name =  BotManager.Instance.botUserName[randomNames[i]];
+            t.name = BotManager.Instance.botUserName[randomNames[i]];
             BotPlayersDatas.Add(t);
         }
     }
@@ -769,7 +840,7 @@ public class RouletteManager : MonoBehaviour
             spawnLocations[i].interactable = false;
         }
     }
-    
+
     private void TurnOnButtons()
     {
         print("_______________________Buttons are On__________________________");
@@ -808,7 +879,7 @@ public class RouletteManager : MonoBehaviour
             betAmount += rouleteeBets[i].betTotalAmount;
             chipObj.transform.DOMove(chipAnimParent.transform.position, 0.2f).OnComplete(() =>
             {
-                
+
             });
         }
         print("This is the bet amount -> " + betAmount);
@@ -818,7 +889,7 @@ public class RouletteManager : MonoBehaviour
             totalBetPrice -= betAmount;
             userBetTxt.text = totalBetPrice.ToString(CultureInfo.InvariantCulture);
         }
-        
+
 
         rouleteeBets.Clear();
         ActivateButtons();
@@ -880,7 +951,7 @@ public class RouletteManager : MonoBehaviour
                 undoBlockList.Clear();
             }
         }*/
-        
+
         int betAmount = 0;
         int chipNo = 0;
         List<int> betPlace = new List<int>();
@@ -898,7 +969,7 @@ public class RouletteManager : MonoBehaviour
             chipNo = rouleteeBets[indexNum].placeNo;
             betPlace = rouleteeBets[indexNum].betPlacesNo;
 
-        
+
             print("This is the bet amount -> " + betAmount);
             print("This is the Chip no --> " + chipNo);
 
@@ -917,11 +988,11 @@ public class RouletteManager : MonoBehaviour
                 // Any additional completion logic here
                 Destroy(chipObj);
             });
-        
+
             ActivateButtons();
         }
     }
-    
+
     public void SendReverseNo(int chipNo, string betAmount, List<int> AvaliableNo)
     {
         string manyBetString = "[" + string.Join(",", AvaliableNo) + "]";
@@ -987,7 +1058,7 @@ public class RouletteManager : MonoBehaviour
             winRuleNo = 9;
             mulValue = 3;
         }
-        
+
         return mulValue;
     }
 
@@ -1063,7 +1134,7 @@ public class RouletteManager : MonoBehaviour
     {
         JSONObject obj = new JSONObject();
         //obj.AddField("DeckNo", UnityEngine.Random.Range(0, 37));
-       // obj.AddField("DeckNo", 2);
+        // obj.AddField("DeckNo", 2);
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
         obj.AddField("gameMode", 3);
         obj.AddField("WinList", DataManager.Instance.winRecord);
@@ -1086,7 +1157,7 @@ public class RouletteManager : MonoBehaviour
             StartCoroutine(StartBettingOff());
             //CenterToAddUser();
         }
-        
+
         HistoryLoader(data);
     }
 
@@ -1117,20 +1188,20 @@ public class RouletteManager : MonoBehaviour
 
 
     }
-    
+
     public void HistoryLoader(string data)
     {
-        if(data != "")
+        if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
-        
+
         int childCount = PounCarrier.transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
             Destroy(PounCarrier.transform.GetChild(i).gameObject);
         }
-        
+
         foreach (var t in winList)
         {
             Instantiate(Pouns[t], PounCarrier.transform);
@@ -1150,25 +1221,25 @@ public class RouletteManager : MonoBehaviour
         content.anchoredPosition = new Vector2(content.anchoredPosition.x, _transformPosition);
 
     }
-    
+
     private void UpdateHistoryRecord(int num)
     {
         if (!isAdmin) return;
         winList.RemoveAt(0);
         winList.Add(num);
-        
+
         int childCount = PounCarrier.transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
             Destroy(PounCarrier.transform.GetChild(i).gameObject);
         }
-        
+
         foreach (var t in winList)
         {
             Instantiate(Pouns[t], PounCarrier.transform);
         }
         UpdateScrollRect();
-        
+
         DataManager.Instance.winRecord = string.Join(",", winList.Select(x => x.ToString()).ToArray());
         //SetWinData(DataManager.Instance.winList);
     }
@@ -1209,11 +1280,11 @@ public class RouletteManager : MonoBehaviour
     public void GetAdminDataPlayer(int time, int no)
     {
         //isEnterTheRoulette = true;
-       // waitNextRoundScreenObj.SetActive(false);
+        // waitNextRoundScreenObj.SetActive(false);
         timerValue = time;
         secondCount = timerValue;
         //noGen = no;
-       // CenterToAddUser();
+        // CenterToAddUser();
         //aaa
     }
 
@@ -1252,7 +1323,7 @@ public class RouletteManager : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Sounds
 
     private void CheckSound()
@@ -1274,8 +1345,8 @@ public class RouletteManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
-    
+
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();

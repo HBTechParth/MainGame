@@ -26,7 +26,7 @@ public class CarRouletteScript : MonoBehaviour
     float secondCount = 0;
     public int timerValue = 0;
     public float totalCurrentInvest = 0;
-    float interval = 0.5f; 
+    float interval = 0.5f;
     float nextTime = 0;
     public bool isActive;
     private bool called = false;
@@ -35,7 +35,7 @@ public class CarRouletteScript : MonoBehaviour
     public int winNumber;
     private bool isStoppingOnWinNumber = false;
     private bool _isClickAvailable;
-    
+
     [Header("--- GamePlay Data---")]
     public List<int> easyNumbers;
     public List<int> mediumNumbers;
@@ -64,7 +64,7 @@ public class CarRouletteScript : MonoBehaviour
     public Animator stopBetAnim;
     public GameObject[] winParticles;
     public Text winAnimationTxt;
-    
+
     [Header("--- History Recorder ---")]
     public ScrollRect scrollRect;
     public RectTransform content;
@@ -77,17 +77,17 @@ public class CarRouletteScript : MonoBehaviour
     public GameObject menuScreenObj;
     [Header("--- Player List---")]
     public GameObject playerListObj;
-    
+
     [Header("--- Wait New Round Screen ---")]
     public GameObject waitNextRoundScreenObj;
-    
+
     [Header("--- Error Screen ---")]
     public GameObject errorScreenObj;
-    
+
     [Header("--- Shop Prefab ---")]
     public GameObject shopPrefab;
     public GameObject shopPrefabParent;
-    
+
     public static CarRouletteScript Instance;
     public List<GameObject> selectorObjects;
     public float delayBetweenSelectors = 0.5f;
@@ -103,7 +103,7 @@ public class CarRouletteScript : MonoBehaviour
 
     private Queue<GameObject> selectorPool;
     public List<GameObject> activeSelectors;
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image vibrationImg;
@@ -115,7 +115,7 @@ public class CarRouletteScript : MonoBehaviour
     private bool isSelectionRunning;
     private int currentIndex;
     private bool _isTimesUp;
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -134,10 +134,10 @@ public class CarRouletteScript : MonoBehaviour
         ChipButtonClick(0);
         CheckSound();
     }
-    
+
     private void FixedUpdate()
     {
-        if(timerValue == 0 && isEnterTheCarRoulette == false && waitNextRoundScreenObj.activeSelf == false)
+        if (timerValue == 0 && isEnterTheCarRoulette == false && waitNextRoundScreenObj.activeSelf == false)
         {
             isEnterTheCarRoulette = true;
             _isTimeSet = false;
@@ -178,20 +178,20 @@ public class CarRouletteScript : MonoBehaviour
     {
         SoundManager.Instance.StopBackgroundMusic();
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), avatarImg));
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , avatarImg);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), avatarImg);
     }
-    
+
     public void UpdateNameBalance()
     {
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
-        balanceTxt.text ="₹ " + DataManager.Instance.playerData.balance.ToString();
+        balanceTxt.text = "₹ " + DataManager.Instance.playerData.balance.ToString();
     }
 
     public void OpenBotScreen()
     {
         botPlayers.LoadBotPlayers();
     }
-    
+
     #region New Player Entry Time Maintain
 
     public void NewPlayerEnter()
@@ -246,14 +246,109 @@ public class CarRouletteScript : MonoBehaviour
                 break;
             }
         }*/
-        
+
         foreach (GameObject selectorObject in selectorObjects)
         {
-            selectorObject.SetActive(false);
+            //selectorObject.SetActive(false);
             selectorPool.Enqueue(selectorObject);
         }
     }
-    
+    public List<GameObject> rouletteObjects;
+    public float delay = 1;
+    public Sprite[] images;
+    private Coroutine rotateCoroutine;
+
+    IEnumerator RotateRoulette()
+    {
+        int startIndex = 0;
+
+        while (true)
+        {
+            foreach (GameObject obj in rouletteObjects)
+            {
+                obj.SetActive(false);
+            }
+
+            int index = startIndex % rouletteObjects.Count;
+            rouletteObjects[index].SetActive(true);
+
+            for (int i = 0; i < 5; i++)
+            {
+                int index1;
+
+                if (i == 0)
+                {
+                    index1 = (startIndex + i) % rouletteObjects.Count;
+                }
+                else if (i == 1)
+                {
+                    index1 = (startIndex + rouletteObjects.Count - i) % rouletteObjects.Count;
+                }
+                else
+                {
+                    index1 = (startIndex + rouletteObjects.Count - i) % rouletteObjects.Count;
+                }
+
+                rouletteObjects[index1].SetActive(true);
+
+                if (i < images.Length)
+                {
+                    Image imgComponent = rouletteObjects[index1].GetComponent<Image>();
+                    if (imgComponent != null)
+                    {
+                        imgComponent.sprite = images[i];
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(delay);
+
+            startIndex++;
+            if (startIndex >= rouletteObjects.Count)
+            {
+                startIndex = 0;
+            }
+        }
+
+
+    }
+
+    public void ResetRoulette()
+    {
+        if (rotateCoroutine != null)
+        {
+            StopCoroutine(rotateCoroutine);
+            rotateCoroutine = null;
+        }
+
+        foreach (GameObject obj in rouletteObjects)
+        {
+            obj.SetActive(false);
+        }
+        delay = 1f;
+    }
+    public void StopAnimation()
+    {
+
+        if (rotateCoroutine != null)
+        {
+            StopCoroutine(rotateCoroutine);
+            rotateCoroutine = null;
+        }
+
+
+        int startIndex = 5;
+
+        foreach (GameObject obj in rouletteObjects)
+        {
+            obj.SetActive(false);
+        }
+
+        if (rouletteObjects.Count > 0)
+        {
+            rouletteObjects[startIndex].SetActive(true);
+        }
+    }
     public int SelectRandomNumber(int mode)
     {
         int selectedNumber = 0;
@@ -332,14 +427,19 @@ public class CarRouletteScript : MonoBehaviour
 
     private IEnumerator ClearSelectedObject(GameObject selectorObject)
     {
+        rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].GetComponent<Image>().sprite=images[0];
+        rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].SetActive(true);
         yield return new WaitForSeconds(7f);
-        selectorObject.SetActive(false);
+        //selectorObject.SetActive(false);
         ResetData();
     }
 
+    public float delayGlowRing = 1f;
     private IEnumerator ActivateSelectors()
     {
         print("Activated Selector");
+        StartCoroutine(RingAnimation());
+
         while (isSelectionRunning)
         {
             if (selectorPool.Count > 0)
@@ -356,34 +456,60 @@ public class CarRouletteScript : MonoBehaviour
 
             if (_isTimesUp)
             {
+                Debug.Log("IS TIME => " + _isTimeSet);
                 //After time is up then it will select the index number from activeSelector list.
                 if (activeSelectors.Select(selectorObject => selectorObject.GetComponent<SymbolScript>()).Any(symbolScript => symbolScript != null && symbolScript.carPosition == winNumber))
                 {
+                    ResetRoulette();
                     StopSelection();
+
+                    //StopAnimation();
                 }
             }
 
-            yield return new WaitForSeconds(delayBetweenSelectors);
+            yield return new WaitForSeconds(delay);
+            // yield return new WaitForSeconds(delayBetweenSelectors);
 
             if (activeSelectors.Count > 0)
             {
                 GameObject selectorObject = activeSelectors[0];
                 activeSelectors.RemoveAt(0);
-                selectorObject.SetActive(false);
+                //selectorObject.SetActive(false);
                 selectorPool.Enqueue(selectorObject);
             }
 
             currentIndex = (currentIndex + 1) % selectorObjects.Count;
         }
     }
-    
+    private IEnumerator RingAnimation()
+    {
+        rotateCoroutine = StartCoroutine(RotateRoulette());
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(ChangeDelay(0.01f, 4f));
+        yield return new WaitForSeconds(7f);
+        yield return StartCoroutine(ChangeDelay(1f, 4f));
+    }
+    IEnumerator ChangeDelay(float targetDelay, float duration)
+    {
+        float startDelay = delay;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            delay = Mathf.Lerp(startDelay, targetDelay, elapsed / duration);
+            yield return null;
+        }
+
+        delay = targetDelay;
+    }
 
     public IEnumerator StartSpinning()
     {
         SoundManager.Instance.CarStartSound();
         isStoppingOnWinNumber = true;
         StartSelection();
-        
+
         yield return new WaitForSeconds(spinDuration);
         //StopSelection();
         _isTimesUp = true;
@@ -396,195 +522,195 @@ public class CarRouletteScript : MonoBehaviour
         switch (no)
         {
             case 1:// lamborghini
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[0]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[0]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[0] += chipPrice[selectChipNo];
+                    genChipList_Lambo.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[0]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[0]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[0] += chipPrice[selectChipNo];
-                genChipList_Lambo.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 2:// BMW
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[1]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[1]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[1] += chipPrice[selectChipNo];
+                    genChipList_Bmw.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[1]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[1]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[1] += chipPrice[selectChipNo];
-                genChipList_Bmw.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 3:// Benz
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[2]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[2]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[2] += chipPrice[selectChipNo];
+                    genChipList_Benz.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[2]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[2]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[2] += chipPrice[selectChipNo];
-                genChipList_Benz.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 4:// Jaguar
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[3]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[3]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[3] += chipPrice[selectChipNo];
+                    genChipList_Jaguar.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[3]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[3]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[3] += chipPrice[selectChipNo];
-                genChipList_Jaguar.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 5:// LandRover
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[4]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[4]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[4] += chipPrice[selectChipNo];
+                    genChipList_Land.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[4]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[4]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[4] += chipPrice[selectChipNo];
-                genChipList_Land.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 6:// Nissan
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[5]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[5]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[5] += chipPrice[selectChipNo];
+                    genChipList_Nissan.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[5]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[5]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[5] += chipPrice[selectChipNo];
-                genChipList_Nissan.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 7:// Mazda
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[6]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[6]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[6] += chipPrice[selectChipNo];
+                    genChipList_Mazad.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[6]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[6]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[6] += chipPrice[selectChipNo];
-                genChipList_Mazad.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
             case 8:// volkswagen
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[7]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[7]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = avatarImg.transform.position;
+                    betPriceValue[7] += chipPrice[selectChipNo];
+                    genChipList_Volks.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
                 }
 
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "CarRoulette-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[7]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[7]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = avatarImg.transform.position;
-                betPriceValue[7] += chipPrice[selectChipNo];
-                genChipList_Volks.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
-            
         }
         UpdateBoardPrice();
         SendCarRouletteBet(no, selectChipNo);
     }
-    
+
     private Vector3 GetRandomPosInBoxCollider2D(BoxCollider2D boxCollider)
     {
         Bounds bounds = boxCollider.bounds;
@@ -592,7 +718,7 @@ public class CarRouletteScript : MonoBehaviour
         float y = Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, 90f);
     }
-    
+
     public void ChipGenerate(GameObject chip, Vector3 endPos)
     {
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
@@ -604,7 +730,7 @@ public class CarRouletteScript : MonoBehaviour
             });
         });
     }
-    
+
     void UpdateBoardPrice()
     {
         for (int i = 0; i < betText.Length; i++)
@@ -612,8 +738,8 @@ public class CarRouletteScript : MonoBehaviour
             betText[i].text = betPriceValue[i].ToString(CultureInfo.InvariantCulture);
         }
     }
-    
-    
+
+
 
     public void ChipButtonClick(int no)
     {
@@ -636,7 +762,7 @@ public class CarRouletteScript : MonoBehaviour
             }
         }
     }
-    
+
     public bool CheckMoney(float money)
     {
 
@@ -656,7 +782,7 @@ public class CarRouletteScript : MonoBehaviour
     #endregion
 
     #region Winning Logic 
-
+    public List<GameObject> winGlowObject;
     private void CalculateWinAmount(CarNames car)
     {
         SoundManager.Instance.CarWinSound();
@@ -682,43 +808,51 @@ public class CarRouletteScript : MonoBehaviour
         {
             case CarNames.Lamborghini:
                 winParticles[0].SetActive(true);
+                winGlowObject[0].SetActive(true);
                 break;
             case CarNames.Bmw:
                 winParticles[1].SetActive(true);
+                winGlowObject[1].SetActive(true);
                 break;
             case CarNames.Benz:
                 winParticles[2].SetActive(true);
+                winGlowObject[2].SetActive(true);
                 break;
             case CarNames.Jaguar:
                 winParticles[3].SetActive(true);
+                winGlowObject[3].SetActive(true);
                 break;
             case CarNames.LandRover:
                 winParticles[4].SetActive(true);
+                winGlowObject[4].SetActive(true);
                 break;
             case CarNames.Nissan:
                 winParticles[5].SetActive(true);
+                winGlowObject[5].SetActive(true);
                 break;
             case CarNames.Mazda:
                 winParticles[6].SetActive(true);
+                winGlowObject[6].SetActive(true);
                 break;
             case CarNames.Volkswagen:
                 winParticles[7].SetActive(true);
+                winGlowObject[7].SetActive(true);
                 break;
         }
-        
+
         if (playerWinAmount != 0)
         {
             SoundManager.Instance.CasinoWinSound();
             winAnimationTxt.gameObject.SetActive(true);
             winAnimationTxt.text = "+" + playerWinAmount;
             Invoke(nameof(WinAmountTextOff), 1.5f);
-            
+
             DataManager.Instance.AddAmount((float)(playerWinAmount), TestSocketIO.Instace.roomid, "CarRoulette-Win-" + TestSocketIO.Instace.roomid, "won", (float)(adminCommssion), noGen);
         }
         UpdateHistoryRecord(winNumber);
-        Invoke(nameof(WinAnimationOff), 1f);
+        Invoke(nameof(WinAnimationOff), 5.5f);
     }
-    
+
     public void WinAmountTextOff()
     {
         winAnimationTxt.gameObject.SetActive(false);
@@ -729,19 +863,23 @@ public class CarRouletteScript : MonoBehaviour
         foreach (GameObject particle in winParticles)
         {
             particle.gameObject.SetActive(false);
+        } 
+        foreach (GameObject particle in winGlowObject)
+        {
+            particle.gameObject.SetActive(false);
         }
     }
 
     #endregion
-    
+
     private void Update()
     {
-        
+
     }
-    
+
     #region Menu Screen
-    
-    
+
+
     public void MenuButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -777,12 +915,12 @@ public class CarRouletteScript : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         menuScreenObj.SetActive(false);
     }
-    
+
 
 
     #endregion
-    
-    
+
+
     #region Error Screen
     public void OpenErrorScreen()
     {
@@ -871,7 +1009,7 @@ public class CarRouletteScript : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Admin Maintain
 
     void CreateAdmin()
@@ -887,7 +1025,7 @@ public class CarRouletteScript : MonoBehaviour
     public void SetRoomData()
     {
         JSONObject obj = new JSONObject();
-       // obj.AddField("DeckNo", 2);
+        // obj.AddField("DeckNo", 2);
         obj.AddField("DeckNo", winNumber);
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
         obj.AddField("gameMode", 4);
@@ -912,7 +1050,7 @@ public class CarRouletteScript : MonoBehaviour
             StartCoroutine(StartBettingOff());
             //CenterToAddUser();
         }
-        
+
         HistoryLoader(data);
     }
 
@@ -943,20 +1081,20 @@ public class CarRouletteScript : MonoBehaviour
 
 
     }
-    
+
     public void HistoryLoader(string data)
     {
-        if(data != "")
+        if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
-        
+
         int childCount = PounCarrier.transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
             Destroy(PounCarrier.transform.GetChild(i).gameObject);
         }
-        
+
         foreach (var t in winList)
         {
             Instantiate(Pouns[t], PounCarrier.transform);
@@ -970,10 +1108,10 @@ public class CarRouletteScript : MonoBehaviour
     {
         content.anchoredPosition = new Vector2(content.anchoredPosition.x, _transformPosition);
     }
-    
+
     public void ScrollToLast()
     {
-        float scrollPosition = 0f; 
+        float scrollPosition = 0f;
         scrollRect.normalizedPosition = new Vector2(scrollRect.normalizedPosition.x, scrollPosition);
     }
 
@@ -1008,20 +1146,20 @@ public class CarRouletteScript : MonoBehaviour
             _ => num
         };
     }
-    
+
     private void UpdateHistoryRecord(int num)
     {
         int carSymbol = LogoSelector(num);
         if (!isAdmin) return;
         winList.RemoveAt(0);
         winList.Add(carSymbol);
-        
+
         int childCount = PounCarrier.transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
             Destroy(PounCarrier.transform.GetChild(i).gameObject);
         }
-        
+
         foreach (var t in winList)
         {
             Instantiate(Pouns[t], PounCarrier.transform);
@@ -1031,7 +1169,7 @@ public class CarRouletteScript : MonoBehaviour
         DataManager.Instance.historyRecord = string.Join(",", winList.Select(x => x.ToString()).ToArray());
         //SetWinData(DataManager.Instance.winList);
     }
-    
+
     public void SendCarRouletteBet(int boxNo, int chipNo)
     {
         JSONObject obj = new JSONObject();
@@ -1048,101 +1186,101 @@ public class CarRouletteScript : MonoBehaviour
         switch (boxNo)
         {
             case 1:// lamborghini
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[0]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[0]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[0] += chipPrice[chipNo];
-                genChipList_Lambo.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[0]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[0]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[0] += chipPrice[chipNo];
+                    genChipList_Lambo.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 2:// BMW
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[1]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[1]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[1] += chipPrice[chipNo];
-                genChipList_Bmw.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[1]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[1]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[1] += chipPrice[chipNo];
+                    genChipList_Bmw.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 3:// Benz
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[2]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[2]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[2] += chipPrice[chipNo];
-                genChipList_Benz.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[2]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[2]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[2] += chipPrice[chipNo];
+                    genChipList_Benz.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 4:// Jaguar
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[3]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[3]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[3] += chipPrice[chipNo];
-                genChipList_Jaguar.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[3]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[3]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[3] += chipPrice[chipNo];
+                    genChipList_Jaguar.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 5:// LandRover
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[4]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[4]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[4] += chipPrice[chipNo];
-                genChipList_Land.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[4]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[4]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[4] += chipPrice[chipNo];
+                    genChipList_Land.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 6:// Nissan
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[5]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[5]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[5] += chipPrice[chipNo];
-                genChipList_Nissan.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[5]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[5]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[5] += chipPrice[chipNo];
+                    genChipList_Nissan.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 7:// Mazda
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[6]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[6]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[6] += chipPrice[chipNo];
-                genChipList_Mazad.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[6]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[6]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[6] += chipPrice[chipNo];
+                    genChipList_Mazad.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
             case 8:// volkswagen
-            {
-                SoundManager.Instance.ThreeBetSound();
-                Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[7]);
-                GameObject chipGen = Instantiate(chipObj, spawnLocation[7]);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
-                chipGen.transform.position = botSpawnLocation.position;
-                betPriceValue[7] += chipPrice[chipNo];
-                genChipList_Volks.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-                break;
-            }
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Vector3 rPos = GetRandomPosInBoxCollider2D(spawnBox[7]);
+                    GameObject chipGen = Instantiate(chipObj, spawnLocation[7]);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
+                    chipGen.transform.position = botSpawnLocation.position;
+                    betPriceValue[7] += chipPrice[chipNo];
+                    genChipList_Volks.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+                    break;
+                }
         }
         UpdateBoardPrice();
     }
@@ -1183,11 +1321,11 @@ public class CarRouletteScript : MonoBehaviour
     public void GetAdminDataPlayer(int time, int no)
     {
         //isEnterTheRoulette = true;
-       // waitNextRoundScreenObj.SetActive(false);
+        // waitNextRoundScreenObj.SetActive(false);
         timerValue = time;
         secondCount = timerValue;
         //noGen = no;
-       // CenterToAddUser();
+        // CenterToAddUser();
         //aaa
     }
 
@@ -1226,18 +1364,22 @@ public class CarRouletteScript : MonoBehaviour
     }*/
 
     #endregion
-    
+
     public void GiveUserData()
     {
         print("______________________New game is called_________________________________");
         //RestartTimer();
         StartCoroutine(StartBettingOff());
     }
-    
-    
+
+
     IEnumerator StartBettingOff()
     {
         print("______________________start betting is called_________________________________");
+        foreach (GameObject obj in rouletteObjects)
+        {
+            obj.SetActive(false);
+        }
         isGameRunning = true;
         if (isAdmin)
         {
@@ -1260,12 +1402,14 @@ public class CarRouletteScript : MonoBehaviour
             }
         }*/
         startBettingObj.SetActive(true);
+        StartANimationPlay();
+
         //TurnOnButtons();
         yield return new WaitForSeconds(2.5f);
 
         //rouleteeBetsBefore.Clear();
 
-        
+
         /*for (int i = 0; i < rouleteeBets.Count; i++)
         {
             RouleteeBetClass rouleteeBet = rouleteeBets[i];
@@ -1277,14 +1421,15 @@ public class CarRouletteScript : MonoBehaviour
             rebetButton.interactable = true;
         }
         rouleteeBets.Clear();*/
-        startBetAnim.SetInteger("FirstClipComplete", 1);
+        //startBetAnim.SetInteger("FirstClipComplete", 1);
         yield return new WaitForSeconds(1f);
         startBettingObj.SetActive(false);
+        betAnimationONOff();
         isActive = true;
         RestartTimer();
         _isClickAvailable = true;
     }
-    
+
     IEnumerator StopBettingOff()
     {
         _isClickAvailable = false;
@@ -1296,17 +1441,70 @@ public class CarRouletteScript : MonoBehaviour
             TestSocketIO.Instace.GetCarBetData();
         }
         stopBettingObj.SetActive(true);
+        StopAnimationPlay();
         //ClearAllChips();
         //TurnOffButtons();
         yield return new WaitForSeconds(3f);
-        stopBetAnim.SetInteger("FirstClipComplete", 1);
+        // stopBetAnim.SetInteger("FirstClipComplete", 1);
         yield return new WaitForSeconds(1f);
         stopBettingObj.SetActive(false);
+        betAnimationONOff();
         //ReGenerateBoard();
-       // rouletteBoardObj.SetActive(true);
-       StartCoroutine(StartSpinning());
+        // rouletteBoardObj.SetActive(true);
+        StartCoroutine(StartSpinning());
+    }
+    public List<GameObject> objects;  // List of objects to animate
+
+    public float zoomDuration = 0.1f;
+    public Vector3 zoomScale = new Vector3(6f, 6f, 6f);
+    public float delayBetweenAnimations = 0.09f;
+
+
+
+    public void StartANimationPlay()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in objects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
+    }
+    public List<GameObject> stopObjects;
+    public void StopAnimationPlay()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in stopObjects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
     }
 
+    public void betAnimationONOff()
+    {
+        for (int i = 0; i < stopObjects.Count; i++)
+        {
+            stopObjects[i].SetActive(true);
+        }
+        foreach (GameObject obj in objects)
+        {
+            obj.SetActive(false);
+
+        }
+    }
     public void ResetData()
     {
         // Reset betPriceValue array
@@ -1373,7 +1571,7 @@ public class CarRouletteScript : MonoBehaviour
         UpdateBoardPrice();
         GiveUserData();
     }
-    
+
     public void RestartTimer()
     {
         //for (int i = 0; i < blackPanelObj.Count; i++)
@@ -1387,14 +1585,14 @@ public class CarRouletteScript : MonoBehaviour
         //        Destroy(btnParentPanelObj[i].transform.GetChild(j));
         //    }
         //}
-        
+
         isStopBet = false;
         isEnterTheCarRoulette = false;
         timerValue = ((int)fixTimeSet);
         timerTxt.text = timerValue.ToString();
         secondCount = fixTimeSet;
     }
-    
+
     #region Sounds
 
     private void CheckSound()
@@ -1416,8 +1614,8 @@ public class CarRouletteScript : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
-    
+
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -1439,5 +1637,5 @@ public class CarRouletteScript : MonoBehaviour
 
     #endregion
 
-    
+
 }

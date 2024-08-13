@@ -1097,7 +1097,7 @@ public class JhandiMundaManager : MonoBehaviour
             {
                 chip.transform.DOScale(Vector3.one, 0.07f);
             });
-            print("LocalPosition = " + chip.transform.localPosition + " Position = " + chip.transform.position);
+            //print("LocalPosition = " + chip.transform.localPosition + " Position = " + chip.transform.position);
         });
         //chip.transform.localPosition = endPosition;
         //print("LocalPosition = " + chip.transform.localPosition + " Position = " + chip.transform.position);

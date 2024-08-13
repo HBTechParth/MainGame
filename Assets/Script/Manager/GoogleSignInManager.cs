@@ -12,7 +12,7 @@ using WebSocketSharp;
 public class GoogleSignInManager : MonoBehaviour
 {
     public static GoogleSignInManager Instance;
-    
+
     public string infoText;
     public string webClientId = "<your client id here>";
 
@@ -22,6 +22,16 @@ public class GoogleSignInManager : MonoBehaviour
 
     public string userName;
     public string userEmail;
+
+    // Phone Authentication fields
+    public InputField phoneNumber;
+    public InputField countyCode;
+    public InputField otp;
+    private uint phoneAuthTimeoutMs = 60 * 1000;
+    private string verificationID;
+    private PhoneAuthProvider provider;
+
+    private bool firebaseInitialized = false;
 
     private void Awake()
     {
@@ -45,8 +55,6 @@ public class GoogleSignInManager : MonoBehaviour
 
             LoginManager.Instance.googleUserEmail = userEmail;
             LoginManager.Instance.googleUserName = userName;
-            //LoginManager.Instance.email_Main(user.f);
-
         }
     }
 
@@ -57,9 +65,15 @@ public class GoogleSignInManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 if (task.Result == DependencyStatus.Available)
+                {
                     auth = FirebaseAuth.DefaultInstance;
+                    provider = PhoneAuthProvider.GetInstance(auth);
+                    firebaseInitialized = true;
+                }
                 else
+                {
                     AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
+                }
             }
             else
             {
@@ -68,33 +82,31 @@ public class GoogleSignInManager : MonoBehaviour
         });
     }
 
+    // Google Sign-In methods
     public void SignInWithGoogle()
     {
-
         SoundManager.Instance.ButtonClick();
         if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor)
         {
             string imageUrl = "https://lh3.googleusercontent.com/ogw/AOh-ky3pVzuI2Z1jwSVkU2JGgCT22_4YtGST8d9h3uI=s64-c-mo";
-            //string imageUrl = "https://panel.dukeplay.com/assets/img/profile-picture/1120.png";
             PlayerPrefs.SetString("ProfileURL", LoginManager.Instance.testImageUrl);
-
-            //LoginManager.Instance.googleUserEmail = "greejeshgajera709@gmail.com";
-            //LoginManager.Instance.googleUserName = "GG GG1";
-            //LoginManager.Instance.email_Main("112345654321", LoginManager.Instance.googleUserName, imageUrl);
 
             LoginManager.Instance.googleUserEmail = LoginManager.Instance.testEmail;
             LoginManager.Instance.googleUserName = LoginManager.Instance.testUserName;
             LoginManager.Instance.email_Main(LoginManager.Instance.testFirebaseToken, LoginManager.Instance.googleUserName, LoginManager.Instance.testImageUrl);
-
         }
         else
         {
             print("Sign in Button Click");
             OnSignIn();
         }
-
     }
-    public void SignOutFromGoogle() { OnSignOut(); }
+
+    public void SignOutFromGoogle()
+    {
+        AddToInformation("Calling SignOut");
+        GoogleSignIn.DefaultInstance.SignOut();
+    }
 
     private void OnSignIn()
     {
@@ -118,6 +130,7 @@ public class GoogleSignInManager : MonoBehaviour
         AddToInformation("Calling Disconnect");
         GoogleSignIn.DefaultInstance.Disconnect();
     }
+
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
     {
         if (task.IsFaulted)
@@ -141,40 +154,16 @@ public class GoogleSignInManager : MonoBehaviour
         }
         else
         {
-            //AddToInformation("Welcome: " + task.Result.DisplayName + "!");
-            //AddToInformation("Email = " + task.Result.Email);
-            //AddToInformation("Google ID Token = " + task.Result.IdToken);
-            //AddToInformation("Email = " + task.Result.Email);
-
-
-            //SignInWithGoogleOnFirebase(task.Result.IdToken);
-            //if (task.Result.Email != null)
-            //{
-            //    user = auth.CurrentUser;
-            //    print("Enter The Login Google");
-            //    //GGG
-            //    LoginManager.Instance.googleUserEmail = user.Email.ToString();
-            //    LoginManager.Instance.googleUserName = user.DisplayName.ToString();
-
-            //    //print("Login Data : " + LoginManager.Instance.googleUserEmail);
-            //    LoginManager.Instance.email_Main();
-            //    //OnSignIn();
-            //}
-
-            print("Google Sign-In successed");
+            print("Google Sign-In succeeded");
 
             print("IdToken: " + task.Result.IdToken);
             string firebaseToken = task.Result.IdToken;
             print("ImageUrl: " + task.Result.ImageUrl.ToString());
 
             PlayerPrefs.SetString("ProfileURL", task.Result.ImageUrl.ToString());
-            //miniloading.SetActive(true);
-            //Set imageUrl
-            //imageUrl = task.Result.ImageUrl.ToString();
 
-            //Start Firebase Auth
-            Firebase.Auth.Credential credential =
-                Firebase.Auth.GoogleAuthProvider.GetCredential(task.Result.IdToken, null);
+            Firebase.Auth.Credential credential = Firebase.Auth.GoogleAuthProvider.GetCredential(task.Result.IdToken, null);
+
             auth.SignInWithCredentialAsync(credential).ContinueWith(t =>
             {
                 if (t.IsCanceled)
@@ -189,16 +178,12 @@ public class GoogleSignInManager : MonoBehaviour
                     return;
                 }
 
-
-
                 user = auth.CurrentUser;
                 LoginManager.Instance.googleUserEmail = user.Email.ToString();
                 LoginManager.Instance.googleUserName = user.DisplayName.ToString();
 
                 LoginManager.Instance.email_Main(firebaseToken, LoginManager.Instance.googleUserName, PlayerPrefs.GetString("ProfileURL"));
 
-
-                //DataManager.Instance.GetProfileImage(PlayerPrefs.GetString("ProfileURL"));
                 Debug.Log("LoadImage(CheckImageUrl)");
             });
         }
@@ -249,4 +234,81 @@ public class GoogleSignInManager : MonoBehaviour
         infoText += "\n" + str;
         Debug.Log("Info : " + str);
     }
+
+    // Phone Authentication methods
+    public void LogInWithPhoneNumber()
+    {
+        if (!firebaseInitialized)
+        {
+            Debug.LogError("Firebase not initialized.");
+            return;
+        }
+
+        // Verify the phone number
+        provider.VerifyPhoneNumber(countyCode.text + phoneNumber.text, phoneAuthTimeoutMs, null,
+            verificationCompleted: (credential) =>
+            {
+                Debug.Log("Verification completed automatically");
+                SignInWithPhoneAuthCredential(credential); // Automatically sign in if verification completes
+        },
+            verificationFailed: (error) =>
+            {
+                Debug.LogError("Verification failed: " + error);
+            },
+            codeSent: (id, token) =>
+            {
+                verificationID = id;
+                Debug.Log("Code sent. Verification ID: " + verificationID);
+            // You can automatically request user to input OTP
+            // Show a UI element to input the OTP
+        },
+            codeAutoRetrievalTimeOut: (id) =>
+            {
+                Debug.LogWarning("Code auto-retrieval timeout. Verification ID: " + id);
+            });
+    }
+
+    public void VerifyOTP()
+    {
+        if (string.IsNullOrEmpty(verificationID))
+        {
+            Debug.LogError("Verification ID is null or empty.");
+            return;
+        }
+
+        if (provider == null)
+        {
+            Debug.LogError("Provider not initialized.");
+            return;
+        }
+
+        // Get the credential using the verification ID and OTP entered by the user
+        Credential credential = provider.GetCredential(verificationID, otp.text);
+        SignInWithPhoneAuthCredential(credential);
+    }
+
+    private void SignInWithPhoneAuthCredential(Credential credential)
+    {
+        auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+            {
+                Debug.LogError("SignInWithCredentialAsync was canceled.");
+                return;
+            }
+
+            if (task.IsFaulted)
+            {
+                Debug.LogError("SignInWithCredentialAsync encountered an error: " + task.Exception);
+                return;
+            }
+
+            FirebaseUser newUser = task.Result;
+            Debug.Log("User signed in successfully");
+            Debug.Log("Phone number: " + newUser.PhoneNumber);
+            Debug.Log("Phone provider ID: " + newUser.ProviderId);
+            Debug.Log("Phone provider ID: " + newUser.UserId);
+        });
+    }
+
 }

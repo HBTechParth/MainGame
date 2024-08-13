@@ -30,6 +30,7 @@ public class Splash : MonoBehaviour
             {
                 //SceneManager.LoadScene("Login");
                 isEnter = true;
+                Debug.Log("Log  =  >  " + DataManager.Instance.GetLoginValue().ToString());
                 if (DataManager.Instance.GetLoginValue() == "Y")
                 {
                     print("___________________This is called in splash__________");

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5260fe7928305e84587d2fc071585be0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3702,7 +3702,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2108407974}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3729,7 +3729,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36446ac94a91f254091cffd330bd6f84, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -11091,7 +11091,7 @@ RectTransform:
   - {fileID: 288039347}
   - {fileID: 1127691799}
   m_Father: {fileID: 2108407974}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16346,6 +16346,7 @@ MonoBehaviour:
   andarBaharOtherPlayer: {fileID: 0}
   pokerOtherPlayer: {fileID: 0}
   ludoOtherPlayer: 
+  popMessage: 
 --- !u!1 &1001852628
 GameObject:
   m_ObjectHideFlags: 0
@@ -22679,19 +22680,19 @@ MonoBehaviour:
   cardSuffles:
   - cardNo: 1
     color: 1
-    cardSprite: {fileID: 21300000, guid: c4add5a9f6205454790660892ee08c6a, type: 3}
+    cardSprite: {fileID: 21300000, guid: 922173771295fe041805e8d85808749c, type: 3}
   - cardNo: 2
     color: 1
-    cardSprite: {fileID: 21300000, guid: 0f4cc299a092d2d4dbd0de1d2445de63, type: 3}
+    cardSprite: {fileID: 21300000, guid: 1b5084a11b97f534c94a3e6d6f265af1, type: 3}
   - cardNo: 3
     color: 1
-    cardSprite: {fileID: 21300000, guid: 6b257d3fad2ef1b4aa72ad464f248011, type: 3}
+    cardSprite: {fileID: 21300000, guid: 8334a5bf45c51554592f02cf2ba21562, type: 3}
   - cardNo: 4
     color: 1
-    cardSprite: {fileID: 21300000, guid: 76776beecb24e164cac9077b0a6b6293, type: 3}
+    cardSprite: {fileID: 21300000, guid: 21a7cccf7b2d8b743aff6235824b5e60, type: 3}
   - cardNo: 5
     color: 1
-    cardSprite: {fileID: 21300000, guid: 88d2b50732552584ca411a9ead7d0035, type: 3}
+    cardSprite: {fileID: 21300000, guid: 932ebf8480aba0149b53682978cd8f62, type: 3}
   - cardNo: 6
     color: 1
     cardSprite: {fileID: 21300000, guid: 8a0c664c7936cdf4c8b5a9ed31ca32f4, type: 3}
@@ -23308,8 +23309,8 @@ MonoBehaviour:
   player3: {fileID: 1445337009}
   player4: {fileID: 343946684}
   player5: {fileID: 1438653737}
-  packCardSprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
-  simpleCardSprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  packCardSprite: {fileID: 21300000, guid: a21b9b4a838530b4ab64ceb69299eb5b, type: 3}
+  simpleCardSprite: {fileID: 21300000, guid: a21b9b4a838530b4ab64ceb69299eb5b, type: 3}
   chipPrice:
   - 5
   - 10
@@ -25440,7 +25441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91ff362559f3de94089087a9873e0175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36446ac94a91f254091cffd330bd6f84, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -30254,7 +30255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.23921569}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -39521,8 +39522,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 259916900}
   - {fileID: 697031683}
+  - {fileID: 259916900}
   - {fileID: 54345024}
   - {fileID: 1376170159}
   - {fileID: 1598936278}

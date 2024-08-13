@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DragonTiger.unity
     guid: 106983e1fa2ab4805856ae9933e4dbc6
   - enabled: 1
+    path: Assets/Scenes/Joker.unity
+    guid: 8396122783ef681409ee305315d84fa9
+  - enabled: 1
     path: Assets/Scenes/AndarBahar.unity
     guid: 73abb8c227fcd4838824386ed0fa3c59
   - enabled: 1
@@ -32,9 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ludo/Scene/Ludo.unity
     guid: 8639939bb62d3448e8cfc15b0f80b098
-  - enabled: 1
-    path: Assets/Scenes/Joker.unity
-    guid: 8396122783ef681409ee305315d84fa9
   - enabled: 1
     path: Assets/Scenes/AK47.unity
     guid: 956ff983545e1af4bb24d7b278832ac3

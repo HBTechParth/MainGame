@@ -23,28 +23,49 @@ public class WheelRoulette : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (RouletteManager.Instance.isGameRouletteStart == true)
+        if (RouletteManager.Instance.isGameRouletteStart)
         {
-            if (RouletteManager.Instance.isRoundOn == false)
+            if (!RouletteManager.Instance.isRoundOn)
             {
-                speed *= 0.995f;
-                if (speed < 7)
+                if (speed > 1.5f)
                 {
-                    if (collider.radius > minradius)
-                        collider.radius *= 0.995f;
-                    else
-                        collider.radius = minradius;
+                    speed *= 0.995f;
+
+                    if (speed < 7f)
+                    {
+                        if (collider.radius > minradius)
+                            collider.radius *= 0.995f;
+                        else
+                            collider.radius = minradius;
+                    }
+
+                    if (speed < 3f)
+                    {
+                        Rigidbody2D ballRigidbody = BallRoulette.instance.body;
+                        ballRigidbody.drag = 0.1f;
+                    }
+                }
+                else
+                {
+                    speed = 1.5f;
                 }
 
-                if (speed < 2f)
+                if (speed <2f)
                 {
                     RouletteManager.Instance.ObjectAvaliable();
                 }
+
                 position -= speed;
                 position = position % 360;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, position), 0.5f);
-
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, position), 5f);
+                RouletteManager.Instance.fakeWheel.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, position), 5f);
             }
         }
     }
+
+
+
+
 }
+
+

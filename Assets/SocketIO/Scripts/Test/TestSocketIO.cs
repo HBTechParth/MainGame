@@ -498,7 +498,7 @@ public class TestSocketIO : MonoBehaviour
         keys.AddField("room", roomid);
         keys.AddField("ev", ev);
         keys.AddField("data", data);
-        print("Data sent = \n" + keys.ToString());
+        print("<color=yellow>Data sent = \n" + keys.ToString() + "</color>");
         //Debug.Log("SendData===:::" + keys.ToString());
         socket.Emit("sendToRoom", keys);
     }
@@ -3017,14 +3017,14 @@ public class TestSocketIO : MonoBehaviour
             int time = data["Time"];
             int rouletteNumber = data["RouletteNumber"];
 
-            /*if (receivePlayerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid && !RouletteManager.Instance.isAdmin)
-            {
-                RouletteManager.Instance.GetAdminDataPlayer(time, rouletteNumber);
-            }*/
-            if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid && !RouletteManager.Instance.isAdmin)
+            if (receivePlayerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid && !RouletteManager.Instance.isAdmin)
             {
                 RouletteManager.Instance.GetAdminDataPlayer(time, rouletteNumber);
             }
+            /* if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid && !RouletteManager.Instance.isAdmin)
+             {
+                 RouletteManager.Instance.GetAdminDataPlayer(180, rouletteNumber);
+             }*/
         }
 
     }
@@ -3530,7 +3530,7 @@ public class TestSocketIO : MonoBehaviour
         JSONNode value = JSON.Parse(values);
         JSONNode data = JSON.Parse(value["data"].ToString());
         RouletteManager.Instance.noGen = data["betWin"];
-        print("This is recevied data ->____________________> " + value);
+        print("This is recevied data ->____________________> " + values);
         //Show betwin key as a winner 
 
     }
