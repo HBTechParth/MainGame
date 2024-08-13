@@ -249,7 +249,7 @@ public class CarRouletteScript : MonoBehaviour
 
         foreach (GameObject selectorObject in selectorObjects)
         {
-            //selectorObject.SetActive(false);
+          //  selectorObject.SetActive(false);
             selectorPool.Enqueue(selectorObject);
         }
     }
@@ -258,9 +258,9 @@ public class CarRouletteScript : MonoBehaviour
     public Sprite[] images;
     private Coroutine rotateCoroutine;
 
-    IEnumerator RotateRoulette()
+    IEnumerator RotateRoulette(int yourDesiredIndex)
     {
-        int startIndex = 0;
+        int startIndex = yourDesiredIndex;  // Set this to the index you want to start from
 
         while (true)
         {
@@ -427,10 +427,13 @@ public class CarRouletteScript : MonoBehaviour
 
     private IEnumerator ClearSelectedObject(GameObject selectorObject)
     {
-        rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].GetComponent<Image>().sprite=images[0];
+        int carPosition = selectorObject.GetComponent<SymbolScript>().carPosition;
+        startAniIndex = (carPosition + 1) % rouletteObjects.Count;
+
+        rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].GetComponent<Image>().sprite = images[0];
         rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].SetActive(true);
         yield return new WaitForSeconds(7f);
-        //selectorObject.SetActive(false);
+       // selectorObject.SetActive(false);
         ResetData();
     }
 
@@ -460,6 +463,8 @@ public class CarRouletteScript : MonoBehaviour
                 //After time is up then it will select the index number from activeSelector list.
                 if (activeSelectors.Select(selectorObject => selectorObject.GetComponent<SymbolScript>()).Any(symbolScript => symbolScript != null && symbolScript.carPosition == winNumber))
                 {
+                    Debug.Log("DELEAY  = >  " + delay);
+                    yield return new WaitForSeconds(delay);
                     ResetRoulette();
                     StopSelection();
 
@@ -474,20 +479,22 @@ public class CarRouletteScript : MonoBehaviour
             {
                 GameObject selectorObject = activeSelectors[0];
                 activeSelectors.RemoveAt(0);
-                //selectorObject.SetActive(false);
+              //  selectorObject.SetActive(false);
                 selectorPool.Enqueue(selectorObject);
             }
 
             currentIndex = (currentIndex + 1) % selectorObjects.Count;
         }
     }
+    public int startAniIndex = 0;
+
     private IEnumerator RingAnimation()
     {
-        rotateCoroutine = StartCoroutine(RotateRoulette());
+        rotateCoroutine = StartCoroutine(RotateRoulette(startAniIndex));
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(ChangeDelay(0.01f, 4f));
-        yield return new WaitForSeconds(7f);
-        yield return StartCoroutine(ChangeDelay(1f, 4f));
+        yield return new WaitForSeconds(3f);
+        yield return StartCoroutine(ChangeDelay(0.3f, 4f));
     }
     IEnumerator ChangeDelay(float targetDelay, float duration)
     {
@@ -863,7 +870,7 @@ public class CarRouletteScript : MonoBehaviour
         foreach (GameObject particle in winParticles)
         {
             particle.gameObject.SetActive(false);
-        } 
+        }
         foreach (GameObject particle in winGlowObject)
         {
             particle.gameObject.SetActive(false);
