@@ -202,15 +202,19 @@ public class TestSocketIO : MonoBehaviour
             //CarRoulette
 
             case "CarRouletteSendBetData":
+                Debug.Log("<color=red> IN CarRouletteSendBetData </color>");
                 SetBetCarRoulette(values.ToString());
                 break;
             case "FindDataCarRouletteAdmin":
+                Debug.Log("<color=red> IN FindDataCarRouletteAdmin </color>");
                 FindCarRouletteData(values.ToString());
                 break;
             case "SendAdminCarRouleteeData":
+                Debug.Log("<color=red> IN SendAdminCarRouleteeData </color>");
                 SendAdminCarRouletteData(values.ToString());
                 break;
             case "getCarRouletteBetData":
+                Debug.Log("<color=red> IN getCarRouletteBetData </color>");
                 HandleGetCarData(values.ToString());
                 break;
 
@@ -3030,9 +3034,8 @@ public class TestSocketIO : MonoBehaviour
     }
 
     #endregion
-    
-    #region CarRoulette
 
+    #region CarRoulette
     public void SetBetCarRoulette(string values)
     {
         if (SceneManager.GetActiveScene().name == "CarRoulette")
@@ -3045,11 +3048,12 @@ public class TestSocketIO : MonoBehaviour
             string sRoomId = data["RoomId"];
             int boxNo = data["boxNo"];
             int chipNo = data["chipNo"];
-
+          
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
                 CarRouletteScript.Instance.GetCarRouletteBet(boxNo, chipNo);
             }
+            CarRouletteScript.Instance.TotalBetSet(chipNo);
         }
 
     }

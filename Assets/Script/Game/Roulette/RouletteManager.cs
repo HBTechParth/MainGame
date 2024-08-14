@@ -415,7 +415,6 @@ public class RouletteManager : MonoBehaviour
             foreach (GameObject obj in objects)
             {
                 obj.SetActive(false);
-
             }
 
         }

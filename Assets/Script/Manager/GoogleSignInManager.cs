@@ -236,6 +236,8 @@ public class GoogleSignInManager : MonoBehaviour
     }
 
     // Phone Authentication methods
+
+    #region PhoneOtp Methods Firebase
     public void LogInWithPhoneNumber()
     {
         if (!firebaseInitialized)
@@ -312,3 +314,4 @@ public class GoogleSignInManager : MonoBehaviour
     }
 
 }
+#endregion

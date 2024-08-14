@@ -8,6 +8,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class CarRouletteScript : MonoBehaviour
@@ -184,6 +185,7 @@ public class CarRouletteScript : MonoBehaviour
     public void UpdateNameBalance()
     {
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
+        Debug.Log("baal => " + DataManager.Instance.playerData.balance.ToString());
         balanceTxt.text = "₹ " + DataManager.Instance.playerData.balance.ToString();
     }
 
@@ -249,7 +251,7 @@ public class CarRouletteScript : MonoBehaviour
 
         foreach (GameObject selectorObject in selectorObjects)
         {
-          //  selectorObject.SetActive(false);
+            //  selectorObject.SetActive(false);
             selectorPool.Enqueue(selectorObject);
         }
     }
@@ -433,7 +435,7 @@ public class CarRouletteScript : MonoBehaviour
         rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].GetComponent<Image>().sprite = images[0];
         rouletteObjects[selectorObject.GetComponent<SymbolScript>().carPosition].SetActive(true);
         yield return new WaitForSeconds(7f);
-       // selectorObject.SetActive(false);
+        // selectorObject.SetActive(false);
         ResetData();
     }
 
@@ -479,7 +481,7 @@ public class CarRouletteScript : MonoBehaviour
             {
                 GameObject selectorObject = activeSelectors[0];
                 activeSelectors.RemoveAt(0);
-              //  selectorObject.SetActive(false);
+                //  selectorObject.SetActive(false);
                 selectorPool.Enqueue(selectorObject);
             }
 
@@ -493,7 +495,7 @@ public class CarRouletteScript : MonoBehaviour
         rotateCoroutine = StartCoroutine(RotateRoulette(startAniIndex));
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(ChangeDelay(0.01f, 4f));
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         yield return StartCoroutine(ChangeDelay(0.3f, 4f));
     }
     IEnumerator ChangeDelay(float targetDelay, float duration)
@@ -1190,6 +1192,7 @@ public class CarRouletteScript : MonoBehaviour
 
     public void GetCarRouletteBet(int boxNo, int chipNo)
     {
+
         switch (boxNo)
         {
             case 1:// lamborghini
@@ -1292,7 +1295,35 @@ public class CarRouletteScript : MonoBehaviour
         UpdateBoardPrice();
     }
 
+    int totalBet;
+    public TextMeshProUGUI totalBetText;
+    public void TotalBetSet(int chipNo)
+    {
+        switch (chipNo)
+        {
+            case 0:
+                totalBet += 10;
+                break;
+            case 1:
+                totalBet += 50;
+                break;
+            case 2:
+                totalBet += 100;
+                break;
+            case 3:
+                totalBet += 500;
+                break;
+            case 4:
+                totalBet += 1000;
+                break;
+            default:
+                Console.WriteLine("Invalid chip number");
+                break;
+        }
 
+        Debug.Log("_TOtal amount  => " + totalBet);
+        totalBetText.text = "Total Bet = " + totalBet;
+    }
     public void FindDataAdminRouletee()
     {
 
@@ -1382,6 +1413,8 @@ public class CarRouletteScript : MonoBehaviour
 
     IEnumerator StartBettingOff()
     {
+        totalBet = 0;
+        totalBetText.text = "Total Bet = 0";
         print("______________________start betting is called_________________________________");
         foreach (GameObject obj in rouletteObjects)
         {
@@ -1484,18 +1517,18 @@ public class CarRouletteScript : MonoBehaviour
     public List<GameObject> stopObjects;
     public void StopAnimationPlay()
     {
-       /* Sequence sequence = DOTween.Sequence();
+        /* Sequence sequence = DOTween.Sequence();
 
-        foreach (GameObject obj in stopObjects)
-        {
-            sequence.AppendCallback(() => obj.SetActive(true));
-            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
-            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
-            sequence.AppendInterval(delayBetweenAnimations);
-        }
+         foreach (GameObject obj in stopObjects)
+         {
+             sequence.AppendCallback(() => obj.SetActive(true));
+             sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+             sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+             sequence.AppendInterval(delayBetweenAnimations);
+         }
 
-        // Play the sequence
-        sequence.Play();*/
+         // Play the sequence
+         sequence.Play();*/
     }
 
     public void betAnimationONOff(bool isStart)

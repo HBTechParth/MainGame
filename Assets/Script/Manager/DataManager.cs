@@ -784,10 +784,13 @@ public class DataManager : MonoBehaviour
         JSONNode values = JSON.Parse(request.downloadHandler.text.ToString());
         JSONNode data = JSON.Parse(values["data"].ToString());
 
-        if(request.error != "")
+        if (SceneManager.GetActiveScene().name == "Ludo")
         {
-            //Debug.Log("DebitError = " + request.error);
-            Invoke(nameof(LudoManager.Instance.AddBetAmount), 1f);
+            if (request.error != "")
+            {
+                // Debug.Log("DebitError = " + request.error);
+                Invoke(nameof(LudoManager.Instance.AddBetAmount), 1f);
+            }
         }
         print("Debit Time Value : " + request.downloadHandler.text);
         Setplayerdata(data);

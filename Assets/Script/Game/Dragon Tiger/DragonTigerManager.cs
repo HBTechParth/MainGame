@@ -1127,6 +1127,9 @@ public class DragonTigerManager : MonoBehaviour
         
         isEnterBetStop = true;
         startBetObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+        StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         _isClickAvailable = true;
         if (isAdmin)
         {
@@ -1156,11 +1159,48 @@ public class DragonTigerManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.35f);
         startBetObj.SetActive(false);
+        betAnimationONOff(true);
         RestartTimer();
        // DragonTigerAIManager.Instance.isActive = true;
 
     }
+    public List<GameObject> objects;  // List of objects to animate
+    public List<GameObject> stopObjects;
 
+    public void StartAnimationPlay(List<GameObject> objects, Vector3 zoomScale, float zoomDuration, float delayBetweenAnimations)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in objects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
+    }
+    public void betAnimationONOff(bool isStart)
+    {
+        if (isStart)
+        {
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
+
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < stopObjects.Count; i++)
+            {
+                stopObjects[i].SetActive(false);
+            }
+        }
+    }
     public void SetUpPlayer()
     {
         int cnt = 1;
@@ -1195,7 +1235,8 @@ public class DragonTigerManager : MonoBehaviour
                 DragonTigerPlayerList[i].gameObject.SetActive(false);
                 DragonTigerPlayerList[i].playerId = "";
                 DragonTigerPlayerList[i].playerNameTxt.text = "";
-                print("--------------------Player is getting active false------------------------------------------");
+                print("-------------------- Player is getting active false ------------------------------------------");
+                
             }
         }
 
@@ -1209,6 +1250,9 @@ public class DragonTigerManager : MonoBehaviour
         
         isEnterBetStop = true;
         stopBetObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+        StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         DragonTigerAIManager.Instance.isActive = false;
         if ( isAdmin)
         {
@@ -1221,7 +1265,8 @@ public class DragonTigerManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         stopBetObj.SetActive(false);
-        
+        betAnimationONOff(false);
+
         Card_Open_Match();
     }
     
