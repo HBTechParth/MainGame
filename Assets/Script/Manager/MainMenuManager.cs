@@ -1830,6 +1830,8 @@ public class MainMenuManager : MonoBehaviour
             }
             else if (DataManager.Instance.joinPlayerDatas.Count == 1)
             {
+                Debug.Log("3");
+
                 GenerateNoPlayersFound();
                 return;
             }
@@ -1910,6 +1912,8 @@ public class MainMenuManager : MonoBehaviour
             }
             else if (DataManager.Instance.joinPlayerDatas.Count < 4)
             {
+                Debug.Log("4");
+
                 GenerateNoPlayersFound();
             }
         }

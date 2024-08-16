@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
+  m_IndirectSpecularColor: {r: 0.3708987, g: 0.37837064, b: 0.35722545, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16438,6 +16438,7 @@ MonoBehaviour:
   menuScreenObj: {fileID: 828936086}
   ruleScreenObj: {fileID: 473372744}
   errorScreenObj: {fileID: 1895140916}
+  waitNextRoundScreenObj: {fileID: 0}
   lineCanvas: {fileID: 2007164985}
   rocketCanvas: {fileID: 744878103}
   bettingScene: {fileID: 1540562434}
@@ -16445,10 +16446,10 @@ MonoBehaviour:
   fixTimerValue: 16
   downValue: -3.5
   upValue: -3.4
-  minBetAreaX: 9.3
-  maxBetAreaX: 2.99
-  minBetAreaY: 3.85
-  maxBetAreaY: 0.02
+  minBetAreaX: 9
+  maxBetAreaX: 3
+  minBetAreaY: 3.2
+  maxBetAreaY: 0.1
   selectChipNo: 0
   bettingArea: {fileID: 443115743}
   chipBtn:

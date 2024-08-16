@@ -53,8 +53,10 @@ public class AndarBaharManager : MonoBehaviour
     public Sprite cardBackSide;
 
     [Header("---Game Menu UI---")]
-    public Animator startBettingScreenObj;
-    public Animator stopBettingScreenObj;
+  //  public Animator startBettingScreenObj;
+    public GameObject startBettingScreenObj;
+   // public Animator stopBettingScreenObj;
+    public GameObject stopBettingScreenObj;
     public GameObject AndarPopUp;
     public GameObject BaharPopUp;
 
@@ -135,7 +137,7 @@ public class AndarBaharManager : MonoBehaviour
 
     public float totalInvestAndar;
     public float totalInvestBahar;
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image vibrationImg;
@@ -204,8 +206,8 @@ public class AndarBaharManager : MonoBehaviour
         CheckSound();
 
     }
-    
-    
+
+
 
 
     public void PlayerFound()
@@ -243,23 +245,27 @@ public class AndarBaharManager : MonoBehaviour
             playerFindUserNameTxt.text = DataManager.Instance.playerData.firstName;
             //playerFindScreenObj.SetActive(true);
         }
-        
+
     }
 
     void UpdateAndarBaharPrice()
     {
         mainPriceTxt.text = DataManager.Instance.playerData.balance;
     }
-    
+
     public void HistoryLoader(string data)
     {
-        if(data != "")
+        Debug.Log(data);
+        if (!string.IsNullOrEmpty(data))
         {
+            Debug.Log("data == " + data);
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
-        
+
+
         foreach (var t in winList)
         {
+            Debug.Log("T == " + t);
             HistoryTacker(t);
         }
     }
@@ -298,7 +304,7 @@ public class AndarBaharManager : MonoBehaviour
         waitNextRoundScreenObj.SetActive(false);
         playerFindScreenObj.SetActive(false);
         cardSufflesGen.Clear();
-        
+
         BotPlayerManager.Instance.UpdateBalance();
 
         SoundManager.Instance.CasinoTurnSound();
@@ -331,6 +337,9 @@ public class AndarBaharManager : MonoBehaviour
             Destroy(cardGenObj.transform.GetChild(i).gameObject);
         }
         startBettingScreenObj.gameObject.SetActive(true);
+        Vector3 customZoomScale = new Vector3(5.0f, 5.0f, 5.0f);
+        StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
+
         Invoke(nameof(StartBettingObjOff), 2.5f);
         for (int i = 0; i < andarPlayerObj.Count; i++)
         {
@@ -383,7 +392,7 @@ public class AndarBaharManager : MonoBehaviour
                 andarBaharPlayerList[i].playerNameTxt.text = "";
             }
         }
-        
+
         BotPlayerManager.Instance.Invoke(nameof(BotPlayerManager.StartBotBetting), 5f);
         print("Botplayer is called");
 
@@ -415,10 +424,12 @@ public class AndarBaharManager : MonoBehaviour
         popup.gameObject.SetActive(false);
         Destroy(particleEffect);
     }
-    
+
     void StartBettingObjOff()
     {
         startBettingScreenObj.gameObject.SetActive(false);
+        betAnimationONOff(true);
+
         isPlaceBet = true;
         CenterAnimation(cardSufflesGen[cardCnt]);
         cardCnt++;
@@ -426,6 +437,8 @@ public class AndarBaharManager : MonoBehaviour
     void StopBettingObjOff()
     {
         stopBettingScreenObj.gameObject.SetActive(false);
+        betAnimationONOff(false);
+
         ContinueGamePlay();
     }
 
@@ -519,6 +532,8 @@ public class AndarBaharManager : MonoBehaviour
         {
             isGamePlayContinue = true;
             stopBettingScreenObj.gameObject.SetActive(true);
+            Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+            StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
             Invoke(nameof(StopBettingObjOff), 2.5f);
             //StartCoroutine(StopBettingOff());
 
@@ -530,7 +545,43 @@ public class AndarBaharManager : MonoBehaviour
             timerTxt.text = timerValue.ToString();
         }
     }
+    public List<GameObject> objects;  // List of objects to animate
+    public List<GameObject> stopObjects;
 
+    public void StartAnimationPlay(List<GameObject> objects, Vector3 zoomScale, float zoomDuration, float delayBetweenAnimations)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in objects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
+    }
+    public void betAnimationONOff(bool isStart)
+    {
+        if (isStart)
+        {
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
+
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < stopObjects.Count; i++)
+            {
+                stopObjects[i].SetActive(false);
+            }
+        }
+    }
     #region Animation
 
     public void LeftAnimation(CardSuffle suffleData)
@@ -578,7 +629,7 @@ public class AndarBaharManager : MonoBehaviour
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
         Vector3 rightPos = rightCard.transform.position;
-        rightPos.x -= 0.3f;
+        rightPos.x -= 0.1f;
         obj.transform.DOMove(rightPos, 0.4f).OnComplete(() =>
         {
             SoundManager.Instance.CasinoCardSwipeSound();
@@ -829,60 +880,60 @@ public class AndarBaharManager : MonoBehaviour
     {
         winAnimationTxt.gameObject.SetActive(false);
     }
-    
+
     private void HistoryTacker(int winNo)
     {
         switch (winNo)
         {
             case 1:
-            {
-                var chip = Instantiate(AndarCard, HistoryCardHolder.transform);
-                historyCards.Add(chip);
-                var firstObject = historyCards[0];
-                historyCards.RemoveAt(0);
-                Destroy(firstObject);
-                break;
-            }
+                {
+                    var chip = Instantiate(AndarCard, HistoryCardHolder.transform);
+                    historyCards.Add(chip);
+                    var firstObject = historyCards[0];
+                    historyCards.RemoveAt(0);
+                    Destroy(firstObject);
+                    break;
+                }
             case 2:
-            {
-                var chip = Instantiate(BaharCard, HistoryCardHolder.transform);
-                historyCards.Add(chip);
-                var firstObject = historyCards[0];
-                historyCards.RemoveAt(0);
-                Destroy(firstObject);
-                break;
-            }
+                {
+                    var chip = Instantiate(BaharCard, HistoryCardHolder.transform);
+                    historyCards.Add(chip);
+                    var firstObject = historyCards[0];
+                    historyCards.RemoveAt(0);
+                    Destroy(firstObject);
+                    break;
+                }
             default:
-            {
-                print("No data to track");
-                break;
-            }
+                {
+                    print("No data to track");
+                    break;
+                }
         }
     }
-    
+
     private void UpdateHistoryCard(int num)
     {
         if (!isAdmin) return;
         winList.RemoveAt(0);
         winList.Add(num);
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
         }
-        
+
         DataManager.Instance.winList = string.Join(",", winList.Select(x => x.ToString()).ToArray());
         SetWinData(DataManager.Instance.winList);
     }
-    
+
     public void GetUpdatedHistory(string data)
     {
         if (isAdmin) return;
-        if(data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
@@ -1284,7 +1335,7 @@ public class AndarBaharManager : MonoBehaviour
         obj.AddField("WinList", DataManager.Instance.winList);
         TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);
     }
-    
+
     public void SetWinData(string winListData)
     {
         JSONObject obj = new JSONObject();
@@ -1292,7 +1343,7 @@ public class AndarBaharManager : MonoBehaviour
         //obj.AddField("DeckNo", 300);
         TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);
     }
-    
+
     public void SetTempNo(int tempNo, bool isRight, bool isLeft)
     {
         JSONObject obj = new JSONObject();
@@ -1316,7 +1367,7 @@ public class AndarBaharManager : MonoBehaviour
             {
                 waitNextRoundScreenObj.SetActive(false);
             }
-            
+
             HistoryLoader(data);
         }
     }
@@ -1338,7 +1389,7 @@ public class AndarBaharManager : MonoBehaviour
             }
         }
     }
-    
+
 
     public void ChangeAAdmin(string leavePlayerId, string adminId)
     {
@@ -1393,7 +1444,7 @@ public class AndarBaharManager : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     public void UserDataMaintain()
@@ -1543,12 +1594,12 @@ public class AndarBaharManager : MonoBehaviour
     #endregion
 
     #region WinnerDecider
-    
+
 
     public void IncrementAndar()
     {
         //Bahar win
-        if (cardSufflesGen[0].cardNo == cardSufflesGen[cardCnt].cardNo) 
+        if (cardSufflesGen[0].cardNo == cardSufflesGen[cardCnt].cardNo)
         {
             _tempBaharNum = cardCnt;
             _isBaharActive = true;
@@ -1573,8 +1624,8 @@ public class AndarBaharManager : MonoBehaviour
     }
 
     #endregion
-    
-    
+
+
     #region Sounds
 
     private void CheckSound()
@@ -1597,7 +1648,7 @@ public class AndarBaharManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
+
 
     public void VibrationButtonClick()
     {
@@ -1613,7 +1664,7 @@ public class AndarBaharManager : MonoBehaviour
             vibrationImg.sprite = vibrationonSprite;
         }
     }
-    
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -1634,7 +1685,7 @@ public class AndarBaharManager : MonoBehaviour
 
 
     #endregion
-    
+
 }
 public enum CardColorType
 {

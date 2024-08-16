@@ -542,11 +542,14 @@ public class TestSocketIO : MonoBehaviour
     {
         string activeSceneName = SceneManager.GetActiveScene().name;
 
+        Debug.Log("name      => " + activeSceneName);
+        Debug.Log("gameMode      => " + rummyJoinRoomTimeOver);
         if (activeSceneName != "Main" || !rummyJoinRoomTimeOver)
             return;
 
         rummyJoinRoomTimeOver = false;
 
+        Debug.Log("gameMode      => " + DataManager.Instance.gameMode);
         switch (DataManager.Instance.gameMode)
         {
             case GameType.Point_Rummy:
@@ -555,6 +558,7 @@ public class TestSocketIO : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas.Count == 1)
                 {
                     LeaveRoom();
+                    Debug.Log("1");
                     MainMenuManager.Instance.GenerateNoPlayersFound();
                     return;
                 }
@@ -581,6 +585,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 break;
         }
+        Debug.Log("2");
 
         MainMenuManager.Instance.GenerateNoPlayersFound();
     }

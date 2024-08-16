@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1672,12 +1672,12 @@ MonoBehaviour:
   - {fileID: 1374755971}
   totalBetText: {fileID: 1220415063}
   diceNumbers:
-  - {fileID: 2062609537, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: -193410901, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 1508607707, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 817926327, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: -764221936, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 754098173, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
+  - {fileID: 21300000, guid: 1c91c080cfbfa444dbf4b99def018d59, type: 3}
+  - {fileID: 21300000, guid: 8dba3f8ee2cff4649ae4d2a6f4ee64e6, type: 3}
+  - {fileID: 21300000, guid: 51c56e909f74dad4ba3d77c26da37a7b, type: 3}
+  - {fileID: 21300000, guid: 05db64893d7c7aa43b33291b4fe5a0d8, type: 3}
+  - {fileID: 21300000, guid: 9ad9d184fe899944bb6800c434964836, type: 3}
+  - {fileID: 21300000, guid: a4d136199030fb248a8d404a50eb3c6f, type: 3}
   diceRollObject: {fileID: 945112189}
   dice1: {fileID: 1275548503}
   dice2: {fileID: 347111629}
@@ -5468,7 +5468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1308998483
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7207,7 +7207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08426316, y: 0.16321051}
   m_AnchorMax: {x: 0.931579, y: 0.595}
-  m_AnchoredPosition: {x: 0.5, y: 0.30000305}
+  m_AnchoredPosition: {x: -1.5049973, y: 22.970001}
   m_SizeDelta: {x: -1, y: 0.17900085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662963205
@@ -7243,7 +7243,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 69
+  m_Text: 10
 --- !u!222 &1662963206
 CanvasRenderer:
   m_ObjectHideFlags: 0
