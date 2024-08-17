@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30947,6 +30947,7 @@ MonoBehaviour:
   andarBaharOtherPlayer: {fileID: 0}
   pokerOtherPlayer: {fileID: 0}
   ludoOtherPlayer: 
+  popMessage: 
 --- !u!114 &1937494068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37111,7 +37112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50.999996}
+  m_AnchoredPosition: {x: 12.999955, y: 51.999992}
   m_SizeDelta: {x: 259.172, y: 97.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8360890395051252802
@@ -37150,7 +37151,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -169}
+  m_AnchoredPosition: {x: 13, y: -168}
   m_SizeDelta: {x: 259.172, y: 97.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8360890395065474427
@@ -37269,7 +37270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 165}
+  m_AnchoredPosition: {x: 12.999955, y: 166}
   m_SizeDelta: {x: 259.172, y: 97.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8360890395174818657
@@ -37464,7 +37465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -59}
+  m_AnchoredPosition: {x: 12.999955, y: -58.000004}
   m_SizeDelta: {x: 259.172, y: 97.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8360890395489422683
@@ -37759,7 +37760,7 @@ GameObject:
   - component: {fileID: 8360890395707250592}
   - component: {fileID: 8360890395707250593}
   m_Layer: 5
-  m_Name: SettingsPanel
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38551,8 +38552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -162, y: 46.58}
-  m_SizeDelta: {x: 321.1, y: 507.48}
+  m_AnchoredPosition: {x: -141, y: 0.0000038147}
+  m_SizeDelta: {x: 341.27, y: 534.77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8360890396255834449
 GameObject:
@@ -38600,7 +38601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 415c1bc14f15b2d4a88b121f14fd9a87, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e96516bd4b54af4eab64dedc87788b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

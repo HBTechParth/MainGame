@@ -8,7 +8,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using TMPro;
 public class AndarBaharManager : MonoBehaviour
 {
 
@@ -53,9 +53,9 @@ public class AndarBaharManager : MonoBehaviour
     public Sprite cardBackSide;
 
     [Header("---Game Menu UI---")]
-  //  public Animator startBettingScreenObj;
+    //  public Animator startBettingScreenObj;
     public GameObject startBettingScreenObj;
-   // public Animator stopBettingScreenObj;
+    // public Animator stopBettingScreenObj;
     public GameObject stopBettingScreenObj;
     public GameObject AndarPopUp;
     public GameObject BaharPopUp;
@@ -583,7 +583,9 @@ public class AndarBaharManager : MonoBehaviour
         }
     }
     #region Animation
-
+    public GameObject historyObj;
+    public Transform historyObjParent;
+    public List<Sprite> historySprite;
     public void LeftAnimation(CardSuffle suffleData)
     {
         GameObject obj = Instantiate(leftCard, cardGenObj.transform);
@@ -603,6 +605,8 @@ public class AndarBaharManager : MonoBehaviour
                    {
                        if (suffleData.cardNo == cardSufflesGen[0].cardNo)
                        {
+                           HistoryObjGen(historySprite[1], cardSufflesGen[0].cardSprite.name);
+                           Debug.Log("SPrite Name  = >" + cardSufflesGen[0].cardSprite.name);
                            isAndarWin = true;
                            isBaharWin = false;
                            WinEnter();
@@ -620,6 +624,42 @@ public class AndarBaharManager : MonoBehaviour
             //obj.transform.DORotate(new Vector3(0, -90, 0), 0.2f).OnComplete(() =>
 
         });
+    }
+
+    public void HistoryObjGen(Sprite objSprite, string num)
+    {
+        if (historyObjParent.childCount >= 8)
+        {
+            for (int i = 0; i < historyObjParent.childCount; i++)
+            {
+                Destroy(historyObjParent.GetChild(i).gameObject);
+            }
+        }
+
+        // Convert the number to the corresponding letter if applicable
+        string displayText = num;
+        switch (num)
+        {
+            case "1":
+                displayText = "A";
+                break;
+            case "11":
+                displayText = "K";
+                break;
+            case "12":
+                displayText = "Q";
+                break;
+            case "13":
+                displayText = "J";
+                break;
+            default:
+                break;
+        }
+
+        // Instantiate the history object
+        GameObject g = Instantiate(historyObj, historyObjParent);
+        g.GetComponent<Image>().sprite = objSprite;
+        g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = displayText;
     }
 
     public void RightAnimation(CardSuffle suffleData)
@@ -640,6 +680,8 @@ public class AndarBaharManager : MonoBehaviour
                 {
                     if (suffleData.cardNo == cardSufflesGen[0].cardNo)
                     {
+                        HistoryObjGen(historySprite[0], cardSufflesGen[0].cardSprite.name);
+                        Debug.Log("SPrite Name  = >" + cardSufflesGen[0].cardSprite.name);
                         isBaharWin = true;
                         isAndarWin = false;
                         WinEnter();

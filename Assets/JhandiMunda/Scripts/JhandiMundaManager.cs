@@ -454,7 +454,7 @@ public class JhandiMundaManager : MonoBehaviour
             item.GetComponent<Animator>().enabled = true;
         
 
-        Invoke(nameof(GenerateDiceNumbers), 2f);
+        Invoke(nameof(GenerateDiceNumbers), 3f);
     }
 
     public void GenerateDiceNumbers()
@@ -986,9 +986,12 @@ public class JhandiMundaManager : MonoBehaviour
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         startBetObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
+        StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         yield return new WaitForSeconds(1.35f);
         startBetObj.SetActive(false);
-
+        betAnimationONOff(true);
         RestartTimer();
     }
 
@@ -999,6 +1002,9 @@ public class JhandiMundaManager : MonoBehaviour
         _isClickAvailable = false;
         isEnterBetStop = true;
         stopBetObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
+        StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         JhandiMundaAIManager.Instance.isActive = false;
         if (isAdmin)
         {
@@ -1012,10 +1018,46 @@ public class JhandiMundaManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         stopBetObj.SetActive(false);
+        betAnimationONOff(false);
         RollDice();
 
     }
+    public List<GameObject> objects;  // List of objects to animate
+    public List<GameObject> stopObjects;
 
+    public void StartAnimationPlay(List<GameObject> objects, Vector3 zoomScale, float zoomDuration, float delayBetweenAnimations)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        foreach (GameObject obj in objects)
+        {
+            sequence.AppendCallback(() => obj.SetActive(true));
+            sequence.Append(obj.transform.DOScale(zoomScale, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.Append(obj.transform.DOScale(Vector3.one, zoomDuration).SetEase(Ease.OutQuad));
+            sequence.AppendInterval(delayBetweenAnimations);
+        }
+
+        // Play the sequence
+        sequence.Play();
+    }
+    public void betAnimationONOff(bool isStart)
+    {
+        if (isStart)
+        {
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < stopObjects.Count; i++)
+            {
+                stopObjects[i].SetActive(false);
+            }
+        }
+    }
     public void RestartTimer()
     {
         for (int i = 0; i < betValueOnSymbols.Length; i++)
