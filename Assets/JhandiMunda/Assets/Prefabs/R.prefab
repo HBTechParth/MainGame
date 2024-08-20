@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9
+  m_Text: 3
 --- !u!1 &8689858814065364827
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,15 +142,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b0eb2c41e6bf0a2468e03ef28ffd169d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d178ab6bf303af34898e91399fe9f8df, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -173,6 +173,6 @@ MonoBehaviour:
   WinnedText: {fileID: 8689858812301401241}
   Winned: 2
   ResList:
-  - {fileID: 21300000, guid: f67aa849cac05854e9465f1c7f99dffb, type: 3}
-  - {fileID: 21300000, guid: 6eb7a64de89e3ac4aa80848848e47d5d, type: 3}
+  - {fileID: 21300000, guid: d178ab6bf303af34898e91399fe9f8df, type: 3}
+  - {fileID: 21300000, guid: 6918c7febfc6292488d04d735a08e4ed, type: 3}
   Hidden: 1

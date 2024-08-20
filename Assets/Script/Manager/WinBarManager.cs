@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using DG.Tweening;
 
 public class WinBarManager : MonoBehaviour
 {
     public TextMeshProUGUI winBarText; // Reference to the UI Text element
 
     private List<string> playerNames;
-    private string[] gameNames = { "Joker", "Deal Rummy", "Poker", "Teen Patti", "Ludo", "Jhandi Munda", "Andar Bahar", "Roulette", "CarRoulette", "AK 47", "7Up Down", "Point Rummy", "Pool Rummy", "Dragon Tiger", "Avaitor" };
+    private string[] gameNames = { "Joker", "Deal Rummy", "Poker", "Teen Patti", "Ludo", "Jhandi Munda", "Andar Bahar", "Roulette", "CarRoulette", "AK47 TeenPatti", "7Up Down", "Point Rummy", "Pool Rummy", "Dragon Tiger", "Avaitor" };
 
     private List<string> remainingNames;
 
@@ -163,11 +164,17 @@ public class WinBarManager : MonoBehaviour
             string randomGame = gameNames[Random.Range(0, gameNames.Length)];
             int randomAmount = GenerateRandomAmount();
 
+            winBarText.transform.localScale = new Vector3(0.1f, 0.1f, 1f); // Set initial scale
+            winBarText.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.Linear);
             winBarText.text = $"{randomPlayer} won {randomAmount} in {randomGame}";
 
             yield return new WaitForSeconds(3f);
+            winBarText.transform.DOScale(new Vector3(0f, 0f, 0f), 0.5f).SetEase(Ease.Linear);
+            yield return new WaitForSeconds(1f);
+            // Set initial scale
         }
     }
+
     public int GenerateRandomAmount()
     {
         // Generate a random number between 0 and 1
