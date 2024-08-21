@@ -63,6 +63,19 @@ public class InternetPanel : MonoBehaviour
         Application.Quit();
         
     }
+  public  void QuitGame()
+    {
+#if UNITY_EDITOR
+        // If you are running in the Unity editor, stop playing the scene
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_ANDROID
+        // Quit the application on Android
+        Application.Quit();
+#endif
+        Destroy(this.gameObject);
+        TestSocketIO.Instace.LeaveRoom();
+
+    }
 
     public void CloseButtonClick()
     {

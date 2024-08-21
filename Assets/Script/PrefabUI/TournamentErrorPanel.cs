@@ -22,6 +22,7 @@ public class TournamentErrorPanel : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         MainMenuManager.Instance.screenObj.Remove(this.gameObject);
         Destroy(this.gameObject);
+        TestSocketIO.Instace.LeaveRoom();
         SceneManager.LoadScene("Main");
     }
 

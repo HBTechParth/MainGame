@@ -17,7 +17,8 @@ public class CheckMaintainServer : MonoBehaviour
 
     public void GetMaintanance()
     {
-        StartCoroutine(GetMaintanances());
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+            StartCoroutine(GetMaintanances());
     }
 
     IEnumerator GetMaintanances()
@@ -50,7 +51,6 @@ public class CheckMaintainServer : MonoBehaviour
 
             serverMaintain.SetActive(false);
             Time.timeScale = 1;
-
         }
         else
         {
@@ -64,6 +64,7 @@ public class CheckMaintainServer : MonoBehaviour
     {
         string str = s;
         string newstr = str.Replace("\"", "");
+
         return newstr;
     }
 }

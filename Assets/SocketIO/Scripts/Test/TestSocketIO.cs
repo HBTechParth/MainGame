@@ -33,14 +33,14 @@ public class TestSocketIO : MonoBehaviour
     public int sevenUpDownRequirePlayer;
     public int rouletteRequirePlayer;
     public int ludoRequirePlayer;
-    
+
 
     private void Awake()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instace = this;
     }
-    public void Start()
+    void Start()
     {
         DontDestroyOnLoad(gameObject);
         GameObject go = GameObject.Find("SocketIO");
@@ -51,6 +51,9 @@ public class TestSocketIO : MonoBehaviour
         socket.On("close", TestClose);
         socket.On("res", HandelEvents);
     }
+
+    
+
 
     public void TestOpen(SocketIOEvent e)
     {
@@ -90,9 +93,9 @@ public class TestSocketIO : MonoBehaviour
             case "join":
                 setroomid(data.data.ToString());
                 break;
-                //case "gameStart":
-                //setroomid(data.data.ToString());
-                //break;
+            //case "gameStart":
+            //setroomid(data.data.ToString());
+            //break;
 
             case "lobbyStat":
                 LobbyStatusUpdate(data.data.ToString());
@@ -135,7 +138,7 @@ public class TestSocketIO : MonoBehaviour
                 break;
             case "disconnect":
                 //if (DataManager.Instance.gameMode != GameType.Point_Rummy)
-                    ResetRole(data.data.ToString());
+                ResetRole(data.data.ToString());
                 break;
             case "moveuser":
                 ResetRole(data.data.ToString());
@@ -297,13 +300,13 @@ public class TestSocketIO : MonoBehaviour
             case "CardDiscarded":
                 SetDiscardCard(values.ToString());
                 break;
-                case "RequestShow":
+            case "RequestShow":
                 CallArrangeShowPopUp(values.ToString());
                 break;
-                case "SubmitShow":
+            case "SubmitShow":
                 HandleWinScreen(values.ToString());
                 break;
-                case "ReturnCardsToDeck":
+            case "ReturnCardsToDeck":
                 ReturnCardsToDeck(values.ToString());
                 break;
 
@@ -345,7 +348,7 @@ public class TestSocketIO : MonoBehaviour
         {
             socket.Emit("join", userdata);
         }
-        
+
         print("This is the data -> " + userdata);
     }
 
@@ -416,7 +419,7 @@ public class TestSocketIO : MonoBehaviour
             socket.Emit("join", userdata);
         }
     }
-    
+
     public void SnakeJoinRoom()
     {
         JSONObject userdata = new JSONObject();
@@ -520,7 +523,7 @@ public class TestSocketIO : MonoBehaviour
         print("This is sending data -> " + keys);
         socket.Emit("setBetData", keys);
     }
-    
+
     public void GetBetData()
     {
         JSONObject keys = new JSONObject();
@@ -528,7 +531,7 @@ public class TestSocketIO : MonoBehaviour
         print("SendData Form GETBETDATA===:::" + keys);
         socket.Emit("getBetData", keys);
     }
-    
+
     public void GetCarBetData()
     {
         JSONObject keys = new JSONObject();
@@ -555,11 +558,19 @@ public class TestSocketIO : MonoBehaviour
             case GameType.Point_Rummy:
             case GameType.Pool_Rummy:
             case GameType.Deal_Rummy:
-                if (DataManager.Instance.joinPlayerDatas.Count == 1)
+                /* if (DataManager.Instance.joinPlayerDatas.Count == 1)
+                 {
+                     LeaveRoom();
+                     Debug.Log("1");
+                     MainMenuManager.Instance.GenerateNoPlayersFound();
+                     return;
+                 }
+                 else
+                 {*/
+                Debug.Log("Player => " + DataManager.Instance.joinPlayerDatas.Count);
+                if (DataManager.Instance.joinPlayerDatas.Count >= pointRummyRequirePlayer)
                 {
-                    LeaveRoom();
-                    Debug.Log("1");
-                    MainMenuManager.Instance.GenerateNoPlayersFound();
+                    SceneManager.LoadScene(DataManager.Instance.GetModeToSceneName(DataManager.Instance.gameMode));
                     return;
                 }
                 break;
@@ -595,7 +606,7 @@ public class TestSocketIO : MonoBehaviour
 
     public void LobbyStatusUpdate(string data)
     {
-        
+
         if (SceneManager.GetActiveScene().name == "Main")
         {
             print("Lobby stat called " + data.ToString());
@@ -653,7 +664,7 @@ public class TestSocketIO : MonoBehaviour
                 TeenPattiManager.Instance.ResetBot();
                 PokerGameManager.Instance.ResetBot();
             }*/
-            
+
 
             //print("teen Pattoi : " + );
             if (SceneManager.GetActiveScene().name == "Main")
@@ -762,9 +773,9 @@ public class TestSocketIO : MonoBehaviour
             //{
             //    MainMenuManager.Instance.CheckPlayers();
             //}
-            
 
-            
+
+
         }
 
         if (obj["users"][0]["maxp"] == 99999)
@@ -777,7 +788,7 @@ public class TestSocketIO : MonoBehaviour
                 if (values["data"]["users"][i]["name"] != null && values["data"]["users"][i]["userId"] != null && values["data"]["users"][i]["lobbyId"] != null)
                 {
                     DataManager.Instance.AddRoomUser(values["data"]["users"][i]["userId"], values["data"]["users"][i]["name"], values["data"]["users"][i]["lobbyId"], values["data"]["users"][i]["balance"], i, values["data"]["users"][i]["avtar"]);
-                    
+
                 }
             }
             //if (obj["users"].Count )
@@ -810,33 +821,33 @@ public class TestSocketIO : MonoBehaviour
                     CarRouletteScript.Instance.NewPlayerEnter();
                 }
             }
-            if(obj["users"].Count >= sevenUpDownRequirePlayer && SceneManager.GetActiveScene().name == "7UpDown")
+            if (obj["users"].Count >= sevenUpDownRequirePlayer && SceneManager.GetActiveScene().name == "7UpDown")
             {
                 if (SevenUpDownManager.Instance != null)
                 {
                     SevenUpDownManager.Instance.SetUpPlayers();
                 }
             }
-            if(obj["users"].Count >= sevenUpDownRequirePlayer && SceneManager.GetActiveScene().name == "JhandiMunda")
+            if (obj["users"].Count >= sevenUpDownRequirePlayer && SceneManager.GetActiveScene().name == "JhandiMunda")
             {
                 if (JhandiMundaManager.Instance != null)
                 {
                     JhandiMundaManager.Instance.SetUpPlayers();
                 }
             }
-            
+
             // for dragon tiger
             string winData = obj["WinList"]["WinList"];
             DataManager.Instance.listString = winData;
-            
+
             // for Aviator
             string winPoints = obj["WinList"]["PointList"];
             DataManager.Instance.historyPoints = winPoints;
-            
+
             // for roulette
             string winRecord = obj["gameData"]["WinList"];
             DataManager.Instance.winRecord = winRecord;
-            
+
             // for Car roulette
             string historyRecord = obj["gameData"]["WinList"];
             DataManager.Instance.historyRecord = historyRecord;
@@ -874,7 +885,7 @@ public class TestSocketIO : MonoBehaviour
                     AndarBaharManager.Instance.PlayerFound();
                 }
             }
-            
+
             string winData = obj["gameData"]["WinList"];
             print("This is receving Win data - > " + winData);
             DataManager.Instance.winList = winData;
@@ -940,17 +951,17 @@ public class TestSocketIO : MonoBehaviour
                         values["data"]["users"][i]["name"], values["data"]["users"][i]["lobbyId"],
                         values["data"]["users"][i]["balance"], pNo, values["data"]["users"][i]["avtar"]);
             }
-            
+
 
             if (SceneManager.GetActiveScene().name != "Ludo") return;
             if (LudoManager.Instance == null) return;
             LudoManager.Instance.PlayerJoined();
         }
-        
+
     }
 
     #region Snake&Ladder
-    
+
     public void StartGameBot(string roomId, string tourId)
     {
         JSONObject obj = new JSONObject();
@@ -959,7 +970,7 @@ public class TestSocketIO : MonoBehaviour
         obj.AddField("userId", DataManager.Instance.playerData._id.Trim('"'));
         socket.Emit("gameStart", obj);
     }
-    
+
     public void SetSnakeDiceData(string values)
     {
         if (SceneManager.GetActiveScene().name == "Snake")
@@ -979,7 +990,7 @@ public class TestSocketIO : MonoBehaviour
             }
         }
     }
-    
+
     public void SetSnakeChangeDiceData(string values)
     {
         if (SceneManager.GetActiveScene().name == "Snake")
@@ -1019,7 +1030,7 @@ public class TestSocketIO : MonoBehaviour
             }
         }
     }
-    
+
     public void SetSnakeData(string values)
     {
         if (SceneManager.GetActiveScene().name == "Snake")
@@ -1044,14 +1055,14 @@ public class TestSocketIO : MonoBehaviour
 
     }
 
-    
+
     public string RemoveQuotes(string s)
     {
         string str = s;
         string newstr = str.Replace("\"", "");
         return newstr;
     }
-    
+
     public void GameStart(string values)
     {
         JSONNode keys = JSON.Parse(values.ToString());
@@ -1076,14 +1087,14 @@ public class TestSocketIO : MonoBehaviour
         }
     }
 
-    
-    
+
+
 
     #endregion
-    
-    
 
-    
+
+
+
 
     #region Ludo
     public void SetLudoData(string values)
@@ -1247,7 +1258,7 @@ public class TestSocketIO : MonoBehaviour
                         {
                             if (Application.platform == RuntimePlatform.Android)
                             {
-                                
+
                                 MMNVAndroid.AndroidVibrate(100);
                             }
                         }
@@ -1546,7 +1557,7 @@ public class TestSocketIO : MonoBehaviour
                         LudoManager.Instance.isAdmin = false;
                         LudoManager.Instance.isAdminPause = false;
                         BotManager.Instance.isConnectBot = false;
-                        
+
                     }
                 }
                 else
@@ -1589,49 +1600,49 @@ public class TestSocketIO : MonoBehaviour
         switch (parent)
         {
             case 1:
-            {
-                LudoManager.Instance.cntPlayer1 = lifeLost;
-                for (int i = 0; i < LudoManager.Instance.box1Lifes.Length; i++)
                 {
-                    if (i < LudoManager.Instance.cntPlayer1)
-                        LudoManager.Instance.box1Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    LudoManager.Instance.cntPlayer1 = lifeLost;
+                    for (int i = 0; i < LudoManager.Instance.box1Lifes.Length; i++)
+                    {
+                        if (i < LudoManager.Instance.cntPlayer1)
+                            LudoManager.Instance.box1Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    }
+                    break;
                 }
-                break;
-            }
             case 2:
-            {
-                LudoManager.Instance.cntPlayer2 = lifeLost;
-                for (int i = 0; i < LudoManager.Instance.box2Lifes.Length; i++)
                 {
-                    if (i < LudoManager.Instance.cntPlayer2)
-                        LudoManager.Instance.box2Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    LudoManager.Instance.cntPlayer2 = lifeLost;
+                    for (int i = 0; i < LudoManager.Instance.box2Lifes.Length; i++)
+                    {
+                        if (i < LudoManager.Instance.cntPlayer2)
+                            LudoManager.Instance.box2Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    }
+                    break;
                 }
-                break;
-            }
             case 3:
-            {
-                LudoManager.Instance.cntPlayer3 = lifeLost;
-                for (int i = 0; i < LudoManager.Instance.box3Lifes.Length; i++)
                 {
-                    if (i < LudoManager.Instance.cntPlayer3)
-                        LudoManager.Instance.box3Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    LudoManager.Instance.cntPlayer3 = lifeLost;
+                    for (int i = 0; i < LudoManager.Instance.box3Lifes.Length; i++)
+                    {
+                        if (i < LudoManager.Instance.cntPlayer3)
+                            LudoManager.Instance.box3Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    }
+                    break;
                 }
-                break;
-            }
             case 4:
-            {
-                LudoManager.Instance.cntPlayer4 = lifeLost;
-                for (int i = 0; i < LudoManager.Instance.box3Lifes.Length; i++)
                 {
-                    if (i < LudoManager.Instance.cntPlayer4)
-                        LudoManager.Instance.box4Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    LudoManager.Instance.cntPlayer4 = lifeLost;
+                    for (int i = 0; i < LudoManager.Instance.box3Lifes.Length; i++)
+                    {
+                        if (i < LudoManager.Instance.cntPlayer4)
+                            LudoManager.Instance.box4Lifes[i].color = LudoManager.Instance.lifeOffColor;
+                    }
+                    break;
                 }
-                break;
-            }
         }
 
     }
-    
+
     public void SetLudoStopDiceData(string values)
     {
         if (SceneManager.GetActiveScene().name == "Ludo")
@@ -1806,11 +1817,11 @@ public class TestSocketIO : MonoBehaviour
             }
         }
     }
-    
-    
 
-    
-    
+
+
+
+
     public void MatchEnded()
     {
         JSONObject obj = new JSONObject();
@@ -1846,7 +1857,7 @@ public class TestSocketIO : MonoBehaviour
                 TeenPattiManager.Instance.GetPlayerTurn(playerNo);
             }
         }
-        else if(SceneManager.GetActiveScene().name == "Joker")
+        else if (SceneManager.GetActiveScene().name == "Joker")
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
@@ -1864,7 +1875,7 @@ public class TestSocketIO : MonoBehaviour
                 JokerManager.Instance.GetPlayerTurn(playerNo);
             }
         }
-        else if(SceneManager.GetActiveScene().name == "AK47")
+        else if (SceneManager.GetActiveScene().name == "AK47")
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
@@ -1938,14 +1949,14 @@ public class TestSocketIO : MonoBehaviour
         }
 
     }
-    
+
     public void SetBotBetTeenPatti(string values)
     {
         if (SceneManager.GetActiveScene().name == "TeenPatti")
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
-            
+
             string playerId = data["PlayerID"];
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
@@ -1953,7 +1964,7 @@ public class TestSocketIO : MonoBehaviour
             int botPlayerNo = data["BotPlayerNo"];
             float amount = data["CurrentAmount"];
             int index = data["CurrentIndex"];
-            
+
             if (tourId == DataManager.Instance.tournamentID && playerId != DataManager.Instance.playerData._id)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -1965,7 +1976,7 @@ public class TestSocketIO : MonoBehaviour
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
-            
+
             string playerId = data["PlayerID"];
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
@@ -1985,7 +1996,7 @@ public class TestSocketIO : MonoBehaviour
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
-            
+
             string playerId = data["PlayerID"];
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
@@ -2166,7 +2177,7 @@ public class TestSocketIO : MonoBehaviour
     }
     public void HandelWinTeenPatti(string values)
     {
-        
+
         if (SceneManager.GetActiveScene().name == "TeenPatti")
         {
             JSONNode value = JSON.Parse(values);
@@ -2304,7 +2315,7 @@ public class TestSocketIO : MonoBehaviour
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID /*&& playerId == DataManager.Instance.playerData._id*/ && sRoomId == DataManager.Instance.gameId)
             {
-                
+
                 PointRummyManager.Instance.GetCardStatus(cardStatus, playerNo);
             }
         }
@@ -2321,7 +2332,7 @@ public class TestSocketIO : MonoBehaviour
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID /*&& playerId == DataManager.Instance.playerData._id*/ && sRoomId == DataManager.Instance.gameId)
             {
-                
+
                 PoolRummyManager.Instance.GetCardStatus(cardStatus, playerNo);
             }
         }
@@ -2338,11 +2349,11 @@ public class TestSocketIO : MonoBehaviour
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID /*&& playerId == DataManager.Instance.playerData._id*/ && sRoomId == DataManager.Instance.gameId)
             {
-                
+
                 DealRummyManager.Instance.GetCardStatus(cardStatus, playerNo);
             }
         }
-        
+
 
 
     }
@@ -2544,7 +2555,7 @@ public class TestSocketIO : MonoBehaviour
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
 
-            if(tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
+            if (tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
             {
                 PointRummyManager.Instance.PlayerRequestFinishGame(playerNo);
             }
@@ -2559,7 +2570,7 @@ public class TestSocketIO : MonoBehaviour
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
 
-            if(tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
+            if (tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
             {
                 PoolRummyManager.Instance.PlayerRequestFinishGame(playerNo);
             }
@@ -2574,7 +2585,7 @@ public class TestSocketIO : MonoBehaviour
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
 
-            if(tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
+            if (tourId == DataManager.Instance.tournamentID && !playerId.Equals(DataManager.Instance.playerData._id) && sRoomId == DataManager.Instance.gameId)
             {
                 DealRummyManager.Instance.PlayerRequestFinishGame(playerNo);
             }
@@ -2671,7 +2682,7 @@ public class TestSocketIO : MonoBehaviour
             string status = data["Status"];
             int validDeclaration = data["ValidDeclaration"];// 0 = true/ 1 = false
             int dropped = data["Dropped"];// 0 = true/ 1 = false
-            
+
             if (tourId == DataManager.Instance.tournamentID && sRoomId == DataManager.Instance.gameId)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -2702,7 +2713,7 @@ public class TestSocketIO : MonoBehaviour
                                 float totalscore = 0;
                                 foreach (var item in PointRummyManager.Instance.teenPattiPlayers)
                                     totalscore += item.points;
-                                
+
                                 PointRummyManager.Instance.resultStatusText[i].text = "Won";
                                 PointRummyManager.Instance.resultAmountText[i].text = "₹" + (totalscore * DataManager.Instance.pointValue);
                             }
@@ -2744,7 +2755,7 @@ public class TestSocketIO : MonoBehaviour
                         }
                     }
                 }
-                    //PointRummyManager.Instance.resultTransform[index].gameObject.SetActive(true)
+                //PointRummyManager.Instance.resultTransform[index].gameObject.SetActive(true)
 
                 if (PointRummyManager.Instance.isGameComplete)
                     PointRummyManager.Instance.FinalResult();
@@ -2766,7 +2777,7 @@ public class TestSocketIO : MonoBehaviour
             int validDeclaration = data["ValidDeclaration"];// 0 = true/ 1 = false
             int dropped = data["Dropped"];// 0 = true/ 1 = false
             float gameScore = data["GamePoints"];
-            
+
             if (tourId == DataManager.Instance.tournamentID && sRoomId == DataManager.Instance.gameId)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -2775,7 +2786,7 @@ public class TestSocketIO : MonoBehaviour
                 int _counter = 0;
                 foreach (var item in PoolRummyManager.Instance.playerSquList)
                 {
-                    if(item.playerNo == playerNo)
+                    if (item.playerNo == playerNo)
                     {
                         item.gameScoreText.text = gameScore.ToString();
                         item.playerGamePoints = gameScore;
@@ -2784,7 +2795,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 for (int i = 0; i < PoolRummyManager.Instance.teenPattiPlayers.Count; i++)
                 {
-                    if(PoolRummyManager.Instance.teenPattiPlayers[i].playerNo == playerNo)
+                    if (PoolRummyManager.Instance.teenPattiPlayers[i].playerNo == playerNo)
                     {
                         if (i != 0)
                             PoolRummyManager.Instance.resultNamesText[i].text = PoolRummyManager.Instance.teenPattiPlayers[i].playerNameTxt.text;
@@ -2852,7 +2863,7 @@ public class TestSocketIO : MonoBehaviour
                         break;
                     }
                 }
-                
+
                 if (PoolRummyManager.Instance.isGameComplete)
                     PoolRummyManager.Instance.FinalResult();
                 if (!PoolRummyManager.Instance.isGameComplete && DataManager.Instance.joinPlayerDatas.Count == 1)
@@ -2873,7 +2884,7 @@ public class TestSocketIO : MonoBehaviour
             int validDeclaration = data["ValidDeclaration"];// 0 = true/ 1 = false
             //int dropped = data["Dropped"];// 0 = true/ 1 = false
             float gameScore = data["GamePoints"];
-            
+
             if (tourId == DataManager.Instance.tournamentID && sRoomId == DataManager.Instance.gameId)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -2882,7 +2893,7 @@ public class TestSocketIO : MonoBehaviour
                 int _counter = 0;
                 foreach (var item in DealRummyManager.Instance.playerSquList)
                 {
-                    if(item.playerNo == playerNo)
+                    if (item.playerNo == playerNo)
                     {
                         item.gameScoreText.text = gameScore.ToString();
                         item.playerGamePoints = gameScore;
@@ -2891,7 +2902,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 for (int i = 0; i < DealRummyManager.Instance.teenPattiPlayers.Count; i++)
                 {
-                    if(DealRummyManager.Instance.teenPattiPlayers[i].playerNo == playerNo)
+                    if (DealRummyManager.Instance.teenPattiPlayers[i].playerNo == playerNo)
                     {
                         if (i != 0)
                             DealRummyManager.Instance.resultNamesText[i].text = DealRummyManager.Instance.teenPattiPlayers[i].playerNameTxt.text;
@@ -2932,7 +2943,7 @@ public class TestSocketIO : MonoBehaviour
                             DealRummyManager.Instance.teenPattiPlayers[i].playerGamePoints = score;
                             DealRummyManager.Instance.resultPointsText[i].text = score.ToString();
                             //DealRummyManager.Instance.resultAmountText[i].text = "-₹8";
-                                DealRummyManager.Instance.resultStatusText[i].text = "Wrong Show";
+                            DealRummyManager.Instance.resultStatusText[i].text = "Wrong Show";
                             //if (dropped == 0)
                             //    DealRummyManager.Instance.resultStatusText[i].text = "Dropped";
                         }
@@ -2958,7 +2969,7 @@ public class TestSocketIO : MonoBehaviour
                         break;
                     }
                 }
-                
+
                 if (DealRummyManager.Instance.isGameComplete)
                     DealRummyManager.Instance.FinalResult();
                 if (!DealRummyManager.Instance.isGameComplete && DataManager.Instance.joinPlayerDatas.Count == 1)
@@ -2969,11 +2980,11 @@ public class TestSocketIO : MonoBehaviour
     }
 
 
-        #endregion
+    #endregion
 
-        #region Roulette
+    #region Roulette
 
-        public void SetBetRoulette(string values)
+    public void SetBetRoulette(string values)
     {
         if (SceneManager.GetActiveScene().name == "Rouletee")
         {
@@ -3053,7 +3064,7 @@ public class TestSocketIO : MonoBehaviour
             string sRoomId = data["RoomId"];
             int boxNo = data["boxNo"];
             int chipNo = data["chipNo"];
-          
+
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
                 CarRouletteScript.Instance.GetCarRouletteBet(boxNo, chipNo);
@@ -3146,7 +3157,7 @@ public class TestSocketIO : MonoBehaviour
             int tempNo = data["TempNo"];
             bool isRight = data["Right"];
             bool isLeft = data["Left"];
-            
+
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
                 AndarBaharManager.Instance.GetTempNo(tempNo, isRight, isLeft);
@@ -3177,7 +3188,7 @@ public class TestSocketIO : MonoBehaviour
         }
 
     }
-    
+
     public void SetGetDeckData(string values)
     {
         if (SceneManager.GetActiveScene().name == "DragonTiger")
@@ -3194,7 +3205,7 @@ public class TestSocketIO : MonoBehaviour
             }
         }
     }
-    
+
     public void SetWinData(string values)
     {
         if (SceneManager.GetActiveScene().name == "DragonTiger")
@@ -3230,7 +3241,7 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetSevenUpDownBet(string values)
     {
-        if(SceneManager.GetActiveScene().name == "7UpDown")
+        if (SceneManager.GetActiveScene().name == "7UpDown")
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
@@ -3265,7 +3276,7 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetWinDataForSevenUpDown(string values)
     {
-        if(SceneManager.GetActiveScene().name == "7UpDown")
+        if (SceneManager.GetActiveScene().name == "7UpDown")
         {
             JSONNode value = JSON.Parse(values);
             print("This is recevied data for history -> set windata " + value.ToString());
@@ -3372,20 +3383,20 @@ public class TestSocketIO : MonoBehaviour
         }
 
     }
-    
+
     public void SetBotBetPoker(string values)
     {
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
-            
+
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
             int botBetNo = data["BotNo"];
             int botPlayerNo = data["BotPlayerNo"];
             float botBetAmount = data["BetAmount"];
-            
+
             if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -3419,7 +3430,7 @@ public class TestSocketIO : MonoBehaviour
         }
 
     }
-    
+
 
     public void SetFoldPoker(string values)
     {
@@ -3442,7 +3453,7 @@ public class TestSocketIO : MonoBehaviour
         }
 
     }
-    
+
     public void HandelWinPoker(string values)
     {
         if (SceneManager.GetActiveScene().name != "Poker") return;
@@ -3453,14 +3464,14 @@ public class TestSocketIO : MonoBehaviour
         string tourId = data["TournamentID"];
         string sRoomId = data["RoomId"];
         string winnerPlayerId = data["WinnerPlayerId"];
-            
+
         if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
         {
             PokerGameManager.Instance.CallFinalWinner(winnerPlayerId);
         }
     }
 
-    
+
     public void SetWinPoker(string values)
     {
         if (SceneManager.GetActiveScene().name == "Poker")
@@ -3524,7 +3535,7 @@ public class TestSocketIO : MonoBehaviour
         Debug.Log("SendData===:::" + keys);
         socket.Emit("setGameId", keys);
     }
-    
+
     public void HandelSetGameId(string values)
     {
         JSONNode value = JSON.Parse(values);
@@ -3532,10 +3543,10 @@ public class TestSocketIO : MonoBehaviour
         DataManager.Instance.gameId = data["gameId"];
         Debug.Log("SendData===:::" + data);
     }
-    
+
     public void HandleGetData(string values)
     {
-        
+
         JSONNode value = JSON.Parse(values);
         JSONNode data = JSON.Parse(value["data"].ToString());
         RouletteManager.Instance.noGen = data["betWin"];
@@ -3543,10 +3554,10 @@ public class TestSocketIO : MonoBehaviour
         //Show betwin key as a winner 
 
     }
-    
+
     public void HandleGetCarData(string values)
     {
-        
+
         JSONNode value = JSON.Parse(values);
         JSONNode data = JSON.Parse(value["data"].ToString());
         CarRouletteScript.Instance.noGen = data["betWin"];
@@ -3554,7 +3565,7 @@ public class TestSocketIO : MonoBehaviour
         //Show betwin key as a winner 
 
     }
-    
+
     public void SetWinData(string roomId, JSONObject data)
     {
         JSONObject keys = new JSONObject();
@@ -3602,7 +3613,7 @@ public class TestSocketIO : MonoBehaviour
             {
                 LudoUIManager.Instance.GetChat(playerId, msg);
             }
-            
+
         }
 
     }
@@ -3666,14 +3677,14 @@ public class TestSocketIO : MonoBehaviour
 
             for (int i = 0; i < valueData["gameData"]["WinData"].Count; i++)
                 diceData[i] = valueData["gameData"]["WinData"][i]["diceData"];
-            
+
 
             List<int> newDeck = new List<int>();
             for (int i = 0; i < valueData["gameData"]["UpdatedDeck"].Count; i++)
                 newDeck.Add(valueData["gameData"]["UpdatedDeck"][i]["Index"]);
-            
+
             //data["users"][i]["tokens"][j]["playerSubNo"];
-            
+
 
             if (gameMode == 1)
             {
@@ -3718,17 +3729,17 @@ public class TestSocketIO : MonoBehaviour
             else if (gameMode == 11)
             {
                 print("Data received =\n " + valueData.ToString());
-                PointRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex,discardIndex, deckNo2);
+                PointRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex, discardIndex, deckNo2);
             }
             else if (gameMode == 15)
             {
                 print("Data received =\n " + valueData.ToString());
-                PoolRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex,discardIndex, deckNo2);
+                PoolRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex, discardIndex, deckNo2);
             }
             else if (gameMode == 16)
             {
                 print("Data received =\n " + valueData.ToString());
-                DealRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex,discardIndex, deckNo2);
+                DealRummyManager.Instance.GetRoomData(playerId, newDeck, jokerIndex, discardIndex, deckNo2);
             }
             else if (gameMode == 18)
             {
@@ -3859,7 +3870,7 @@ public class TestSocketIO : MonoBehaviour
                 {
                     DataManager.Instance.joinPlayerDatas.RemoveAt(index);
                 }
-                
+
                 if (room == roomid && lobbyID == DataManager.Instance.tournamentID)
                 {
                     TeenPattiManager.Instance.ChangeAAdmin(leaveUserId, playerId);
@@ -4038,9 +4049,9 @@ public class TestSocketIO : MonoBehaviour
                 }
             }
         }
-        if(DataManager.Instance.gameMode == GameType.Ludo)
+        if (DataManager.Instance.gameMode == GameType.Ludo)
         {
-            if(LudoManager.Instance != null)
+            if (LudoManager.Instance != null)
             {
                 if (DataManager.Instance.joinPlayerDatas.First().userId == leaveUserId)
                 {
@@ -4066,7 +4077,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
                     DataManager.Instance.joinPlayerDatas[i].playerNo = i + 1;
-                
+
             }
             if (room == roomid /*&& lobbyId == DataManager.Instance.tournamentID*/)
                 LudoManager.Instance.ChangeAdmin(/*leaveUserId, playerId,*/ playerNo);
@@ -4092,9 +4103,9 @@ public class TestSocketIO : MonoBehaviour
             }
         }
 
-        if(DataManager.Instance.gameMode == GameType.SevenUpDown)
+        if (DataManager.Instance.gameMode == GameType.SevenUpDown)
         {
-            if(SevenUpDownManager.Instance != null)
+            if (SevenUpDownManager.Instance != null)
             {
                 for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
                 {
@@ -4112,9 +4123,9 @@ public class TestSocketIO : MonoBehaviour
             }
         }
 
-        if(DataManager.Instance.gameMode == GameType.Jhandi_Munda)
+        if (DataManager.Instance.gameMode == GameType.Jhandi_Munda)
         {
-            if(JhandiMundaManager.Instance != null)
+            if (JhandiMundaManager.Instance != null)
             {
                 for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
                 {

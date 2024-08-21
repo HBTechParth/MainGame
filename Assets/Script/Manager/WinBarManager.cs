@@ -142,7 +142,7 @@ public class WinBarManager : MonoBehaviour
 
         return names;
     }
-
+    private bool isAnimating = false;
     IEnumerator UpdateWinBar()
     {
         while (true)
@@ -164,17 +164,39 @@ public class WinBarManager : MonoBehaviour
             string randomGame = gameNames[Random.Range(0, gameNames.Length)];
             int randomAmount = GenerateRandomAmount();
 
-            winBarText.transform.localScale = new Vector3(0.1f, 0.1f, 1f); // Set initial scale
-            winBarText.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.Linear);
-            winBarText.text = $"{randomPlayer} won {randomAmount} in {randomGame}";
+            winBarText.text = $"{randomPlayer} won {randomAmount}  <sprite=0> in {randomGame}";
 
-            yield return new WaitForSeconds(3f);
-            winBarText.transform.DOScale(new Vector3(0f, 0f, 0f), 0.5f).SetEase(Ease.Linear);
-            yield return new WaitForSeconds(1f);
-            // Set initial scale
+            // Wait if an animation is in progress
+            while (isAnimating)
+            {
+                yield return null;
+            }
+
+            // Start the animation
+            isAnimating = true;
+            MoveTextToPosition(new Vector3(650f, winBarText.transform.localPosition.y, 0f), 10f);
+
+            // Wait for the animation to complete
+            while (isAnimating)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(0.5f); // Optional delay before the next text
         }
     }
 
+    public void MoveTextToPosition(Vector3 targetPosition, float duration)
+    {
+        // Move the text to the target position over the specified duration
+        winBarText.transform.DOLocalMoveX(targetPosition.x, duration).SetEase(Ease.Linear).OnComplete(() =>
+        {
+           // Debug.Log("Reached target position");
+//
+            winBarText.transform.localPosition = new Vector3(-650f, winBarText.transform.localPosition.y, 0f);
+            isAnimating = false; 
+        });
+    }
     public int GenerateRandomAmount()
     {
         // Generate a random number between 0 and 1

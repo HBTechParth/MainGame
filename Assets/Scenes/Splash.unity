@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &10957390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5931,6 +5931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   internetObj: {fileID: 8767322094886410240, guid: 2610848af41c94f10b36cb8a3654814f, type: 3}
+  firstInternetObj: {fileID: 8767322094886410240, guid: f5521916ec2b3d54d829fdacd835be4c, type: 3}
   updateObj: {fileID: 0}
   isCheckUpdate: 0
 --- !u!1 &1824077331

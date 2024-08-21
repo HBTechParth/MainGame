@@ -6,6 +6,7 @@ public class InternetManager : MonoBehaviour
 {
     public static InternetManager Instance;
     public GameObject internetObj;
+    public GameObject firstInternetObj;
     public GameObject updateObj;
 
     public bool isCheckUpdate;
@@ -23,7 +24,10 @@ public class InternetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(CheckInterenet), 0, 3);
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+            FirstCheckInterenet();
+        else
+            InvokeRepeating(nameof(CheckInterenet), 0, 3);
         CheckUpdate();
     }
 
@@ -51,5 +55,10 @@ public class InternetManager : MonoBehaviour
             Instantiate(internetObj, this.transform);
             Time.timeScale = 0;
         }
+    }
+    void FirstCheckInterenet()
+    {
+        Instantiate(firstInternetObj, this.transform);
+        Time.timeScale = 0;
     }
 }
