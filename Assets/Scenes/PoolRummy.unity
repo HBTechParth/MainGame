@@ -24194,6 +24194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   internetObj: {fileID: 8767322094886410240, guid: 2610848af41c94f10b36cb8a3654814f, type: 3}
+  firstInternetObj: {fileID: 0}
   updateObj: {fileID: 0}
   isCheckUpdate: 0
 --- !u!114 &699529316

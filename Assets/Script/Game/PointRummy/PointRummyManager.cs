@@ -782,6 +782,9 @@ public class PointRummyManager : MonoBehaviour
                     bool impureSequenceCheck = CheckForImpureSequence(groupedCards);
                     bool pairCheck = CheckForPair(groupedCards);
 
+                    Debug.Log("pureSequenceCheck =>  " + pureSequenceCheck);
+                    Debug.Log("impureSequenceCheck =>  " + impureSequenceCheck);
+                    Debug.Log("pairCheck =>  " + pairCheck);
                     if (pureSequenceCheck == true)
                     {
                         validCheck.validCheckImage.sprite = correct;
