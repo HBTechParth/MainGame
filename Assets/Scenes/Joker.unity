@@ -5715,7 +5715,7 @@ MonoBehaviour:
   jokerCard:
     cardNo: 0
     color: 5
-    cardSprite: {fileID: 878849209, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bc70ced477a26d645918840c3ab56120, type: 3}
   ruleNo: 0
   avatar: 
   isBot: 0
@@ -27133,7 +27133,7 @@ MonoBehaviour:
   jokerCard:
     cardNo: 0
     color: 5
-    cardSprite: {fileID: 878849209, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bc70ced477a26d645918840c3ab56120, type: 3}
   ruleNo: 0
   avatar: 
   isBot: 0
@@ -27245,7 +27245,7 @@ MonoBehaviour:
   jokerCard:
     cardNo: 0
     color: 5
-    cardSprite: {fileID: 878849209, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bc70ced477a26d645918840c3ab56120, type: 3}
   ruleNo: 0
   avatar: 
   isBot: 0
@@ -34115,7 +34115,7 @@ MonoBehaviour:
   jokerCard:
     cardNo: 0
     color: 5
-    cardSprite: {fileID: 878849209, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bc70ced477a26d645918840c3ab56120, type: 3}
   ruleNo: 0
   avatar: 
   isBot: 0
@@ -39706,7 +39706,7 @@ MonoBehaviour:
   jokerCard:
     cardNo: 0
     color: 5
-    cardSprite: {fileID: 878849209, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bc70ced477a26d645918840c3ab56120, type: 3}
   ruleNo: 0
   avatar: 
   isBot: 0

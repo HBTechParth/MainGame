@@ -11215,6 +11215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   internetObj: {fileID: 8767322094886410240, guid: 2610848af41c94f10b36cb8a3654814f, type: 3}
+  firstInternetObj: {fileID: 0}
   updateObj: {fileID: 0}
   isCheckUpdate: 0
 --- !u!114 &699529316
@@ -22860,160 +22861,160 @@ MonoBehaviour:
   cardSuffles:
   - cardNo: 1
     color: 1
-    cardSprite: {fileID: -1985357809, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d16a9816356a2472eb06fb11298fb3a2, type: 3}
   - cardNo: 2
     color: 1
-    cardSprite: {fileID: -1476012759, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 09309b16ba5c84277b101c6522687bb1, type: 3}
   - cardNo: 3
     color: 1
-    cardSprite: {fileID: -1878019323, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d3afc0cde4fe5407b841dacb0639d785, type: 3}
   - cardNo: 4
     color: 1
-    cardSprite: {fileID: 427012191, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d2d8e3f21c1314e1aa1a9689fc48d724, type: 3}
   - cardNo: 5
     color: 1
-    cardSprite: {fileID: 341310820, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: ff703ba802a0a422c9181d1d9b68a169, type: 3}
   - cardNo: 6
     color: 1
-    cardSprite: {fileID: 600487439, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e51ed9b7c312f4491b0ad995beaba950, type: 3}
   - cardNo: 7
     color: 1
-    cardSprite: {fileID: -414058728, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 2eac8ec9a10564f998873f721a3abf89, type: 3}
   - cardNo: 8
     color: 1
-    cardSprite: {fileID: 622677687, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 10b94046d9e244896b0044a8294391d0, type: 3}
   - cardNo: 9
     color: 1
-    cardSprite: {fileID: -1500709012, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 952899d47df094fff9f9697312dd7f2e, type: 3}
   - cardNo: 10
     color: 1
-    cardSprite: {fileID: 762953375, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d87edabde682c48d69fded5628d82586, type: 3}
   - cardNo: 11
     color: 1
-    cardSprite: {fileID: -1470316266, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 03b53796831c34732b783673d936bcab, type: 3}
   - cardNo: 12
     color: 1
-    cardSprite: {fileID: -594291980, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e1891bd8b3a4d4a9ea6af454fdd8c3d7, type: 3}
   - cardNo: 13
     color: 1
-    cardSprite: {fileID: 1242594893, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bd15416712aef4860bddd79a3d5bd3b8, type: 3}
   - cardNo: 1
     color: 2
-    cardSprite: {fileID: -283896219, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: 358701fff420645faa24ab0c3340b905, type: 3}
   - cardNo: 2
     color: 2
-    cardSprite: {fileID: 357256788, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: dd770d030ee7c4f1988a88901740401b, type: 3}
   - cardNo: 3
     color: 2
-    cardSprite: {fileID: -837986086, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 27bbac01049df498a8469e0b3b100e94, type: 3}
   - cardNo: 4
     color: 2
-    cardSprite: {fileID: -848467141, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6c3b5ced801984b9db62ebbbba8a0c7a, type: 3}
   - cardNo: 5
     color: 2
-    cardSprite: {fileID: 3306285, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 561956c54116449b28f45e398b1a9071, type: 3}
   - cardNo: 6
     color: 2
-    cardSprite: {fileID: -519127839, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: c5a961dc0247c4aa780f93cc8be42dae, type: 3}
   - cardNo: 7
     color: 2
-    cardSprite: {fileID: -2039382877, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: ed83b1018ace74ed3b6bf4683af255f1, type: 3}
   - cardNo: 8
     color: 2
-    cardSprite: {fileID: -876326944, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b647db3d7073649b49c8baf92195d59d, type: 3}
   - cardNo: 9
     color: 2
-    cardSprite: {fileID: 2115701550, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 7ad3e1a756cee4db5acad0a2476c45b1, type: 3}
   - cardNo: 10
     color: 2
-    cardSprite: {fileID: 250929684, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 53b91aacef14545fabb87df7f1249145, type: 3}
   - cardNo: 11
     color: 2
-    cardSprite: {fileID: 1670779905, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 51f7731fc8f9b493eba66fa968091bb4, type: 3}
   - cardNo: 12
     color: 2
-    cardSprite: {fileID: -1816227893, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 97403f01c7bb54ee4b84e26e444bdb5d, type: 3}
   - cardNo: 13
     color: 2
-    cardSprite: {fileID: -994124859, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 95d31df9bfa9d4bb5abfe753765eebf9, type: 3}
   - cardNo: 1
     color: 3
-    cardSprite: {fileID: 187799719, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 15346a3d7103c46ccb617b7fee1bfad2, type: 3}
   - cardNo: 2
     color: 3
-    cardSprite: {fileID: 848535896, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: d77a7881cb8904613bae9cb6480a38bc, type: 3}
   - cardNo: 3
     color: 3
-    cardSprite: {fileID: 2041890020, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 02ebc12a6ba854199bae24205a334407, type: 3}
   - cardNo: 4
     color: 3
-    cardSprite: {fileID: 959673901, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 87ecfb120ea9a4847b16bb72c09a8cf3, type: 3}
   - cardNo: 5
     color: 3
-    cardSprite: {fileID: 1440109487, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: ec7945e7182cf438bbe50272efc2ccc0, type: 3}
   - cardNo: 6
     color: 3
-    cardSprite: {fileID: 1228683782, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 97d927491636f4d22b9c44e17b7e58ac, type: 3}
   - cardNo: 7
     color: 3
-    cardSprite: {fileID: -876131765, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6077d8950328143bc81e61c3c39924b5, type: 3}
   - cardNo: 8
     color: 3
-    cardSprite: {fileID: -107025083, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6925f2fae512a43a8b1438bce1378f19, type: 3}
   - cardNo: 9
     color: 3
-    cardSprite: {fileID: -652387108, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 015b90f8642d143b494bc893441be720, type: 3}
   - cardNo: 10
     color: 3
-    cardSprite: {fileID: 900045393, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: da6de26920e4341708a3dba9a0b5db5f, type: 3}
   - cardNo: 11
     color: 3
-    cardSprite: {fileID: -2041090828, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 401d59823d4a64d4caece15b88368869, type: 3}
   - cardNo: 12
     color: 3
-    cardSprite: {fileID: -1360717499, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 43e6fedee7d1e4dea9ab77c1faf5a298, type: 3}
   - cardNo: 13
     color: 3
-    cardSprite: {fileID: 897905761, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: a64833e4d5dcc495f8c3976833a8d28b, type: 3}
   - cardNo: 1
     color: 4
-    cardSprite: {fileID: 1509344050, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: 151d219f537034951ba29c152213fec7, type: 3}
   - cardNo: 2
     color: 4
-    cardSprite: {fileID: 229439703, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 06bfab07b8e5243bb9c1cc6f4b1d2ff9, type: 3}
   - cardNo: 3
     color: 4
-    cardSprite: {fileID: 2115796912, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b2ee03532fe0c44518229f13c529d1c9, type: 3}
   - cardNo: 4
     color: 4
-    cardSprite: {fileID: -1512755191, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b5f7eef42097a4c77b6005bae2b61230, type: 3}
   - cardNo: 5
     color: 4
-    cardSprite: {fileID: -1696178331, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 1f10661019b454e0abda69bcb34643ed, type: 3}
   - cardNo: 6
     color: 4
-    cardSprite: {fileID: 855493508, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: df3739aae9c1047788a162ace26c992c, type: 3}
   - cardNo: 7
     color: 4
-    cardSprite: {fileID: -1841214473, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e8447f99301434b0ab48af53fa78b802, type: 3}
   - cardNo: 8
     color: 4
-    cardSprite: {fileID: -1603580158, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d07c89e35b26d4478998056415a56a33, type: 3}
   - cardNo: 9
     color: 4
-    cardSprite: {fileID: 1192561745, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: c3e3db5f4a8b449e4abd784342feff33, type: 3}
   - cardNo: 10
     color: 4
-    cardSprite: {fileID: -1511653932, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d97edc9a8e6754ae4906e4166b9b7ac2, type: 3}
   - cardNo: 11
     color: 4
-    cardSprite: {fileID: -776336172, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 80ed76991a819421698c937582efd375, type: 3}
   - cardNo: 12
     color: 4
-    cardSprite: {fileID: 2020060099, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 3ea2333104ce543939fc764270598e63, type: 3}
   - cardNo: 13
     color: 4
-    cardSprite: {fileID: 1564592021, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 4661ca88d29c44c77b2aca1ed935c34e, type: 3}
   listStoreDatas:
   - noList: 0d00000024000000050000002c0000002000000029000000230000001f0000001d0000000800000032000000310000000b0000001e0000002f00000014000000250000002a000000020000000e000000100000000700000003000000160000001500000006000000090000002600000028000000190000000a000000170000003300000012000000180000001a0000000f0000002b000000010000002700000021000000110000001b0000002e0000000400000022000000300000001c000000130000000c000000340000002d000000
   - noList: 03000000100000001f000000080000002d00000001000000230000002c00000015000000210000000a0000003000000018000000330000002500000011000000270000002b00000024000000130000001b00000017000000060000000b000000140000001c00000002000000280000000900000022000000070000000c0000001d0000002f00000029000000310000000d0000002a0000001a00000032000000120000000e000000340000001e000000200000000f0000002e0000000500000019000000040000002600000016000000
@@ -23321,160 +23322,160 @@ MonoBehaviour:
   cardSufflesSort:
   - cardNo: 2
     color: 1
-    cardSprite: {fileID: -1476012759, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 09309b16ba5c84277b101c6522687bb1, type: 3}
   - cardNo: 2
     color: 2
-    cardSprite: {fileID: 357256788, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: dd770d030ee7c4f1988a88901740401b, type: 3}
   - cardNo: 2
     color: 3
-    cardSprite: {fileID: 848535896, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: d77a7881cb8904613bae9cb6480a38bc, type: 3}
   - cardNo: 2
     color: 4
-    cardSprite: {fileID: 229439703, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 06bfab07b8e5243bb9c1cc6f4b1d2ff9, type: 3}
   - cardNo: 3
     color: 1
-    cardSprite: {fileID: -1878019323, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d3afc0cde4fe5407b841dacb0639d785, type: 3}
   - cardNo: 3
     color: 2
-    cardSprite: {fileID: -837986086, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 27bbac01049df498a8469e0b3b100e94, type: 3}
   - cardNo: 3
     color: 3
-    cardSprite: {fileID: 2041890020, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 02ebc12a6ba854199bae24205a334407, type: 3}
   - cardNo: 3
     color: 4
-    cardSprite: {fileID: 2115796912, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b2ee03532fe0c44518229f13c529d1c9, type: 3}
   - cardNo: 4
     color: 1
-    cardSprite: {fileID: 427012191, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d2d8e3f21c1314e1aa1a9689fc48d724, type: 3}
   - cardNo: 4
     color: 2
-    cardSprite: {fileID: -848467141, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6c3b5ced801984b9db62ebbbba8a0c7a, type: 3}
   - cardNo: 4
     color: 3
-    cardSprite: {fileID: 959673901, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 87ecfb120ea9a4847b16bb72c09a8cf3, type: 3}
   - cardNo: 4
     color: 4
-    cardSprite: {fileID: -1512755191, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b5f7eef42097a4c77b6005bae2b61230, type: 3}
   - cardNo: 5
     color: 1
-    cardSprite: {fileID: 341310820, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: ff703ba802a0a422c9181d1d9b68a169, type: 3}
   - cardNo: 5
     color: 2
-    cardSprite: {fileID: 3306285, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 561956c54116449b28f45e398b1a9071, type: 3}
   - cardNo: 5
     color: 3
-    cardSprite: {fileID: 1440109487, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: ec7945e7182cf438bbe50272efc2ccc0, type: 3}
   - cardNo: 5
     color: 4
-    cardSprite: {fileID: -1696178331, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 1f10661019b454e0abda69bcb34643ed, type: 3}
   - cardNo: 6
     color: 1
-    cardSprite: {fileID: 600487439, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e51ed9b7c312f4491b0ad995beaba950, type: 3}
   - cardNo: 6
     color: 2
-    cardSprite: {fileID: -519127839, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: c5a961dc0247c4aa780f93cc8be42dae, type: 3}
   - cardNo: 6
     color: 3
-    cardSprite: {fileID: 1228683782, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 97d927491636f4d22b9c44e17b7e58ac, type: 3}
   - cardNo: 6
     color: 4
-    cardSprite: {fileID: 855493508, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: df3739aae9c1047788a162ace26c992c, type: 3}
   - cardNo: 7
     color: 1
-    cardSprite: {fileID: -414058728, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 2eac8ec9a10564f998873f721a3abf89, type: 3}
   - cardNo: 7
     color: 2
-    cardSprite: {fileID: -2039382877, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: ed83b1018ace74ed3b6bf4683af255f1, type: 3}
   - cardNo: 7
     color: 3
-    cardSprite: {fileID: -876131765, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6077d8950328143bc81e61c3c39924b5, type: 3}
   - cardNo: 7
     color: 4
-    cardSprite: {fileID: -1841214473, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e8447f99301434b0ab48af53fa78b802, type: 3}
   - cardNo: 8
     color: 1
-    cardSprite: {fileID: 622677687, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 10b94046d9e244896b0044a8294391d0, type: 3}
   - cardNo: 8
     color: 2
-    cardSprite: {fileID: -876326944, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: b647db3d7073649b49c8baf92195d59d, type: 3}
   - cardNo: 8
     color: 3
-    cardSprite: {fileID: -107025083, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 6925f2fae512a43a8b1438bce1378f19, type: 3}
   - cardNo: 8
     color: 4
-    cardSprite: {fileID: -1603580158, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d07c89e35b26d4478998056415a56a33, type: 3}
   - cardNo: 9
     color: 1
-    cardSprite: {fileID: -1500709012, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 952899d47df094fff9f9697312dd7f2e, type: 3}
   - cardNo: 9
     color: 2
-    cardSprite: {fileID: 2115701550, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 7ad3e1a756cee4db5acad0a2476c45b1, type: 3}
   - cardNo: 9
     color: 3
-    cardSprite: {fileID: -652387108, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 015b90f8642d143b494bc893441be720, type: 3}
   - cardNo: 9
     color: 4
-    cardSprite: {fileID: 1192561745, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: c3e3db5f4a8b449e4abd784342feff33, type: 3}
   - cardNo: 10
     color: 1
-    cardSprite: {fileID: 762953375, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d87edabde682c48d69fded5628d82586, type: 3}
   - cardNo: 10
     color: 2
-    cardSprite: {fileID: 250929684, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 53b91aacef14545fabb87df7f1249145, type: 3}
   - cardNo: 10
     color: 3
-    cardSprite: {fileID: 900045393, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: da6de26920e4341708a3dba9a0b5db5f, type: 3}
   - cardNo: 10
     color: 4
-    cardSprite: {fileID: -1511653932, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d97edc9a8e6754ae4906e4166b9b7ac2, type: 3}
   - cardNo: 13
     color: 1
-    cardSprite: {fileID: 1242594893, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: bd15416712aef4860bddd79a3d5bd3b8, type: 3}
   - cardNo: 13
     color: 2
-    cardSprite: {fileID: -994124859, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 95d31df9bfa9d4bb5abfe753765eebf9, type: 3}
   - cardNo: 13
     color: 3
-    cardSprite: {fileID: 897905761, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: a64833e4d5dcc495f8c3976833a8d28b, type: 3}
   - cardNo: 13
     color: 4
-    cardSprite: {fileID: 1564592021, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 4661ca88d29c44c77b2aca1ed935c34e, type: 3}
   - cardNo: 12
     color: 1
-    cardSprite: {fileID: -594291980, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: e1891bd8b3a4d4a9ea6af454fdd8c3d7, type: 3}
   - cardNo: 12
     color: 2
-    cardSprite: {fileID: -1816227893, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 97403f01c7bb54ee4b84e26e444bdb5d, type: 3}
   - cardNo: 12
     color: 3
-    cardSprite: {fileID: -1360717499, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 43e6fedee7d1e4dea9ab77c1faf5a298, type: 3}
   - cardNo: 12
     color: 4
-    cardSprite: {fileID: 2020060099, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 3ea2333104ce543939fc764270598e63, type: 3}
   - cardNo: 11
     color: 1
-    cardSprite: {fileID: -1470316266, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 03b53796831c34732b783673d936bcab, type: 3}
   - cardNo: 11
     color: 2
-    cardSprite: {fileID: 1670779905, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 51f7731fc8f9b493eba66fa968091bb4, type: 3}
   - cardNo: 11
     color: 3
-    cardSprite: {fileID: -2041090828, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 401d59823d4a64d4caece15b88368869, type: 3}
   - cardNo: 11
     color: 4
-    cardSprite: {fileID: -776336172, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 80ed76991a819421698c937582efd375, type: 3}
   - cardNo: 1
     color: 1
-    cardSprite: {fileID: -1985357809, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: d16a9816356a2472eb06fb11298fb3a2, type: 3}
   - cardNo: 1
     color: 2
-    cardSprite: {fileID: -283896219, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: 358701fff420645faa24ab0c3340b905, type: 3}
   - cardNo: 1
     color: 3
-    cardSprite: {fileID: 187799719, guid: 90ece44e35b04c440a94e43c5b696d4f, type: 3}
+    cardSprite: {fileID: 21300000, guid: 15346a3d7103c46ccb617b7fee1bfad2, type: 3}
   - cardNo: 1
     color: 4
-    cardSprite: {fileID: 1509344050, guid: d5e0b1f81627e3c4c894250e6c3165c8, type: 3}
+    cardSprite: {fileID: 21300000, guid: 151d219f537034951ba29c152213fec7, type: 3}
   newCardSS: []
   newCardSS1: []
   teenPattiPlayers:
