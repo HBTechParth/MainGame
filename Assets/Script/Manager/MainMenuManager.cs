@@ -72,7 +72,7 @@ public class MainMenuManager : MonoBehaviour
     public Button twoPlayerButton;
     public Button fourPlayerButton;
     private float selectedValue;
-    
+
     //public List<TournamentData> tournamentData = new List<TournamentData>();
     public List<CouponData> couponDatas = new List<CouponData>();
 
@@ -87,7 +87,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("---Screen---")]
     public List<GameObject> screenObj = new List<GameObject>();
-    
+
     [Header("--- Daily Reward ---")]
     public GameObject dailyRewardPanel;
     public GameObject spinWheelScreenOpen;
@@ -97,7 +97,7 @@ public class MainMenuManager : MonoBehaviour
     private DateTime lastSpinTime;
     private TimeSpan timeUntilNextSpin;
     public int numberOfTurns;
-    
+
     [Header("--- Banner ---")]
     public GameObject fullScreenAd;
     private List<FullScreenAd> fullScreenAds = new List<FullScreenAd>();
@@ -111,15 +111,15 @@ public class MainMenuManager : MonoBehaviour
     public bool isWithdraw;
 
     public List<NotiBarManage> notiBarManages = new List<NotiBarManage>();
-    
+
     public int botPlayers;
-    
+
     public bool ludoBotPlayersLoaded = false;
 
     //bool isPressJoin;
 
-    
-    
+
+
     private void Awake()
     {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -140,11 +140,11 @@ public class MainMenuManager : MonoBehaviour
         //GetTournament();
         //GetTran();
         GetCoupon();
-        
+
         DataManager.Instance.GetTournament();
         GetFullScreenBanner();
         StartCoroutine(InstantiateDailyRewardWithDelay(5f));
-        
+
     }
 
 
@@ -180,7 +180,7 @@ public class MainMenuManager : MonoBehaviour
                 TestSocketIO.Instace.RummyLoadScene();
             }
         }
-        
+
         if (DataManager.Instance.gameMode == GameType.Ludo && secondsCount <= 3 && !ludoBotPlayersLoaded)
         {
             LoadLudoBotPlayers();
@@ -233,7 +233,7 @@ public class MainMenuManager : MonoBehaviour
     {
 
     }
-    
+
     public void GameButtonClick(int no)
     {
         SoundManager.Instance.ButtonClick();
@@ -299,7 +299,7 @@ public class MainMenuManager : MonoBehaviour
                 }
             case 4:
                 //DataManager.Instance.gameMode = GameType.Ludo;
-                
+
                 //TournamentPanel.Instance.gameType = GameType.Ludo;
                 //TournamentPanel.Instance.GenerateTournament();
                 TurnOnLudoSelector();
@@ -326,12 +326,12 @@ public class MainMenuManager : MonoBehaviour
                     DataManager.Instance.gameMode = GameType.Teen_Patti;
                     string getTour = IsAvaliableSingleTournament(GameType.Teen_Patti);
                     gameName.text = "";
-                    
-                    
+
+
                     List<float> minBetValues = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
-                        if(item.modeType == DataManager.Instance.gameMode)
+                        if (item.modeType == DataManager.Instance.gameMode)
                             minBetValues.Add(item.betAmount);
                     }
                     if (minBetValues.Count > 0)
@@ -357,26 +357,26 @@ public class MainMenuManager : MonoBehaviour
                     break;
                 }
             case 6:
-               {
+                {
                     // Poker
                     DataManager.Instance.gameMode = GameType.Poker;
                     //SceneManager.LoadScene(DataManager.Instance.GetModeToSceneName(DataManager.Instance.gameMode));
                     string getTour = IsAvaliableSingleTournament(GameType.Poker);
                     gameName.text = "";
-                    
+
                     List<float> minBetValues = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
-                        if(item.modeType == DataManager.Instance.gameMode)
+                        if (item.modeType == DataManager.Instance.gameMode)
                             minBetValues.Add(item.betAmount);
                     }
                     if (minBetValues.Count > 0)
                         SelectValueOfTournament(GameType.Poker, minBetValues);
                     else
-                        GenerateTournamentError();  
+                        GenerateTournamentError();
 
                     break;
-               }
+                }
             /*case 7:
             {
                 // Snake & Ladder
@@ -597,19 +597,37 @@ public class MainMenuManager : MonoBehaviour
                 }
                 break;
             case 16:
-            {
-                //Aviator
-                DataManager.Instance.gameMode = GameType.Aviator;
-                string getTournamentID = IsAvaliableSingleTournament(GameType.Aviator);
-                if (!string.IsNullOrEmpty(getTournamentID))
                 {
-                    DataManager.Instance.tournamentID = getTournamentID;
-                    TestSocketIO.Instace.RouletteJoinroom();
+                    //Aviator
+                    DataManager.Instance.gameMode = GameType.Aviator;
+                    string getTournamentID = IsAvaliableSingleTournament(GameType.Aviator);
+                    if (!string.IsNullOrEmpty(getTournamentID))
+                    {
+                        DataManager.Instance.tournamentID = getTournamentID;
+                        TestSocketIO.Instace.RouletteJoinroom();
+                    }
+                    else
+                        GenerateTournamentError();
                 }
-                else
-                    GenerateTournamentError();
-            }
                 break;
+            case 17:
+                {
+                    // New Spin And Win
+                    Debug.Log("SpinAndWin");
+                    DataManager.Instance.gameMode = GameType.SpinAndWin;
+                    string getTour = IsAvaliableSingleTournament(GameType.SpinAndWin);
+                    if (!string.IsNullOrEmpty(getTour))
+                    {
+                        DataManager.Instance.tournamentID = getTour;
+                        TestSocketIO.Instace.RouletteJoinroom();
+                    }
+                    else
+                    {
+                        GenerateTournamentError();
+                    }
+
+                    break;
+                }
 
         }
     }
@@ -664,7 +682,7 @@ public class MainMenuManager : MonoBehaviour
         else
             GenerateTournamentError();*/
         SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);
-        
+
         if (string.IsNullOrEmpty(DataManager.Instance.tournamentID))
         {
             GenerateTournamentError();
@@ -806,7 +824,7 @@ public class MainMenuManager : MonoBehaviour
         tableSet.maxValue = tableCount - 1;
         var initialValueX = -740f;
         var divisionParts = 1400 / (tableCount - 1);
-        
+
 
         for (var i = 0; i < tableCount; i++)
         {
@@ -814,13 +832,13 @@ public class MainMenuManager : MonoBehaviour
             text.text = minimumBetOrEntryFeesOrPointValue[i].ToString();
             text.transform.localPosition = new Vector2(initialValueX + i * divisionParts, -75f);
         }
-        
+
         // Set default value to the 0th index
         selectedValue = minimumBetOrEntryFeesOrPointValue[0];
         tableLimitOrValue.text = $"SELECT TABLE : ₹{selectedValue}";
         joinButton.interactable = true;
-        
-        tableSet.onValueChanged.AddListener(delegate(float v)
+
+        tableSet.onValueChanged.AddListener(delegate (float v)
         {
             int index = (int)v;
             selectedValue = minimumBetOrEntryFeesOrPointValue[index];
@@ -871,7 +889,7 @@ public class MainMenuManager : MonoBehaviour
             _ => BotManager.Instance.botType
         };
     }
-    
+
     private void ClearTableLimitAndData()
     {
         DataManager.Instance.tournamentID = string.Empty;
@@ -882,7 +900,7 @@ public class MainMenuManager : MonoBehaviour
         BotManager.Instance.isBotAvalible = false;
         BotManager.Instance.botType = BotType.Hard;
     }
-    
+
     float SetBetAmount(GameType modeType)
     {
         foreach (var item in DataManager.Instance.tournamentData)
@@ -905,8 +923,8 @@ public class MainMenuManager : MonoBehaviour
         }
         return null;
     }
-    
-    
+
+
     string IsAvaliableSnakeTournament(GameType modeType)
     {
         List<TournamentData> tournaments = new List<TournamentData>();
@@ -932,7 +950,7 @@ public class MainMenuManager : MonoBehaviour
         DataManager.Instance.modeType = 1;
         LudoGameMode(true);
     }
-    
+
     public void TurnOffLudoSelector()
     {
         ludoModeSelect.gameObject.SetActive(false);
@@ -963,12 +981,12 @@ public class MainMenuManager : MonoBehaviour
         DataManager.Instance.gameMode = GameType.Ludo;
         string getTour = IsAvaliableSingleTournament(GameType.Ludo);
         gameName.text = "";
-                    
-                    
+
+
         List<float> minBetValues = new List<float>();
         foreach (var item in DataManager.Instance.tournamentData)
         {
-            if(item.modeType == DataManager.Instance.gameMode)
+            if (item.modeType == DataManager.Instance.gameMode)
                 minBetValues.Add(item.betAmount);
         }
         if (minBetValues.Count > 0)
@@ -976,8 +994,8 @@ public class MainMenuManager : MonoBehaviour
         else
             GenerateTournamentError();
     }
-    
-    
+
+
 
 
     public void ShopButtonClick()
@@ -1048,12 +1066,12 @@ public class MainMenuManager : MonoBehaviour
     {
         Instantiate(editProfilePrefab, prefabParent.transform);
     }
-    
+
     public void GenerateShop()
     {
         shopScreenInstance = Instantiate(shopScreenPrefab, prefabParent.transform);
     }
-    
+
     public void DestroyShop()
     {
         if (shopScreenInstance != null)
@@ -1117,12 +1135,12 @@ public class MainMenuManager : MonoBehaviour
         spin.earnAmount = wonAmount;
         spin.DisplayText();
     }
-    
+
     public void OpenSpinWheelScreen()
     {
         string lastSpinTimeStr = PlayerPrefs.GetString("LastSpinTime");
         int remainingTurns = PlayerPrefs.GetInt("RemainingTurns", numberOfTurns);
-        
+
         if (string.IsNullOrEmpty(lastSpinTimeStr) || DateTime.TryParse(lastSpinTimeStr, out lastSpinTime))
         {
             if (string.IsNullOrEmpty(lastSpinTimeStr) || DateTime.Now >= lastSpinTime.AddHours(24))
@@ -1153,8 +1171,8 @@ public class MainMenuManager : MonoBehaviour
             ShowSpinWheelScreen();
         }
     }
-    
-    
+
+
     private void ShowSpinWheelScreen()
     {
         dailyRewardPanel.SetActive(true);
@@ -1169,14 +1187,14 @@ public class MainMenuManager : MonoBehaviour
         timeRemainingText.text = string.Format("Next spin unlocks in {0:D2}:{1:D2}",
             timeUntilNextSpin.Hours, timeUntilNextSpin.Minutes);
     }
-    
+
     public void ClearLastSpinTime()
     {
         PlayerPrefs.DeleteKey("LastSpinTime");
         PlayerPrefs.DeleteKey("RemainingTurns");
         PlayerPrefs.DeleteKey("LastRewardClaimDate");
     }
-    
+
     private void CalculateTimeUntilNextSpin()
     {
         // Calculate the time remaining until the next spin becomes available
@@ -1184,7 +1202,7 @@ public class MainMenuManager : MonoBehaviour
         timeUntilNextSpin = nextSpinTime - DateTime.Now;
     }
 
-    
+
     public void CloseSpinnerWheel()
     {
         dailyRewardPanel.SetActive(false);
@@ -1194,7 +1212,7 @@ public class MainMenuManager : MonoBehaviour
 
 
     #endregion
-    
+
     #region Banner
 
     private void GetFullScreenBanner()
@@ -1223,7 +1241,7 @@ public class MainMenuManager : MonoBehaviour
                 CheckForTheAvailability();
                 yield break;
             }
-            
+
             int no = 0;
 
             for (int i = 0; i < data.Count; i++)
@@ -1234,18 +1252,18 @@ public class MainMenuManager : MonoBehaviour
                     string url = data[i]["url"];
                     no++;
                     FullScreenAd fullscreen = fullScreenObj.GetComponent<FullScreenAd>();
-                    
+
                     fullScreenAds.Add(fullscreen);
                     fullscreen.OnBannerClosed += OnBannerClosed;
-                    
+
                     Image bannerImage = fullScreenObj.GetComponent<Image>();
                     bannerImage.color = new Color(bannerImage.color.r, bannerImage.color.g, bannerImage.color.b, 0f);
-                    
+
                     fullScreenObj.AddComponent<Button>().onClick.AddListener(() => BannerClick(url));
-                    
+
                     StartCoroutine(GetImages(data[i]["imageUrl"].ToString().Trim('"'), fullscreen.bannerImage));
-                    
-                    fullScreenObj.transform.localScale = Vector3.zero; 
+
+                    fullScreenObj.transform.localScale = Vector3.zero;
                     fullScreenObj.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack)
                         .OnComplete(() => bannerImage.DOFade(0.6f, 0.3f));
                 }
@@ -1257,8 +1275,8 @@ public class MainMenuManager : MonoBehaviour
         }
 
     }
-    
-    
+
+
     void BannerClick(string bannerUrl)
     {
         //print("Banner URL : " + bannerUrl);
@@ -1267,7 +1285,7 @@ public class MainMenuManager : MonoBehaviour
             Application.OpenURL(bannerUrl);
         }
     }
-    
+
     IEnumerator GetImages(string URl, Image image)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(URl);
@@ -1283,12 +1301,12 @@ public class MainMenuManager : MonoBehaviour
             }
         }
     }
-    
+
 
     #endregion
 
     #region DailyScratchCard
-    
+
     private void OnBannerClosed()
     {
         closedBannerCount++;
@@ -1411,7 +1429,7 @@ public class MainMenuManager : MonoBehaviour
             JSONNode data = JSON.Parse(values["data"].ToString());
             if (values["success"] == false)
             {
-            print("MY");
+                print("MY");
                 DataManager.Instance.SetLoginValue("N");
                 SceneManager.LoadScene("Splash");
                 yield break;
@@ -1759,7 +1777,7 @@ public class MainMenuManager : MonoBehaviour
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), avatarImg));
         LoadProfileImage();
     }
-    
+
     public void LoadProfileImage()
     {
         Sprite selectedAvatarSprite = DataManager.Instance.GetSelectedAvatarSprite();
@@ -1780,7 +1798,7 @@ public class MainMenuManager : MonoBehaviour
         string str = s;
         string newstr = str.Replace("\"", "");
         return newstr;
-        
+
     }
     #endregion
 
@@ -1794,11 +1812,11 @@ public class MainMenuManager : MonoBehaviour
             int[] avatars = Enumerable.Range(0, BotManager.Instance.botUser_Profile_URL.Count).ToArray();
             avatars.Shuffle();
             int[] randomAvatars = avatars.Take(botPlayers).ToArray();
-        
+
             int[] names = Enumerable.Range(0, BotManager.Instance.botUserName.Count).ToArray();
             names.Shuffle();
             int[] randomNames = names.Take(botPlayers).ToArray();
-            
+
             for (int i = 0; i < botPlayers; i++)
             {
                 string avatar =
@@ -1809,12 +1827,12 @@ public class MainMenuManager : MonoBehaviour
                     .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "TeenPatti";
                 DataManager.Instance.AddRoomUser(userId, botUserName,
                     DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                    UnityEngine.Random.Range(459, 10000).ToString(), i , avatar);
+                    UnityEngine.Random.Range(459, 10000).ToString(), i, avatar);
             }
         }
     }
-    
-    
+
+
     public void LoadLudoBotPlayers()
     {
         print("---------------Load Bot For Ludo-----------------");
@@ -1836,7 +1854,7 @@ public class MainMenuManager : MonoBehaviour
                 return;
             }
         }
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
             int maxPlayer = 4;
             int playerRequired = maxPlayer - DataManager.Instance.joinPlayerDatas.Count;
@@ -1866,7 +1884,7 @@ public class MainMenuManager : MonoBehaviour
                     DataManager.Instance.AddRoomUser(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), playerNo, avatar);
                     TestSocketIO.Instace.BotJoinLudoRoom(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), avatar);
                 }
-                
+
                 BotManager.Instance.isConnectBot = true;
                 int rnoInd = 0;
                 if (rnoInd == 0)
@@ -2198,11 +2216,11 @@ public class MainMenuManager : MonoBehaviour
             int maxPlayer = 4;
             int playerRequired = maxPlayer - DataManager.Instance.joinPlayerDatas.Count;
             print("Data Manager Join Player Count : " + DataManager.Instance.joinPlayerDatas.Count);
-            
+
             if (DataManager.Instance.joinPlayerDatas.Count == 4)
-            { 
+            {
                 StartCoroutine(LoadScene());
-               //GenerateLoadingPanel();
+                //GenerateLoadingPanel();
             }
             else if (DataManager.Instance.joinPlayerDatas.Count is 1 or 2 or 3 &&
                      BotManager.Instance.isBotAvalible) // && DataManager.Instance.gameType!="Game")
@@ -2222,7 +2240,7 @@ public class MainMenuManager : MonoBehaviour
 
                 for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
                 {
-                    if(DataManager.Instance.playerData._id == DataManager.Instance.joinPlayerDatas[i].userId)
+                    if (DataManager.Instance.playerData._id == DataManager.Instance.joinPlayerDatas[i].userId)
                     {
                         DataManager.Instance.playerNo = i + 1;
                         break;
@@ -2231,25 +2249,25 @@ public class MainMenuManager : MonoBehaviour
                 Debug.Log("DataManager.Instance.playerNo after switch = " + DataManager.Instance.playerNo);
                 //if (DataManager.Instance.playerNo == 1)
                 //{
-                    for (int i = 0; i < playerRequired; i++)
-                    {
-                        Debug.Log("Adding bot for 4 player game");
-                        int playerNo = i + 2;
-                        string avatar =
-                            BotManager.Instance.botUser_Profile_URL[
-                                UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
-                        string botUserName =
-                            BotManager.Instance.botUserName[
-                                UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count)];
-                        string userId = DataManager.Instance.joinPlayerDatas[i].userId
-                            .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "Ludo";
-                        DataManager.Instance.AddRoomUser(userId, botUserName,
-                            DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                            10.ToString(), playerNo, avatar);
-                         TestSocketIO.Instace.BotJoinLudoRoom(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), avatar);
-                    }
+                for (int i = 0; i < playerRequired; i++)
+                {
+                    Debug.Log("Adding bot for 4 player game");
+                    int playerNo = i + 2;
+                    string avatar =
+                        BotManager.Instance.botUser_Profile_URL[
+                            UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
+                    string botUserName =
+                        BotManager.Instance.botUserName[
+                            UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count)];
+                    string userId = DataManager.Instance.joinPlayerDatas[i].userId
+                        .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "Ludo";
+                    DataManager.Instance.AddRoomUser(userId, botUserName,
+                        DataManager.Instance.joinPlayerDatas[i].lobbyId,
+                        10.ToString(), playerNo, avatar);
+                    TestSocketIO.Instace.BotJoinLudoRoom(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), avatar);
+                }
                 //}
-                
+
 
                 BotManager.Instance.isConnectBot = true;
                 //int rnoInd = UnityEngine.Random.Range(0, 2);
@@ -2345,7 +2363,7 @@ public class MainMenuManager : MonoBehaviour
             yield return null;
         }
     }
-    
+
     public IEnumerator LoadSnakeScene()
     {
 
@@ -2371,7 +2389,7 @@ public class MainMenuManager : MonoBehaviour
 
 
     #endregion
-    
+
     #region Coupon List
     public void GetCoupon()
     {

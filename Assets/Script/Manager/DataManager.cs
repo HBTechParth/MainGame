@@ -29,7 +29,8 @@ public enum GameType
     Deal_Rummy,
     Poker,
     Jhandi_Munda,
-    Aviator
+    Aviator,
+    SpinAndWin
 }
 
 public class DataManager : MonoBehaviour
@@ -90,7 +91,7 @@ public class DataManager : MonoBehaviour
     public bool isAvaliable;
     public float betPrice;
     public bool IsOneTimeOpen = false;
-    
+
     [Header("---Daily Spin---")]
     public int thisMonthDays;
 
@@ -99,20 +100,20 @@ public class DataManager : MonoBehaviour
     [Header("---Teen Patti---")]
     public float chaalLimit;
     public float potLimit;
-    
+
     [Header("---DragonTiger---")]
     public string listString;
-    
+
     [Header("---Aviator---")]
     public string historyPoints;
-    
+
     [Header("---Andar Bahar---")]
     public string winList;
 
     [Header("---Roulette---")]
     public bool rouletteGameStatus;
     public string winRecord;
-    
+
     [Header("---Car Roulette---")]
     public string historyRecord;
 
@@ -126,11 +127,11 @@ public class DataManager : MonoBehaviour
     public float pointLimit = 101;//for pool rummy must be 101/201
 
     public bool isShopRequest;
-    
-    
+
+
     public string PanSavedKey = "PanSaved";
     public string OtpVerifiedKey = "OtpVerified";
-    
+
     private Sprite selectedAvatarSprite;
     private int selectedAvatarIndex;
     private Image profileTopImg;
@@ -155,7 +156,7 @@ public class DataManager : MonoBehaviour
 
     [Obsolete("Obsolete")]
     private void Start()
-    { 
+    {
         GetVersionUpdate();
         GetTournament();
         //MainMenuManager.Instance.GetTran();
@@ -178,7 +179,7 @@ public class DataManager : MonoBehaviour
             InstantiateTapEffect(worldPosition, scaleFactor);
         }
     }
-    
+
     private void InstantiateTapEffect(Vector3 position, float scaleFactor)
     {
         GameObject particleObj = Instantiate(tapParticles, position, Quaternion.identity);
@@ -226,7 +227,7 @@ public class DataManager : MonoBehaviour
     {
         return PlayerPrefs.GetInt("SoundValue", 0);
     }
-    
+
     public void SetMusic(int no)
     {
         PlayerPrefs.SetInt("MusicValue", no);
@@ -312,17 +313,17 @@ public class DataManager : MonoBehaviour
     {
         return PlayerPrefs.GetFloat("WonPlayedGame", 0);
     }
-    
+
     public bool IsPanSaved()
     {
         return PlayerPrefs.GetInt(PanSavedKey, 0) == 1;
     }
-    
+
     public bool IsOtpVerified()
     {
         return PlayerPrefs.GetInt(OtpVerifiedKey, 0) == 1;
     }
-    
+
     public void SetSelectedAvatarSprite(Sprite sprite)
     {
         selectedAvatarSprite = sprite;
@@ -332,7 +333,7 @@ public class DataManager : MonoBehaviour
     {
         return selectedAvatarSprite;
     }
-    
+
     #endregion
 
     public void OnApplicationClose()
@@ -349,7 +350,7 @@ public class DataManager : MonoBehaviour
             LoadSelectedAvatarSprite(selectedAvatarIndex);
         }
     }
-    
+
     private void LoadSelectedAvatarSprite(int index)
     {
         if (index == -1)
@@ -366,16 +367,16 @@ public class DataManager : MonoBehaviour
             selectedAvatarSprite = null; // Use a default sprite if desired
         }
     }
-    
+
     private void LoadAvatars()
     {
         avatars = Resources.LoadAll<Sprite>(avatarFolderPath);
     }
-    
+
     public void LoadProfileImage(string url, Image avatar)
     {
         string prefix = "http://139.59.77.167/assets/img/";
-    
+
         if (url.StartsWith(prefix))
         {
             StartCoroutine(GetImages(url, avatar));
@@ -394,7 +395,7 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    
+
 
     public void UserTurnVibrate()
     {
@@ -428,6 +429,7 @@ public class DataManager : MonoBehaviour
             GameType.Poker => "Poker",
             GameType.Jhandi_Munda => "JhandiMunda",
             GameType.Aviator => "Aviator",
+            GameType.SpinAndWin => "SpinAndWin",
             _ => ""
         };
         /*else if (type == GameType.Poker)
@@ -436,28 +438,28 @@ public class DataManager : MonoBehaviour
         }*/
         return gameName;
     }
-    
-   // #endregion
 
-   #region Daily Spin
+    // #endregion
 
-   public void SetDayValue(int no, int value)
-   {
-       PlayerPrefs.SetInt("Date" + no, value);
-   }
+    #region Daily Spin
 
-   public int GetDayValue(int no)
-   {
-       return PlayerPrefs.GetInt("Date" + no, 0);
-   }
+    public void SetDayValue(int no, int value)
+    {
+        PlayerPrefs.SetInt("Date" + no, value);
+    }
 
-   public void SetDayRewardValue(int no, int money)
-   {
-       PlayerPrefs.SetInt("Date" + no, money);
-   }
+    public int GetDayValue(int no)
+    {
+        return PlayerPrefs.GetInt("Date" + no, 0);
+    }
+
+    public void SetDayRewardValue(int no, int money)
+    {
+        PlayerPrefs.SetInt("Date" + no, money);
+    }
 
 
-   #endregion
+    #endregion
 
     #region Version Update
 
@@ -478,10 +480,10 @@ public class DataManager : MonoBehaviour
 
             JSONNode keys = JSON.Parse(request.downloadHandler.text.ToString());
             JSONNode data = JSON.Parse(keys["data"].ToString());
-            
+
             appVersion = data[0]["versionControle"];
             appUrl = data[0]["appLink"];
-            
+
             //InternetManager.Instance.CheckUpdate();
         }
 
@@ -499,7 +501,7 @@ public class DataManager : MonoBehaviour
         {
             StartCoroutine(GetTournaments());
         }
-        
+
     }
 
     [Obsolete("Obsolete")]
@@ -514,7 +516,6 @@ public class DataManager : MonoBehaviour
         if (request.error == null && !request.isNetworkError)
         {
             print("Tour Data : " + request.downloadHandler.text);
-
             JSONNode values = JSON.Parse(request.downloadHandler.text.ToString());
             JSONNode data = JSON.Parse(values["data"].ToString());
 
@@ -525,7 +526,7 @@ public class DataManager : MonoBehaviour
                 SetLoginValue("N");
                 yield break;
             }
-            
+
             for (int i = 0; i < data.Count; i++)
             {
                 TournamentData t = new TournamentData
@@ -556,6 +557,7 @@ public class DataManager : MonoBehaviour
                     13 => GameType.Pool_Rummy,//15
                     14 => GameType.Deal_Rummy,
                     15 => GameType.Aviator,
+                    16 => GameType.SpinAndWin,
                     _ => t.modeType
                 };
                 t.betAmount = data[i]["betAmount"];
@@ -651,9 +653,11 @@ public class DataManager : MonoBehaviour
             if (joinPlayerDatas[i].userId == joinPlayer.userId)
             {
                 check++;
+                Debug.Log("Check  =  " + check);
             }
 
         }
+        Debug.Log("Check   $=  " + check);
         if (check == 0)
         {
             return true;
@@ -712,7 +716,7 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    
+
     public void ReverseAmount(float amount, string roomid, string note, string log, int betNo)
     {
         StartCoroutine(ReverseBetAmount(amount, roomid, note, log, betNo));
@@ -767,7 +771,7 @@ public class DataManager : MonoBehaviour
         form.AddField("logType", logType);
         form.AddField("betNo", betNo);
         form.AddField("tournamentId", tournamentID);
-        print("This is the debet data -> " +  form);
+        print("This is the debet data -> " + form);
         DebitAmount_Send(form);
     }
 
@@ -806,7 +810,7 @@ public class DataManager : MonoBehaviour
     #endregion
 
     #region Bonus
-    
+
     public void BonusDebitAmount(string amount, string roomId, string note, string logType)
     {
         WWWForm form = new WWWForm();
@@ -885,7 +889,7 @@ public class DataManager : MonoBehaviour
 
 
     #endregion
-    
+
     public void SendLeaderBoardData(string winPlayerId, float amountWon, string tourId, int winner, string gameId, string note, string players)
     {
         WWWForm form = new WWWForm();

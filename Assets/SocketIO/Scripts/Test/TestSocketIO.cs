@@ -52,7 +52,7 @@ public class TestSocketIO : MonoBehaviour
         socket.On("res", HandelEvents);
     }
 
-    
+
 
 
     public void TestOpen(SocketIOEvent e)
@@ -83,6 +83,8 @@ public class TestSocketIO : MonoBehaviour
     public void HandelEvents(SocketIOEvent data)
     {
         string ev = "";
+        Debug.Log("<color=yellow> HandelEvents </color> " + data);
+
         print(data);
         JSONNode values = JSON.Parse(data.data.ToString());
         ev = values["ev"].Value.ToString().Trim('"');
@@ -464,6 +466,7 @@ public class TestSocketIO : MonoBehaviour
 
         if (DataManager.Instance.CheckRoomUser(DataManager.Instance.playerData._id.ToString().Trim('"')) == true)
         {
+            Debug.Log("<color=yellow> Player Data Send  </color>" + userdata);
             socket.Emit("join", userdata);
         }
     }
@@ -804,6 +807,7 @@ public class TestSocketIO : MonoBehaviour
             {
                 if (DragonTigerManager.Instance != null)
                 {
+                    Debug.Log("DragonTiger IN");
                     DragonTigerManager.Instance.OpenScene();
                 }
             }
@@ -3524,7 +3528,7 @@ public class TestSocketIO : MonoBehaviour
         JSONObject keys = new JSONObject();
         keys.AddField("room", roomId);
         keys.AddField("gameData", data);
-        Debug.Log("SendData===:::" + keys);
+        Debug.Log("<color=yellow> SendRoomdata===:::</color>" + keys);
         socket.Emit("setGameData", keys);
     }
     public void SetGameId(string lobbyId)
@@ -3534,6 +3538,9 @@ public class TestSocketIO : MonoBehaviour
         keys.AddField("lobbyId", lobbyId);
         Debug.Log("SendData===:::" + keys);
         socket.Emit("setGameId", keys);
+
+        Debug.Log("<color=yellow> setGameId </color> " + keys);
+
     }
 
     public void HandelSetGameId(string values)

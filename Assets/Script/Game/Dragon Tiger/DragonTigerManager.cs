@@ -52,12 +52,12 @@ public class DragonTigerManager : MonoBehaviour
 
     public GameObject chip;
 
-    [Header("--- History Coins ---")] 
+    [Header("--- History Coins ---")]
     public GameObject CoinsCarrier;
     public GameObject TigerCoin;
     public GameObject DragonCoin;
     public GameObject TieCoin;
-    
+
     [Header("--- Chip Generate Position ---")]
     public float minDragonX;
 
@@ -79,14 +79,14 @@ public class DragonTigerManager : MonoBehaviour
     public float downValue;
     public float upValue;
 
-    [Header("--- Start Bet ---")] 
+    [Header("--- Start Bet ---")]
     public GameObject startBetObj;
     public GameObject stopBetObj;
 
-    [Header("--- Game Play Maintain ---")] 
+    [Header("--- Game Play Maintain ---")]
     public GameObject waitNextRoundScreenObj;
 
-    [Header("--- PlayersList ---")] 
+    [Header("--- PlayersList ---")]
     public DragonTigerPlayer players1;
     public DragonTigerPlayer players2;
     public DragonTigerPlayer players3;
@@ -98,7 +98,7 @@ public class DragonTigerManager : MonoBehaviour
     public List<DragonTigerPlayer> DragonTigerPlayerList = new List<DragonTigerPlayer>();
 
 
-    [Header("--- Bot PlayersList ---")] 
+    [Header("--- Bot PlayersList ---")]
     public DTPlayerManager player1;
     public DTPlayerManager player2;
     public DTPlayerManager player3;
@@ -132,7 +132,7 @@ public class DragonTigerManager : MonoBehaviour
     public Text dragonPriceTxt;
     public Text tigerPriceTxt;
     public Text tiePriceTxt;
-    
+
     public Text dragonPTxt;
     public Text tigerPTxt;
     public Text tiePTxt;
@@ -158,10 +158,10 @@ public class DragonTigerManager : MonoBehaviour
 
 
     bool isAdmin = false;
-   public int maxWinList = 16;
-   public List<int> winList;
-   public List<GameObject> historyChips = new List<GameObject>();
-   public List<GameObject> genChipList_Dragon = new List<GameObject>();
+    public int maxWinList = 16;
+    public List<int> winList;
+    public List<GameObject> historyChips = new List<GameObject>();
+    public List<GameObject> genChipList_Dragon = new List<GameObject>();
     public List<GameObject> genChipList_Tiger = new List<GameObject>();
     public List<GameObject> genChipList_Tie = new List<GameObject>();
 
@@ -169,7 +169,7 @@ public class DragonTigerManager : MonoBehaviour
     private string playerPrefsKey = "HistoryChipsList";
 
     //public float[] botPlayerBalance = { 15995f, 11225f, 10000f, 50000f, 85624f, 96545f, 65826f, 94584f, 72665f, 38561f };
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image musicImg;
@@ -177,7 +177,7 @@ public class DragonTigerManager : MonoBehaviour
     public Sprite soundoffSprite;
     public Sprite musiconSprite;
     public Sprite musicoffSprite;
-    
+
 
     private void Awake()
     {
@@ -207,15 +207,15 @@ public class DragonTigerManager : MonoBehaviour
         {
             DragonTigerPlayerList[i].gameObject.SetActive(false);
         }
-        
+
         UpdateNameBalance();
         GetPlayerHistory();
-        
+
         OpenScene();
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , avatarImg);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), avatarImg);
         //PlayerPrefs.DeleteKey(playerPrefsKey);
         //LoadHistoryChips();
-        
+
         //StartCoroutine(StartBet());
         ChipAnimMaintain(1);
         HistoryLoader(DataManager.Instance.listString);
@@ -224,8 +224,11 @@ public class DragonTigerManager : MonoBehaviour
 
     public void OpenScene()
     {
+        Debug.Log("DragonTiger 1 IN");
+
         if (DataManager.Instance.joinPlayerDatas.Count >= TestSocketIO.Instace.dragonTigerRequirePlayer)
         {
+            Debug.Log("DragonTiger 1 IN");
             CreateAdmin(); // Creating admin
             if (DataManager.Instance.joinPlayerDatas.Count == 1 && isAdmin)
             {
@@ -280,7 +283,7 @@ public class DragonTigerManager : MonoBehaviour
         //    RestartTimer();
         //}
     }
-    
+
     /*private void OnDrawGizmos()
     {
         
@@ -298,11 +301,11 @@ public class DragonTigerManager : MonoBehaviour
     private void LoadHistoryChips()
     {
         string listString = PlayerPrefs.GetString(playerPrefsKey, "");
-        if(listString != "")
+        if (listString != "")
         {
             winList = new List<int>(listString.Split(',').Select(x => int.Parse(x)));
         }
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
@@ -314,7 +317,7 @@ public class DragonTigerManager : MonoBehaviour
         print("WinNumber -> " + num);
         winList.RemoveAt(0);
         winList.Add(num);
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
@@ -329,7 +332,7 @@ public class DragonTigerManager : MonoBehaviour
     public void GetUpdatedHistory(string data)
     {
         if (isAdmin) return;
-        if(data != "")
+        if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
@@ -337,7 +340,7 @@ public class DragonTigerManager : MonoBehaviour
         {
             return;
         }
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
@@ -346,17 +349,17 @@ public class DragonTigerManager : MonoBehaviour
 
     public void HistoryLoader(string data)
     {
-        if(data != "")
+        if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
-        
+
         foreach (var t in winList)
         {
             HistoryTacker(t);
         }
     }
-    
+
 
     #region Cards Maintain
 
@@ -577,7 +580,7 @@ public class DragonTigerManager : MonoBehaviour
                         .DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), animSpeed).OnComplete(() =>
                         {
                             genChipList_Dragon.RemoveAt(no);
-                            
+
                             UpdateList(tNum, genChipList_Tiger, genChipList_Dragon);
                         });
                 });
@@ -600,13 +603,13 @@ public class DragonTigerManager : MonoBehaviour
                         .DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), animSpeed).OnComplete(() =>
                         {
                             genChipList_Tie.Remove(genChipList_Tie[no]);
-                            
+
                             UpdateList(tNum, genChipList_Tiger, genChipList_Tie);
                         });
                 });
             }
         }
-        
+
         int cNo = 0;
         if (winNo == 1)
         {
@@ -688,9 +691,9 @@ public class DragonTigerManager : MonoBehaviour
         {
             //otherPrice Direct Profit
         }
-        
-        Invoke(nameof(ClearChips),1f);
-        
+
+        Invoke(nameof(ClearChips), 1f);
+
         int childCount = tieParent.transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
@@ -762,7 +765,7 @@ public class DragonTigerManager : MonoBehaviour
                 t.gameObject.SetActive(true);
             }
         }
-        
+
         else
         {
             // for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count - 1; i++)
@@ -776,8 +779,8 @@ public class DragonTigerManager : MonoBehaviour
             }
             return;
         }
-        
-        
+
+
         GetBotPlayer();
         SetBotPlayer();
     }
@@ -787,21 +790,21 @@ public class DragonTigerManager : MonoBehaviour
         int[] avatars = Enumerable.Range(0, BotManager.Instance.botUser_Profile_URL.Count).ToArray();
         avatars.Shuffle();
         int[] randomAvatars = avatars.Take(DTPlayerList.Count).ToArray();
-        
+
         int[] names = Enumerable.Range(0, BotManager.Instance.botUserName.Count).ToArray();
         names.Shuffle();
         int[] randomNames = names.Take(DTPlayerList.Count).ToArray();
-        
-        
+
+
         for (int i = 0; i < DTPlayerList.Count; i++)
         {
             PlayerHistory t = new PlayerHistory();
-            t.avatar = BotManager.Instance.botUser_Profile_URL[randomAvatars [i]];
-            t.name =  BotManager.Instance.botUserName[randomNames[i]];
+            t.avatar = BotManager.Instance.botUser_Profile_URL[randomAvatars[i]];
+            t.name = BotManager.Instance.botUserName[randomNames[i]];
             PlayerHistories.Add(t);
         }
     }
-    
+
 
     private void SetBotPlayer()
     {
@@ -824,37 +827,37 @@ public class DragonTigerManager : MonoBehaviour
         switch (winNo)
         {
             case 1:
-            {
-                var chip = Instantiate(TieCoin, CoinsCarrier.transform);
-                historyChips.Add(chip);
-                var firstObject = historyChips[0];
-                historyChips.RemoveAt(0);
-                Destroy(firstObject);
-                break;
-            }
+                {
+                    var chip = Instantiate(TieCoin, CoinsCarrier.transform);
+                    historyChips.Add(chip);
+                    var firstObject = historyChips[0];
+                    historyChips.RemoveAt(0);
+                    Destroy(firstObject);
+                    break;
+                }
             case 2:
-            {
-                var chip = Instantiate(DragonCoin, CoinsCarrier.transform);
-                historyChips.Add(chip);
-                var firstObject = historyChips[0];
-                historyChips.RemoveAt(0);
-                Destroy(firstObject);
-                break;
-            }
+                {
+                    var chip = Instantiate(DragonCoin, CoinsCarrier.transform);
+                    historyChips.Add(chip);
+                    var firstObject = historyChips[0];
+                    historyChips.RemoveAt(0);
+                    Destroy(firstObject);
+                    break;
+                }
             case 3:
-            {
-                var chip = Instantiate(TigerCoin, CoinsCarrier.transform);
-                historyChips.Add(chip);
-                var firstObject = historyChips[0];
-                historyChips.RemoveAt(0);
-                Destroy(firstObject);
-                break;
-            }
+                {
+                    var chip = Instantiate(TigerCoin, CoinsCarrier.transform);
+                    historyChips.Add(chip);
+                    var firstObject = historyChips[0];
+                    historyChips.RemoveAt(0);
+                    Destroy(firstObject);
+                    break;
+                }
             default:
-            {
-                print("No data to track");
-                break;
-            }
+                {
+                    print("No data to track");
+                    break;
+                }
         }
         // string jsonString = JsonConvert.SerializeObject(historyChips);
         // PlayerPrefs.SetString(playerPrefsKey, jsonString);
@@ -892,7 +895,7 @@ public class DragonTigerManager : MonoBehaviour
             }
         }
 
-        
+
     }
 
     private void ClearChips()
@@ -1091,7 +1094,7 @@ public class DragonTigerManager : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     void UpdateBoardPrice()
@@ -1099,7 +1102,7 @@ public class DragonTigerManager : MonoBehaviour
         dragonPriceTxt.text = "Bet: " + dragonTotalPrice.ToString("F2");
         tigerPriceTxt.text = "Bet: " + tigerTotalPrice.ToString("F2");
         tiePriceTxt.text = "Bet: " + tieTotalPrice.ToString("F2");
-        
+
         dragonPTxt.text = "Bet: " + dragonPrice.ToString("F2");
         tigerPTxt.text = "Bet: " + tigerPrice.ToString("F2");
         tiePTxt.text = "Bet: " + tiePrice.ToString("F2");
@@ -1123,8 +1126,8 @@ public class DragonTigerManager : MonoBehaviour
         // if (cardGenPre2 != null)
         // {
         // }
-        
-        
+
+
         isEnterBetStop = true;
         startBetObj.SetActive(true);
         yield return new WaitForSeconds(0.5f);
@@ -1138,30 +1141,30 @@ public class DragonTigerManager : MonoBehaviour
 
             //cardNo1 = 0;
             //cardNo2 = 1;
-            
+
 
             while (cardNo1 == cardNo2)
             {
                 cardNo2 = UnityEngine.Random.Range(0, 52);
             }
-            
+
 
             //cardSuffle1 = cardSuffles[cardNo1];
             //cardSuffle2 = cardSuffles[cardNo2];
             //SetRoomData(cardNo1, cardNo2);
-            
+
             cardSuffle1 = cardSuffles[cardNo1];
             cardSuffle2 = cardSuffles[cardNo2];
             SetRoomData(cardNo1, cardNo2, DataManager.Instance.listString);
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
-        
+
 
         yield return new WaitForSeconds(1.35f);
         startBetObj.SetActive(false);
         betAnimationONOff(true);
         RestartTimer();
-       // DragonTigerAIManager.Instance.isActive = true;
+        // DragonTigerAIManager.Instance.isActive = true;
 
     }
     public List<GameObject> objects;  // List of objects to animate
@@ -1225,7 +1228,7 @@ public class DragonTigerManager : MonoBehaviour
                     DragonTigerPlayerList[cnt].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     DragonTigerPlayerList[cnt].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                     DragonTigerPlayerList[cnt].GetPlayerImage();
-                    
+
                     cnt++;
                 }
             }
@@ -1235,8 +1238,8 @@ public class DragonTigerManager : MonoBehaviour
                 DragonTigerPlayerList[i].gameObject.SetActive(false);
                 DragonTigerPlayerList[i].playerId = "";
                 DragonTigerPlayerList[i].playerNameTxt.text = "";
-                print("-------------------- Player is getting active false ------------------------------------------");
-                
+                print("-------------------- Player is getting active false --------------------------");
+
             }
         }
 
@@ -1247,14 +1250,14 @@ public class DragonTigerManager : MonoBehaviour
     {
         _isClickAvailable = false;
         GetLargestBet();
-        
+
         isEnterBetStop = true;
         stopBetObj.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         DragonTigerAIManager.Instance.isActive = false;
-        if ( isAdmin)
+        if (isAdmin)
         {
             if (dragonTotalPrice + tigerTotalPrice + tieTotalPrice > 0)
             {
@@ -1269,13 +1272,13 @@ public class DragonTigerManager : MonoBehaviour
 
         Card_Open_Match();
     }
-    
+
     public void GetDeckData(int no1, int no2)
     {
         if (isAdmin) return;
         cardNo1 = no1;
         cardNo2 = no2;
-        
+
         cardSuffle1 = cardSuffles[cardNo1];
         cardSuffle2 = cardSuffles[cardNo2];
     }
@@ -1286,13 +1289,13 @@ public class DragonTigerManager : MonoBehaviour
         isWin = false;
         timerValue = fixTimerValue;
         secondCount = timerValue;
-        timerTxt.text =timerValue.ToString();
+        timerTxt.text = timerValue.ToString();
         isEnterBetStop = false;
 
         dragonTotalPrice = 0;
         tigerTotalPrice = 0;
         tieTotalPrice = 0;
-        
+
         dragonPrice = 0;
         tigerPrice = 0;
         tiePrice = 0;
@@ -1455,104 +1458,104 @@ public class DragonTigerManager : MonoBehaviour
         switch (no)
         {
             case 1:
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 2);
+
+                    Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
+                        Random.Range(minDragonY, maxDragonY));
+                    GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = ourProfile.transform.position;
+                    dragonTotalPrice += chipPrice[selectChipNo];
+                    dragonPrice += chipPrice[selectChipNo];
+                    DragonTigerAIManager.Instance._dMinBalance += chipPrice[selectChipNo];
+                    genChipList_Dragon.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+
+                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    betClass.no = no;
+                    betClass.price = chipPrice[selectChipNo];
+                    betClass.betObj = chipGen;
+                    dragonTigerBetClasses.Add(betClass);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 2);
-
-                Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
-                    Random.Range(minDragonY, maxDragonY));
-                GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = ourProfile.transform.position;
-                dragonTotalPrice += chipPrice[selectChipNo];
-                dragonPrice += chipPrice[selectChipNo];
-                DragonTigerAIManager.Instance._dMinBalance += chipPrice[selectChipNo];
-                genChipList_Dragon.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-
-                DragonTigerBetClass betClass = new DragonTigerBetClass();
-                betClass.no = no;
-                betClass.price = chipPrice[selectChipNo];
-                betClass.betObj = chipGen;
-                dragonTigerBetClasses.Add(betClass);
-                break;
-            }
             case 2:
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
 
-                    OpenErrorScreen();
-                    return;
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 3);
+
+                    Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
+                        Random.Range(minTigerY, maxTigerY));
+                    GameObject chipGen = Instantiate(chipObj, tigerParent.transform);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    chipGen.transform.position = ourProfile.transform.position;
+                    tigerTotalPrice += chipPrice[selectChipNo];
+                    tigerPrice += chipPrice[selectChipNo];
+                    DragonTigerAIManager.Instance._tMinBalance += chipPrice[selectChipNo];
+                    genChipList_Tiger.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+
+                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    betClass.no = no;
+                    betClass.price = chipPrice[selectChipNo];
+                    betClass.betObj = chipGen;
+
+                    dragonTigerBetClasses.Add(betClass);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 3);
-
-                Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
-                    Random.Range(minTigerY, maxTigerY));
-                GameObject chipGen = Instantiate(chipObj, tigerParent.transform);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                chipGen.transform.position = ourProfile.transform.position;
-                tigerTotalPrice += chipPrice[selectChipNo];
-                tigerPrice += chipPrice[selectChipNo];
-                DragonTigerAIManager.Instance._tMinBalance += chipPrice[selectChipNo];
-                genChipList_Tiger.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-
-                DragonTigerBetClass betClass = new DragonTigerBetClass();
-                betClass.no = no;
-                betClass.price = chipPrice[selectChipNo];
-                betClass.betObj = chipGen;
-
-                dragonTigerBetClasses.Add(betClass);
-                break;
-            }
             case 3:
-            {
-                bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
-                if (isMoneyAv == false)
                 {
-                    SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
+                    if (isMoneyAv == false)
+                    {
+                        SoundManager.Instance.ButtonClick();
+                        OpenErrorScreen();
+                        return;
+                    }
+
+                    SoundManager.Instance.ThreeBetSound();
+                    DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
+                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 1);
+
+                    Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
+                        Random.Range(minTieY, maxTieY));
+                    GameObject chipGen = Instantiate(chipObj, tieParent.transform);
+                    chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+                    genChipList_Tiger.Add(chipGen);
+                    chipGen.transform.position = ourProfile.transform.position;
+                    tieTotalPrice += chipPrice[selectChipNo];
+                    tiePrice += chipPrice[selectChipNo];
+                    DragonTigerAIManager.Instance._tiMinBalance += chipPrice[selectChipNo];
+                    genChipList_Tie.Add(chipGen);
+                    ChipGenerate(chipGen, rPos);
+
+                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    betClass.no = no;
+                    betClass.price = chipPrice[selectChipNo];
+                    betClass.betObj = chipGen;
+                    dragonTigerBetClasses.Add(betClass);
+                    break;
                 }
-
-                SoundManager.Instance.ThreeBetSound();
-                DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                    "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 1);
-
-                Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
-                    Random.Range(minTieY, maxTieY));
-                GameObject chipGen = Instantiate(chipObj, tieParent.transform);
-                chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-                genChipList_Tiger.Add(chipGen);
-                chipGen.transform.position = ourProfile.transform.position;
-                tieTotalPrice += chipPrice[selectChipNo];
-                tiePrice += chipPrice[selectChipNo];
-                DragonTigerAIManager.Instance._tiMinBalance += chipPrice[selectChipNo];
-                genChipList_Tie.Add(chipGen);
-                ChipGenerate(chipGen, rPos);
-
-                DragonTigerBetClass betClass = new DragonTigerBetClass();
-                betClass.no = no;
-                betClass.price = chipPrice[selectChipNo];
-                betClass.betObj = chipGen;
-                dragonTigerBetClasses.Add(betClass);
-                break;
-            }
         }
         DragonTigerAIManager.Instance.UpdateTiePrice();
         SendDargonTigerBet(no, selectChipNo);
@@ -1611,6 +1614,8 @@ public class DragonTigerManager : MonoBehaviour
         obj.AddField("boxNo", boxNo);
         obj.AddField("chipNo", chipNo);
         TestSocketIO.Instace.Senddata("SendDragonTigerBet", obj);
+
+        Debug.Log("<color=yellow> SendDragonTigerBet </color> " + obj);
     }
 
 
@@ -1687,7 +1692,7 @@ public class DragonTigerManager : MonoBehaviour
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
         TestSocketIO.Instace.Senddata("SendDeckBet", obj);
     }
-    
+
     public void SetWinData(string winListData)
     {
         JSONObject obj = new JSONObject();
@@ -1716,7 +1721,7 @@ public class DragonTigerManager : MonoBehaviour
         }
     }
 
-    
+
 
     public void ChangeAAdmin(string leavePlayerId, string adminId)
     {
@@ -1768,12 +1773,12 @@ public class DragonTigerManager : MonoBehaviour
                 if (isEnter == false)
                 {
                     DragonTigerPlayerList[i].gameObject.SetActive(false);
-                    
+
                     print("---------------------Player got Removed from 1683---------------------------------");
                 }
             }
         }
-        
+
         SetUpPlayer();
     }
 
@@ -1803,166 +1808,166 @@ public class DragonTigerManager : MonoBehaviour
 
         GenerateNumber(gameNum);
     }
-    
+
 
 
     private int set = 0;
-     private bool _iscardGenPre1NotNull;
-     private bool _iscardGenPre2NotNull;
+    private bool _iscardGenPre1NotNull;
+    private bool _iscardGenPre2NotNull;
 
-     public void PickCardSet()
-     {
-         var shuffleNum = Random.Range(1, 5);
+    public void PickCardSet()
+    {
+        var shuffleNum = Random.Range(1, 5);
 
-         set = shuffleNum switch
-         {
-             1 => Random.Range(1, 13),
-             2 => Random.Range(13, 26),
-             3 => Random.Range(26, 39),
-             4 => Random.Range(39, 52),
-             _ => set
-         };
-     }
-
-
-     public void GenerateNumber(int num)
-     {
-         int card1 = 0;
-         int card2 = 0;
-         int newNum = 0;
-         if (num == 1)
-         {
-             //Dragon win
-             PickCardSet();
-             card1 = set;
-             PickCardSet();
-             card2 = set;
-             if (cardSuffles[card1].cardNo < cardSuffles[card2].cardNo)
-             {
-                 newNum = CheckCardValue(card1);
-                 cardNo1 = newNum;
-                 cardNo2 = card2;
-             }
-             else
-             {
-                 cardNo1 = card2;
-                 cardNo2 = card1;
-             }
-             //print(card1 + card2);
-             print("Dragon Win");
-
-         }
-         else if (num == 2)
-         {
-             //tiger win
-             PickCardSet();
-             card1 = set;
-             PickCardSet();
-             card2 = set;
-             if (cardSuffles[card1].cardNo > cardSuffles[card2].cardNo)
-             {
-                 newNum = CheckCardValue(card2);
-                 cardNo1 = card1;
-                 cardNo2 = newNum;
-             }
-             else
-             {
-                 cardNo1 = card2;
-                 cardNo2 = card1;
-             }
-             //print(card1 + card2);
-             print("tiger Win");
-         }
-         else if (num == 3)
-         {
-             //tie win
-             PickCardSet();
-             card1 = set;
-             PickCardSet();
-             card2 = set;
-             if (cardSuffles[card1].cardNo == cardSuffles[card2].cardNo)
-             {
-                 cardNo2 = card2 - 1;
-             }
-             else
-             {
-                 
-             }
-             //print(card1 + card2);
-             print("Tie Win");
-         }
-         
-
-     }
-     
-     private int CheckCardValue(int num)
-     {
-         // to check if card is = A
-         switch (num)
-         {
-             case 12:
-             case 25:
-             case 38:
-             case 51:
-                 return num - 9;
-             default:
-                 return num;
-         }
-     }
+        set = shuffleNum switch
+        {
+            1 => Random.Range(1, 13),
+            2 => Random.Range(13, 26),
+            3 => Random.Range(26, 39),
+            4 => Random.Range(39, 52),
+            _ => set
+        };
+    }
 
 
-     #endregion
-     
-     #region Sounds
+    public void GenerateNumber(int num)
+    {
+        int card1 = 0;
+        int card2 = 0;
+        int newNum = 0;
+        if (num == 1)
+        {
+            //Dragon win
+            PickCardSet();
+            card1 = set;
+            PickCardSet();
+            card2 = set;
+            if (cardSuffles[card1].cardNo < cardSuffles[card2].cardNo)
+            {
+                newNum = CheckCardValue(card1);
+                cardNo1 = newNum;
+                cardNo2 = card2;
+            }
+            else
+            {
+                cardNo1 = card2;
+                cardNo2 = card1;
+            }
+            //print(card1 + card2);
+            print("Dragon Win");
 
-     private void CheckSound()
-     {
-         soundImg.sprite = DataManager.Instance.GetSound() == 0 ? soundonSprite : soundoffSprite;
-         musicImg.sprite = DataManager.Instance.GetMusic() == 0 ? musiconSprite : musicoffSprite;
-     }
+        }
+        else if (num == 2)
+        {
+            //tiger win
+            PickCardSet();
+            card1 = set;
+            PickCardSet();
+            card2 = set;
+            if (cardSuffles[card1].cardNo > cardSuffles[card2].cardNo)
+            {
+                newNum = CheckCardValue(card2);
+                cardNo1 = card1;
+                cardNo2 = newNum;
+            }
+            else
+            {
+                cardNo1 = card2;
+                cardNo2 = card1;
+            }
+            //print(card1 + card2);
+            print("tiger Win");
+        }
+        else if (num == 3)
+        {
+            //tie win
+            PickCardSet();
+            card1 = set;
+            PickCardSet();
+            card2 = set;
+            if (cardSuffles[card1].cardNo == cardSuffles[card2].cardNo)
+            {
+                cardNo2 = card2 - 1;
+            }
+            else
+            {
 
-     public void SoundButtonClick()
-     {
-         if (soundImg.sprite == soundonSprite)
-         {
-             DataManager.Instance.SetSound(1);
-             soundImg.sprite = soundoffSprite;
-         }
-         else if (soundImg.sprite == soundoffSprite)
-         {
-             DataManager.Instance.SetSound(0);
-             soundImg.sprite = soundonSprite;
-         }
-     }
-    
-    
-     public void MusicButtonClick()
-     {
-         SoundManager.Instance.ButtonClick();
-         if (musicImg.sprite == musiconSprite)
-         {
-             DataManager.Instance.SetMusic(1);
-             musicImg.sprite = musicoffSprite;
-             SoundManager.Instance.StartBackgroundMusic();
-         }
-         else if (musicImg.sprite == musicoffSprite)
-         {
-             DataManager.Instance.SetMusic(0);
-             musicImg.sprite = musiconSprite;
-             SoundManager.Instance.StartBackgroundMusic();
-             SoundManager.Instance.ButtonClick();
-         }
-     }
+            }
+            //print(card1 + card2);
+            print("Tie Win");
+        }
 
 
-     #endregion
-    
+    }
+
+    private int CheckCardValue(int num)
+    {
+        // to check if card is = A
+        switch (num)
+        {
+            case 12:
+            case 25:
+            case 38:
+            case 51:
+                return num - 9;
+            default:
+                return num;
+        }
+    }
+
+
+    #endregion
+
+    #region Sounds
+
+    private void CheckSound()
+    {
+        soundImg.sprite = DataManager.Instance.GetSound() == 0 ? soundonSprite : soundoffSprite;
+        musicImg.sprite = DataManager.Instance.GetMusic() == 0 ? musiconSprite : musicoffSprite;
+    }
+
+    public void SoundButtonClick()
+    {
+        if (soundImg.sprite == soundonSprite)
+        {
+            DataManager.Instance.SetSound(1);
+            soundImg.sprite = soundoffSprite;
+        }
+        else if (soundImg.sprite == soundoffSprite)
+        {
+            DataManager.Instance.SetSound(0);
+            soundImg.sprite = soundonSprite;
+        }
+    }
+
+
+    public void MusicButtonClick()
+    {
+        SoundManager.Instance.ButtonClick();
+        if (musicImg.sprite == musiconSprite)
+        {
+            DataManager.Instance.SetMusic(1);
+            musicImg.sprite = musicoffSprite;
+            SoundManager.Instance.StartBackgroundMusic();
+        }
+        else if (musicImg.sprite == musicoffSprite)
+        {
+            DataManager.Instance.SetMusic(0);
+            musicImg.sprite = musiconSprite;
+            SoundManager.Instance.StartBackgroundMusic();
+            SoundManager.Instance.ButtonClick();
+        }
+    }
+
+
+    #endregion
+
 }
 
 [System.Serializable]
 public class PlayerHistory
 {
-    public string name; 
+    public string name;
     public string avatar;
     public float balance;
 }
