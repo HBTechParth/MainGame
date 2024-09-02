@@ -16,11 +16,11 @@ using WebSocketSharp;
 using Random = UnityEngine.Random;
 
 
-public class DragonTigerManager : MonoBehaviour
+public class SpinAndWinManager : MonoBehaviour
 {
 
     [System.Serializable]
-    public class DragonTigerBetClass
+    public class SpinAndWinBetClass
     {
         public int no;
         public float price;
@@ -29,7 +29,7 @@ public class DragonTigerManager : MonoBehaviour
 
     public Image avatarImg;
 
-    public static DragonTigerManager Instance;
+    public static SpinAndWinManager Instance;
 
 
     public GameObject dragonAnim;
@@ -87,26 +87,26 @@ public class DragonTigerManager : MonoBehaviour
     public GameObject waitNextRoundScreenObj;
 
     [Header("--- PlayersList ---")]
-    public DragonTigerPlayer players1;
-    public DragonTigerPlayer players2;
-    public DragonTigerPlayer players3;
-    public DragonTigerPlayer players4;
-    public DragonTigerPlayer players5;
-    public DragonTigerPlayer players6;
-    public DragonTigerPlayer players7;
+    public SpinAndWinPlayer players1;
+    public SpinAndWinPlayer players2;
+    public SpinAndWinPlayer players3;
+    public SpinAndWinPlayer players4;
+    public SpinAndWinPlayer players5;
+    public SpinAndWinPlayer players6;
+    public SpinAndWinPlayer players7;
 
-    public List<DragonTigerPlayer> DragonTigerPlayerList = new List<DragonTigerPlayer>();
+    public List<SpinAndWinPlayer> SAWPlayerList = new List<SpinAndWinPlayer>();
 
 
     [Header("--- Bot PlayersList ---")]
-    public DTPlayerManager player1;
-    public DTPlayerManager player2;
-    public DTPlayerManager player3;
-    public DTPlayerManager player4;
-    public DTPlayerManager player5;
-    public DTPlayerManager player6;
-    public List<DTPlayerManager> DTPlayerList = new List<DTPlayerManager>();
-    public List<PlayerHistory> PlayerHistories = new List<PlayerHistory>();
+    public SpinAndWinPlayerManager player1;
+    public SpinAndWinPlayerManager player2;
+    public SpinAndWinPlayerManager player3;
+    public SpinAndWinPlayerManager player4;
+    public SpinAndWinPlayerManager player5;
+    public SpinAndWinPlayerManager player6;
+    public List<SpinAndWinPlayerManager> SpinAndWinPlayerList = new List<SpinAndWinPlayerManager>();
+    public List<SpinAndWinPlayerHistory> PlayerHistories = new List<SpinAndWinPlayerHistory>();
 
     public List<CardSuffle> cardSuffles = new List<CardSuffle>();
     public CardSuffle cardSuffle1;
@@ -165,7 +165,7 @@ public class DragonTigerManager : MonoBehaviour
     public List<GameObject> genChipList_Tiger = new List<GameObject>();
     public List<GameObject> genChipList_Tie = new List<GameObject>();
 
-    public List<DragonTigerBetClass> dragonTigerBetClasses = new List<DragonTigerBetClass>();
+    public List<SpinAndWinBetClass> dragonTigerBetClasses = new List<SpinAndWinBetClass>();
     private string playerPrefsKey = "HistoryChipsList";
 
     //public float[] botPlayerBalance = { 15995f, 11225f, 10000f, 50000f, 85624f, 96545f, 65826f, 94584f, 72665f, 38561f };
@@ -203,9 +203,9 @@ public class DragonTigerManager : MonoBehaviour
 
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), avatarImg));
 
-        for (int i = 0; i < DragonTigerPlayerList.Count; i++)
+        for (int i = 0; i < SAWPlayerList.Count; i++)
         {
-            DragonTigerPlayerList[i].gameObject.SetActive(false);
+            SAWPlayerList[i].gameObject.SetActive(false);
         }
 
         UpdateNameBalance();
@@ -242,7 +242,7 @@ public class DragonTigerManager : MonoBehaviour
                 {
                     waitNextRoundScreenObj.SetActive(true);
                 }
-                // foreach (var t in DragonTigerPlayerList)
+                // foreach (var t in SAWPlayerList)
                 // {
                 //     t.gameObject.SetActive(false);
                 // }
@@ -252,7 +252,7 @@ public class DragonTigerManager : MonoBehaviour
         }
         else // if there is no player do following things
         {
-            foreach (var t in DragonTigerPlayerList)
+            foreach (var t in SAWPlayerList)
             {
                 t.gameObject.SetActive(false);
             }
@@ -422,7 +422,7 @@ public class DragonTigerManager : MonoBehaviour
         print("Win No : " + winNo);
 
         StartCoroutine(AnimationOpen(winNo));
-        StartCoroutine(DragonTigerAIManager.Instance.CoinDestroy(winNo));
+        StartCoroutine(SpinAndWinAIManager.Instance.CoinDestroy(winNo));
 
         if (isAdmin)
         {
@@ -760,7 +760,7 @@ public class DragonTigerManager : MonoBehaviour
     {
         if (DataManager.Instance.joinPlayerDatas.Count == 1)
         {
-            foreach (var t in DTPlayerList)
+            foreach (var t in SpinAndWinPlayerList)
             {
                 t.gameObject.SetActive(true);
             }
@@ -773,9 +773,9 @@ public class DragonTigerManager : MonoBehaviour
             //     DTPlayerList[i].gameObject.SetActive(false);
             // }
             // return;
-            for (int i = 0; i < DTPlayerList.Count; i++)
+            for (int i = 0; i < SpinAndWinPlayerList.Count; i++)
             {
-                DTPlayerList[i].gameObject.SetActive(i >= (DataManager.Instance.joinPlayerDatas.Count - 1));
+                SpinAndWinPlayerList[i].gameObject.SetActive(i >= (DataManager.Instance.joinPlayerDatas.Count - 1));
             }
             return;
         }
@@ -789,16 +789,16 @@ public class DragonTigerManager : MonoBehaviour
     {
         int[] avatars = Enumerable.Range(0, BotManager.Instance.botUser_Profile_URL.Count).ToArray();
         avatars.Shuffle();
-        int[] randomAvatars = avatars.Take(DTPlayerList.Count).ToArray();
+        int[] randomAvatars = avatars.Take(SpinAndWinPlayerList.Count).ToArray();
 
         int[] names = Enumerable.Range(0, BotManager.Instance.botUserName.Count).ToArray();
         names.Shuffle();
-        int[] randomNames = names.Take(DTPlayerList.Count).ToArray();
+        int[] randomNames = names.Take(SpinAndWinPlayerList.Count).ToArray();
 
 
-        for (int i = 0; i < DTPlayerList.Count; i++)
+        for (int i = 0; i < SpinAndWinPlayerList.Count; i++)
         {
-            PlayerHistory t = new PlayerHistory();
+            SpinAndWinPlayerHistory t = new SpinAndWinPlayerHistory();
             t.avatar = BotManager.Instance.botUser_Profile_URL[randomAvatars[i]];
             t.name = BotManager.Instance.botUserName[randomNames[i]];
             PlayerHistories.Add(t);
@@ -808,11 +808,11 @@ public class DragonTigerManager : MonoBehaviour
 
     private void SetBotPlayer()
     {
-        for (int i = 0; i < DTPlayerList.Count; i++)
+        for (int i = 0; i < SpinAndWinPlayerList.Count; i++)
         {
-            DTPlayerList[i].playerNameTxt.text = PlayerHistories[i].name;
-            DTPlayerList[i].avatar = PlayerHistories[i].avatar;
-            DTPlayerList[i].GetPlayerImage();
+            SpinAndWinPlayerList[i].playerNameTxt.text = PlayerHistories[i].name;
+            SpinAndWinPlayerList[i].avatar = PlayerHistories[i].avatar;
+            SpinAndWinPlayerList[i].GetPlayerImage();
             // int randomIndex = Random.Range(0, botPlayerBalance.Length + 1);
             // DTPlayerList[i].balance = botPlayerBalance[randomIndex];
             //DTPlayerList[i].playerBalanceTxt.text = 99999f.ToString(CultureInfo.InvariantCulture);
@@ -886,9 +886,9 @@ public class DragonTigerManager : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < DragonTigerPlayerList.Count; i++)
+                for (int i = 0; i < SAWPlayerList.Count; i++)
                 {
-                    DragonTigerPlayerList[i].gameObject.SetActive(false);
+                    SAWPlayerList[i].gameObject.SetActive(false);
                 }
                 //waitNextRoundScreenObj.SetActive(true);
                 SetUpPlayer();
@@ -901,12 +901,12 @@ public class DragonTigerManager : MonoBehaviour
     private void ClearChips()
     {
         // for bot
-        foreach (var t in DragonTigerAIManager.Instance.genChipList_Dragon) { Destroy(t); }
-        DragonTigerAIManager.Instance.genChipList_Dragon.Clear();
-        foreach (var t in DragonTigerAIManager.Instance.genChipList_Tiger) { Destroy(t); }
-        DragonTigerAIManager.Instance.genChipList_Tiger.Clear();
-        foreach (var t in DragonTigerAIManager.Instance.genChipList_Tie) { Destroy(t); }
-        DragonTigerAIManager.Instance.genChipList_Tie.Clear();
+        foreach (var t in SpinAndWinAIManager.Instance.genChipList_Dragon) { Destroy(t); }
+        SpinAndWinAIManager.Instance.genChipList_Dragon.Clear();
+        foreach (var t in SpinAndWinAIManager.Instance.genChipList_Tiger) { Destroy(t); }
+        SpinAndWinAIManager.Instance.genChipList_Tiger.Clear();
+        foreach (var t in SpinAndWinAIManager.Instance.genChipList_Tie) { Destroy(t); }
+        SpinAndWinAIManager.Instance.genChipList_Tie.Clear();
         // for user
         foreach (var t in genChipList_Dragon) { Destroy(t); }
         genChipList_Dragon.Clear();
@@ -1164,7 +1164,8 @@ public class DragonTigerManager : MonoBehaviour
         startBetObj.SetActive(false);
         betAnimationONOff(true);
         RestartTimer();
-        // DragonTigerAIManager.Instance.isActive = true;
+
+        // SpinAndWinAIManager.Instance.isActive = true;
 
     }
     public List<GameObject> objects;  // List of objects to animate
@@ -1207,27 +1208,27 @@ public class DragonTigerManager : MonoBehaviour
     public void SetUpPlayer()
     {
         int cnt = 1;
-        for (int i = 0; i < DragonTigerPlayerList.Count; i++)
+        for (int i = 0; i < SAWPlayerList.Count; i++)
         {
             if (i < DataManager.Instance.joinPlayerDatas.Count)
             {
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
-                    DragonTigerPlayerList[0].gameObject.SetActive(true);
-                    DragonTigerPlayerList[0].playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                    DragonTigerPlayerList[0].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                    //DragonTigerPlayerList[0].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
-                    DragonTigerPlayerList[0].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                    DragonTigerPlayerList[0].GetPlayerImage();
+                    SAWPlayerList[0].gameObject.SetActive(true);
+                    SAWPlayerList[0].playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                    SAWPlayerList[0].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    //SAWPlayerList[0].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
+                    SAWPlayerList[0].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                    SAWPlayerList[0].GetPlayerImage();
                 }
                 else
                 {
-                    DragonTigerPlayerList[cnt].gameObject.SetActive(true);
-                    DragonTigerPlayerList[cnt].playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                    DragonTigerPlayerList[cnt].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                    DragonTigerPlayerList[cnt].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
-                    DragonTigerPlayerList[cnt].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                    DragonTigerPlayerList[cnt].GetPlayerImage();
+                    SAWPlayerList[cnt].gameObject.SetActive(true);
+                    SAWPlayerList[cnt].playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                    SAWPlayerList[cnt].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    SAWPlayerList[cnt].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
+                    SAWPlayerList[cnt].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                    SAWPlayerList[cnt].GetPlayerImage();
 
                     cnt++;
                 }
@@ -1235,9 +1236,9 @@ public class DragonTigerManager : MonoBehaviour
 
             else
             {
-                DragonTigerPlayerList[i].gameObject.SetActive(false);
-                DragonTigerPlayerList[i].playerId = "";
-                DragonTigerPlayerList[i].playerNameTxt.text = "";
+                SAWPlayerList[i].gameObject.SetActive(false);
+                SAWPlayerList[i].playerId = "";
+                SAWPlayerList[i].playerNameTxt.text = "";
                 print("-------------------- Player is getting active false --------------------------");
 
             }
@@ -1256,7 +1257,7 @@ public class DragonTigerManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
-        DragonTigerAIManager.Instance.isActive = false;
+        SpinAndWinAIManager.Instance.isActive = false;
         if (isAdmin)
         {
             if (dragonTotalPrice + tigerTotalPrice + tieTotalPrice > 0)
@@ -1326,6 +1327,7 @@ public class DragonTigerManager : MonoBehaviour
 
     void GenerateCards()
     {
+        Debug.Log("<color=yellow> ------------------- </color>");
         float moveSpeed = 0.5f;
         cardGenPre1 = Instantiate(cardObj, cardGen1.transform);
         cardGenPre1.transform.position = cardCenterObj.transform.position;
@@ -1344,7 +1346,7 @@ public class DragonTigerManager : MonoBehaviour
 
             //Game Continue
         });
-        DragonTigerAIManager.Instance.isActive = true;
+        SpinAndWinAIManager.Instance.isActive = true;
 
     }
 
@@ -1471,18 +1473,19 @@ public class DragonTigerManager : MonoBehaviour
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 2);
 
-                    Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
-                        Random.Range(minDragonY, maxDragonY));
+                    /* Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
+                         Random.Range(minDragonY, maxDragonY)); */
+                    Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
                     GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
                     chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
                     chipGen.transform.position = ourProfile.transform.position;
                     dragonTotalPrice += chipPrice[selectChipNo];
                     dragonPrice += chipPrice[selectChipNo];
-                    DragonTigerAIManager.Instance._dMinBalance += chipPrice[selectChipNo];
+                    SpinAndWinAIManager.Instance._dMinBalance += chipPrice[selectChipNo];
                     genChipList_Dragon.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
 
-                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    SpinAndWinBetClass betClass = new SpinAndWinBetClass();
                     betClass.no = no;
                     betClass.price = chipPrice[selectChipNo];
                     betClass.betObj = chipGen;
@@ -1504,18 +1507,19 @@ public class DragonTigerManager : MonoBehaviour
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 3);
 
-                    Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
-                        Random.Range(minTigerY, maxTigerY));
+                    /* Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
+                         Random.Range(minTigerY, maxTigerY));*/
+                    Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tigerParent.transform);
                     GameObject chipGen = Instantiate(chipObj, tigerParent.transform);
                     chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
                     chipGen.transform.position = ourProfile.transform.position;
                     tigerTotalPrice += chipPrice[selectChipNo];
                     tigerPrice += chipPrice[selectChipNo];
-                    DragonTigerAIManager.Instance._tMinBalance += chipPrice[selectChipNo];
+                    SpinAndWinAIManager.Instance._tMinBalance += chipPrice[selectChipNo];
                     genChipList_Tiger.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
 
-                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    SpinAndWinBetClass betClass = new SpinAndWinBetClass();
                     betClass.no = no;
                     betClass.price = chipPrice[selectChipNo];
                     betClass.betObj = chipGen;
@@ -1537,19 +1541,20 @@ public class DragonTigerManager : MonoBehaviour
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 1);
 
-                    Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
-                        Random.Range(minTieY, maxTieY));
+                    /* Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
+                         Random.Range(minTieY, maxTieY));*/
+                    Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tieParent.transform);
                     GameObject chipGen = Instantiate(chipObj, tieParent.transform);
                     chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
                     genChipList_Tiger.Add(chipGen);
                     chipGen.transform.position = ourProfile.transform.position;
                     tieTotalPrice += chipPrice[selectChipNo];
                     tiePrice += chipPrice[selectChipNo];
-                    DragonTigerAIManager.Instance._tiMinBalance += chipPrice[selectChipNo];
+                    SpinAndWinAIManager.Instance._tiMinBalance += chipPrice[selectChipNo];
                     genChipList_Tie.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
 
-                    DragonTigerBetClass betClass = new DragonTigerBetClass();
+                    SpinAndWinBetClass betClass = new SpinAndWinBetClass();
                     betClass.no = no;
                     betClass.price = chipPrice[selectChipNo];
                     betClass.betObj = chipGen;
@@ -1557,7 +1562,7 @@ public class DragonTigerManager : MonoBehaviour
                     break;
                 }
         }
-        DragonTigerAIManager.Instance.UpdateTiePrice();
+        SpinAndWinAIManager.Instance.UpdateTiePrice();
         SendDargonTigerBet(no, selectChipNo);
         UpdateBoardPrice();
     }
@@ -1613,7 +1618,7 @@ public class DragonTigerManager : MonoBehaviour
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
         obj.AddField("boxNo", boxNo);
         obj.AddField("chipNo", chipNo);
-        TestSocketIO.Instace.Senddata("SendDragonTigerBet", obj);
+        TestSocketIO.Instace.Senddata("SendSpinAndWinBet", obj);
 
         Debug.Log("<color=yellow> SendDragonTigerBet </color> " + obj);
     }
@@ -1623,10 +1628,8 @@ public class DragonTigerManager : MonoBehaviour
     {
         if (boxNo == 1)
         {
-            /*Vector3 rPos = new Vector3(UnityEngine.Random.Range(minDragonX, maxDragonX),
-                UnityEngine.Random.Range(minDragonY, maxDragonY));*/
-            Vector3 rPos = DragonTigerAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
-
+            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minDragonX, maxDragonX),
+                UnityEngine.Random.Range(minDragonY, maxDragonY));
             GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             chipGen.transform.position = otherProfile.transform.position;
@@ -1636,9 +1639,8 @@ public class DragonTigerManager : MonoBehaviour
         }
         else if (boxNo == 2)
         {
-            /* Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTigerX, maxTigerX),
-                 UnityEngine.Random.Range(minTigerY, maxTigerY));*/
-            Vector3 rPos = DragonTigerAIManager.Instance.GetRandomPositionWithinTransform(tigerParent.transform);
+            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTigerX, maxTigerX),
+                UnityEngine.Random.Range(minTigerY, maxTigerY));
             GameObject chipGen = Instantiate(chipObj, tigerParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             chipGen.transform.position = otherProfile.transform.position;
@@ -1648,9 +1650,8 @@ public class DragonTigerManager : MonoBehaviour
         }
         else if (boxNo == 3)
         {
-            /* Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTieX, maxTieX),
-                 UnityEngine.Random.Range(minTieY, maxTieY));*/
-            Vector3 rPos = DragonTigerAIManager.Instance.GetRandomPositionWithinTransform(tieParent.transform);
+            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTieX, maxTieX),
+                UnityEngine.Random.Range(minTieY, maxTieY));
             GameObject chipGen = Instantiate(chipObj, tieParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             genChipList_Tiger.Add(chipGen);
@@ -1683,7 +1684,7 @@ public class DragonTigerManager : MonoBehaviour
         obj.AddField("DeckNo2", no2);
         //obj.AddField("DeckNo", 300);
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
-        obj.AddField("gameMode", 1);
+        obj.AddField("gameMode", 20);
         TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);
     }
 
@@ -1694,7 +1695,7 @@ public class DragonTigerManager : MonoBehaviour
         obj.AddField("DeckNo2", no2);
         obj.AddField("room", TestSocketIO.Instace.roomid);
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
-        TestSocketIO.Instace.Senddata("SendDeckBet", obj);
+        TestSocketIO.Instace.Senddata("SendSAWDeckBet", obj);
     }
 
     public void SetWinData(string winListData)
@@ -1747,22 +1748,22 @@ public class DragonTigerManager : MonoBehaviour
             isAdmin = false;
         }
 
-        //var inventoryItem = DragonTigerPlayerList.Find((x) => x.playerId == leavePlayerId);
+        //var inventoryItem = SAWPlayerList.Find((x) => x.playerId == leavePlayerId);
 
-        for (int i = 0; i < DragonTigerPlayerList.Count; i++)
+        for (int i = 0; i < SAWPlayerList.Count; i++)
         {
-            if (DragonTigerPlayerList[i].playerId.Equals(leavePlayerId))
+            if (SAWPlayerList[i].playerId.Equals(leavePlayerId))
             {
-                DragonTigerPlayerList[i].gameObject.SetActive(false);
+                SAWPlayerList[i].gameObject.SetActive(false);
                 print("---------------------Player got Removed---------------------------------");
             }
         }
 
-        for (int i = 0; i < DragonTigerPlayerList.Count; i++)
+        for (int i = 0; i < SAWPlayerList.Count; i++)
         {
-            if (DragonTigerPlayerList[i].gameObject.activeSelf == true)
+            if (SAWPlayerList[i].gameObject.activeSelf == true)
             {
-                string playerIdGet = DragonTigerPlayerList[i].playerId;
+                string playerIdGet = SAWPlayerList[i].playerId;
 
                 bool isEnter = false;
                 for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
@@ -1776,7 +1777,7 @@ public class DragonTigerManager : MonoBehaviour
 
                 if (isEnter == false)
                 {
-                    DragonTigerPlayerList[i].gameObject.SetActive(false);
+                    SAWPlayerList[i].gameObject.SetActive(false);
 
                     print("---------------------Player got Removed from 1683---------------------------------");
                 }
@@ -1969,7 +1970,7 @@ public class DragonTigerManager : MonoBehaviour
 }
 
 [System.Serializable]
-public class PlayerHistory
+public class SpinAndWinPlayerHistory
 {
     public string name;
     public string avatar;

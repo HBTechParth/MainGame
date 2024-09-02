@@ -107,7 +107,8 @@ public class DragonTigerAIManager : MonoBehaviour
             case 1:
                 // Dragon conduction
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 dPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
+                // Vector3 dPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
+                Vector3 dPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.dragonParent.transform);
                 int spawnDCoin = Random.Range(0, chips.Count);
                 GameObject chipGenD = Instantiate(chips[spawnDCoin], DragonTigerManager.Instance.dragonParent.transform);
                 int spawnLocationD = Random.Range(0, spawnLocations.Count);
@@ -120,7 +121,9 @@ public class DragonTigerAIManager : MonoBehaviour
             case 2:
                 // tiger conduction
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 tPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
+                //  Vector3 tPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
+                Vector3 tPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tigerParent.transform);
+
                 int spawnTCoin = Random.Range(0, chips.Count);
                 GameObject chipGenT = Instantiate(chips[spawnTCoin], DragonTigerManager.Instance.tigerParent.transform);
                 int spawnLocationT = Random.Range(0, spawnLocations.Count);
@@ -133,7 +136,8 @@ public class DragonTigerAIManager : MonoBehaviour
             case 3:
                 // tie conduction
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 Pos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
+                //   Vector3 Pos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
+                Vector3 Pos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tieParent.transform);
                 int spawnCoin = Random.Range(0, 4);
                 GameObject chipGen = Instantiate(chips[spawnCoin], DragonTigerManager.Instance.tieParent.transform);
                 int spawnLocation = Random.Range(0, spawnLocations.Count);
@@ -146,7 +150,23 @@ public class DragonTigerAIManager : MonoBehaviour
         }
     }
     
-    
+    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+    {
+        RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
+
+        // Calculate the local bounds
+        Vector2 size = rectTransform.rect.size;
+        Vector3 localRandomPos = new Vector3(
+            UnityEngine.Random.Range(-size.x / 2, size.x / 2),
+            UnityEngine.Random.Range(-size.y / 2, size.y / 2),
+            0
+        );
+
+        // Convert local position to world position
+        Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
+
+        return worldRandomPos;
+    }
     public void ChipGenerate(GameObject chip, Vector3 endPos)
     {
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
@@ -189,7 +209,8 @@ public class DragonTigerAIManager : MonoBehaviour
                     genChipList_Dragon[no].transform.DOScale(Vector3.zero, animSpeed);
                     genChipList_Dragon[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tieParent.transform);
+                       // Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
                         genChipList_Dragon[no].transform.DOMove(rPos, animSpeed);
                         genChipList_Dragon[no].transform.DOScale(Vector3.one, animSpeed);
                         genChipList_Dragon[no].transform.SetParent(DragonTigerManager.Instance.tieParent.transform);
@@ -210,8 +231,9 @@ public class DragonTigerAIManager : MonoBehaviour
                     genChipList_Tiger[no].transform.DOScale(Vector3.zero, animSpeed);
                     genChipList_Tiger[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tieParent.transform);
 
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
+                        //Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTieX, DragonTigerManager.Instance.maxTieX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTieY, DragonTigerManager.Instance.maxTieY));
                         genChipList_Tiger[no].transform.DOMove(rPos, animSpeed);
                         genChipList_Tiger[no].transform.DOScale(Vector3.one, animSpeed);
                         genChipList_Tiger[no].transform.SetParent(DragonTigerManager.Instance.tieParent.transform);
@@ -241,7 +263,9 @@ public class DragonTigerAIManager : MonoBehaviour
                     genChipList_Tie[no].transform.DOScale(Vector3.zero, animSpeed);
                     genChipList_Tie[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.dragonParent.transform);
+
+                        //Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
                         genChipList_Tie[no].transform.DOMove(rPos, animSpeed);
 
                         genChipList_Tie[no].transform.DOScale(Vector3.one, animSpeed);
@@ -264,7 +288,9 @@ public class DragonTigerAIManager : MonoBehaviour
                     genChipList_Tiger[no].transform.DOScale(Vector3.zero, animSpeed);
                     genChipList_Tiger[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.dragonParent.transform);
+
+                        //Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonX, DragonTigerManager.Instance.maxDragonX), UnityEngine.Random.Range(DragonTigerManager.Instance.minDragonY, DragonTigerManager.Instance.maxDragonY));
                         genChipList_Tiger[no].transform.DOMove(rPos, animSpeed);
                         genChipList_Tiger[no].transform.DOScale(Vector3.one, animSpeed);
                         genChipList_Tiger[no].transform.SetParent(DragonTigerManager.Instance.dragonParent.transform);
@@ -290,7 +316,9 @@ public class DragonTigerAIManager : MonoBehaviour
                     genChipList_Dragon[no].transform.DOScale(Vector3.zero, animSpeed);
                     genChipList_Dragon[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tigerParent.transform);
+
+                        //Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
                         genChipList_Dragon[no].transform.DOMove(rPos, animSpeed);
                         genChipList_Dragon[no].transform.DOScale(Vector3.one, animSpeed);
 
@@ -313,7 +341,9 @@ public class DragonTigerAIManager : MonoBehaviour
 
                     genChipList_Tie[no].transform.DOMove(DragonTigerManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
                     {
-                        Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
+                        Vector3 rPos = GetRandomPositionWithinTransform(DragonTigerManager.Instance.tigerParent.transform);
+
+                        //Vector3 rPos = new Vector3(UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerX, DragonTigerManager.Instance.maxTigerX), UnityEngine.Random.Range(DragonTigerManager.Instance.minTigerY, DragonTigerManager.Instance.maxTigerY));
                         genChipList_Tie[no].transform.DOMove(rPos, animSpeed);
                         genChipList_Tie[no].transform.DOScale(Vector3.one, animSpeed);
                         genChipList_Tie[no].transform.SetParent(DragonTigerManager.Instance.tigerParent.transform);

@@ -21,6 +21,7 @@ public class SpinManager : MonoBehaviour
         
         uiSpinButton.onClick.AddListener(() =>
         {
+            Debug.Log("Click");
             SoundManager.Instance.ButtonClick();
             uiSpinButton.interactable = false;
             uiSpinButtonText.text = "";

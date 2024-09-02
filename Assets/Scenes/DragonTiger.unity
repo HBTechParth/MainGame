@@ -68360,14 +68360,14 @@ MonoBehaviour:
   maxDragonX: -3.05
   minDragonY: -1.55
   maxDragonY: 2.57
-  minTieX: -2.1
+  minTieX: -2.16
   maxTieX: 2.16
   minTieY: -0.38
   maxTieY: -2.03
   minTigerX: 3.01
   maxTigerX: 7.15
-  minTigerY: -1.5
-  maxTigerY: 2.5
+  minTigerY: -1.59
+  maxTigerY: 2.62
   downValue: -3.4
   upValue: -3.2
   startBetObj: {fileID: 9138612322931456460}

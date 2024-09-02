@@ -243,8 +243,16 @@ public class TestSocketIO : MonoBehaviour
             case "setWinListData":
                 SetWinData(values.ToString());
                 break;
-
-
+            // Spin And Win
+            case "SendSpinAndWinBet":
+                SetBetDragonTiger(values.ToString());
+                break;
+            case "SendSAWDeckBet":
+                SetGetDeckData(values.ToString());
+                break;
+            /* case "setWinListData":
+                 SetWinData(values.ToString());
+                 break;*/
             // Poker
 
             case "PokerChangeTurnData":
@@ -843,6 +851,8 @@ public class TestSocketIO : MonoBehaviour
             // for dragon tiger
             string winData = obj["WinList"]["WinList"];
             DataManager.Instance.listString = winData;
+
+
 
             // for Aviator
             string winPoints = obj["WinList"]["PointList"];
@@ -3174,8 +3184,10 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetBetDragonTiger(string values)
     {
+        Debug.Log("SetBetDragonTiger IN");
         if (SceneManager.GetActiveScene().name == "DragonTiger")
         {
+            Debug.Log("SetBetDragonTiger IN");
             JSONNode value = JSON.Parse(values);
             JSONNode data = JSON.Parse(value["data"].ToString());
 
@@ -3187,7 +3199,26 @@ public class TestSocketIO : MonoBehaviour
 
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
+                Debug.Log("SetBetDragonTiger IN");
                 DragonTigerManager.Instance.GetDragonTigerBet(boxNo, chipNo);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "SpinAndWin")
+        {
+            Debug.Log("SpinAndWin IN");
+            JSONNode value = JSON.Parse(values);
+            JSONNode data = JSON.Parse(value["data"].ToString());
+
+            string playerID = data["PlayerID"];
+            string tourId = data["TournamentID"];
+            string sRoomId = data["RoomId"];
+            int boxNo = data["boxNo"];
+            int chipNo = data["chipNo"];
+
+            if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
+            {
+                Debug.Log("SpinAndWin IN");
+                SpinAndWinManager.Instance.GetDragonTigerBet(boxNo, chipNo);
             }
         }
 
@@ -3195,14 +3226,17 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetGetDeckData(string values)
     {
+        Debug.Log("SetGetDeckData IN");
         if (SceneManager.GetActiveScene().name == "DragonTiger")
         {
+            Debug.Log("SetGetDeckData IN 1");
             JSONNode value = JSON.Parse(values);
             print(value.ToString());
             JSONNode valueData = JSON.Parse(value["data"].ToString());
 
             if (roomid.Equals(valueData["room"]))
             {
+                Debug.Log("SetGetDeckData IN 2");
                 int deckNo1 = valueData["DeckNo1"];
                 int deckNo2 = valueData["DeckNo2"];
                 DragonTigerManager.Instance.GetDeckData(deckNo1, deckNo2);
@@ -3212,15 +3246,18 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetWinData(string values)
     {
+        Debug.Log("<color=yellow> Value  = >  </color>" + values);
         if (SceneManager.GetActiveScene().name == "DragonTiger")
         {
             JSONNode value = JSON.Parse(values);
             print("This is recevied data -> set windata " + value.ToString());
             JSONNode valueData = JSON.Parse(value["data"].ToString());
+            Debug.Log("<color=yellow> Value  = >  </color>" + valueData);
 
             if (roomid.Equals(valueData["room"]))
             {
                 string winData = valueData["WinList"]["WinList"]["WinList"];
+                Debug.Log("<color=yellow> Value  = >  </color>" + winData);
                 DragonTigerManager.Instance.GetUpdatedHistory(winData);
             }
         }
@@ -3234,6 +3271,20 @@ public class TestSocketIO : MonoBehaviour
             {
                 string winData = valueData["WinList"]["WinList"]["PointList"];
                 AviatorGameManager.Instance.GetUpdatedHistory(winData);
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "SpinAndWin")
+        {
+            JSONNode value = JSON.Parse(values);
+            print("This is recevied data -> set windata " + value.ToString());
+            JSONNode valueData = JSON.Parse(value["data"].ToString());
+            Debug.Log("<color=yellow> Value  = >  </color>" + valueData);
+
+            if (roomid.Equals(valueData["room"]))
+            {
+                string winData = valueData["WinList"]["WinList"]["WinList"];
+                Debug.Log("<color=yellow> Value  = >  </color>" + winData);
+                SpinAndWinManager.Instance.GetUpdatedHistory(winData);
             }
         }
 
