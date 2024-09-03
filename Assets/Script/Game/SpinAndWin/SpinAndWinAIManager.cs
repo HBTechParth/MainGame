@@ -250,7 +250,7 @@ public class SpinAndWinAIManager : MonoBehaviour
         genChipList_Tiger.Clear();
         genChipList_Tie.Clear();
     }
-
+    public Transform collectCoin;
     public IEnumerator CoinDestroy(int winNo)
     {
         float waitTime = 0;
@@ -271,7 +271,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                         int no = i;
 
                         genChipList_Dragon[no].transform.DOScale(Vector3.zero, animSpeed);
-                        genChipList_Dragon[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Dragon[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.tieParent.transform);
                             genChipList_Dragon[no].transform.DOMove(rPos, animSpeed);
@@ -291,7 +291,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                     {
                         int no = i;
                         genChipList_Tiger[no].transform.DOScale(Vector3.zero, animSpeed);
-                        genChipList_Tiger[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Tiger[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.tieParent.transform);
                             genChipList_Tiger[no].transform.DOMove(rPos, animSpeed);
@@ -318,7 +318,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                         int no = i;
 
                         genChipList_Tie[no].transform.DOScale(Vector3.zero, animSpeed);
-                        genChipList_Tie[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Tie[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.dragonParent.transform);
                             genChipList_Tie[no].transform.DOMove(rPos, animSpeed);
@@ -339,7 +339,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                     {
                         int no = i;
                         genChipList_Tiger[no].transform.DOScale(Vector3.zero, animSpeed);
-                        genChipList_Tiger[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Tiger[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.dragonParent.transform);
                             genChipList_Tiger[no].transform.DOMove(rPos, animSpeed);
@@ -365,7 +365,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                     {
                         int no = i;
                         genChipList_Dragon[no].transform.DOScale(Vector3.zero, animSpeed);
-                        genChipList_Dragon[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Dragon[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.tigerParent.transform);
                             genChipList_Dragon[no].transform.DOMove(rPos, animSpeed);
@@ -386,7 +386,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                         int no = i;
                         genChipList_Tie[no].transform.DOScale(Vector3.zero, animSpeed);
 
-                        genChipList_Tie[no].transform.DOMove(SpinAndWinManager.Instance.cardCenterObj.transform.position, animSpeed).OnComplete(() =>
+                        genChipList_Tie[no].transform.DOMove(collectCoin.position, animSpeed).OnComplete(() =>
                         {
                             Vector3 rPos = GetRandomPositionWithinTransform(SpinAndWinManager.Instance.tigerParent.transform);
                             genChipList_Tie[no].transform.DOMove(rPos, animSpeed);

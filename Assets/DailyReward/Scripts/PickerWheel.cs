@@ -54,7 +54,7 @@ namespace EasyUI.PickerWheelUI
         private Vector2 pieceMinSize = new Vector2(81f, 146f);
         private Vector2 pieceMaxSize = new Vector2(144f, 213f);
         private int piecesMin = 2;
-        private int piecesMax = 12;
+        private int piecesMax = 17;
 
         private float pieceAngle;
         private float halfPieceAngle;
