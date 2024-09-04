@@ -1327,7 +1327,7 @@ public class SpinAndWinManager : MonoBehaviour
 
     void GenerateCards()
     {
-        Debug.Log("<color=yellow> ------------------- </color>");
+        Debug.Log("<color=yellow> ------------------- </color>"); 
         float moveSpeed = 0.5f;
         cardGenPre1 = Instantiate(cardObj, cardGen1.transform);
         cardGenPre1.transform.position = cardCenterObj.transform.position;
@@ -1471,7 +1471,7 @@ public class SpinAndWinManager : MonoBehaviour
 
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 2);
+                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 2);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
                          Random.Range(minDragonY, maxDragonY)); */
@@ -1505,7 +1505,7 @@ public class SpinAndWinManager : MonoBehaviour
 
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 3);
+                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 3);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
                          Random.Range(minTigerY, maxTigerY));*/
@@ -1539,7 +1539,7 @@ public class SpinAndWinManager : MonoBehaviour
 
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 1);
+                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 1);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
                          Random.Range(minTieY, maxTieY));*/
