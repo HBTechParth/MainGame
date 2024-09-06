@@ -3804,6 +3804,10 @@ public class TestSocketIO : MonoBehaviour
                 print("Data received =\n " + valueData.ToString());
                 JhandiMundaManager.Instance.GetRoomData(diceData);
             }
+            else if (gameMode == 20)
+            {
+                SpinAndWinManager.Instance.GetRoomData(deckNo1, deckNo2, winData);
+            }
 
         }
 

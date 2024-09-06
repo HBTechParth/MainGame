@@ -27,7 +27,7 @@ namespace EasyUI.PickerWheelUISAW
 
         [Space]
         [Header("Picker wheel settings :")]
-        [Range(1, 20)] public int spinDuration = 8;
+        [Range(1, 20)] public int spinDuration = 5;
         [SerializeField] [Range(.2f, 2f)] private float wheelSize = 1f;
 
         [Space]

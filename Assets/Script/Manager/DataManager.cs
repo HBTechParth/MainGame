@@ -178,8 +178,37 @@ public class DataManager : MonoBehaviour
             float scaleFactor = CalculateScaleFactor(worldPosition);
             InstantiateTapEffect(worldPosition, scaleFactor);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandleBackButton();
+        }
     }
+    private void HandleBackButton()
+    {
+        // Get the currently active scene
+        Scene activeScene = SceneManager.GetActiveScene();
 
+        // Find the Menu Button in the active scene (by name or tag)
+        GameObject menuButtonObject = GameObject.Find("-- Menu Button --");
+
+        if (menuButtonObject == null)
+        {
+            Debug.LogError("Menu Button not found in the active scene!");
+            return;
+        }
+
+        // Get the Button component
+        Button menuButton = menuButtonObject.GetComponent<Button>();
+
+        if (menuButton == null)
+        {
+            Debug.LogError("Menu Button does not have a Button component!");
+            return;
+        }
+
+        // Invoke the OnClick event of the Menu Button
+        menuButton.onClick.Invoke();
+    }
     private void InstantiateTapEffect(Vector3 position, float scaleFactor)
     {
         GameObject particleObj = Instantiate(tapParticles, position, Quaternion.identity);
@@ -1041,6 +1070,10 @@ public class DataManager : MonoBehaviour
         if (AviatorGameManager.Instance != null)
         {
             AviatorGameManager.Instance.UpdateBalance();
+        } 
+        if (SpinAndWinManager.Instance != null)
+        {
+            SpinAndWinManager.Instance.UpdateNameBalance();
         }
     }
 

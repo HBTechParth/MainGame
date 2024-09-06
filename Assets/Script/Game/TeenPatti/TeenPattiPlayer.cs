@@ -167,12 +167,38 @@ public class TeenPattiPlayer : MonoBehaviour
 
     private IEnumerator BotTurn()
     {
-        yield return new WaitForSeconds(3f);
+        float waitTime = GetRandomWaitTime(); // Get the random wait time
+        Debug.Log("Wait time: " + waitTime + " seconds");
+
+        yield return new WaitForSeconds(waitTime); // Wait for the calculated random time
         isOneTimeEnter = true;
         isTurn = false;
         if (_isFunctionCalled) yield break;
         StartCoroutine(BotAutoBetCoroutine());
         //TeenPattiManager.Instance.BetAnim(this, 0.1f);
+    }
+
+    private float GetRandomWaitTime()
+    {
+        float randomValue = Random.Range(0f, 100f); // Generate a random value between 0 and 100
+
+        // Assign probabilities
+        if (randomValue <= 60f) // 60% chance for a wait between 3 and 8 seconds
+        {
+            return Random.Range(3f, 10f);
+        }
+        else if (randomValue <= 85f) // 25% chance for a wait between 8 and 15 seconds
+        {
+            return Random.Range(10f, 15f);
+        }
+        else if (randomValue <= 95f) // 10% chance for a wait between 15 and 21 seconds
+        {
+            return Random.Range(15f, 21f);
+        }
+        else // 5% chance for a wait of 25 seconds
+        {
+            return 25f;
+        }
     }
 
     /*private void BotAutoBet()
@@ -502,8 +528,8 @@ public class TeenPattiPlayer : MonoBehaviour
 
         _isFunctionCalled = true;
     }*/
-    
-    
+
+
     private IEnumerator BotAutoBetCoroutine()
     {
         _isFunctionCalled = true;

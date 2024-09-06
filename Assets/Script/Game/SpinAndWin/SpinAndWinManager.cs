@@ -94,6 +94,7 @@ public class SpinAndWinManager : MonoBehaviour
     public SpinAndWinPlayer players5;
     public SpinAndWinPlayer players6;
     public SpinAndWinPlayer players7;
+    public SpinAndWinPlayer players8;
 
     public List<SpinAndWinPlayer> SAWPlayerList = new List<SpinAndWinPlayer>();
 
@@ -105,6 +106,7 @@ public class SpinAndWinManager : MonoBehaviour
     public SpinAndWinPlayerManager player4;
     public SpinAndWinPlayerManager player5;
     public SpinAndWinPlayerManager player6;
+    public SpinAndWinPlayerManager player8;
     public List<SpinAndWinPlayerManager> SpinAndWinPlayerList = new List<SpinAndWinPlayerManager>();
     public List<SpinAndWinPlayerHistory> PlayerHistories = new List<SpinAndWinPlayerHistory>();
 
@@ -157,8 +159,8 @@ public class SpinAndWinManager : MonoBehaviour
     public int winNo = 0;
 
 
-    bool isAdmin = false;
-    public int maxWinList = 16;
+    public bool isAdmin = false;
+    public int maxWinList = 8;
     public List<int> winList;
     public List<GameObject> historyChips = new List<GameObject>();
     public List<GameObject> genChipList_Dragon = new List<GameObject>();
@@ -268,15 +270,30 @@ public class SpinAndWinManager : MonoBehaviour
         if (timerValue == 0 && isEnterBetStop == false && waitNextRoundScreenObj.activeSelf == false)
         {
             isEnterBetStop = true;
-            //Stop Bet
+
+            // Apply DOJump-like scale animation to timerTxt
+
+            timerTxt.transform.DOScale(Vector3.one, 0.1f);
+            // Stop Bet
             StartCoroutine(StopBet());
         }
         else if (!timerTxt.text.Equals("0"))
         {
             secondCount -= Time.deltaTime;
-            timerValue = ((int)secondCount);
-            timerTxt.text = timerValue.ToString();
+            int newTimerValue = (int)secondCount;
+
+            // Only update and animate if the timer changes by exactly 1 second
+            if (newTimerValue != timerValue)
+            {
+                timerValue = newTimerValue;
+                timerTxt.text = timerValue.ToString();
+
+                // Apply simple DOScale animation every second when the timer updates
+                timerTxt.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).SetEase(Ease.OutQuad)
+                    .OnComplete(() => timerTxt.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.2f));
+            }
         }
+
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -312,7 +329,7 @@ public class SpinAndWinManager : MonoBehaviour
         }
     }
 
-    private void UpdateHistoryChips(int num)
+    public void UpdateHistoryChips(int num)
     {
         print("WinNumber -> " + num);
         winList.RemoveAt(0);
@@ -366,14 +383,14 @@ public class SpinAndWinManager : MonoBehaviour
     public void Card_Open_Match()
     {
         SoundManager.Instance.CasinoCardSwipeSound();
-        cardGenPre1.transform.DOScale(new Vector3(0, 1, 1), 0.25f).OnComplete(() =>
+        cardGenPre1.transform.DOScale(new Vector3(0, 1, 1), 0f).OnComplete(() =>
         {
             cardGenPre1.transform.GetComponent<Image>().sprite = cardSuffle1.cardSprite;
-            cardGenPre1.transform.DOScale(new Vector3(1, 1, 1), 0.25f).OnComplete(() =>
+            cardGenPre1.transform.DOScale(new Vector3(1, 1, 1), 0f).OnComplete(() =>
             {
-                cardGenPre1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.25f).OnComplete(() =>
+                cardGenPre1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0f).OnComplete(() =>
                 {
-                    cardGenPre1.transform.DOScale(new Vector3(1f, 1f, 1f), 0.1f).OnComplete(() =>
+                    cardGenPre1.transform.DOScale(new Vector3(1f, 1f, 1f), 0f).OnComplete(() =>
                     {
                         SecondCardNo();
                     });
@@ -386,14 +403,14 @@ public class SpinAndWinManager : MonoBehaviour
     {
         SoundManager.Instance.CasinoCardSwipeSound();
 
-        cardGenPre2.transform.DOScale(new Vector3(0, 1, 1), 0.25f).OnComplete(() =>
+        cardGenPre2.transform.DOScale(new Vector3(0, 1, 1), 0f).OnComplete(() =>
         {
             cardGenPre2.transform.GetComponent<Image>().sprite = cardSuffle2.cardSprite;
-            cardGenPre2.transform.DOScale(new Vector3(1, 1, 1), 0.25f).OnComplete(() =>
+            cardGenPre2.transform.DOScale(new Vector3(1, 1, 1), 0f).OnComplete(() =>
             {
-                cardGenPre2.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.25f).OnComplete(() =>
+                cardGenPre2.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0f).OnComplete(() =>
                 {
-                    cardGenPre2.transform.DOScale(new Vector3(1f, 1f, 1f), 0.1f).OnComplete(() =>
+                    cardGenPre2.transform.DOScale(new Vector3(1f, 1f, 1f), 0f).OnComplete(() =>
                     {
                         CardMatch();
                     });
@@ -420,23 +437,21 @@ public class SpinAndWinManager : MonoBehaviour
         }
 
         print("Win No : " + winNo);
+        SAWSpinManager.instance.CallSpinStart(winNo);
 
         StartCoroutine(AnimationOpen(winNo));
         StartCoroutine(SpinAndWinAIManager.Instance.CoinDestroy(winNo));
 
-        if (isAdmin)
-        {
-            UpdateHistoryChips(winNo);
-        }
+       
     }
     //a
 
     public IEnumerator AnimationOpen(int winNo)
     {
         float waitTime = 0;
-        if (winNo == 2 || winNo == 3)
+        if (winNo == 2 || winNo == 3 || winNo == 1)
         {
-            waitTime = 3.16f;
+            waitTime = 5f;
             if (winNo == 2)
             {
                 dragonAnim.SetActive(true);
@@ -683,7 +698,7 @@ public class SpinAndWinManager : MonoBehaviour
             winAnimationTxt.text = "+" + playerWinAmount;
             Invoke(nameof(WinAmountTextOff), 1.25f);
             DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId,
-                "Dragon_Tiger-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommission), winNo);
+                "Spin And Win -Win-" + DataManager.Instance.gameId, "won", (float)(adminCommission), winNo);
 
         }
 
@@ -824,33 +839,34 @@ public class SpinAndWinManager : MonoBehaviour
 
     public void HistoryTacker(int winNo)
     {
+
+        Debug.Log("<color=yellow> Win No = </color> " + winNo);
         switch (winNo)
         {
             case 1:
                 {
+                    Debug.Log("DragonCoin"); 
                     var chip = Instantiate(TieCoin, CoinsCarrier.transform);
                     historyChips.Add(chip);
-                    var firstObject = historyChips[0];
-                    historyChips.RemoveAt(0);
-                    Destroy(firstObject);
+                    DestroyHistoryChip();
                     break;
                 }
             case 2:
                 {
+                    Debug.Log("Tiger");
                     var chip = Instantiate(DragonCoin, CoinsCarrier.transform);
                     historyChips.Add(chip);
-                    var firstObject = historyChips[0];
-                    historyChips.RemoveAt(0);
-                    Destroy(firstObject);
+                    DestroyHistoryChip();
+
                     break;
                 }
             case 3:
                 {
+                    Debug.Log("TieCoin"); 
                     var chip = Instantiate(TigerCoin, CoinsCarrier.transform);
                     historyChips.Add(chip);
-                    var firstObject = historyChips[0];
-                    historyChips.RemoveAt(0);
-                    Destroy(firstObject);
+                    DestroyHistoryChip();
+
                     break;
                 }
             default:
@@ -865,6 +881,16 @@ public class SpinAndWinManager : MonoBehaviour
         // PlayerPrefs.Save();
     }
 
+    public void DestroyHistoryChip()
+    {
+        while (historyChips.Count > 8)
+        {
+            Debug.Log("Destroying extra objects...");
+            var firstObject = historyChips[0];  // Get the first object
+            historyChips.RemoveAt(0);           // Remove it from the list
+            Destroy(firstObject.gameObject);     // Destroy the GameObject
+        }
+    }
 
     public void WinAmountTextOff()
     {
@@ -1129,8 +1155,8 @@ public class SpinAndWinManager : MonoBehaviour
 
 
         isEnterBetStop = true;
+      //  yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         _isClickAvailable = true;
@@ -1253,8 +1279,8 @@ public class SpinAndWinManager : MonoBehaviour
         GetLargestBet();
 
         isEnterBetStop = true;
+       // yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         SpinAndWinAIManager.Instance.isActive = false;
@@ -1327,7 +1353,7 @@ public class SpinAndWinManager : MonoBehaviour
 
     void GenerateCards()
     {
-        Debug.Log("<color=yellow> ------------------- </color>"); 
+        Debug.Log("<color=yellow> ------------------- </color>");
         float moveSpeed = 0.5f;
         cardGenPre1 = Instantiate(cardObj, cardGen1.transform);
         cardGenPre1.transform.position = cardCenterObj.transform.position;
@@ -1620,7 +1646,7 @@ public class SpinAndWinManager : MonoBehaviour
         obj.AddField("chipNo", chipNo);
         TestSocketIO.Instace.Senddata("SendSpinAndWinBet", obj);
 
-        Debug.Log("<color=yellow> SendDragonTigerBet </color> " + obj);
+        Debug.Log("<color=yellow> SendSpinAndWinBet </color> " + obj);
     }
 
 
@@ -1628,8 +1654,9 @@ public class SpinAndWinManager : MonoBehaviour
     {
         if (boxNo == 1)
         {
-            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minDragonX, maxDragonX),
-                UnityEngine.Random.Range(minDragonY, maxDragonY));
+            /* Vector3 rPos = new Vector3(UnityEngine.Random.Range(minDragonX, maxDragonX),
+                 UnityEngine.Random.Range(minDragonY, maxDragonY));*/
+            Vector3 rPos=  SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
             GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             chipGen.transform.position = otherProfile.transform.position;
@@ -1639,8 +1666,10 @@ public class SpinAndWinManager : MonoBehaviour
         }
         else if (boxNo == 2)
         {
-            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTigerX, maxTigerX),
-                UnityEngine.Random.Range(minTigerY, maxTigerY));
+            /*Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTigerX, maxTigerX),
+                UnityEngine.Random.Range(minTigerY, maxTigerY));*/
+            Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tigerParent.transform);
+
             GameObject chipGen = Instantiate(chipObj, tigerParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             chipGen.transform.position = otherProfile.transform.position;
@@ -1650,8 +1679,10 @@ public class SpinAndWinManager : MonoBehaviour
         }
         else if (boxNo == 3)
         {
-            Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTieX, maxTieX),
-                UnityEngine.Random.Range(minTieY, maxTieY));
+            /* Vector3 rPos = new Vector3(UnityEngine.Random.Range(minTieX, maxTieX),
+                 UnityEngine.Random.Range(minTieY, maxTieY));*/
+            Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tieParent.transform);
+
             GameObject chipGen = Instantiate(chipObj, tieParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             genChipList_Tiger.Add(chipGen);
@@ -1933,13 +1964,16 @@ public class SpinAndWinManager : MonoBehaviour
 
     public void SoundButtonClick()
     {
+        Debug.Log("IN");
         if (soundImg.sprite == soundonSprite)
         {
+        Debug.Log("IN 1");
             DataManager.Instance.SetSound(1);
             soundImg.sprite = soundoffSprite;
         }
         else if (soundImg.sprite == soundoffSprite)
         {
+        Debug.Log("IN 2");
             DataManager.Instance.SetSound(0);
             soundImg.sprite = soundonSprite;
         }

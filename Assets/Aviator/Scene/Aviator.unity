@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 221056559}
   - component: {fileID: 221056558}
   m_Layer: 5
-  m_Name: 'Menu Button '
+  m_Name: -- Menu Button --
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5219,6 +5219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   internetObj: {fileID: 8767322094886410240, guid: 2610848af41c94f10b36cb8a3654814f, type: 3}
+  firstInternetObj: {fileID: 0}
   updateObj: {fileID: 0}
   isCheckUpdate: 0
 --- !u!114 &691204028
@@ -18078,7 +18079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -72.07977, y: -4.8099365}
+  m_AnchoredPosition: {x: -72.079834, y: -4.8099365}
   m_SizeDelta: {x: 99.72, y: 9.62}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1728423422

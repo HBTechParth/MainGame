@@ -474,7 +474,7 @@ public class DragonTigerAIManager : MonoBehaviour
 
     public void DeductBalance()
     {
-        int num = Random.Range(0, 6);
+        int num = Random.Range(0, 7);
         var totalBalance = DragonTigerManager.Instance.DTPlayerList[num].balance -= negativebalance;
         DragonTigerManager.Instance.DTPlayerList[num].playerBalanceTxt.text = totalBalance.ToString(CultureInfo.InvariantCulture);
     }

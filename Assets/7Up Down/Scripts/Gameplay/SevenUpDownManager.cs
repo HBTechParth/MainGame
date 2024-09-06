@@ -694,8 +694,8 @@ public class SevenUpDownManager : MonoBehaviour
             //SetDiceData(dice1Result, dice2Result);//testing to see if it works without this function call
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
+   //     yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         yield return new WaitForSeconds(1.35f);
@@ -710,8 +710,8 @@ public class SevenUpDownManager : MonoBehaviour
         DataManager.Instance.UserTurnVibrate();
         _isClickAvailable = false;
         isEnterBetStop = true;
+      //  yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         SevenUpDownAIManager.Instance.isActive = false;

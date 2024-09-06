@@ -254,8 +254,8 @@ public class SpinAndWinAIManager : MonoBehaviour
     public IEnumerator CoinDestroy(int winNo)
     {
         float waitTime = 0;
-        if (winNo == 2 || winNo == 3)
-            waitTime = 3.16f;
+        if (winNo == 2 || winNo == 3 || winNo==1)
+            waitTime = 5;
 
         yield return new WaitForSeconds(waitTime);
 
@@ -403,6 +403,10 @@ public class SpinAndWinAIManager : MonoBehaviour
                     break;
                 }
         }
+        if (SpinAndWinManager.Instance.isAdmin)
+        {
+            SpinAndWinManager.Instance.UpdateHistoryChips(winNo);
+        }
         ResetPrice();
     }
 
@@ -509,7 +513,7 @@ public class SpinAndWinAIManager : MonoBehaviour
 
     public void DeductBalance()
     {
-        int num = Random.Range(0, 6);
+        int num = Random.Range(0, 7);
         var totalBalance = SpinAndWinManager.Instance.SpinAndWinPlayerList[num].balance -= negativebalance;
         SpinAndWinManager.Instance.SpinAndWinPlayerList[num].playerBalanceTxt.text = totalBalance.ToString(CultureInfo.InvariantCulture);
     }

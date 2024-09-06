@@ -94,6 +94,7 @@ public class DragonTigerManager : MonoBehaviour
     public DragonTigerPlayer players5;
     public DragonTigerPlayer players6;
     public DragonTigerPlayer players7;
+    public DragonTigerPlayer players8;
 
     public List<DragonTigerPlayer> DragonTigerPlayerList = new List<DragonTigerPlayer>();
 
@@ -105,6 +106,7 @@ public class DragonTigerManager : MonoBehaviour
     public DTPlayerManager player4;
     public DTPlayerManager player5;
     public DTPlayerManager player6;
+    public DTPlayerManager player7;
     public List<DTPlayerManager> DTPlayerList = new List<DTPlayerManager>();
     public List<PlayerHistory> PlayerHistories = new List<PlayerHistory>();
 
@@ -1129,8 +1131,8 @@ public class DragonTigerManager : MonoBehaviour
 
 
         isEnterBetStop = true;
+       // yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         _isClickAvailable = true;
@@ -1252,8 +1254,8 @@ public class DragonTigerManager : MonoBehaviour
         GetLargestBet();
 
         isEnterBetStop = true;
+       // yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         DragonTigerAIManager.Instance.isActive = false;

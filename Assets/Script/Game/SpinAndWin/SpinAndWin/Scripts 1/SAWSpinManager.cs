@@ -13,12 +13,28 @@ public class SAWSpinManager : MonoBehaviour
     public Text turnsText;
     public GameObject popupObject;
 
+    public static SAWSpinManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(instance);
+    }
+
     private void Start()
     {
         _numberOfTurns = PlayerPrefs.GetInt("RemainingTurns", 3);
        
-        uiSpinButton.onClick.AddListener(() =>
-        {
+      
+     
+    }
+
+    public void CallSpinStart(int num)
+    {
+      //  uiSpinButton.onClick.AddListener(() =>
+       // {
             Debug.Log("Click");
             SoundManager.Instance.ButtonClick();
             uiSpinButton.interactable = false;
@@ -30,15 +46,14 @@ public class SAWSpinManager : MonoBehaviour
                    @" <b>Index:</b> " + wheelPiece.Index + "           <b>Label:</b> " + wheelPiece.Label
                    + "\n <b>Amount:</b> " + wheelPiece.Amount + "      <b>Chance:</b> " + wheelPiece.Chance + "%"
                 );
-                uiSpinButton.interactable = true;
                 UserEarnManage(wheelPiece.Index);
+                uiSpinButton.interactable = true;
                 uiSpinButtonText.text = "SPIN";
             });
 
-            pickerWheel.Spin(1);
+            pickerWheel.Spin(num);
 
-        });
-     
+       // });
     }
 
     void UserEarnManage(int index)
