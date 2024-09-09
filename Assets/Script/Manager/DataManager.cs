@@ -672,6 +672,9 @@ public class DataManager : MonoBehaviour
 
     public bool CheckRoomUser(string userId)
     {
+
+
+        Debug.Log("User ID =>  " + userId);
         JoinPlayerData joinPlayer = new JoinPlayerData();
         joinPlayer.userId = userId;
 

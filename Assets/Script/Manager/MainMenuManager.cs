@@ -511,6 +511,8 @@ public class MainMenuManager : MonoBehaviour
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
                             minBetValues.Add(item.betAmount);
+                        Debug.Log("Point Amount   =? " + item.betAmount);
+
                     }
                     if (minBetValues.Count > 0)
                         SelectValueOfTournament(GameType.Point_Rummy, minBetValues);
@@ -682,6 +684,8 @@ public class MainMenuManager : MonoBehaviour
         }
         else
             GenerateTournamentError();*/
+
+        Debug.Log(" selectedValue  => " + selectedValue);
         SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);
 
         if (string.IsNullOrEmpty(DataManager.Instance.tournamentID))
@@ -816,6 +820,11 @@ public class MainMenuManager : MonoBehaviour
 
     private void SelectValueOfTournament(GameType modeType, List<float> minimumBetOrEntryFeesOrPointValue)
     {
+        for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
+        {
+
+            Debug.Log("VAL = "+minimumBetOrEntryFeesOrPointValue[i]);
+        }
         tableSelectionScreen.SetActive(true);
         ClearEntryValues();
 

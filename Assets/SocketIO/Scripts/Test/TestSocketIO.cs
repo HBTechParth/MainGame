@@ -408,15 +408,18 @@ public class TestSocketIO : MonoBehaviour
 
     public void RummyJoinRoom()
     {
+        Debug.Log("Mahadev");
         JSONObject userdata = new JSONObject();
         userdata.AddField("userId", DataManager.Instance.playerData._id.ToString().Trim('"'));
 
         if (DataManager.Instance.playerData.firstName == null)
         {
+            Debug.Log("Mahadev 1");
             userdata.AddField("name", DataManager.Instance.GetDefaultPlayerName().ToString().Trim('"'));
         }
         else
         {
+            Debug.Log("Mahadev 2");
             userdata.AddField("name", DataManager.Instance.playerData.firstName.ToString().Trim('"'));
         }
         userdata.AddField("balance", DataManager.Instance.playerData.balance);
@@ -427,6 +430,7 @@ public class TestSocketIO : MonoBehaviour
         if (DataManager.Instance.CheckRoomUser(DataManager.Instance.playerData._id.ToString().Trim('"')) == true)
         {
             socket.Emit("join", userdata);
+            Debug.Log("Mahadev 3");
         }
     }
 
@@ -581,6 +585,7 @@ public class TestSocketIO : MonoBehaviour
                 Debug.Log("Player => " + DataManager.Instance.joinPlayerDatas.Count);
                 if (DataManager.Instance.joinPlayerDatas.Count >= pointRummyRequirePlayer)
                 {
+                    Debug.Log("DataManager.Instance.gameMode");
                     SceneManager.LoadScene(DataManager.Instance.GetModeToSceneName(DataManager.Instance.gameMode));
                     return;
                 }
