@@ -333,6 +333,7 @@ public class MainMenuManager : MonoBehaviour
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
                             minBetValues.Add(item.betAmount);
+                        Debug.Log("Amount   =? " + item.betAmount);
                     }
                     if (minBetValues.Count > 0)
                         SelectValueOfTournament(GameType.Teen_Patti, minBetValues);

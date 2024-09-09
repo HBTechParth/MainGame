@@ -10,11 +10,15 @@ public class Splash : MonoBehaviour
     public Slider fillImg;
     public float waitTime = 10f;
     public double percantage = 0;
+
+   
     private void Start()
     {
         fillImg.value = 0;
         isEnter = false;
+       
     }
+  
 
     private void Update()
     {

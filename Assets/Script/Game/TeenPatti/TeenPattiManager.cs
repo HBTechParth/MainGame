@@ -107,7 +107,7 @@ public class TeenPattiManager : MonoBehaviour
     public int currentPlayer;
     public float timerSpeed;
     public bool isGameStop;
-    public int[] numbers = { 5, 10, 20, 50, 100, 200, 250, 500, 1000, 5000 };
+    public int[] numbers = { 5, 10, 20, 50 };
     public int currentPriceIndex = 0;
     public int runningPriceIndex;
     public Image sideShowPopupImage;
