@@ -1037,6 +1037,10 @@ public class DataManager : MonoBehaviour
         if (MainMenuManager.Instance != null)
         {
             MainMenuManager.Instance.coinTxt.text = playerData.balance.ToString();
+        } 
+        if (MainMenuManager.Instance != null)
+        {
+            MainMenuManager.Instance.bonusTxt.text = playerData.bonus.ToString();
         }
         if (RouletteManager.Instance != null)
         {

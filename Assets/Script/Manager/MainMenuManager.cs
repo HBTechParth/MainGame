@@ -33,6 +33,7 @@ public class MainMenuManager : MonoBehaviour
     public Text userNameTxt;
     public Text userIdTxt;
     public Text coinTxt;
+    public Text bonusTxt;
     public Text diamondTxt;
     public TournamentData tourData;
     public Slider tableSet;
@@ -1571,6 +1572,7 @@ public class MainMenuManager : MonoBehaviour
         //print("Default Name : " + DataManager.Instance.GetDefaultPlayerName().Length);
         //print("Player Name : " + DataManager.Instance.playerData.firstName);
         coinTxt.text = DataManager.Instance.playerData.balance.ToString();
+        bonusTxt.text = DataManager.Instance.playerData.bonus.ToString();
         if (DataManager.Instance.GetDefaultPlayerName().IsNullOrEmpty() && DataManager.Instance.playerData.firstName.IsNullOrEmpty())
         {
             print("Sub String : ");
