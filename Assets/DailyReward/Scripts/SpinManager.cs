@@ -3,6 +3,7 @@ using UnityEngine;
 using EasyUI.PickerWheelUI;
 using UnityEngine.UI;
 
+
 public class SpinManager : MonoBehaviour
 {
     [SerializeField] private Button uiSpinButton;
@@ -36,7 +37,7 @@ public class SpinManager : MonoBehaviour
                 uiSpinButton.interactable = true;
                 uiSpinButtonText.text = "SPIN";
             });
-
+            
             pickerWheel.Spin();
 
         });
