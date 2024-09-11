@@ -14,13 +14,16 @@ public class WinBarManager : MonoBehaviour
     private bool isInitialRun = true; // To track the first run and apply -625X wait logic only once
 
 
-    public Transform object1;
+    /*public Transform object1;
     public Transform object2;
     public Transform object3;
     public float shakeDuration = 1f;
     public float shakeStrength = 1f;
     public int shakeVibrato = 10;
-    public float delayBetweenShakes = 2f;
+    public float delayBetweenShakes = 2f;*/
+
+    public Transform spinImg;
+    public Transform settingImg;
     void Start()
     {
         playerNames = GenerateNamesList();
@@ -33,25 +36,31 @@ public class WinBarManager : MonoBehaviour
         }
 
         StartCoroutine(UpdateWinBar());
+        spinImg.transform.DORotate(new Vector3(0, 0, -360), 1f, RotateMode.FastBeyond360)
+           .SetLoops(-1, LoopType.Restart) // -1 for infinite loops
+           .SetEase(Ease.Linear);
+        settingImg.transform.DORotate(new Vector3(0, 0, -360), 5f, RotateMode.FastBeyond360)
+           .SetLoops(-1, LoopType.Restart) // -1 for infinite loops
+           .SetEase(Ease.Linear);
 
-        StartCoroutine(ShakeSequence());
+        //  StartCoroutine(ShakeSequence());
     }
-    IEnumerator ShakeSequence()
-    {
-        while (true) // Infinite loop for repeating the shakes
-        {
-            // Shake both objects simultaneously
-            object1.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
-            object2.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
-            object3.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
+    /*  IEnumerator ShakeSequence()
+      {
+          while (true) // Infinite loop for repeating the shakes
+          {
+              // Shake both objects simultaneously
+              object1.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
+              object2.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
+              object3.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato);
 
-            // Wait for the duration of the shake
-            yield return new WaitForSeconds(shakeDuration);
+              // Wait for the duration of the shake
+              yield return new WaitForSeconds(shakeDuration);
 
-            // Add delay before the next shake
-            yield return new WaitForSeconds(delayBetweenShakes);
-        }
-    }
+              // Add delay before the next shake
+              yield return new WaitForSeconds(delayBetweenShakes);
+          }
+      }*/
     List<string> GenerateNamesList()
     {
         List<string> names = new List<string>
@@ -229,7 +238,7 @@ public class WinBarManager : MonoBehaviour
         int randomAmount = GenerateRandomAmount();
 
         // Assign text to the specific text element in the win bar
-        winBarTexts[index].text = $"{randomPlayer} won {randomAmount}  <sprite=0> in {randomGame}";
+        winBarTexts[index].text = $"<color=yellow>[ {randomPlayer} ]</color> won [ {randomAmount} ]  <sprite=0> in <color=yellow>[ {randomGame} ]</color>";
 
         // Move the text to the target position
         float moveDuration = 10f; // Duration for the text to move across the screen
