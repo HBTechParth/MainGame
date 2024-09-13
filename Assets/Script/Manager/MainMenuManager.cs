@@ -51,6 +51,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject editProfilePrefab;
     public GameObject settingPrefab;
     public GameObject withdrawPrefab;
+    public GameObject withdrawPrefabForDestroy;
     public GameObject shopScreenPrefab;
     public GameObject contactUsPrefab;
     public GameObject tourErrorPrefab;
@@ -1070,7 +1071,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void GenerateWithdraw()
     {
-        Instantiate(withdrawPrefab, prefabParent.transform);
+        GameObject g= Instantiate(withdrawPrefab, prefabParent.transform);
+        withdrawPrefabForDestroy = g;
+
     }
 
     public void GenerateEditProfile()

@@ -81,7 +81,7 @@ public class EditProfileUP : MonoBehaviour
     public Button defaultAvatarButton;
     public Button[] avatarButtons;
     public string avatarFolderPath = "Avatar"; // Path to the folder containing avatar sprites
-    private Sprite[] avatars;
+    public Sprite[] avatars;
     private int selectedAvatarIndex;
     private int savedAvatarIndex;
     private bool isDefaultAvatar = false;

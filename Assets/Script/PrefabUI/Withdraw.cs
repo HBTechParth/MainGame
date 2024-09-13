@@ -318,6 +318,10 @@ public class Withdraw : MonoBehaviour
         }
     }
 
+    public void OnClickAddWalletNAme(string name)
+    {
+        walletname.text = name;
+    }
     public void CheckUPI()
     {
         SoundManager.Instance.ButtonClick();
@@ -499,6 +503,9 @@ public class Withdraw : MonoBehaviour
                             MainMenuManager.Instance.Getdata();
 
                             Destroy(this.gameObject);
+                            if (MainMenuManager.Instance.withdrawPrefabForDestroy != null)
+                                Destroy(MainMenuManager.Instance.withdrawPrefabForDestroy);
+
                             break;
                         case 1:
                             wallletMSG.text = "Request send successfull";
@@ -507,8 +514,9 @@ public class Withdraw : MonoBehaviour
                             this.gameObject.SetActive(false);
                             MainMenuManager.Instance.GetTran();
                             MainMenuManager.Instance.Getdata();
-
                             Destroy(this.gameObject);
+                            if (MainMenuManager.Instance.withdrawPrefabForDestroy != null)
+                                Destroy(MainMenuManager.Instance.withdrawPrefabForDestroy);
                             break;
                         case 2:
                             Bankmsg.text = "Request send successfull";
@@ -518,6 +526,9 @@ public class Withdraw : MonoBehaviour
                             MainMenuManager.Instance.GetTran();
                             MainMenuManager.Instance.Getdata();
                             Destroy(this.gameObject);
+                            if (MainMenuManager.Instance.withdrawPrefabForDestroy != null)
+                                Destroy(MainMenuManager.Instance.withdrawPrefabForDestroy);
+
                             break;
                     }
                     MainMenuManager.Instance.Getdata();
