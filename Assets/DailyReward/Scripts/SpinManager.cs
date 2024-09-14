@@ -19,7 +19,7 @@ public class SpinManager : MonoBehaviour
     {
         _numberOfTurns = PlayerPrefs.GetInt("RemainingTurns", 3);
         UpdateTurnsText();
-        
+
         uiSpinButton.onClick.AddListener(() =>
         {
             Debug.Log("Click");
@@ -37,7 +37,7 @@ public class SpinManager : MonoBehaviour
                 uiSpinButton.interactable = true;
                 uiSpinButtonText.text = "SPIN";
             });
-            
+
             pickerWheel.Spin();
 
         });
@@ -48,20 +48,21 @@ public class SpinManager : MonoBehaviour
     void UserEarnManage(int index)
     {
 
-        if (index is 0 or 2 or 4 or 7 or 9)
+        if (index is 0 or 2 or 4 or 6 or 8 or 10)
         {
             //Free Spin
             DecreaseTurn();
+            Debug.Log("INDEX  = > " + index);
         }
         else
         {
             int winMoney = 0;
 
-            if (index is 3 or 6)
+            if (index == 1)
             {
                 winMoney = 1;
             }
-            else if (index == 1)
+            else if (index == 3)
             {
                 winMoney = 5;
             }
@@ -69,11 +70,21 @@ public class SpinManager : MonoBehaviour
             {
                 winMoney = 10;
             }
-            else if (index == 8)
+            else if (index == 7)
+            {
+                winMoney = 20;
+            }
+            else if (index == 9)
+            {
+                winMoney = 50;
+            }
+            else if (index == 11)
             {
                 winMoney = 100;
             }
+
             winMoney = winMoney * 1;
+            Debug.Log("winMoney  = > " + winMoney);
             int lastDate = -1;
             for (int i = 0; i < DataManager.Instance.thisMonthDays; i++)
             {
@@ -113,14 +124,18 @@ public class SpinManager : MonoBehaviour
             SetTurnsToZeroOnWin();
         }
     }
-    
-    
+
+
     private void DecreaseTurn()
     {
         if (_numberOfTurns > 0)
         {
+            Debug.Log("_numberOfTurns  = > " + _numberOfTurns);
+
             _numberOfTurns--;
+            Debug.Log("_numberOfTurns 1  = > " + _numberOfTurns);
             PlayerPrefs.SetInt("RemainingTurns", _numberOfTurns);
+            Debug.Log("_numberOfTurns 2  = > " + PlayerPrefs.GetInt("RemainingTurns"));
             UpdateTurnsText();
 
             if (_numberOfTurns == 0)
@@ -129,11 +144,12 @@ public class SpinManager : MonoBehaviour
             }
         }
     }
-    
+
     private void SetTurnsToZeroOnWin()
     {
         _numberOfTurns = 0;
         PlayerPrefs.SetInt("RemainingTurns", _numberOfTurns);
+        Debug.Log("NUM TIME ZERO ="+PlayerPrefs.GetInt("RemainingTurns"));
     }
 
     void UpdateTurnsText()
@@ -146,7 +162,7 @@ public class SpinManager : MonoBehaviour
         popupObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         popupObject.SetActive(false);
-        
+
         MainMenuManager.Instance.CloseSpinnerWheel();
         UpdateTurnsText();
     }
