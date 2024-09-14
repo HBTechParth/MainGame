@@ -511,6 +511,7 @@ public class AviatorGameManager : MonoBehaviour
             if (playerWinAmount != 0)
             {
                 SoundManager.Instance.CasinoWinSound();
+                Debug.Log("Player Win Amount   =  " + playerWinAmount);
                 DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "aviator-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommission), 1);
             }
         }

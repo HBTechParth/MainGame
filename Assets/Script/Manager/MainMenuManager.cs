@@ -834,8 +834,8 @@ public class MainMenuManager : MonoBehaviour
 
         var tableCount = minimumBetOrEntryFeesOrPointValue.Count;
         tableSet.maxValue = tableCount - 1;
-        var initialValueX = -740f;
-        var divisionParts = 1400 / (tableCount - 1);
+        var initialValueX = -650f;
+        var divisionParts = 1200 / (tableCount - 1);
 
 
         for (var i = 0; i < tableCount; i++)
