@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Shop : MonoBehaviour
 {
     public InputField field;
@@ -39,11 +39,18 @@ public class Shop : MonoBehaviour
 
     public void ContinueButton()
     {
-        print("Amount = " + amount);
-        SoundManager.Instance.ButtonClick();
-        /*if(amount >= 50)
-            StartCoroutine(CashFreeManage.Instance.getToken((int)(amount), CashFreeManage.Instance.couponId));*/
-        paymentMode.gameObject.SetActive(true);
+        print("Amount = " + totalAmount);
+        if (totalAmount >= 100)
+        {
+            SoundManager.Instance.ButtonClick();
+            /*if(amount >= 50)
+                StartCoroutine(CashFreeManage.Instance.getToken((int)(amount), CashFreeManage.Instance.couponId));*/
+            paymentMode.gameObject.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(TryAgain());
+        }
 
     }
 
@@ -52,36 +59,105 @@ public class Shop : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         paymentMode.gameObject.SetActive(false);
     }
-    
+
     public void SelectPaymentMode(bool phonepay)
     {
         SoundManager.Instance.ButtonClick();
         isPhonePay = phonepay;
-        if(amount >= 50)
-            StartCoroutine(CashFreeManage.Instance.getToken((int)(amount), CashFreeManage.Instance.couponId, isPhonePay));
+        if (totalAmount >= 100)
+            StartCoroutine(CashFreeManage.Instance.getToken((int)(totalAmount), CashFreeManage.Instance.couponId, isPhonePay));
         paymentMode.gameObject.SetActive(false);
     }
 
+    public TextMeshProUGUI amountText;
+    public TextMeshProUGUI bonusAmountText;
+    public TextMeshProUGUI totalAmountText;
+
+    public void FieldNull(bool isnull)
+    {
+        if (isnull)
+            field.text = "";
+    }
+    public void OnAmountInputEnd()
+    {
+        SoundManager.Instance.ButtonClick();
+        int amt;
+        if (!string.IsNullOrEmpty(field.text))
+        {
+            amt = int.Parse(field.text);
+            Debug.Log("INPUT Amount " + amt);
+            if (amt >= 100)
+            {
+                SelectAmount(amt);
+            }
+            else
+            {
+                field.text = "";
+                SelectAmount(0);
+            }
+        }
+
+
+
+
+    }
+    float bonusAmount = 0f;
+    float totalAmount = 0f;
     public void SelectAmount(float amt)
     {
         SoundManager.Instance.ButtonClick();
+
+
         amount = amt;
+
+        // Update transaction and amount texts
         transactionAmount.text = "₹" + amount.ToString();
-        GetCoupon(amount);
+        amountText.text = "₹" + amount.ToString();
+
+
+
+        // Determine bonus and total amount based on the selected amount
+        if (amount >= 100 && amount <= 5000)
+        {
+            // Calculate 100% extra bonus
+            bonusAmount = amount * 1.0f; // 100% of the amount
+            totalAmount = amount + bonusAmount; // Total is original amount + bonus
+            bonusAmountText.text = bonusAmount.ToString() + " extra (100%)";
+        }
+        else if (amount > 5000)
+        {
+            // Calculate 140% extra bonus
+            bonusAmount = amount * 1.4f; // 140% of the amount
+            totalAmount = amount + bonusAmount; // Total is original amount + bonus
+            bonusAmountText.text = bonusAmount.ToString() + " extra (140%)";
+        }
+        else
+        {
+            // No bonus for amounts less than 100
+            bonusAmountText.text = "₹ 0";
+            totalAmount = amount; // If no bonus, total is just the original amount
+        }
+
+        // Display the total amount in the totalAmountText
+        totalAmountText.text = totalAmount.ToString();
+
+        // Call GetCoupon with the selected amount
+        GetCoupon(totalAmount);
     }
+
     public void InputAmountButton()
     {
         if (field.text != "")
         {
             amount = float.Parse(field.text);
-            transactionAmount.text = "₹" +  amount.ToString();
+            transactionAmount.text = "₹" + amount.ToString();
             transactionObject.SetActive(true);
-            GetCoupon(amount);
+            GetCoupon(totalAmount);
         }
         else
             StartCoroutine(TryAgain());
     }
-    
+
     private void GetCoupon(float amount)
     {
         CashFreeManage.Instance.couponId = "";
