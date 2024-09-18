@@ -39,8 +39,8 @@ public class Shop : MonoBehaviour
 
     public void ContinueButton()
     {
-        print("Amount = " + totalAmount);
-        if (totalAmount >= 100)
+        print("Amount = " + amount);
+        if (amount >= 100)
         {
             SoundManager.Instance.ButtonClick();
             /*if(amount >= 50)
@@ -64,8 +64,8 @@ public class Shop : MonoBehaviour
     {
         SoundManager.Instance.ButtonClick();
         isPhonePay = phonepay;
-        if (totalAmount >= 100)
-            StartCoroutine(CashFreeManage.Instance.getToken((int)(totalAmount), CashFreeManage.Instance.couponId, isPhonePay));
+        if (amount >= 100)
+            StartCoroutine(CashFreeManage.Instance.getToken((int)(amount), CashFreeManage.Instance.couponId, isPhonePay));
         paymentMode.gameObject.SetActive(false);
     }
 
@@ -142,7 +142,7 @@ public class Shop : MonoBehaviour
         totalAmountText.text = totalAmount.ToString();
 
         // Call GetCoupon with the selected amount
-        GetCoupon(totalAmount);
+        GetCoupon(amount);
     }
 
     public void InputAmountButton()
@@ -152,7 +152,7 @@ public class Shop : MonoBehaviour
             amount = float.Parse(field.text);
             transactionAmount.text = "₹" + amount.ToString();
             transactionObject.SetActive(true);
-            GetCoupon(totalAmount);
+            GetCoupon(amount);
         }
         else
             StartCoroutine(TryAgain());

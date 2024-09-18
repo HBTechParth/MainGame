@@ -124,6 +124,8 @@ public class CashFreeManage : MonoBehaviour
         //WaitPanelManager.Instance.OpenPanel();
         //UnityWebRequest unityWeb = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/upiman/getlink", tokeform); //Manual payment
         paymentLink = isPhonePay ? "/api/v1/payments/phonepaypg/token" : "/api/v1/payments/zeropg/token";
+
+
         UnityWebRequest unityWeb = UnityWebRequest.Post(DataManager.Instance.url + paymentLink, tokeform); // Zero payment Gateway
         //UnityWebRequest unityWeb = UnityWebRequest.Post("https://zgw.oynxdigital.com/payment1.php?i=bkGN82", tokeform); // Zero payment Gateway
         unityWeb.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
@@ -550,6 +552,7 @@ public class CashFreeManage : MonoBehaviour
     {
         isRun = false;
         popUpObj.SetActive(true);
+        Debug.Log("popUpObj  TRUE ");
         //popUpTitleObj.text = "Processing";
         popUpTitleObj.color = greenColor;
         successObj.SetActive(true);
@@ -585,6 +588,8 @@ public class CashFreeManage : MonoBehaviour
                 DataManager.Instance.playerData.membership = data[nameof(DataManager.Instance.playerData.membership)];
 
                 popUpObj.SetActive(true);
+                Debug.Log("popUpObj  TRUE ");
+
                 popUpTitleObj.text = "Transaction Success";
                 popUpTitleObj.color = greenColor;
                 successObj.SetActive(true);
@@ -604,6 +609,8 @@ public class CashFreeManage : MonoBehaviour
 
                 isRun1 = false;
                 popUpObj.SetActive(true);
+                Debug.Log("popUpObj  TRUE ");
+
                 popUpTitleObj.text = "Transaction Failed";
                 popUpTitleObj.color = redColor;
                 successObj.SetActive(false);

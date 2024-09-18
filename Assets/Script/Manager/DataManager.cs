@@ -828,7 +828,7 @@ public class DataManager : MonoBehaviour
                 Invoke(nameof(LudoManager.Instance.AddBetAmount), 1f);
             }
         }
-        print("Debit Time Value : " + request.downloadHandler.text);
+        print("<color=blue> Debit Value : </color>" + request.downloadHandler.text);
         Setplayerdata(data);
         //Balance_Txt.text = data["balance"].ToString().Trim('"');
         //        playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
@@ -904,7 +904,7 @@ public class DataManager : MonoBehaviour
         //playerData.bonus = data[nameof(DataManager.Instance.playerData.bonus)];
         if (request.error == null)
         {
-            print("Data Credit : " + request.downloadHandler.text);
+            print("<color=blue>Data Credit : </color>" + request.downloadHandler.text);
             JSONNode values = JSON.Parse(request.downloadHandler.text);
             if (values["success"] == true)
             {
