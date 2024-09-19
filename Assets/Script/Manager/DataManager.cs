@@ -662,6 +662,7 @@ public class DataManager : MonoBehaviour
         if (check == 0)
         {
             Debug.Log("Player Added : " + joinPlayer.userName);
+            Debug.Log("Player Balence : " + joinPlayer.balance);
             joinPlayerDatas.Add(joinPlayer);
         }
         else

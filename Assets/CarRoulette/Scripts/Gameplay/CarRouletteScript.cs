@@ -798,7 +798,6 @@ public class CarRouletteScript : MonoBehaviour
     public GameObject displayObject1;
     public void WinningCarModelAnimation(string name)
     {
-
         // Assign the correct sprite based on the car name
         Sprite selectedCarSprite = null;
         int selectedIndex = -1;
@@ -845,27 +844,28 @@ public class CarRouletteScript : MonoBehaviour
         // Assign the selected sprite to the display object's Image component
         if (selectedCarSprite != null && selectedIndex != -1)
         {
-            displayObject1.SetActive(true);
+            displayObject.SetActive(true);
             displayObject.GetComponent<Image>().sprite = selectedCarSprite;
 
             // Activate the appropriate win glow object
             winGlowObject[selectedIndex].SetActive(true);
 
-            // Keep the current position of the object
+            // Get the RectTransform component of the displayObject
             RectTransform rectTransform = displayObject.GetComponent<RectTransform>();
             Vector3 currentPosition = rectTransform.position; // Save the current position
 
-            // Set the scale to 0 on X axis, but retain the current position
-            rectTransform.localScale = new Vector3(0, 1, 1); // Start with scale X=0
+            // Animate the width of the RectTransform to 350 while keeping the position fixed
+            float initialWidth = rectTransform.sizeDelta.x; // Store initial width
+            rectTransform.sizeDelta = new Vector2(0, rectTransform.sizeDelta.y); // Start with width 0
 
-            // Ensure the position remains fixed, scale towards left from the current position
-            rectTransform.DOScaleX(1f, 0.5f)
-                         .SetEase(Ease.OutQuad)
-                         .OnUpdate(() => rectTransform.position = currentPosition); // Keep the position fixed during scaling
+            // Animate the width to 350
+            DOTween.To(() => rectTransform.sizeDelta, x => rectTransform.sizeDelta = x,
+                       new Vector2(350, rectTransform.sizeDelta.y), 1f)
+                   .SetEase(Ease.OutQuad)
+                   .OnUpdate(() => rectTransform.position = currentPosition); // Keep the position fixed during width change
         }
-
-
     }
+
     private void CalculateWinAmount(CarNames car)
     {
         SoundManager.Instance.CarWinSound();
@@ -1487,7 +1487,8 @@ public class CarRouletteScript : MonoBehaviour
 
     IEnumerator StartBettingOff()
     {
-        displayObject1.SetActive(false);
+        displayObject.SetActive(false);
+        displayObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, displayObject.GetComponent<RectTransform>().sizeDelta.y);
         totalBet = 0;
         totalBetText.text = "Total Bet = 0";
         print("______________________start betting is called_________________________________");

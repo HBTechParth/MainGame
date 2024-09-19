@@ -574,9 +574,12 @@ public class TeenPattiPlayer : MonoBehaviour
 
     private void HandleBetForRounds(int num)
     {
+        Debug.LogError("NUM => " + num);
         if (num != 5)
         {
             SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+            Debug.LogError("mahadeV -bOT1");
+
             TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
             SoundManager.Instance.ThreeBetSound();
             TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
@@ -585,6 +588,8 @@ public class TeenPattiPlayer : MonoBehaviour
         else if(TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo == this.playerNo)
         {
             SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+            Debug.LogError("mahadeV -bOT2");
+
             TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
             SoundManager.Instance.ThreeBetSound();
             TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
@@ -604,6 +609,8 @@ public class TeenPattiPlayer : MonoBehaviour
             case 4:
             case 5:
                 SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                Debug.LogError("mahadeV -bOT3");
+
                 TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
                 SoundManager.Instance.ThreeBetSound();
                 TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
@@ -735,6 +742,8 @@ public class TeenPattiPlayer : MonoBehaviour
         obj.AddField("CurrentIndex", index);
         obj.AddField("Action", "BotBetData");
         TestSocketIO.Instace.Senddata("TeenPattiBotBetNo", obj);
+        Debug.LogError("mahadeV -bOT");
+
     }
 
 
