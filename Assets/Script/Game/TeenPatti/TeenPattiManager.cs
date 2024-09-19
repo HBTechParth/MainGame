@@ -618,7 +618,7 @@ public class TeenPattiManager : MonoBehaviour
             }
                 //currentPriceIndex += 1;
             currentPriceValue = numbers[currentPriceIndex];
-            priceBtnTxt.text = player1.isSeen ? "Chaal\n" + currentPriceValue : "Blind\n" + currentPriceValue;
+            priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
         }
         player1.isSeen = true;
         player1.isBlind = false;
@@ -629,7 +629,7 @@ public class TeenPattiManager : MonoBehaviour
         //minusBtn.gameObject.SetActive(true);
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        priceBtnTxt.text = "Chaal\n" + currentPriceValue;
+        priceBtnTxt.text = "Chaal : " + currentPriceValue;
         ChangeCardStatus("SEEN", player1.playerNo);
     }
 
@@ -710,7 +710,7 @@ public class TeenPattiManager : MonoBehaviour
         currentPriceValue = minLimitValue;
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
-        priceBtnTxt.text = "Blind\n" + currentPriceValue;
+        priceBtnTxt.text = "Blind : " + currentPriceValue;
         minusBtn.interactable = false;
         rulesTab.SetActive(false);
         roundCounter = 0;
@@ -1853,8 +1853,8 @@ public class TeenPattiManager : MonoBehaviour
         priceBtnTxt.text = player1.isPack switch
         {
             //currentPriceValue /= 2;
-            false when player1.isBlind => "Blind\n" + currentPriceValue,
-            false when player1.isSeen => "Chaal\n" + currentPriceValue,
+            false when player1.isBlind => "Blind : " + currentPriceValue,
+            false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
     }
@@ -1913,8 +1913,8 @@ public class TeenPattiManager : MonoBehaviour
         priceBtnTxt.text = player1.isPack switch
         {
             //currentPriceValue *= 2;
-            false when player1.isBlind => "Blind\n" + currentPriceValue,
-            false when player1.isSeen => "Chaal\n" + currentPriceValue,
+            false when player1.isBlind => "Blind : " + currentPriceValue,
+            false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
     }
@@ -3317,7 +3317,7 @@ public class TeenPattiManager : MonoBehaviour
                     }
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
-                    priceBtnTxt.text = player1.isSeen ? "Chaal\n" + currentPriceValue : "Blind\n" + currentPriceValue;
+                    priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
                     EnableSeeCards();
@@ -3639,7 +3639,7 @@ public class TeenPattiManager : MonoBehaviour
                 if(minLimitValue > 5)
                     priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*/
             }
-            priceBtnTxt.text = "Blind\n" + curPrice;
+            priceBtnTxt.text = "Blind : " + curPrice;
         }
         else if (!player1.isPack && player1.isSeen)
         {
@@ -3675,7 +3675,7 @@ public class TeenPattiManager : MonoBehaviour
                 currentSeenValue = currentPriceValue;
                 //currentPriceValue = curPrice;
             }
-            priceBtnTxt.text = "Chaal\n" + curPrice;
+            priceBtnTxt.text = "Chaal : " + curPrice;
         }
     }
 

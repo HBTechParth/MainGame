@@ -415,6 +415,7 @@ public class CarRouletteScript : MonoBehaviour
                 CarNames car = symbolScript.Car;
                 // Use the car variable as needed
                 CalculateWinAmount(car);
+                WinningCarModelAnimation(car.ToString());
                 print("This is called value -> " + car);
             }
 
@@ -792,6 +793,79 @@ public class CarRouletteScript : MonoBehaviour
 
     #region Winning Logic 
     public List<GameObject> winGlowObject;
+    public List<Sprite> carModelsSprites; // List of sprites
+    public GameObject displayObject;
+    public GameObject displayObject1;
+    public void WinningCarModelAnimation(string name)
+    {
+
+        // Assign the correct sprite based on the car name
+        Sprite selectedCarSprite = null;
+        int selectedIndex = -1;
+
+        switch (name)
+        {
+            case "Lamborghini":
+                selectedCarSprite = carModelsSprites[0];
+                selectedIndex = 0;
+                break;
+            case "Bmw":
+                selectedCarSprite = carModelsSprites[1];
+                selectedIndex = 1;
+                break;
+            case "Benz":
+                selectedCarSprite = carModelsSprites[2];
+                selectedIndex = 2;
+                break;
+            case "Jaguar":
+                selectedCarSprite = carModelsSprites[3];
+                selectedIndex = 3;
+                break;
+            case "LandRover":
+                selectedCarSprite = carModelsSprites[4];
+                selectedIndex = 4;
+                break;
+            case "Nissan":
+                selectedCarSprite = carModelsSprites[5];
+                selectedIndex = 5;
+                break;
+            case "Mazda":
+                selectedCarSprite = carModelsSprites[6];
+                selectedIndex = 6;
+                break;
+            case "Volkswagen":
+                selectedCarSprite = carModelsSprites[7];
+                selectedIndex = 7;
+                break;
+            default:
+                Debug.LogWarning("Invalid car model name");
+                return;
+        }
+
+        // Assign the selected sprite to the display object's Image component
+        if (selectedCarSprite != null && selectedIndex != -1)
+        {
+            displayObject1.SetActive(true);
+            displayObject.GetComponent<Image>().sprite = selectedCarSprite;
+
+            // Activate the appropriate win glow object
+            winGlowObject[selectedIndex].SetActive(true);
+
+            // Keep the current position of the object
+            RectTransform rectTransform = displayObject.GetComponent<RectTransform>();
+            Vector3 currentPosition = rectTransform.position; // Save the current position
+
+            // Set the scale to 0 on X axis, but retain the current position
+            rectTransform.localScale = new Vector3(0, 1, 1); // Start with scale X=0
+
+            // Ensure the position remains fixed, scale towards left from the current position
+            rectTransform.DOScaleX(1f, 0.5f)
+                         .SetEase(Ease.OutQuad)
+                         .OnUpdate(() => rectTransform.position = currentPosition); // Keep the position fixed during scaling
+        }
+
+
+    }
     private void CalculateWinAmount(CarNames car)
     {
         SoundManager.Instance.CarWinSound();
@@ -1413,6 +1487,7 @@ public class CarRouletteScript : MonoBehaviour
 
     IEnumerator StartBettingOff()
     {
+        displayObject1.SetActive(false);
         totalBet = 0;
         totalBetText.text = "Total Bet = 0";
         print("______________________start betting is called_________________________________");

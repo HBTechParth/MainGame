@@ -1375,9 +1375,6 @@ MonoBehaviour:
   fillImg: {fileID: 412597003}
   waitTime: 5
   percantage: 0
-  girl: []
-  girls: {fileID: 0}
-  frameRate: 0.1
 --- !u!114 &412597003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,45 +1686,6 @@ MonoBehaviour:
   fillImg: {fileID: 504413259}
   waitTime: 5
   percantage: 0
-  girl:
-  - {fileID: 21300000, guid: bead1bbbbc8e0624ead7516b4b91b9d9, type: 3}
-  - {fileID: 21300000, guid: 27846314657de4e4b9433fb071dfeed7, type: 3}
-  - {fileID: 21300000, guid: b6f365b244f472b4298b2bc3930c35fe, type: 3}
-  - {fileID: 21300000, guid: 2b7925a718fa65644a29e42d92e08c36, type: 3}
-  - {fileID: 21300000, guid: a94a6f07b6d2f234c86a9a4b1b9bd7f1, type: 3}
-  - {fileID: 21300000, guid: fc4e8ea63a1d78c40a1326421e2c1d3b, type: 3}
-  - {fileID: 21300000, guid: 8204aa1d8d0c7ab4e8eaf35c0c2cdc3f, type: 3}
-  - {fileID: 21300000, guid: 7e226d86dbc7c9d41b208a1cde5c4d83, type: 3}
-  - {fileID: 21300000, guid: c0f3b80b350bcf7418de50f5bc3e411f, type: 3}
-  - {fileID: 21300000, guid: aaa85f22d96ee484ca9ff755238c2d12, type: 3}
-  - {fileID: 21300000, guid: e1f5ae78e1779df42b2312fc41322476, type: 3}
-  - {fileID: 21300000, guid: f7f1098406fb60f43b924cd77101794d, type: 3}
-  - {fileID: 21300000, guid: 71abde2042e69a849b074b294f2b0ba5, type: 3}
-  - {fileID: 21300000, guid: abea94f13cad231449633643a68ee7d8, type: 3}
-  - {fileID: 21300000, guid: 96c206d31db92bd4daf80c88a3b48ad4, type: 3}
-  - {fileID: 21300000, guid: 5ec975d33a002f140a63d07101aa9ba9, type: 3}
-  - {fileID: 21300000, guid: f3d07fea1ef2ffb4c8553c91f1d2c048, type: 3}
-  - {fileID: 21300000, guid: 2ec55f3cce6611943893814127f89c74, type: 3}
-  - {fileID: 21300000, guid: 3acbfee83f377c044a49d0654fba728f, type: 3}
-  - {fileID: 21300000, guid: f9b695ff14b476e4a86f6edc8ec4fa53, type: 3}
-  - {fileID: 21300000, guid: 9074c5065670966439d992683b12e5a1, type: 3}
-  - {fileID: 21300000, guid: 9e79a1d3d17e16644b7ab64402c861ed, type: 3}
-  - {fileID: 21300000, guid: 2fcf71236d3f3e34396421aa0e63610d, type: 3}
-  - {fileID: 21300000, guid: d5359b799890b1447980457cc9170ff3, type: 3}
-  - {fileID: 21300000, guid: 2d62d6a8f5e67fe4292f11f53d66d6c5, type: 3}
-  - {fileID: 21300000, guid: 63a04bbb6e3c5e947aa9b04616153f21, type: 3}
-  - {fileID: 21300000, guid: 6eb4703e67be2c74084da323f1ee39ad, type: 3}
-  - {fileID: 21300000, guid: a149d59475d80014eb79b3843b05a98e, type: 3}
-  - {fileID: 21300000, guid: d88608bb49c91af498beb9758e996d17, type: 3}
-  - {fileID: 21300000, guid: 3751ef0b8e03d82428bd2b97838cffbb, type: 3}
-  - {fileID: 21300000, guid: 6a3ed6bd683e22642a83623ad912c514, type: 3}
-  - {fileID: 21300000, guid: f130019bf891cd5409125a4fa57c4710, type: 3}
-  - {fileID: 21300000, guid: 9df18ff824cb97142aaf39d9deda98d1, type: 3}
-  - {fileID: 21300000, guid: dc99650641697584cb78b7c7e08daeca, type: 3}
-  - {fileID: 21300000, guid: 48b789f0ce1b38040ab849ca2ca37ddc, type: 3}
-  - {fileID: 21300000, guid: b4af10f2ace469d4fb982e4e4e449f5f, type: 3}
-  girls: {fileID: 0}
-  frameRate: 0.2
 --- !u!1 &535640737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -21.159973}
   m_SizeDelta: {x: 873.34, y: 895.52}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &698123589

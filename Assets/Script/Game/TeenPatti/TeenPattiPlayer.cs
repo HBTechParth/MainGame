@@ -183,23 +183,20 @@ public class TeenPattiPlayer : MonoBehaviour
         float randomValue = Random.Range(0f, 100f); // Generate a random value between 0 and 100
 
         // Assign probabilities
-        if (randomValue <= 60f) // 60% chance for a wait between 3 and 8 seconds
+        if (randomValue <= 90f) // 90% chance for a wait between 0 and 10 seconds
         {
-            return Random.Range(3f, 10f);
+            return Random.Range(1f, 10f);
         }
-        else if (randomValue <= 85f) // 25% chance for a wait between 8 and 15 seconds
+        else if (randomValue <= 95f) // 5% chance for a wait between 10 and 23 seconds
         {
-            return Random.Range(10f, 15f);
-        }
-        else if (randomValue <= 95f) // 10% chance for a wait between 15 and 21 seconds
-        {
-            return Random.Range(15f, 21f);
+            return Random.Range(10f, 23f);
         }
         else // 5% chance for a wait of 25 seconds
         {
             return 25f;
         }
     }
+
 
     /*private void BotAutoBet()
     {

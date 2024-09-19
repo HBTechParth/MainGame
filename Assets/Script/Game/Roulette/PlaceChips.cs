@@ -30,8 +30,8 @@ public class PlaceChips : MonoBehaviour
     {
         GameObject genObj = Instantiate(placeObjPrefab, this.transform);
         genObj.transform.GetChild(0).GetComponent<Text>().text = placeStr;
-        genObj.transform.position = new Vector3(genObj.transform.position.x, genObj.transform.position.y + 0.25f, 0);
-        genObj.transform.DOMove(new Vector3(genObj.transform.position.x, genObj.transform.position.y - 0.25f, 0), 0.5f).OnComplete(() =>
+        genObj.transform.position = new Vector3(genObj.transform.position.x, genObj.transform.position.y, 0);
+        genObj.transform.DOMove(new Vector3(genObj.transform.position.x, genObj.transform.position.y, 0), 0.5f).OnComplete(() =>
             genObj.transform.DOScale(Vector3.zero, scaleSpeed).OnComplete(() =>
             {
                 Destroy(genObj);
