@@ -334,8 +334,11 @@ public class MainMenuManager : MonoBehaviour
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
-                        Debug.Log("Amount   =? " + item.betAmount);
+                        //    Debug.Log("Amount   =? " + item.betAmount);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
                         SelectValueOfTournament(GameType.Teen_Patti, minBetValues);
@@ -825,7 +828,7 @@ public class MainMenuManager : MonoBehaviour
         for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
         {
 
-            Debug.Log("VAL = "+minimumBetOrEntryFeesOrPointValue[i]);
+            Debug.Log("VAL = " + minimumBetOrEntryFeesOrPointValue[i]);
         }
         tableSelectionScreen.SetActive(true);
         ClearEntryValues();
@@ -1071,7 +1074,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void GenerateWithdraw()
     {
-        GameObject g= Instantiate(withdrawPrefab, prefabParent.transform);
+        GameObject g = Instantiate(withdrawPrefab, prefabParent.transform);
         withdrawPrefabForDestroy = g;
 
     }

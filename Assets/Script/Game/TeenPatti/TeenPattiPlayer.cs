@@ -10,6 +10,7 @@ public class TeenPattiPlayer : MonoBehaviour
 {
     public Image avatarImg;
     public Text playerNameTxt;
+    public Text playerBalence;
     public Image cardImg1;
     public Image cardImg2;
     public Image cardImg3;
@@ -692,9 +693,9 @@ public class TeenPattiPlayer : MonoBehaviour
             card2 = TeenPattiManager.Instance.cardSuffles[TeenPattiManager.Instance.mainList[startIndex + 1] - 1];
             card3 = TeenPattiManager.Instance.cardSuffles[TeenPattiManager.Instance.mainList[startIndex + 2] - 1];
             
-            print("This is card1 no  -> " + (TeenPattiManager.Instance.mainList[startIndex] - 1));
+         /*   print("This is card1 no  -> " + (TeenPattiManager.Instance.mainList[startIndex] - 1));
             print("This is card2 no  -> " + (TeenPattiManager.Instance.mainList[startIndex + 1] - 1));
-            print("This is card3 no  -> " + (TeenPattiManager.Instance.mainList[startIndex + 2] - 1));
+            print("This is card3 no  -> " + (TeenPattiManager.Instance.mainList[startIndex + 2] - 1));*/
 
             TeenPattiWinMaintain winMaintain = TeenPattiManager.Instance.MatchResult(card1, card2, card3);
             ruleNo = winMaintain.ruleNo;

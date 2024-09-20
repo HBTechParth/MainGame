@@ -755,6 +755,7 @@ public class TeenPattiManager : MonoBehaviour
         playerSquList.Clear();
         if (DataManager.Instance.joinPlayerDatas.Count == 2)
         {
+            Debug.Log("NO ________>     2");
             player1.gameObject.SetActive(true);
             player2.gameObject.SetActive(true);
             player3.gameObject.SetActive(false);
@@ -766,6 +767,7 @@ public class TeenPattiManager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -775,6 +777,7 @@ public class TeenPattiManager : MonoBehaviour
                 else
                 {
                     player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player2.playerNo = (i + 1);
@@ -797,12 +800,16 @@ public class TeenPattiManager : MonoBehaviour
         }
         else if (DataManager.Instance.joinPlayerDatas.Count == 3)
         {
+            Debug.Log("NO ________>     3");
+
             player1.gameObject.SetActive(true);
             for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
             {
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -828,6 +835,8 @@ public class TeenPattiManager : MonoBehaviour
                         {
 
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -840,6 +849,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -866,6 +877,8 @@ public class TeenPattiManager : MonoBehaviour
                         {
 
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -879,6 +892,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -893,6 +908,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 3)
             {
+                Debug.Log("NO ________>     3-");
+
                 player2.gameObject.SetActive(false);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(false);
@@ -905,6 +922,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -916,6 +935,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -931,12 +952,16 @@ public class TeenPattiManager : MonoBehaviour
         }
         else if (DataManager.Instance.joinPlayerDatas.Count == 4)
         {
+            Debug.Log("NO ________>     4");
+
             player1.gameObject.SetActive(true);
             for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
             {
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
@@ -961,6 +986,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -972,6 +999,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -983,6 +1012,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -996,6 +1027,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 2)
             {
+                Debug.Log("NO ________>     2-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1009,6 +1042,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1021,6 +1056,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1032,6 +1069,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1045,6 +1084,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 3)
             {
+                Debug.Log("NO ________>     3-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(false);
                 player4.gameObject.SetActive(true);
@@ -1058,6 +1099,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1069,6 +1112,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1081,6 +1126,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1094,6 +1141,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 4)
             {
+                Debug.Log("NO ________>     4-");
+
                 player2.gameObject.SetActive(false);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1107,6 +1156,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1118,6 +1169,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1129,6 +1182,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1145,12 +1200,16 @@ public class TeenPattiManager : MonoBehaviour
         }
         else if (DataManager.Instance.joinPlayerDatas.Count == 5)
         {
+            Debug.Log("NO ________>     5");
+
             player1.gameObject.SetActive(true);
             for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
             {
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -1174,6 +1233,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1185,6 +1246,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1197,6 +1260,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1208,6 +1273,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1221,6 +1288,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 2)
             {
+                Debug.Log("NO ________>     2-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1235,6 +1304,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1246,6 +1317,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1258,6 +1331,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1269,6 +1344,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1282,6 +1359,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 3)
             {
+                Debug.Log("NO ________>     3-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1296,6 +1375,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1308,6 +1389,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1320,6 +1403,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1331,6 +1416,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1344,6 +1431,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 4)
             {
+                Debug.Log("NO ________>     4-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1358,6 +1447,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1369,6 +1460,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1381,6 +1474,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1393,6 +1488,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1406,6 +1503,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (player1.playerNo == 5)
             {
+                Debug.Log("NO ________>     5-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1420,6 +1519,8 @@ public class TeenPattiManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1431,6 +1532,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1443,6 +1546,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1454,6 +1559,8 @@ public class TeenPattiManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -2082,6 +2189,13 @@ public class TeenPattiManager : MonoBehaviour
             betAmountTxt.text = totalBetAmount.ToString();
         });*/
         totalBetAmount += amount;
+        float currentBalance = float.Parse(player.playerBalence.text);
+
+        // Subtract the amount from the balance
+        currentBalance -= amount;
+        Debug.LogError("CHAL AMount  "+amount);
+        // Update the player's balance text with the new balance
+        player.playerBalence.text = currentBalance.ToString();
         betAmountTxt.text = totalBetAmount.ToString();
 
         SpawnCoin(priceIndex);
@@ -2368,6 +2482,7 @@ public class TeenPattiManager : MonoBehaviour
     public void ChipGenerate(GameObject chip, Vector3 endPos)
     {
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
+
         chip.transform.DOMove(endPos, 0.2f).OnComplete(() =>
         {
             chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
