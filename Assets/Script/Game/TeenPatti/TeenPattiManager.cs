@@ -1149,6 +1149,20 @@ public class TeenPattiManager : MonoBehaviour
                     {
                         if (cntPlayer == 0)
                         {
+                            player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
+                            player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                            player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            player2.playerNo = (i + 1);
+                            player2.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                            player2.UpdateAvatar();
+                            playerSquList.Add(player2);
+                            cntPlayer++;
+                        }
+                        else if (cntPlayer == 1)
+                        {
+
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
                             player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
 
@@ -1159,19 +1173,6 @@ public class TeenPattiManager : MonoBehaviour
                             player3.UpdateAvatar();
                             playerSquList.Add(player3);
                             playerSquList.Add(player1);
-                            cntPlayer++;
-                        }
-                        else if (cntPlayer == 1)
-                        {
-                            player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
-
-                            player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                            player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
-                            player2.playerNo = (i + 1);
-                            player2.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                            player2.UpdateAvatar();
-                            playerSquList.Add(player2);
                             cntPlayer++;
                         }
                         else if (cntPlayer == 2)
