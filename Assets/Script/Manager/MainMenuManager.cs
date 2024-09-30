@@ -1845,7 +1845,9 @@ public class MainMenuManager : MonoBehaviour
                     .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "TeenPatti";
                 DataManager.Instance.AddRoomUser(userId, botUserName,
                     DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                    UnityEngine.Random.Range(459, 10000).ToString(), i, avatar);
+                    UnityEngine.Random.Range(600, 10000).ToString(), i, avatar);
+
+                Debug.Log("TeenPatti BOT Called - --- - - - - - -");
             }
         }
     }

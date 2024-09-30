@@ -88,6 +88,7 @@ public class TeenPattiManager : MonoBehaviour
 
     [Header("--- Game UI ---")]
     public GameObject errorScreenObj;
+    public GameObject errorScreenObjONBET;
     public GameObject slideShowPanel;
     public Text slideShowName;
     public Image slideShowProfilePic;
@@ -99,6 +100,7 @@ public class TeenPattiManager : MonoBehaviour
     public Text rulesText;
     public Text betAmountTxt;
     public Text priceBtnTxt;
+    public Text priceBtnTxtDouble;
     public Button plusBtn;
     public Button minusBtn;
     //public GameObject blindx2button;
@@ -111,6 +113,7 @@ public class TeenPattiManager : MonoBehaviour
     public int currentPriceIndex = 0;
     public int runningPriceIndex;
     public Image sideShowPopupImage;
+    public Text sideShowPopupImageText;
     public float delay;
     private bool isPopupOpen = false;
     public GameObject exitPanel;
@@ -187,6 +190,7 @@ public class TeenPattiManager : MonoBehaviour
             teenPattiPlayers[i].gameObject.SetActive(false);
         }
         playerFindScreenObj.SetActive(true);
+        Debug.Log(" playerFindScreenObj");
         DisplayCurrentBalance();
         PlayerFound();
         CheckSound();
@@ -207,18 +211,22 @@ public class TeenPattiManager : MonoBehaviour
 
     public void PlayerFound()
     {
-
+        Debug.Log("joinPlayerDatas  > " + DataManager.Instance.joinPlayerDatas.Count + "     TestSocketIO.Instace.teenPattiRequirePlayer   => " + TestSocketIO.Instace.teenPattiRequirePlayer);
         if (DataManager.Instance.joinPlayerDatas.Count >= TestSocketIO.Instace.teenPattiRequirePlayer)
         {
+            Debug.Log("joinPlayerDatas  > " + DataManager.Instance.joinPlayerDatas.Count + "     TestSocketIO.Instace.teenPattiRequirePlayer   => " + TestSocketIO.Instace.teenPattiRequirePlayer);
             CreateAdmin();
             if (DataManager.Instance.joinPlayerDatas.Count > 5)
             {
+                Debug.Log("Play");
                 StartCoroutine(WaitGameToComplete(CheckNewPlayers));
             }
             if (DataManager.Instance.joinPlayerDatas.Count == 5 && isAdmin)
             {
+                Debug.Log("isGameStarted  =" + isGameStarted);
                 if (!isGameStarted)
                 {
+                    Debug.Log("isGameStarted  =" + isGameStarted);
                     StartGamePlay();
                     Debug.LogError("StartGamePlay");
 
@@ -226,9 +234,13 @@ public class TeenPattiManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("isAdmin  =" + isAdmin);
                 if (isAdmin) return;
+                Debug.Log("isAdmin  =" + isAdmin);
+                Debug.Log("isGameStarted  =" + isGameStarted);
                 if (!isGameStarted)
                 {
+                    Debug.Log("isGameStarted  =" + isGameStarted);
                     waitNextRoundScreenObj.SetActive(true);
                 }
             }
@@ -236,6 +248,7 @@ public class TeenPattiManager : MonoBehaviour
         else
         {
             playerFindScreenObj.SetActive(true);
+            Debug.Log("playerFindScreenObj");
         }
     }
 
@@ -247,6 +260,7 @@ public class TeenPattiManager : MonoBehaviour
 
     private IEnumerator WaitGameToCompleteRemovePlayer(System.Action<int> callback, int parameter)
     {
+        Debug.Log("WaitGameToCompleteRemovePlayer");
         yield return new WaitUntil(() => !isGameStarted);
         callback(parameter);
     }
@@ -272,6 +286,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         //DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[index]);
         DataManager.Instance.joinPlayerDatas = DataManager.Instance.joinPlayerDatas.Where(player => !player.avtar.StartsWith("http://139.84.132.115/assets/img/profile-picture/")).ToList();
+        Debug.Log("Count  =>  " + DataManager.Instance.joinPlayerDatas.Count);
         if (DataManager.Instance.joinPlayerDatas.Count <= 4)
         {
             MainMenuManager.Instance.CheckPlayers();
@@ -372,8 +387,8 @@ public class TeenPattiManager : MonoBehaviour
         int cnt2 = 0;
         int startNo = cards[0].cardNo;
         int endNo = cards[1].cardNo;
-        print("Card Satrt No : " + cards.Count);
-        print("Card End No : " + endNo);
+        /*   print("Card Satrt No : " + cards.Count);
+           print("Card End No : " + endNo);*/
         for (int i = 0; i < cards.Count; i++)
         {
 
@@ -387,17 +402,17 @@ public class TeenPattiManager : MonoBehaviour
                 cnt2++;
             }
         }
-        print("card cnt 1 : " + cnt1);
-        print("card cnt 2 : " + cnt2);
+        /*    print("card cnt 1 : " + cnt1);
+            print("card cnt 2 : " + cnt2);*/
         if (cnt1 == 2)
         {
             int noEnter = -1;
             for (int i = 0; i < cards.Count; i++)
             {
-                print("Card No : " + cards[i].cardNo);
+                // print("Card No : " + cards[i].cardNo);
                 if (cards[i].cardNo == startNo)
                 {
-                    print("Enter Card");
+                    // print("Enter Card");
                     twoCardSuffle.Add(cards[i]);
                 }
                 else
@@ -428,7 +443,7 @@ public class TeenPattiManager : MonoBehaviour
         }
 
 
-        print("Enter twoCard Suffle Count : " + twoCardSuffle.Count);
+        //    print("Enter twoCard Suffle Count : " + twoCardSuffle.Count);
         return twoCardSuffle;
 
     }
@@ -489,7 +504,7 @@ public class TeenPattiManager : MonoBehaviour
 
 
 
-        print("is Ron : " + isRon);
+        //   print("is Ron : " + isRon);
         return ronvalue;
     }
 
@@ -514,7 +529,7 @@ public class TeenPattiManager : MonoBehaviour
 
         for (int i = 0; i < threeCardSuffle.Count; i++)
         {
-            print(i + "-" + threeCardSuffle[i].cardNo);
+            // print(i + "-" + threeCardSuffle[i].cardNo);
         }
 
         return threeCardSuffle;
@@ -523,7 +538,7 @@ public class TeenPattiManager : MonoBehaviour
 
     List<CardSuffle> HighCard(List<CardSuffle> cards)
     {
-        print("high cards count : " + cards.Count);
+        //    print("high cards count : " + cards.Count);s
         List<CardSuffle> highCards = new List<CardSuffle>();
         for (int i = cards.Count - 1; i >= 0; i--)
         {
@@ -553,7 +568,7 @@ public class TeenPattiManager : MonoBehaviour
                 }
             }
         }
-        print("new cards Count : " + newCards.Count);
+        // print("new cards Count : " + newCards.Count);
         for (int i = 0; i < newCards.Count; i++)
         {
             if (newCards[i].cardNo == 1)
@@ -621,6 +636,7 @@ public class TeenPattiManager : MonoBehaviour
             //currentPriceIndex += 1;
             currentPriceValue = numbers[currentPriceIndex];
             priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+            priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
         }
         player1.isSeen = true;
         player1.isBlind = false;
@@ -632,6 +648,9 @@ public class TeenPattiManager : MonoBehaviour
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
         priceBtnTxt.text = "Chaal : " + currentPriceValue;
+        priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+        Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
         ChangeCardStatus("SEEN", player1.playerNo);
     }
 
@@ -645,10 +664,22 @@ public class TeenPattiManager : MonoBehaviour
 
     public IEnumerator RestartGamePlay()
     {
+
+        Debug.Log("isGameStarted => " + isGameStarted);
+
+
         isGameStarted = false;
         DeleteAllCoins();
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            playerSquList[i].NotATurn();
+        }
+        Debug.Log("<color=blue>-------RestartGamePlay BEFORE---------</color>");
         yield return new WaitForSeconds(6f);
-
+        isWinningRun = false;
+        Debug.Log("<color=blue>--------RestartGamePlay AFTER--------</color>");
+        //  CheckAllPlayerBalanceAndReplace();
+        //  yield return new WaitForSeconds(3f);
         //print("Enther The Generate Player");
         if (isAdmin)
         {
@@ -665,11 +696,77 @@ public class TeenPattiManager : MonoBehaviour
         }
     }
 
+    public void CheckAllPlayerBalanceAndReplace()
+    {
+        int num = DataManager.Instance.joinPlayerDatas.Count;
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (teenPattiPlayers[i].isBot)
+            {
+                // Convert the playerBalance.text (string) to a float for comparison
+                float playerBalanceValue;
+                if (float.TryParse(teenPattiPlayers[i].playerBalence.text, out playerBalanceValue))
+                {
+                    // Check if the balance of the bot is below the minimum limit value
+                    if (playerBalanceValue < minLimitValue)
+                    {
+                        for (int j = 0; j < num; j++)
+                        {
+                            // Match the playerId of the bot with the userId in joinPlayerDatas
+                            if (DataManager.Instance.joinPlayerDatas[j].userId.Equals(teenPattiPlayers[i].playerId))
+                            {
+                                // Remove the player from joinPlayerDatas
+                                DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+
+                                // Add a new bot at the same index
+                                AddNewBotAtIndex(j); // Use 'j' as index to replace at the same position
+
+                                Debug.Log("Removed bot with low balance and added a new bot at index: " + j);
+                                break; // Exit inner loop after replacement
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Invalid balance format for bot: " + teenPattiPlayers[i].name);
+                }
+            }
+        }
+    }
+
+
+    private void AddNewBotAtIndex(int index)
+    {
+        Debug.Log("INDEX =  " + index);
+        int[] avatars = Enumerable.Range(0, BotManager.Instance.botUser_Profile_URL.Count).ToArray();
+        avatars.Shuffle();
+        int avatarIndex = avatars[0]; // Pick the first shuffled avatar
+
+        int[] names = Enumerable.Range(0, BotManager.Instance.botUserName.Count).ToArray();
+        names.Shuffle();
+        int nameIndex = names[0]; // Pick the first shuffled name
+
+        string avatar = BotManager.Instance.botUser_Profile_URL[avatarIndex];
+        string botUserName = BotManager.Instance.botUserName[nameIndex];
+        string userId = Guid.NewGuid().ToString().Substring(0, 8) + "TeenPatti"; // Generate a new unique user ID
+
+        // Add the new bot at the specified index
+        DataManager.Instance.AddRoomUserLOWBALENCE(userId, botUserName,
+            DataManager.Instance.joinPlayerDatas[index].lobbyId, // Ensure this index refers to valid data
+            UnityEngine.Random.Range(50, 55).ToString(), index, avatar, index); // Pass the index
+
+        Debug.Log("New TeenPatti BOT added at index: " + index);
+    }
+
+
+
 
     public void StartGamePlay()
     {
         //StartCoroutine(RestartGamePlay());
-      
+        //Debug.Log("StartGamePlay");
+        Debug.Log("IS ADMIN =>  " + isAdmin);
         if (isAdmin)
         {
             SetRoomData();
@@ -690,6 +787,8 @@ public class TeenPattiManager : MonoBehaviour
         isGameStop = true;
         waitNextRoundScreenObj.SetActive(false);
         playerFindScreenObj.SetActive(false);
+        Debug.Log("playerFindScreenObj False");
+
         bootValue = 1f;
         potLimitValue = 30f;
         //minLimitValue = 5f;
@@ -716,6 +815,8 @@ public class TeenPattiManager : MonoBehaviour
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
         priceBtnTxt.text = "Blind : " + currentPriceValue;
+        priceBtnTxtDouble.text = "Blind : " + currentPriceValue * 2;
+
         minusBtn.interactable = false;
         rulesTab.SetActive(false);
         roundCounter = 0;
@@ -734,6 +835,7 @@ public class TeenPattiManager : MonoBehaviour
             }
             currentPlayer.packImg.SetActive(false);
             currentPlayer.seenImg.SetActive(false);
+            currentPlayer.blindIMG.SetActive(false);
             currentPlayer.cardImg1.gameObject.SetActive(false);
             currentPlayer.cardImg2.gameObject.SetActive(false);
             currentPlayer.cardImg3.gameObject.SetActive(false);
@@ -748,10 +850,12 @@ public class TeenPattiManager : MonoBehaviour
         isGameStarted = true;
 
         StartCoroutine(DataMaintain());
+        Debug.Log("DataMaintain");
     }
 
     IEnumerator DataMaintain()
     {
+        Debug.Log("DataMaintain   DataMaintain");
         playerSquList.Clear();
         if (DataManager.Instance.joinPlayerDatas.Count == 2)
         {
@@ -966,6 +1070,7 @@ public class TeenPattiManager : MonoBehaviour
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                     player1.UpdateAvatar();
+                    // player1.playerNo = 1;
                     player1.playerNo = (i + 1);
                 }
             }
@@ -991,6 +1096,7 @@ public class TeenPattiManager : MonoBehaviour
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
+                            // player2.playerNo =  2;
                             player2.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                             player2.UpdateAvatar();
                             playerSquList.Add(player2);
@@ -1003,6 +1109,7 @@ public class TeenPattiManager : MonoBehaviour
 
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            //  player4.playerNo = 4;
                             player4.playerNo = (i + 1);
                             player4.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                             player4.UpdateAvatar();
@@ -1017,6 +1124,7 @@ public class TeenPattiManager : MonoBehaviour
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
+                            //  player5.playerNo = 5;
                             player5.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                             player5.UpdateAvatar();
                             playerSquList.Add(player5);
@@ -1574,78 +1682,121 @@ public class TeenPattiManager : MonoBehaviour
             }
         }
 
-        int playerSend = DataManager.Instance.joinPlayerDatas.Count;
 
+        yield return new WaitForSeconds(1f);
+        ActivateBotPlayers();
+
+
+
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+                Debug.Log(".");
+            }
+            else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                Debug.Log("<color=blue>.</color>");
+                StartBetTORealPlayer(teenPattiPlayers[i]);
+            }
+        }
+
+
+        yield return new WaitForSeconds(1f);
+
+        int playerSend = DataManager.Instance.joinPlayerDatas.Count;
         float speed = 0.2f;
 
-        // first card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        Debug.Log($"Starting card distribution for {playerSend} players.");
+
+        // Track the number of cards each active player has received
+        int[] cardsGiven = new int[teenPattiPlayers.Count];
+        int totalCardsDistributed = 0;
+        int totalCardsNeeded = playerSend * 3; // Each active player needs 3 cards
+
+        // Continue distributing cards until all active players have received three cards each
+        while (totalCardsDistributed < totalCardsNeeded)
         {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            bool cardDistributedInThisRound = false;
+
+            for (int i = 0; i < teenPattiPlayers.Count; i++)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg1.transform.position, speed).OnComplete(() =>
+                Debug.Log(" cardsGiven = > " + cardsGiven[i]);
+                if (teenPattiPlayers[i].gameObject.activeSelf && cardsGiven[i] < 3)
                 {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
-                });
+                    int currentCardIndex = cardsGiven[i] + 1; // Card index to be distributed (1, 2, or 3)
+                    Debug.Log($"Player {i + 1} is active. Sending card {currentCardIndex}...");
 
-                yield return new WaitForSeconds(speed);
+                    GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
+                    SoundManager.Instance.CasinoCardMoveSound();
+                    obj.transform.position = cardTmpStart.transform.position;
+
+                    // Determine which card image to move to (cardImg1, cardImg2, or cardImg3)
+                    Transform targetCardPosition = currentCardIndex switch
+                    {
+                        1 => teenPattiPlayers[i].cardImg1.transform, // First card position
+                        2 => teenPattiPlayers[i].cardImg2.transform, // Second card position
+                        3 => teenPattiPlayers[i].cardImg3.transform, // Third card position
+                        _ => null
+                    };
+
+                    Debug.Log($"Card {currentCardIndex} is moving to Player {i + 1}'s position...");
+
+                    // Perform the animation to move the card to the appropriate position
+                    obj.transform.DOMove(targetCardPosition.position, speed).OnComplete(() =>
+                    {
+                        Debug.Log($"Card {currentCardIndex} reached Player {i + 1}. Activating card image...");
+                        Destroy(obj);
+
+                        // Activate the appropriate card image once the animation is complete
+                        switch (currentCardIndex)
+                        {
+                            case 1:
+                                teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - First card activated.");
+                                break;
+                            case 2:
+                                teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Second card activated.");
+                                break;
+                            case 3:
+                                teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Third card activated.");
+                                break;
+                        }
+                    });
+
+                    // Update tracking variables
+                    cardsGiven[i]++;
+                    totalCardsDistributed++;
+
+                    // Indicate that a card was distributed in this round
+                    cardDistributedInThisRound = true;
+
+                    // Wait for the animation to complete before moving to the next player
+                    yield return new WaitForSeconds(speed);
+
+                    // Exit loop if all cards have been distributed
+                    if (totalCardsDistributed >= totalCardsNeeded)
+                    {
+                        break;
+                    }
+                }
             }
 
-        }
-        yield return new WaitForSeconds(speed);
-        // second card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            // Check if no card was distributed in this round (safety check to prevent infinite loop)
+            if (!cardDistributedInThisRound)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg2.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
+                Debug.LogError("No card was distributed in this round! Exiting to prevent infinite loop.");
+                break;
             }
-
         }
-        yield return new WaitForSeconds(speed);
-        //Third card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
-            {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
 
+        Debug.Log("All three cards have been successfully distributed to all active players.");
 
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg3.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
-            }
-
-        }
 
         yield return new WaitForSeconds(speed);
         for (int i = 0; i < player1.seeObj.Length; i++)
@@ -1681,7 +1832,6 @@ public class TeenPattiManager : MonoBehaviour
 
         isGameStop = false;
 
-        ActivateBotPlayers();
         isBotActivate = true;
         for (int i = 0; i < playerSquList.Count; i++)
         {
@@ -1692,6 +1842,10 @@ public class TeenPattiManager : MonoBehaviour
         }
         CheckBotWinning();
     }
+
+
+
+
 
     private void CheckBotWinning()//this functions determines that which bot has better cards than player and if more than 1 bot does then it determines which has the best one
     {
@@ -1835,6 +1989,8 @@ public class TeenPattiManager : MonoBehaviour
         if (!isGameStop)
         {
             SoundManager.Instance.ButtonClick();
+            Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
             ChangeCardStatus("PACK", player1.playerNo);
             bottomBox.SetActive(false);
         }
@@ -1872,18 +2028,28 @@ public class TeenPattiManager : MonoBehaviour
                 if (CheckMoney(currentPriceValue) == false)
                 {
                     SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
                     return;
                 }
                 //BetAnim(player1, currentPriceValue);
                 SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId);
-                Debug.LogError("mahadeV 2");
+                Debug.LogError("slideShowPlayer.playerId => " + slideShowPlayer.playerId + "    is bot =>  " + slideShowPlayer.isBot);
 
+                Debug.Log("player1 => " + player1.playerBalence.text);
                 DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 1);
+                Debug.Log("player1 => " + player1.playerBalence.text);
+                Debug.Log("playerBetAmount => " + playerBetAmount);
                 playerBetAmount += currentPriceValue;
+                Debug.Log("playerBetAmount => " + playerBetAmount);
+                Debug.Log("currentPriceValue => " + currentPriceValue);
                 //Game Stop and check the card and one card is pack
                 showButton.interactable = false;
-                Invoke(nameof(OnPopupButtonClick), delay);
+                if (slideShowPlayer.isBot)
+                {
+                    Debug.Log("Slid Show OPEN");
+                    Invoke(nameof(OnPopupButtonClick), delay);
+                }
                 break;
         }
     }
@@ -1891,8 +2057,13 @@ public class TeenPattiManager : MonoBehaviour
     private void OnPopupButtonClick()
     {
         if (isPopupOpen) return;
+        Debug.Log("Slid Show OPEN");
         isPopupOpen = true;
         sideShowPopupImage.gameObject.SetActive(true);
+        sideShowPopupImageText.text = slideShowPlayer.playerNameTxt.text + " Denied SideShow Request";
+        Debug.Log("Player No   =>  " + playerNo);
+        Debug.Log("slideShowPlayer Player No   =>  " + slideShowPlayer.playerNo);
+        ChangePlayerTurn(playerNo);
         //sideShowPopupImage.transform.localScale = Vector3.zero;
         /*sideShowPopupImage.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
         {
@@ -1971,6 +2142,13 @@ public class TeenPattiManager : MonoBehaviour
             false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
+        priceBtnTxtDouble.text = player1.isPack switch
+        {
+            //currentPriceValue /= 2;
+            false when player1.isBlind => "Blind : " + currentPriceValue * 2,
+            false when player1.isSeen => "Chaal : " + currentPriceValue * 2,
+            _ => priceBtnTxtDouble.text
+        };
     }
 
     public void PlusButtonClick()
@@ -2031,6 +2209,13 @@ public class TeenPattiManager : MonoBehaviour
             false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
+        priceBtnTxtDouble.text = player1.isPack switch
+        {
+            //currentPriceValue *= 2;
+            false when player1.isBlind => "Blind : " + currentPriceValue * 2,
+            false when player1.isSeen => "Chaal : " + currentPriceValue * 2,
+            _ => priceBtnTxtDouble.text
+        };
     }
 
     public void StartBet()
@@ -2038,6 +2223,8 @@ public class TeenPattiManager : MonoBehaviour
         if (CheckMoney(currentPriceValue) == false)
         {
             SoundManager.Instance.ButtonClick();
+            Debug.Log("OpenErrorScreen");
+
             OpenErrorScreen();
             return;
         }
@@ -2047,6 +2234,22 @@ public class TeenPattiManager : MonoBehaviour
         playerBetAmount += currentPriceValue;
     }
 
+    public void StartBetTORealPlayer(TeenPattiPlayer player)
+    {
+        if (CheckMoney(currentPriceValue) == false)
+        {
+            SoundManager.Instance.ButtonClick();
+            Debug.Log("OpenErrorScreen");
+
+            OpenErrorScreenONBET();
+            return;
+        }
+        SoundManager.Instance.ThreeBetSound();
+        string id = player.playerId;
+        BetAnim(player, currentPriceValue, currentPriceIndex);
+        DataManager.Instance.DebitAmount((currentPriceValue).ToString(), id, "TeenPatti-Bet-" + id, "game", 2);
+        playerBetAmount += currentPriceValue;
+    }
     public void BetButtonClick()
     {
         if (!isGameStop)
@@ -2054,6 +2257,8 @@ public class TeenPattiManager : MonoBehaviour
             if (CheckMoney(currentPriceValue) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
+
                 OpenErrorScreen();
                 return;
             }
@@ -2080,6 +2285,46 @@ public class TeenPattiManager : MonoBehaviour
             // User Maintain
             runningPriceIndex = currentPriceIndex;
             SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
+            Debug.LogError("mahadeV 4");
+
+            ChangePlayerTurn(player1.playerNo);
+        }
+    }
+    public void BetButtonClickDouble()
+    {
+        if (!isGameStop)
+        {
+            if (CheckMoney(currentPriceValue * 2) == false)
+            {
+                SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
+
+                OpenErrorScreen();
+                return;
+            }
+            if (player1.isBlind)
+            {
+                currentBlindValue = currentPriceValue * 2;
+                //currentPriceValue = currentBlindValue;
+                //for (int i = 0; i < numbers.Length; i++)
+                //{
+                //    if(currentPriceValue == numbers[i])
+                //    {
+                //        currentPriceIndex = i;
+                //        runningPriceIndex = i;
+                //        break;
+                //    }
+                //}
+            }
+            SoundManager.Instance.ThreeBetSound();
+            BetAnim(player1, currentPriceValue * 2, currentPriceIndex);
+            DataManager.Instance.DebitAmount((currentPriceValue * 2).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
+            playerBetAmount += currentPriceValue * 2;
+            //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
+            // bonusUseValue
+            // User Maintain
+            runningPriceIndex = currentPriceIndex;
+            SendTeenPattiBet(player1.playerNo, currentPriceValue * 2, player1.isBlind ? "Blind" : "Bet", "", "");
             Debug.LogError("mahadeV 4");
 
             ChangePlayerTurn(player1.playerNo);
@@ -2188,17 +2433,34 @@ public class TeenPattiManager : MonoBehaviour
             totalBetAmount += amount;
             betAmountTxt.text = totalBetAmount.ToString();
         });*/
+        Debug.Log("amount  => " + amount);
         totalBetAmount += amount;
+        Debug.Log("totalBetAmount  => " + totalBetAmount);
         float currentBalance = float.Parse(player.playerBalence.text);
-
+        Debug.Log("currentBalance => " + currentBalance);
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
         // Subtract the amount from the balance
         currentBalance -= amount;
-        Debug.LogError("CHAL AMount  "+amount);
+        Debug.LogError("CHAL AMount  " + amount);
         // Update the player's balance text with the new balance
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas[i].userId + "   DataManager.Instance.playerData._id   =>  " + DataManager.Instance.playerData._id);
+            if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(player.playerId))
+            {
+                float balance;
+                if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out balance))
+                {
+                    balance -= amount;
+
+                    DataManager.Instance.joinPlayerDatas[i].balance = balance.ToString();
+                }
+            }
+        }
         player.playerBalence.text = currentBalance.ToString();
         betAmountTxt.text = totalBetAmount.ToString();
-
-        SpawnCoin(priceIndex);
+        Debug.Log("PRICE INDEX _______ > " + priceIndex);
+        SpawnCoin(priceIndex, player.transform);
     }
 
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
@@ -2408,6 +2670,7 @@ public class TeenPattiManager : MonoBehaviour
         print("Bot Betting done " + currentAmount + " index = " + index);
         if (index < 0 || playerSquList[index].isPack) return;
 
+        Debug.Log("roundCounter = > " + roundCounter);
         switch (roundCounter)
         {
             case <= 1:
@@ -2445,11 +2708,25 @@ public class TeenPattiManager : MonoBehaviour
         SlideShowSendSocket(sendId, currentId, "Cancel");
     }
 
-    private void SpawnCoin(int priceIndex)
+    private void SpawnCoin(int priceIndex, Transform player)
     {
-        //Instantiate(chipObj, boxCollider.transform);
+        if (chipObj == null)
+        {
+            Debug.LogError("chipObj is null");
+            return;
+        }
+
+        if (teenPattiPlayers == null || teenPattiPlayers.Count == 0)
+        {
+            Debug.LogError("teenPattiPlayers list is null or empty");
+            return;
+        }
+
+        Debug.Log("SpawnCoin called");
+
         Vector3 dPos = GetRandomPosInBoxCollider2D();
-        TeenPattiPlayer chipOrigin = new TeenPattiPlayer();
+        TeenPattiPlayer chipOrigin = null;
+
         foreach (var item in teenPattiPlayers)
         {
             if (item.playerNo == currentPlayer)
@@ -2458,18 +2735,37 @@ public class TeenPattiManager : MonoBehaviour
                 break;
             }
         }
-        GameObject coin = Instantiate(chipObj, /*playerPosition[currentPlayer - 1]*/chipOrigin.transform);
-        coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
-        //coin.transform.position = new Vector3(targetBetObj.transform.position.x, targetBetObj.transform.position.y, 0f);
-        ChipGenerate(coin, dPos);
-        spawnedCoins.Add(coin);
-        /*GameObject genBetObj = Instantiate(chipObj, playerPosition[currentPlayer - 1]);
-        genBetObj.transform.GetComponent<Image>().sprite = chipsSprite[currentPriceIndex];
-        genBetObj.transform.position = playerPosition[currentPlayer - 1].transform.position;
-        genBetObj.transform.DOMove(targetBetObj.transform.position, 0.3f).OnComplete(() =>
+
+        if (chipOrigin == null || chipOrigin.transform == null)
         {
-            spawnedCoins.Add(genBetObj);
-        });*/
+            Debug.LogError("chipOrigin or chipOrigin.transform is null");
+            return;
+        }
+
+        if (priceIndex < 0 || priceIndex >= chipsSprite.Length)
+        {
+            Debug.LogError("priceIndex is out of bounds");
+            return;
+        }
+        else if (chipsSprite[priceIndex] == null)
+        {
+            Debug.LogError("chipsSprite[priceIndex] is null");
+            return;
+        }
+
+        GameObject coin = Instantiate(chipObj, chipOrigin.transform);
+        coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
+
+        if (player == null || player.transform == null)
+        {
+            Debug.LogError("Player or Player.transform is null");
+            return;
+        }
+
+        ChipGenerate(coin, player.transform, dPos);
+        spawnedCoins.Add(coin);
+
+        Debug.Log("Coin spawned and added to the list");
     }
 
     private Vector3 GetRandomPosInBoxCollider2D()
@@ -2479,19 +2775,28 @@ public class TeenPattiManager : MonoBehaviour
         float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, 90f);
     }
-    public void ChipGenerate(GameObject chip, Vector3 endPos)
+    public void ChipGenerate(GameObject chip, Transform playerStartPosition, Vector3 endPos)
     {
+        // Set the chip's starting position to the player's position
+        chip.transform.position = playerStartPosition.position;
+
+        // Random rotation for the chip
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
 
-        chip.transform.DOMove(endPos, 0.2f).OnComplete(() =>
+        // Move the chip to the end position
+        chip.transform.DOMove(endPos, 0.3f).OnComplete(() =>
         {
-            chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
+            // Scale down slightly and then back to normal
+            chip.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.1f).OnComplete(() =>
             {
                 chip.transform.DOScale(Vector3.one, 0.07f);
-                chip.transform.SetParent(playerPosition[currentPlayer - 1]);
+
+                // Optionally set the parent if needed (you can remove this if it's not required)
+                chip.transform.SetParent(playerStartPosition);
             });
         });
     }
+
 
 
     public void DeleteAllCoins()
@@ -2510,7 +2815,10 @@ public class TeenPattiManager : MonoBehaviour
     {
         errorScreenObj.SetActive(true);
     }
-
+    public void OpenErrorScreenONBET()
+    {
+        errorScreenObjONBET.SetActive(true);
+    }
     public void Error_Ok_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -2897,11 +3205,20 @@ public class TeenPattiManager : MonoBehaviour
         }
 
         List<TeenPattiPlayer> availablePlayer = playerSquList.Where(t => t.gameObject.activeSelf && !t.isPack).ToList();
-        // showing next player for side show
+
         var myIndex = availablePlayer.IndexOf(player1);
-        var nextIndex = (myIndex + 1) % availablePlayer.Count;
-        var nextPlayer = teenPattiPlayers[nextIndex];
-        slideShowPlayer = nextPlayer;
+
+        int previousIndex = (myIndex - 1 + availablePlayer.Count) % availablePlayer.Count;
+
+        while (availablePlayer[previousIndex].isPack)
+        {
+            previousIndex = (previousIndex - 1 + availablePlayer.Count) % availablePlayer.Count;
+        }
+
+        var previousPlayer = availablePlayer[previousIndex];
+        slideShowPlayer = previousPlayer;
+
+
 
         if (availablePlayer.Count >= 3) return;
         showButton.interactable = true;
@@ -2997,9 +3314,14 @@ public class TeenPattiManager : MonoBehaviour
 
     void CreateAdmin()
     {
+        Debug.Log("joinPlayerDatas   => " + DataManager.Instance.joinPlayerDatas[0].userId + " DataManager.Instance.playerData._id  " + DataManager.Instance.playerData._id);
         if (DataManager.Instance.joinPlayerDatas[0].userId.Equals(DataManager.Instance.playerData._id))
         {
+            Debug.Log("joinPlayerDatas   => " + DataManager.Instance.joinPlayerDatas[0].userId + " DataManager.Instance.playerData._id  " + DataManager.Instance.playerData._id);
+            Debug.Log("is adi => " + isAdmin);
             isAdmin = true;
+            Debug.Log("DataManager.Instance.joinPlayerDatas[0]     =  " + DataManager.Instance.joinPlayerDatas[0].userName);
+            Debug.Log("is adi => " + isAdmin);
             //SetRoomData();
             //TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
@@ -3067,6 +3389,7 @@ public class TeenPattiManager : MonoBehaviour
         }
 
         if (isAdmin) return;
+        Debug.Log("waitNextRoundScreenObj   active  = > " + waitNextRoundScreenObj.activeSelf);
         if (waitNextRoundScreenObj.activeSelf)
         {
             waitNextRoundScreenObj.SetActive(false);
@@ -3074,8 +3397,8 @@ public class TeenPattiManager : MonoBehaviour
 
         //MainMenuManager.Instance.CheckPlayers();
 
-        StartGamePlay();
         Debug.LogError("StartGamePlay");
+        StartGamePlay();
 
     }
 
@@ -3084,7 +3407,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void ChangePlayerTurn(int pNo)
     {
-
+        Debug.Log("---- Change Turn  ------- " + pNo);
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
@@ -3097,7 +3420,6 @@ public class TeenPattiManager : MonoBehaviour
 
     public void SlideShowSendSocket(string slideShowCancelPlayerID, string slideShowPlayerID, string type)
     {
-
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
@@ -3152,7 +3474,7 @@ public class TeenPattiManager : MonoBehaviour
         obj.AddField("Action", "CardStatus");
 
         //player1.isSeen = true;
-
+        Debug.Log("<color=yellow> TeenPattiChangeCardStatus SEND  </color> ");
         TestSocketIO.Instace.Senddata("TeenPattiChangeCardStatus", obj);
     }
 
@@ -3160,11 +3482,14 @@ public class TeenPattiManager : MonoBehaviour
     {
         for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
+            Debug.Log("I =>  " + i + "  playerSquList[i].gameObject.activeInHierarchy  => " + playerSquList[i].gameObject.activeInHierarchy + "  playerSquList[i].playerNo = " + playerSquList[i].playerNo + "   nextPlayerNo = > " + nextPlayerNo + "   playerSquList[i].isPack  =  " + playerSquList[i].isPack);
+            if (playerSquList[i].gameObject.activeInHierarchy && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
             {
+                Debug.Log("RETURN TRUE ");
                 return true;
             }
         }
+        Debug.Log("RETURN FALSE ");
         return false;
     }
 
@@ -3174,7 +3499,7 @@ public class TeenPattiManager : MonoBehaviour
         bool isPlayerNotEnter = false;
         int nextPlayerNo = 0;
         //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
-        if (playerNo == 5)
+        if (playerSquList.Count == playerNo)
         {
             nextPlayerNo = 1;
             roundCounter++;
@@ -3187,6 +3512,9 @@ public class TeenPattiManager : MonoBehaviour
             //    if(item.playerNo == 5 && )
             //}
         }
+
+
+
         if (nextPlayerNo == 1)
         {
             if (isCheckTurnPack(nextPlayerNo) == false)
@@ -3350,38 +3678,48 @@ public class TeenPattiManager : MonoBehaviour
         }
         else if (nextPlayerNo == 5)
         {
+            Debug.Log("NO  = ? ");
             if (isCheckTurnPack(nextPlayerNo) == false)
             {
+                Debug.Log("NO  = ? ");
                 nextPlayerNo = 5;
             }
             else
             {
                 nextPlayerNo = 1;
+                Debug.Log("NO  = ? " + nextPlayerNo);
                 if (isCheckTurnPack(nextPlayerNo) == false)
                 {
                     nextPlayerNo = 1;
+                    Debug.Log("NO  = ? " + nextPlayerNo);
                     roundCounter++;
                 }
                 else
                 {
                     nextPlayerNo = 2;
+                    Debug.Log("NO  = ? " + nextPlayerNo);
                     if (isCheckTurnPack(nextPlayerNo) == false)
                     {
                         nextPlayerNo = 2;
+                        Debug.Log("NO  = ? " + nextPlayerNo);
                     }
                     else
                     {
                         nextPlayerNo = 3;
+                        Debug.Log("NO  = ? " + nextPlayerNo);
                         if (isCheckTurnPack(nextPlayerNo) == false)
                         {
                             nextPlayerNo = 3;
+                            Debug.Log("NO  = ? " + nextPlayerNo);
                         }
                         else
                         {
                             nextPlayerNo = 4;
+                            Debug.Log("NO  = ? " + nextPlayerNo);
                             if (isCheckTurnPack(nextPlayerNo) == false)
                             {
                                 nextPlayerNo = 4;
+                                Debug.Log("NO  = ? " + nextPlayerNo);
                             }
                         }
                     }
@@ -3400,6 +3738,7 @@ public class TeenPattiManager : MonoBehaviour
                 playerSquList[i].RestartFillLine();
                 if (playerSquList[i].playerNo == nextPlayerNo && playerSquList[i] == player1)
                 {
+
                     ShowTextChange();
                     player1.GetAdjacentPlayersPrice(nextPlayerNo, out float currentPrice, out int priceIndex);
                     foreach (var item in playerSquList)
@@ -3445,8 +3784,11 @@ public class TeenPattiManager : MonoBehaviour
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
                     priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+                    priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
+                    IsBoTShowRound4ENd();
+
                     EnableSeeCards();
                 }
                 else
@@ -3461,7 +3803,23 @@ public class TeenPattiManager : MonoBehaviour
             }
         }
     }
+    public void IsBoTShowRound4ENd()
+    {
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            Debug.Log("isBot => " + playerSquList[i].isBot + "  PLAYER => " + playerSquList[i].name + "  roundCounter  => " + roundCounter);
+            if (playerSquList[i].isBot && roundCounter == 4)
+            {
+                Debug.Log("IS BLIND => " + playerSquList[i].isBlind);
+                if (playerSquList[i].isBlind)
+                {
+                    Debug.Log("ChangeCardStatus SEEN  =>  " + (i + 1));
+                    ChangeCardStatus("SEEN", (i + 1));
+                }
+            }
+        }
 
+    }
     //public void GetPlayerTurn(int playerNo)
     //{
 
@@ -3591,46 +3949,51 @@ public class TeenPattiManager : MonoBehaviour
         {
             if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeSelf == true)
             {
+                Debug.Log("CreditWinnerAmount  ");
+                float adminPercentage = DataManager.Instance.adminPercentage;
+                float winAmount = winnerAmount;
+                float adminCommssion = (adminPercentage / 100);
+                float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
-                //Generate Number
+                // Generate Number
                 GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
-                genBetObj.transform.GetChild(1).GetComponent<Text>().text = winnerAmount.ToString();
+                genBetObj.transform.GetChild(1).GetComponent<Text>().text = playerWinAmount.ToString("F2"); // Display with 2 decimal places
                 genBetObj.transform.position = targetBetObj.transform.position;
                 totalBetAmount = 0;
-                //betAmountTxt.text = winnerAmount.ToString();
+
+                // Animate the bet object to the target position
                 genBetObj.transform.DOMove(teenPattiPlayers[j].sendBetObj.transform.position, 0.3f).OnComplete(() =>
                 {
-                    //betAmountTxt.text = winnerAmount.ToString();
-                    /*if (teenPattiPlayers[j].playerNo == player1.playerNo)
-                    {
-                        //Add to  winnner Amount
+                    // Parse current balance, add the win amount, and update the UI text
 
-                        float adminPercentage = DataManager.Instance.adminPercentage;
-
-                        float winAmount = winnerAmount;
-                        float adminCommssion = (adminPercentage / 100);
-                        float playerWinAmount = winAmount - (winAmount * adminCommssion);
-
-                        print(playerWinAmount + "<-------- Crediting amount in animation");
-
-                        if (playerWinAmount != 0)
-                        {
-                            SoundManager.Instance.CasinoWinSound();
-                            DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
-                        }
-                    }*/
                 });
 
+                float currentBalance = float.Parse(teenPattiPlayers[j].playerBalence.text);
+                float newBalance = currentBalance + playerWinAmount;
+                Debug.Log("WIN AMOU   => " + playerWinAmount);
+                Debug.Log("Player Name => " + teenPattiPlayers[j].name);
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+                teenPattiPlayers[j].playerBalence.text = newBalance.ToString("F2"); // Update balance with 2 decimal formatting
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+
+                // Update the player's balance in the DataManager instance
+                for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+                {
+                    if (teenPattiPlayers[j].playerId == DataManager.Instance.joinPlayerDatas[i].userId)
+                    {
+                        Debug.Log("Player Name => " + DataManager.Instance.joinPlayerDatas[i].userName);
+
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                        DataManager.Instance.joinPlayerDatas[i].balance = newBalance.ToString("F2");
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                    }
+                }
                 // Happening outside Dotween animation
                 if (teenPattiPlayers[j].playerNo == player1.playerNo)
                 {
                     //Add to  winnner Amount
 
-                    float adminPercentage = DataManager.Instance.adminPercentage;
 
-                    float winAmount = winnerAmount;
-                    float adminCommssion = (adminPercentage / 100);
-                    float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
                     print(playerWinAmount + "<-------- Crediting amount Outside animation");
 
@@ -3643,6 +4006,7 @@ public class TeenPattiManager : MonoBehaviour
                         DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
                     }
                 }
+
 
                 Destroy(genBetObj, 0.4f);
             }
@@ -3712,10 +4076,12 @@ public class TeenPattiManager : MonoBehaviour
         }
         if (teenPattiPlayers[playerIndex].isBlind)
         {
+            teenPattiPlayers[playerIndex].blindIMG.SetActive(true);
             isB = true;
         }
         else if (teenPattiPlayers[playerIndex].isSeen)
         {
+            teenPattiPlayers[playerIndex].seenImg.SetActive(true);
             isS = true;
         }
         //currentPriceValue = amount;
@@ -3767,6 +4133,7 @@ public class TeenPattiManager : MonoBehaviour
                     priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*/
             }
             priceBtnTxt.text = "Blind : " + curPrice;
+            priceBtnTxtDouble.text = "Blind : " + curPrice * 2;
         }
         else if (!player1.isPack && player1.isSeen)
         {
@@ -3803,6 +4170,7 @@ public class TeenPattiManager : MonoBehaviour
                 //currentPriceValue = curPrice;
             }
             priceBtnTxt.text = "Chaal : " + curPrice;
+            priceBtnTxtDouble.text = "Chaal : " + curPrice * 2;
         }
     }
 
@@ -3827,8 +4195,10 @@ public class TeenPattiManager : MonoBehaviour
         //print("Card Status : " + value + "    Player No  :" + playerNo);
         for (int i = 0; i < playerSquList.Count; i++)
         {
+
             if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == playerNo)
             {
+                Debug.Log("VALUE =>  " + value);
                 if (value.Equals("SEEN"))
                 {
                     playerSquList[i].isSeen = true;
@@ -3838,6 +4208,20 @@ public class TeenPattiManager : MonoBehaviour
                     //ShowTextChange(teenPattiPlayers[i]);
 
                     playerSquList[i].seenImg.SetActive(true);
+                    playerSquList[i].blindIMG.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
+                }
+                else if (value.Equals("Blind"))
+                {
+                    playerSquList[i].isSeen = false;
+                    playerSquList[i].isBlind = true;
+                    playerSquList[i].isPack = false;
+                    ShowTextChange();
+                    //ShowTextChange(teenPattiPlayers[i]);
+
+                    playerSquList[i].blindIMG.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
                 }
                 else if (value.Equals("PACK"))
                 {
@@ -3849,6 +4233,8 @@ public class TeenPattiManager : MonoBehaviour
                         playerSquList[i].seeObj[j].SetActive(false);
                     }
                     playerSquList[i].packImg.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].blindIMG.SetActive(false);
                     //CheckWin();
                     CheckPackTime(playerSquList[i]);
                     // Greejesh Pack Check
@@ -3862,7 +4248,7 @@ public class TeenPattiManager : MonoBehaviour
 
     }
 
-
+    public bool isWinningRun = false;
     void CheckPackTime(TeenPattiPlayer packPlayer)
     {
         print("Enter The Check Player");
@@ -3870,21 +4256,27 @@ public class TeenPattiManager : MonoBehaviour
         print(teenPattiPlayers.Count);
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
-            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeSelf == true)
+            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 livePlayers.Add(teenPattiPlayers[i]);
             }
         }
         print("livePlayers.Count : " + livePlayers.Count);
-        packPlayer.isTurn = false;
-        if (livePlayers.Count == 1)
+        //  packPlayer.isTurn = false;
+        print("NAME : " + packPlayer.name);
+
+        Debug.Log("isWinningRun  =>  " + isWinningRun);
+        if (livePlayers.Count == 1 && !isWinningRun)
         {
             livePlayers[0].isTurn = false;
             string winValue = ",";
             winValue += livePlayers[0].playerNo + ",";
-            if (livePlayers[0].playerNo == playerNo)
+            Debug.Log("livePlayers[0].playerNo  =>  " + livePlayers[0].playerNo + "  playerNo  => " + playerNo);
+            Debug.Log("WIN AMOUNT =>  " + winValue);
+            if (livePlayers[0].playerNo == playerNo || livePlayers[0].isBot)
             {
                 SetTeenPattiWon(livePlayers[0].playerId);
+                isWinningRun = true;
                 Debug.LogWarning("------------------won is called-------------------------------------");
                 CreditWinnerAmount(livePlayers[0].playerId);
             }
@@ -3893,10 +4285,12 @@ public class TeenPattiManager : MonoBehaviour
                 t.SetActive(true);
             }
 
-            StartCoroutine(RestartGamePlay());
+            /*  Debug.Log("------ RestartGamePlay ---- ");
+              StartCoroutine(RestartGamePlay());*/
         }
         else
         {
+            Debug.Log("IS ADMIN ===   " + isAdmin);
             if (isAdmin)
             {
                 ChangePlayerTurn(packPlayer.playerNo);
@@ -3921,23 +4315,43 @@ public class TeenPattiManager : MonoBehaviour
         {
             if (teenPattiPlayers[i].playerId.Equals(leavePlayerId))
             {
+                // Log when a player is found with matching playerId
+                Debug.Log($"Player with ID: {leavePlayerId} found at index {i}");
+
                 teenPattiPlayers[i].isPack = true;
                 teenPattiPlayers[i].isBlind = false;
                 teenPattiPlayers[i].isSeen = false;
+
+                // Log state changes of the player
+                Debug.Log($"Player {teenPattiPlayers[i].playerNameTxt.text} is now packed. Blind: {teenPattiPlayers[i].isBlind}, Seen: {teenPattiPlayers[i].isSeen}");
+
                 for (int j = 0; j < teenPattiPlayers[i].seeObj.Length; j++)
                 {
                     teenPattiPlayers[i].seeObj[j].SetActive(false);
+                    // Log the deactivation of see objects
+                    Debug.Log($"Deactivated seeObj[{j}] for player {teenPattiPlayers[i].playerNameTxt.text}");
                 }
-                teenPattiPlayers[i].packImg.SetActive(true);
 
-                //teenPattiPlayers[i].gameObject.SetActive(false);
-                //DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[i]);
+                teenPattiPlayers[i].packImg.SetActive(true);
+                // Log the activation of the pack image
+                Debug.Log($"Activated pack image for player {teenPattiPlayers[i].playerNameTxt.text}");
+
+                // Start coroutine to remove player with log
+                Debug.Log($"Starting coroutine to remove player {teenPattiPlayers[i].playerNameTxt.text}");
                 StartCoroutine(WaitGameToCompleteRemovePlayer(CheckLeftPlayer, i));
+
+                // Log the pack time check
+                Debug.Log($"Checking pack time for player {teenPattiPlayers[i].playerNameTxt.text}");
                 CheckPackTime(teenPattiPlayers[i]);
-                if (teenPattiPlayers[i].isTurn)
+                Debug.Log("IS WINNING =>  " + isWinningRun);
+                if (teenPattiPlayers[i].isTurn && !isWinningRun)
                 {
+                    // Log the change of turn if it's the current player's turn
+                    Debug.Log($"It was {teenPattiPlayers[i].playerNameTxt.text}'s turn. Changing to the next player.");
                     ChangePlayerTurn(teenPattiPlayers[i].playerNo);
                 }
+
+                Debug.Log($"teenPattiPlayers[i].isTurn  {teenPattiPlayers[i].isTurn}");
             }
         }
 
@@ -3981,10 +4395,12 @@ public class TeenPattiManager : MonoBehaviour
                 }
             }
         }*/
-
+        Debug.Log("playerData  = " + DataManager.Instance.playerData._id + "   joinPlayerDatas  = " + DataManager.Instance.joinPlayerDatas[0].userId);
         if (DataManager.Instance.playerData._id.Equals(DataManager.Instance.joinPlayerDatas[0].userId))
         {
+            Debug.Log("ISADMIN   =" + isAdmin);
             isAdmin = true;
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas.Count + "   waitNextRoundScreenObj  > " + waitNextRoundScreenObj.activeSelf);
             if (DataManager.Instance.joinPlayerDatas.Count == 5 && waitNextRoundScreenObj.activeSelf)
             {
                 DataManager.Instance.joinPlayerDatas.RemoveAt(0);
@@ -4003,11 +4419,13 @@ public class TeenPattiManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("isGameStarted   =>  " + isGameStarted);
             if (!isGameStarted)
             {
                 isAdmin = false;
             }
 
+            Debug.Log("Count   =>  " + DataManager.Instance.joinPlayerDatas.Count);
             if (DataManager.Instance.joinPlayerDatas.Count < 6) return;
             int index = DataManager.Instance.joinPlayerDatas.FindIndex(leftPlayer => leftPlayer.userId == leavePlayerId);
             DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[index]);
@@ -4018,6 +4436,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         DataManager.Instance.joinPlayerDatas = DataManager.Instance.joinPlayerDatas.Where(player => !player.avtar.StartsWith("http://139.84.132.115/assets/img/profile-picture/")).ToList();
         // assiging new remaining bot players
+        Debug.Log("Count   =>  " + DataManager.Instance.joinPlayerDatas.Count);
         if (DataManager.Instance.joinPlayerDatas.Count <= 4)
         {
             MainMenuManager.Instance.CheckPlayers();
@@ -4045,6 +4464,8 @@ public class TeenPattiManager : MonoBehaviour
         if (CheckMoney(currentPriceValue) == false)
         {
             SoundManager.Instance.ButtonClick();
+            Debug.Log("OpenErrorScreen");
+
             OpenErrorScreen();
             yield break;
         }
@@ -4340,7 +4761,9 @@ public class TeenPattiManager : MonoBehaviour
                 }//print("Add");
             }
         }*/
-        ShowWinPlayer(type, teenPattiWinner);
+        Debug.Log("------ ShowWinPlayer ---- ");
+
+        // ShowWinPlayer(type, teenPattiWinner);
 
         CreditWinnerAmount(teenPattiWinner[0].playerId);
         SetTeenPattiWon(teenPattiWinner[0].playerId);
@@ -4354,6 +4777,9 @@ public class TeenPattiManager : MonoBehaviour
         if (winnerPlayer.Count > 0)
         {
             ShowCardToAllUser();
+            Debug.Log("------ ShowWinPlayer ---- ");
+            CreditWinnerAmount(winnerPlayerId);
+
             ShowWinPlayer("Show", winnerPlayer);
         }
     }
@@ -4383,7 +4809,13 @@ public class TeenPattiManager : MonoBehaviour
             }
             SoundManager.Instance.CasinoWinSound();
 
-            StartCoroutine(RestartGamePlay());
+            if (isGameStarted)
+            {
+                Debug.Log("------ RestartGamePlay ---- ");
+                StartCoroutine(RestartGamePlay());
+
+            }
+
         }
         else if (teenPattiWinner.Count > 1)
         {

@@ -670,6 +670,47 @@ public class DataManager : MonoBehaviour
             return;
         }
     }
+    public void AddRoomUserLOWBALENCE(string userId, string userName, string lobbyId, string balance, int playerNo, string avtar, int index)
+    {
+        JoinPlayerData joinPlayer = new JoinPlayerData();
+        joinPlayer.userId = userId;
+        joinPlayer.userName = userName;
+        joinPlayer.balance = balance;
+        joinPlayer.playerNo = playerNo;
+        joinPlayer.lobbyId = lobbyId;
+        joinPlayer.avtar = avtar;
+
+        int check = 0;
+        for (int i = 0; i < joinPlayerDatas.Count; i++)
+        {
+            if (joinPlayerDatas[i].userId == joinPlayer.userId)
+            {
+                Debug.Log("Player check : " + joinPlayer.userName);
+                check++;
+            }
+        }
+
+        if (check == 0)
+        {
+            Debug.Log("Player Added at index " + index + " : " + joinPlayer.userName);
+            Debug.Log("Player Balance : " + joinPlayer.balance);
+
+            // Add the player at the specified index
+            if (index >= 0 && index < joinPlayerDatas.Count)
+            {
+                joinPlayerDatas.Insert(index, joinPlayer);
+            }
+            else
+            {
+                // If the index is out of bounds, simply add the player to the end of the list as a fallback
+                joinPlayerDatas.Add(joinPlayer);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
 
     public bool CheckRoomUser(string userId)
     {
@@ -1017,7 +1058,13 @@ public class DataManager : MonoBehaviour
         playerData.refer_lvl1_count = data[nameof(playerData.refer_lvl1_count)];
         playerData.refer_vip_count = data[nameof(playerData.refer_vip_count)];
         playerData.refer_deposit_count = data[nameof(playerData.refer_deposit_count)];
-
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            if (joinPlayerDatas[i].userId.Equals(playerData._id))
+            {
+               joinPlayerDatas[i].balance = playerData.balance;
+            }
+        }
 
         if (CheckNullOrEmpty(GetDefaultPlayerName()) && CheckNullOrEmpty(playerData.firstName))
         {

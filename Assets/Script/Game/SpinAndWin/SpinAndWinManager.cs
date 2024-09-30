@@ -46,6 +46,7 @@ public class SpinAndWinManager : MonoBehaviour
     [Header("--- Rule Screen ---")] public GameObject ruleScreenObj;
 
     [Header("--- Error Screen ---")] public GameObject errorScreenObj;
+    public GameObject errorScreenObjONBET;
 
     [Header("--- Prefab ---")] public GameObject shopPrefab;
     public GameObject shopPrefabParent;
@@ -1443,7 +1444,8 @@ public class SpinAndWinManager : MonoBehaviour
     public void OpenErrorScreen()
     {
         errorScreenObj.SetActive(true);
-    }
+    } 
+   
 
     public void Error_Ok_ButtonClick()
     {

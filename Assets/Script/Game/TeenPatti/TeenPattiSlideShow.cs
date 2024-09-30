@@ -54,12 +54,18 @@ public class TeenPattiSlideShow : MonoBehaviour
 
     public void AcceptButtonClick()
     {
+
+        Debug.Log("AcceptButtonClick  =>  "+sendId+"   current =>  "+currentId);
+
         TeenPattiManager.Instance.Accept_SlideShow(sendId, currentId);
         this.gameObject.SetActive(false);
     }
 
     public void CancelButtonClick()
     {
+
+        Debug.Log("CancelButtonClick  =>  " + sendId + "   current =>  " + currentId);
+
         TeenPattiManager.Instance.Cancel_SlideShow(sendId, currentId);
         this.gameObject.SetActive(false);
     }

@@ -289,6 +289,7 @@ public class PoolRummyManager : MonoBehaviour
             teenPattiPlayers[i].gameObject.SetActive(false);
         }
         playerFindScreenObj.SetActive(true);
+        Debug.Log(" playerFindScreenObj");
         CreateAdmin();
         //StartGamePlay();
         DisplayCurrentBalance();
@@ -1131,6 +1132,7 @@ public class PoolRummyManager : MonoBehaviour
         else
         {
             playerFindScreenObj.SetActive(true);
+            Debug.Log(" playerFindScreenObj");
         }
     }
 
@@ -1629,6 +1631,7 @@ public class PoolRummyManager : MonoBehaviour
         isGameStop = true;
         waitNextRoundScreenObj.SetActive(false);
         playerFindScreenObj.SetActive(false);
+        Debug.Log(" playerFindScreenObj False");
         bootValue = 1f;
         potLimitValue = 30f;
         minLimitValue = 5f;

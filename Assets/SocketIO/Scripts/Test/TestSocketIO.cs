@@ -85,7 +85,7 @@ public class TestSocketIO : MonoBehaviour
         string ev = "";
         Debug.Log("<color=yellow> HandelEvents </color> " + data);
 
-        print(data);
+        Debug.Log(data);
         JSONNode values = JSON.Parse(data.data.ToString());
         ev = values["ev"].Value.ToString().Trim('"');
         //Debug.Log("Events===:::" + ev.ToString());
@@ -3940,6 +3940,8 @@ public class TestSocketIO : MonoBehaviour
 
                 if (room == roomid && lobbyID == DataManager.Instance.tournamentID)
                 {
+                    Debug.Log("ChangeAAdmin  = " + leaveUserId);
+                    Debug.Log("playerId  = " + playerId);
                     TeenPattiManager.Instance.ChangeAAdmin(leaveUserId, playerId);
                 }
             }

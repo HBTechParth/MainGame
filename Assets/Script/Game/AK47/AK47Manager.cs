@@ -97,6 +97,7 @@ public class AK47Manager : MonoBehaviour
     public float timerSpeed;
     public bool isGameStop;
     public int[] numbers = { 5, 10, 20, 50, 100, 200, 250, 500, 1000, 5000 };
+ //   public float[] numbers = { 0.3f, 0.5f, 1, 3, 10, 20, 250, 500, 1000, 5000 };
     public int currentPriceIndex = 0;
     public int runningPriceIndex;
     public Image sideShowPopupImage;
