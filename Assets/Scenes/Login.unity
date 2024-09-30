@@ -6207,7 +6207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.23445788}
   m_AnchorMax: {x: 0.5, y: 0.23445788}
-  m_AnchoredPosition: {x: 366.98, y: -66.658}
+  m_AnchoredPosition: {x: 366.98, y: -66.65799}
   m_SizeDelta: {x: 622.1, y: 130.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862660096
@@ -7031,8 +7031,8 @@ MonoBehaviour:
   googleUserEmail: munawarmy4@gmail.com
   googleUserEmailDemo: munawarmy4@gmail.com
   errorMSGTxt: {fileID: 343742385}
-  testEmail: munawarmy4@gmail.com
-  testUserName: Munawar Munawar
+  testEmail: enixostudio@gmail.com
+  testUserName: Enixo Studio
   testImageUrl: https://lh3.googleusercontent.com/a/ALm5wu0_nOHkkGbrw4bLj2FDYOdIrxuY_5CPaYlyyB86=s96-c
   testFirebaseToken: eyJhbGciOiJSUzI1NiIsImtpZCI6IjFmNDBmMGE4ZWYzZDg4MDk3OGRjODJmMjVjM2VjMzE3YzZhNWI3ODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3Mzk1NjUyMzQ2MTMtNWU2cDZpcWl1ZjE3NjVoYmM0OGE4MjJqaTJqZnVpZHEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3Mzk1NjUyMzQ2MTMtNzlidnJuZW80NHEzMWFrNnE0MGt0NzIxbmphYWx1cjUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkwMzQwOTA2OTg5OTU2OTYwNzMiLCJlbWFpbCI6Im1wcGF2YW4yNEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Ik1wcGF2YW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSXZHdGdWWU96UHBtQ3hCSGJhQU9ROVlfMVFGUzB5UVkzX19renBIcDFpPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6Ik1wcGF2YW4iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTcwNTUwMzUzNSwiZXhwIjoxNzA1NTA3MTM1fQ.Dctvh1mBwLzSZbJyJbJSCl7mN5DSpXxTudOQxFskgZWib5oI8gRQNP6yMPEL5rVXOkzPkyYMkMpRBj1OGYe0IGlS_uiP58hZ2gFk_aFKcuRCZkYjS0kS1qzX9iTntnEKCEztxbBc4r5XdxZZ7XaGIjh21ZuK44k_V8LjMXanITZwBLdVIpwCk4Ft0PWvqfYj0NMy8Tt8xwbyOvj3zxqHDw1lkZtEcQ_QIrgvr8QeGu9im2Lc3V3_8aR6yJc96qMV4BEJ_Y40-ewRQxYnSF-SppOa18AYq88HpRwa5Kj8ho7geb9FByF-hAmZg3S6GeIuWIrBK9KPiQI6Itpte_b2aQ
   testDeviceToken: 53d9bb7c5bec0f11f937f51c3796a7e3
