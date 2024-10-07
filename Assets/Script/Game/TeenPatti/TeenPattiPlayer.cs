@@ -125,12 +125,12 @@ public class TeenPattiPlayer : MonoBehaviour
                 //CheckLife();
                 //}
                 //if (this == TeenPattiManager.Instance.player1)
-                    Debug.Log("ChangeCardStatus   =>  " + playerNo);
-                    TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo);
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
                 //{
                 //}
                 //Pack and Change Turn
-                    Debug.Log("ChangePlayerTurn   =>  " + playerNo);
+                Debug.Log("ChangePlayerTurn   =>  " + playerNo);
                 TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
             }
 
@@ -561,19 +561,20 @@ public class TeenPattiPlayer : MonoBehaviour
             {
                 Debug.Log("ChangeCardStatus   =>  " + playerNo);
 
-                TeenPattiManager.Instance.ChangeCardStatus("Blind", playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("Blind", playerNo, false);
                 yield return new WaitForSeconds(1.5f);
             }
             else if (num1 == 1)
             {
                 Debug.Log("ChangeCardStatus   =>  " + playerNo);
 
-                TeenPattiManager.Instance.ChangeCardStatus("SEEN", playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("SEEN", playerNo, false);
                 yield return new WaitForSeconds(1.5f);  // Add a 2-second delay
             }
         }
         float currentPrice;
         int priceIndex;
+        Debug.Log("delearObj.activeInHierarchy  =>  " + delearObj.activeInHierarchy + "  TeenPattiManager.Instance.roundCounter  =>  " + TeenPattiManager.Instance.roundCounter);
         if (delearObj.activeInHierarchy && TeenPattiManager.Instance.roundCounter == 0)
         {
             currentPrice = TeenPattiManager.Instance.minLimitValue;
@@ -581,7 +582,7 @@ public class TeenPattiPlayer : MonoBehaviour
         }
         else
             GetAdjacentPlayersPrice(playerNo, out currentPrice, out priceIndex);
-        print("-------- > " + currentPrice + "---" + priceIndex + "---");
+        print("delearObj-------- > " + currentPrice + "---" + priceIndex + "---");
 
         TeenPattiManager.Instance.currentPriceValue = currentPrice;
         TeenPattiManager.Instance.currentPriceIndex = priceIndex;
@@ -607,52 +608,61 @@ public class TeenPattiPlayer : MonoBehaviour
         //TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
     }
 
+    TeenPattiPlayer player;
     private void HandleBetForRounds(int num)
     {
         Debug.LogError("NUM => " + num);
         float playerBalanceValue;
         if (float.TryParse(playerBalence.text, out playerBalanceValue))
         {
+            Debug.Log("playerBalence => " + playerBalence.text + "   currentPriceValue  =>  " + TeenPattiManager.Instance.currentPriceValue);
             if (playerBalanceValue <= TeenPattiManager.Instance.currentPriceValue)
             {
-                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+                Debug.Log("ChangeCardStatus   =>  " + playerNo + "  ");
 
-                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+
+
+
                 Debug.Log("<color=red>------------------------------------------- Not money----------------------------------------------</color>");
                 /* SoundManager.Instance.ThreeBetSound();
                  TeenPattiManager.Instance.ChangePlayerTurn(playerNo);*/
                 return;
             }
+            else
+            {
+                if (num != 5)
+                {
+                    SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                    Debug.LogError("mahadeV -bOT1");
+
+                    TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                    SoundManager.Instance.ThreeBetSound();
+                    TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
+
+                }
+                else if (TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo == this.playerNo)
+                {
+                    SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                    Debug.LogError("mahadeV -bOT2");
+
+                    TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+                    TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
+                }
+                else
+                {
+                    Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+                    TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                }
+            }
 
         }
-        if (num != 5)
-        {
-            SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-            Debug.LogError("mahadeV -bOT1");
 
-            TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-            SoundManager.Instance.ThreeBetSound();
-            TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
-
-        }
-        else if (TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo == this.playerNo)
-        {
-            SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-            Debug.LogError("mahadeV -bOT2");
-
-            TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-
-            SoundManager.Instance.ThreeBetSound();
-            Debug.Log("ChangeCardStatus   =>  " + playerNo);
-
-            TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
-        }
-        else
-        {
-            Debug.Log("ChangeCardStatus   =>  " + playerNo);
-
-            TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo);
-        }
     }
 
     private void HandleBetForOtherRounds(int num)
@@ -662,7 +672,7 @@ public class TeenPattiPlayer : MonoBehaviour
         {
             if (playerBalanceValue <= TeenPattiManager.Instance.currentPriceValue)
             {
-                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
                 Debug.Log("<color=red>-------------------------------------------Not money----------------------------------------------<color>");
                 return;
                 /* SoundManager.Instance.ThreeBetSound();
@@ -690,7 +700,7 @@ public class TeenPattiPlayer : MonoBehaviour
             case 3:
                 /*TeenPattiManager.Instance.ShowCardToAllUser();
                 TeenPattiManager.Instance.CheckFinalWinner("Show");*/
-                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
                 break;
         }
 
@@ -698,6 +708,8 @@ public class TeenPattiPlayer : MonoBehaviour
 
     public void GetAdjacentPlayersPrice(int playerNo, out float currentPriceValue, out int currentPriceIndex)
     {
+
+        Debug.Log("<color=red> ============= ENter GetAdjacentPlayersPrice ========  </color>");
         int totalPlayers = TeenPattiManager.Instance.teenPattiPlayers.Count;
 
         int previousPlayerIndex = (playerNo - 2 + totalPlayers) % totalPlayers;
@@ -705,6 +717,10 @@ public class TeenPattiPlayer : MonoBehaviour
 
         var currPlayer = /*TeenPattiManager.Instance.teenPattiPlayers[playerNo - 1]*/this;
         print("current bot player = " + currPlayer + " playerNo = " + playerNo + " global playerNo = " + this.playerNo);
+        Debug.Log("TeenPattiManager.Instance.currentPriceIndex   => " + TeenPattiManager.Instance.currentPriceIndex);
+
+        Debug.Log("prevPlayer => " + prevPlayer.name + "  currPlayer =>  " + currPlayer.name);
+
         if (prevPlayer.isBlind && currPlayer.isBlind)
         {
             currentPriceValue = TeenPattiManager.Instance.numbers[TeenPattiManager.Instance.currentPriceIndex];
@@ -730,6 +746,10 @@ public class TeenPattiPlayer : MonoBehaviour
             currentPriceValue = TeenPattiManager.Instance.numbers[(TeenPattiManager.Instance.currentPriceIndex - 1 + TeenPattiManager.Instance.numbers.Length) % TeenPattiManager.Instance.numbers.Length];
             currentPriceIndex = (TeenPattiManager.Instance.currentPriceIndex - 1 + TeenPattiManager.Instance.numbers.Length) % TeenPattiManager.Instance.numbers.Length;
         }
+
+        Debug.Log("playerNo  => " + playerNo + "  currentPriceValue =>  " + currentPriceValue + "  currentPriceIndex  =>  " + currentPriceIndex);
+
+
     }
 
     private TeenPattiPlayer GetNonPackPlayer(int playerIndex, int totalPlayers, int step)
@@ -789,6 +809,10 @@ public class TeenPattiPlayer : MonoBehaviour
 
     public void CardDisplay()
     {
+
+        Debug.Log("card1.cardSprite => " + card1.cardSprite);
+        Debug.Log("card2.cardSprite => " + card2.cardSprite);
+        Debug.Log("card3.cardSprite => " + card3.cardSprite);
         cardImg1.sprite = card1.cardSprite;
         cardImg2.sprite = card2.cardSprite;
         cardImg3.sprite = card3.cardSprite;

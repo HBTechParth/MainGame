@@ -2124,13 +2124,14 @@ public class TestSocketIO : MonoBehaviour
             string SlideShowType = data["SlideShowType"];
 
 
-
+            TeenPattiManager.Instance.senderID = SlideShowPlayerId;
 
             if (DataManager.Instance.playerData._id.Equals(SlideShowPlayerId) && tourId == DataManager.Instance.tournamentID && playerID != DataManager.Instance.playerData._id)
             {
                 //print("Teen Patti playerNo : " + playerNo);
                 if (SlideShowType == "Accept")
                 {
+                    Debug.Log("SlideShowPlayerId => " + SlideShowPlayerId + "  SlideShowCancelPlayerId  => " + SlideShowCancelPlayerId);
                     TeenPattiManager.Instance.SlideShow_Accpet_Socket(SlideShowPlayerId, SlideShowCancelPlayerId);
                 }
                 else if (SlideShowType == "Cancel")
@@ -2206,7 +2207,8 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
             string WinnerPlayerId = data["WinnerPlayerId"];
-
+            TeenPattiManager.Instance.resetNUMForBot= data["ResetNo"];
+            TeenPattiManager.Instance.RoundresetNUMForBot = data["RoundNo"];
 
 
 
@@ -2279,12 +2281,12 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
-
+            bool isSlidShow = data["Method"];
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
                 print("Teen Patti playerNo : " + playerNo);
-                TeenPattiManager.Instance.GetCardStatus(cardStatus, playerNo);
+                TeenPattiManager.Instance.GetCardStatus(cardStatus, playerNo,isSlidShow);
             }
         }
         else if (SceneManager.GetActiveScene().name == "Joker")
