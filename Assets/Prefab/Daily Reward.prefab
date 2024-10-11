@@ -1364,6 +1364,8 @@ MonoBehaviour:
   pitch: 1
   spinDuration: 8
   wheelSize: 2
+  pieceSpacing: 1
+  lineSpacing: 1
   wheelPieces:
   - Icon: {fileID: 21300000, guid: 6e980baa502e72148bbc79fb42c81d10, type: 3}
     Label: Vallar

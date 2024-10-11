@@ -57,14 +57,20 @@ public class DailyRewardManager : MonoBehaviour
         if (rewards[index].claimed)
         {
             rewards[index].status.text = "Claimed";
+            rewards[index].claimBtn.SetActive(false);
+            rewards[index].status.color = new Color(236, 156, 57);
         }
         else if (index == currentDay - 1)
         {
             rewards[index].status.text = "Claim Now";
+            rewards[index].status.color = new Color(0, 0, 0, 255);
+            rewards[index].claimBtn.SetActive(true);
         }
         else
         {
             rewards[index].status.text = "Wait for the day";
+            rewards[index].claimBtn.SetActive(false);
+            rewards[index].status.color = new Color(236, 156, 57);
         }
     }
 
@@ -161,5 +167,6 @@ public class DailyRewardData
     public bool claimed; // true if claimed, false otherwise
     public Button button;
     public Text status; // "Claim Now", "Claimed", "Wait for the day"
+    public GameObject claimBtn;
 }
 
