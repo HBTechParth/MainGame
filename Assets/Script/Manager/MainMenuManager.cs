@@ -336,7 +336,7 @@ public class MainMenuManager : MonoBehaviour
                         if (item.modeType == DataManager.Instance.gameMode)
                         {
                             minBetValues.Add(item.betAmount);
-                        //    Debug.Log("Amount   =? " + item.betAmount);
+                            //    Debug.Log("Amount   =? " + item.betAmount);
 
                         }
                     }
@@ -1822,6 +1822,7 @@ public class MainMenuManager : MonoBehaviour
 
     #region Load Bot
 
+
     public void CheckPlayers()
     {
         botPlayers = minPlayerRequired - DataManager.Instance.joinPlayerDatas.Count;
@@ -1845,7 +1846,7 @@ public class MainMenuManager : MonoBehaviour
                     .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "TeenPatti";
                 DataManager.Instance.AddRoomUser(userId, botUserName,
                     DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                    UnityEngine.Random.Range(600, 10000).ToString(), i, avatar);
+                    UnityEngine.Random.Range(10000, 100000).ToString(), i, avatar);
 
                 Debug.Log("TeenPatti BOT Called - --- - - - - - -");
             }
