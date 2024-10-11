@@ -64,7 +64,7 @@ public class AK47Player : MonoBehaviour
         else
             StartCoroutine(DataManager.Instance.GetImages(avatar, avatarImg));
     }
-    
+
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -73,6 +73,7 @@ public class AK47Player : MonoBehaviour
         //{
         //    TeenPattiManager.Instance. = 
         //}
+        //Debug.Log("Gaurav HERE 1 ");
         if (!AK47Manager.Instance.isBotActivate) return;
 
         if (playerWinObj[0].activeSelf == true && AK47Manager.Instance.isWin == false)
@@ -90,6 +91,7 @@ public class AK47Player : MonoBehaviour
             fillLine.fillAmount -= 1.0f / AK47Manager.Instance.timerSpeed * Time.deltaTime;
             if (fillLine.fillAmount == 0 && isOneTimeEnter == false)
             {
+                //Debug.Log("Gaurav HERE 2 ");
                 isOneTimeEnter = true;
                 isTurn = false;
                 if (playerId.Equals(DataManager.Instance.playerData._id))
@@ -165,7 +167,7 @@ public class AK47Player : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         isOneTimeEnter = true;
-        isTurn = false;
+        //isTurn = false;
         if (_isFunctionCalled) yield break;
         //BotAutoBet();
         StartCoroutine(BotAutoBetCoroutine());
@@ -553,7 +555,7 @@ public class AK47Player : MonoBehaviour
             card1 = AK47Manager.Instance.cardSuffles[AK47Manager.Instance.mainList[startIndex] - 1];
             card2 = AK47Manager.Instance.cardSuffles[AK47Manager.Instance.mainList[startIndex + 1] - 1];
             card3 = AK47Manager.Instance.cardSuffles[AK47Manager.Instance.mainList[startIndex + 2] - 1];
-            print("This is card1 no  -> " + (AK47Manager.Instance.mainList[startIndex] - 1));
+            print("This is card1 no  -> " + (AK47Manager.Instance.mainList[startIndex] - 1) + "");
             print("This is card2 no  -> " + (AK47Manager.Instance.mainList[startIndex + 1] - 1));
             print("This is card3 no  -> " + (AK47Manager.Instance.mainList[startIndex + 2] - 1));
 
@@ -624,7 +626,7 @@ public class AK47Player : MonoBehaviour
     }
     public void NotATurn()
     {
-        isOneTimeEnter = false;
+        isOneTimeEnter = false;        
         isTurn = false;
         _isFunctionCalled = false;
         fillLine.fillAmount = 0;

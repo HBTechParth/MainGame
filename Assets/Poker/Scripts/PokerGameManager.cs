@@ -130,7 +130,7 @@ public class PokerGameManager : MonoBehaviour
     [Header("--- Open Message Screen ---")]
     public GameObject messageScreeObj;
     public GameObject giftScreenObj;
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image vibrationImg;
@@ -141,7 +141,7 @@ public class PokerGameManager : MonoBehaviour
     public Sprite vibrationoffSprite;
     public Sprite musiconSprite;
     public Sprite musicoffSprite;
-    
+
 
     [Header("--- Chat Panel ---")]
     public GameObject chatPanelParent;
@@ -170,7 +170,7 @@ public class PokerGameManager : MonoBehaviour
     public GameObject startCard;
     public GameObject commonCard;
     public Sprite commonCardImg;
-    
+
     public bool isGameStarted;
 
 
@@ -182,8 +182,8 @@ public class PokerGameManager : MonoBehaviour
     private bool _isFlopShowDone;
     private bool _isRiverShowDone;
     private bool _isResultAnnounced;
-    
-    
+
+
     public bool isBotActivate;
     public int counter;
 
@@ -228,20 +228,20 @@ public class PokerGameManager : MonoBehaviour
             playerFindScreenObj.SetActive(true);
         }
     }
-    
+
     private IEnumerator WaitGameToComplete(Action callback)
     {
         yield return new WaitUntil(() => !isGameStarted);
         callback();
     }
-    
+
     private IEnumerator WaitGameToCompleteRemovePlayer(System.Action<int> callback, int parameter)
     {
         yield return new WaitUntil(() => !isGameStarted);
         callback(parameter);
     }
-    
-    
+
+
     public void CheckNewPlayers()
     {
         // removing bot players from list with string common bot string name
@@ -254,10 +254,10 @@ public class PokerGameManager : MonoBehaviour
         ResetBot();
         //Activating bots
         ActivateBotPlayers();
-        
+
         print("_______________________This Function is called ---------------------------------");
     }
-    
+
     public void CheckLeftPlayer(int index)
     {
         //DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[index]);
@@ -299,9 +299,9 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator DisplayCards()
     {
         yield return new WaitForSeconds(1.02f);
-        
+
     }
-    
+
     private void CheckBalance()
     {
         if (!float.TryParse(DataManager.Instance.playerData.balance, out float playerBalance)) return;
@@ -318,7 +318,7 @@ public class PokerGameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main");
     }
-    
+
     public void LeaveClick()
     {
         TestSocketIO.Instace.LeaveRoom();
@@ -1129,7 +1129,7 @@ public class PokerGameManager : MonoBehaviour
             }
             
         }*/
-        
+
         /*List<PokerWinDataWithPlayer> winData = new List<PokerWinDataWithPlayer>();
         
         // Sort the win data list by rule number
@@ -1152,7 +1152,7 @@ public class PokerGameManager : MonoBehaviour
 
          // Restart the gameplay coroutine
         StartCoroutine(RestartGamePlay());*/
-        
+
         // Get win data for active and non-folded players
         /*List<PokerWinDataWithPlayer> winData = pokerPlayers
             .Where(p => !p.isFold && p.gameObject.activeSelf)
@@ -1184,7 +1184,7 @@ public class PokerGameManager : MonoBehaviour
         
             StartCoroutine(RestartGamePlay());
         }*/
-        
+
         List<PokerWinDataWithPlayer> winData = new List<PokerWinDataWithPlayer>();
         PokerWinDataWithPlayer highestRuleData = null;
         int highestRuleNo = 0;
@@ -1225,7 +1225,7 @@ public class PokerGameManager : MonoBehaviour
             }
             StartCoroutine(RestartGamePlay());
         }*/
-        
+
         if (highestRuleData != null && isAdmin)
         {
             List<PokerWinDataWithPlayer> winners = new List<PokerWinDataWithPlayer>();
@@ -1241,7 +1241,7 @@ public class PokerGameManager : MonoBehaviour
             PokerWinDataWithPlayer winningData;
             if (winners.Count > 1)
             {
-                
+
                 int index = UnityEngine.Random.Range(0, winners.Count);
                 winningData = winners[index];
             }
@@ -1254,7 +1254,7 @@ public class PokerGameManager : MonoBehaviour
             //CallFinalWinner(winningData);
             SetPokerWonData(winningData.player.playerId);
         }
-        
+
         StartCoroutine(DestroyCards());
     }
 
@@ -1277,7 +1277,7 @@ public class PokerGameManager : MonoBehaviour
         }
 
         StartCoroutine(RestartGamePlay());
-        
+
     }
 
     private IEnumerator DestroyCards()
@@ -1297,18 +1297,18 @@ public class PokerGameManager : MonoBehaviour
     {
         secondScreenObj.SetActive(true);
     }
-    
+
     public void OpenOnScreen()
     {
         downObjectOnObj.SetActive(true);
         downObjectOff.SetActive(false);
         allInOnObj.SetActive(false);
-        
+
         float callPrice = GetCallAmount();
 
         //callPriceTxt.text = lastPrice.ToString();
-        callPriceTxt.text = callPrice.ToString();
-        raisePriceTxt.text = lastPrice.ToString();
+        callPriceTxt.text = "Call : " + callPrice.ToString();
+        raisePriceTxt.text = "Raise : " + lastPrice.ToString();
         raisePrice = lastPrice;
 
         if (isFold_Off)
@@ -1331,7 +1331,7 @@ public class PokerGameManager : MonoBehaviour
             //SendPokerBet(player1.playerNo, lastPrice, "call");
             Second_Call_ButtonClick();
         }
-        
+
         ResetChecks();
     }
 
@@ -1340,7 +1340,7 @@ public class PokerGameManager : MonoBehaviour
         for (int i = 0; i < tickObj.Length; i++)
         {
             tickObj[i].SetActive(false);
-            blackBtnObj[i].sprite = blackBtnOff;
+            //blackBtnObj[i].sprite = blackBtnOff;
         }
         isCheck_Off = false;
         isFold_Off = false;
@@ -1353,12 +1353,12 @@ public class PokerGameManager : MonoBehaviour
         {
             players.fillLine.gameObject.SetActive(false);
         }
-        
+
         downObjectOnObj.SetActive(false);
         downObjectOff.SetActive(false);
         allInOnObj.SetActive(false);
     }
-    
+
     public void OpenAllInScreen()
     {
         downObjectOnObj.SetActive(false);
@@ -1367,7 +1367,7 @@ public class PokerGameManager : MonoBehaviour
         float allInPrice = float.Parse(DataManager.Instance.playerData.balance);
         allInPriceTxt.text = allInPrice.ToString();
     }
-    
+
     private float GetCallAmount()
     {
         float maxBetAmount = playerSquList.Max(player => player.betAmount);
@@ -1375,7 +1375,7 @@ public class PokerGameManager : MonoBehaviour
 
         return (callAmount == 0) ? lastPrice : callAmount;
     }
-    
+
     public IEnumerator RestartGamePlay()
     {
         isGameStarted = false;
@@ -1420,7 +1420,7 @@ public class PokerGameManager : MonoBehaviour
             isFold_Off = true;
             isCheck_Off = false;
             isCall_Off = false;
-            
+
         }
         else if (no == 1)
         {
@@ -1441,17 +1441,17 @@ public class PokerGameManager : MonoBehaviour
             if (i == no)
             {
                 tickObj[i].SetActive(true);
-                blackBtnObj[i].sprite = blackBtnOn;
+                //blackBtnObj[i].sprite = blackBtnOn;
             }
             else
             {
                 tickObj[i].SetActive(false);
-                blackBtnObj[i].sprite = blackBtnOff;
+                //blackBtnObj[i].sprite = blackBtnOff;
             }
         }
     }
-    
-    
+
+
 
     public void Second_Fold_ButtonClick()
     {
@@ -1497,7 +1497,7 @@ public class PokerGameManager : MonoBehaviour
             OpenErrorScreen();
             return;
         }
-            SendPokerBet(player1.playerNo, raisePrice, "raise");
+        SendPokerBet(player1.playerNo, raisePrice, "raise");
         SoundManager.Instance.ThreeBetSound();
         lastPrice = raisePrice;
         BetAnim(player1, raisePrice);
@@ -1510,7 +1510,7 @@ public class PokerGameManager : MonoBehaviour
     {
         SoundManager.Instance.ButtonClick();
         float allInAmount = float.Parse(DataManager.Instance.playerData.balance);
-        
+
         BetAnim(player1, allInAmount);
         DataManager.Instance.DebitAmount((allInAmount).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 1);
         SendPokerBet(player1.playerNo, raisePrice, "allin");
@@ -1530,13 +1530,13 @@ public class PokerGameManager : MonoBehaviour
         else
         {
             secondSubScreenObj.SetActive(true);
-            raisePriceTxt.text = raisePrice.ToString();
+            raisePriceTxt.text = "Raise : " + raisePrice.ToString();
             secondUpBtnObj.transform.DORotate(new Vector3(0, 0, 180), 0.1f);
 
         }
 
     }
-    
+
     public void SoundButtonClick()
     {
         if (soundImg.sprite == soundonSprite)
@@ -1550,7 +1550,7 @@ public class PokerGameManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
+
 
     public void VibrationButtonClick()
     {
@@ -1566,7 +1566,7 @@ public class PokerGameManager : MonoBehaviour
             vibrationImg.sprite = vibrationonSprite;
         }
     }
-    
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -1671,7 +1671,7 @@ public class PokerGameManager : MonoBehaviour
             raisePriceTxt.text = raisePrice.ToString();
         }
     }*/
-    
+
     public void Second_DropDown_Minus_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -1749,7 +1749,7 @@ public class PokerGameManager : MonoBehaviour
         }
         sliderValue.value = raisePrice / 100f;
         raisePriceTxt.text = raisePrice.ToString();*/
-        
+
         switch (no)
         {
             case 1:
@@ -1772,13 +1772,13 @@ public class PokerGameManager : MonoBehaviour
                 break;
             case 5:
                 // Min
-                raisePrice = (raisePrice > 0) ? raisePrice : 10; // or set a minimum value
+                raisePrice = (raisePrice >= 10) ? 10 : 0; // or set a minimum value
                 break;
         }
 
         UpdateUI();
     }
-    
+
     public void OnSliderValueChanged()
     {
         /*raisePrice = Mathf.RoundToInt(sliderValue.value * 100f);
@@ -1787,19 +1787,20 @@ public class PokerGameManager : MonoBehaviour
         minusBtn.interactable = (raisePrice > 10);
         
         plusBtn.interactable = (raisePrice < 100);*/
-        
+
         float playerBalance = float.Parse(DataManager.Instance.playerData.balance);
         raisePrice = Mathf.RoundToInt(sliderValue.value * playerBalance);
         UpdateUI();
     }
-    
+
     private void UpdateUI()
     {
         float playerBalance = float.Parse(DataManager.Instance.playerData.balance);
 
         raisePrice = Mathf.Clamp(raisePrice, 10, playerBalance); // Ensure raisePrice stays within valid range
+        Debug.Log("Raise Price : " + raisePrice);
 
-        raisePriceTxt.text = raisePrice.ToString();
+        raisePriceTxt.text = "Raise : " + raisePrice.ToString();
         sliderValue.value = raisePrice / playerBalance;
 
         minusBtn.interactable = (raisePrice > 10);
@@ -1809,7 +1810,7 @@ public class PokerGameManager : MonoBehaviour
     #endregion
 
     #region Game Play Manager
-    
+
     public void DisplayCurrentBalance()
     {
         player1.playerBalanceTxt.text = DataManager.Instance.playerData.balance.ToString();
@@ -1822,138 +1823,138 @@ public class PokerGameManager : MonoBehaviour
         player3BetAmount = player3.betAmount;
         player4BetAmount = player4.betAmount;
         player5BetAmount = player5.betAmount;
-        
+
         //CheckBetAmount();
     }
 
     public void CheckBetAmount()
     {
-    /*bool equal = true;
-    float betAmount = playerSquList[0].betAmount;
-    for (int i = 1; i < playerSquList.Count; i++)
-    {
-        if (!Mathf.Approximately(playerSquList[i].betAmount ,betAmount))
+        /*bool equal = true;
+        float betAmount = playerSquList[0].betAmount;
+        for (int i = 1; i < playerSquList.Count; i++)
         {
-            equal = false;
-            break;
+            if (!Mathf.Approximately(playerSquList[i].betAmount ,betAmount))
+            {
+                equal = false;
+                break;
+            }
+        }
+        // if (player1BetAmount != player2BetAmount || player2BetAmount != player3BetAmount ||
+        //     player3BetAmount != player4BetAmount || player4BetAmount != player5BetAmount) return;
+        if (!equal) return;
+        if (!(player1BetAmount > 0)) return;
+
+        switch (_allBetEqual)
+        {
+            case false:
+                StartCoroutine(FlopCardShow());
+                _allBetEqual = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                return;
+            case true when !_isFlopShowDone:
+                StartCoroutine(TurnCardShow());
+                _isFlopShowDone = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                return;
+            case true when (_isFlopShowDone && !_isRiverShowDone):
+                isGameStop = false;
+                StartCoroutine(RiverCardShow());
+                _isRiverShowDone = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                WinPoker();
+                return;
+            default:
+                print("All values are equal");
+                break;
+        }*/
+
+        // Check if all non-folded players have bet the same amount
+        bool equal = true;
+        float betAmount = 0f;
+        bool isFirstPlayer = true;
+        foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
+        {
+            if (isFirstPlayer)
+            {
+                betAmount = playerSquare.betAmount;
+                isFirstPlayer = false;
+            }
+            else
+            {
+                if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
+                {
+                    equal = false;
+                    break;
+                }
+            }
+        }
+
+        // If not all non-folded players have bet the same amount, exit the method
+        if (!equal) return;
+
+        // If no non-folded player has bet anything, exit the method
+        if (betAmount <= 0f) return;
+
+        // Switch on the game state based on which cards have been shown
+        switch (_allBetEqual)
+        {
+            case false:
+                StartCoroutine(FlopCardShow());
+                _allBetEqual = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                break;
+            case true when !_isFlopShowDone:
+                StartCoroutine(TurnCardShow());
+                _isFlopShowDone = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                break;
+            case true when (_isFlopShowDone && !_isRiverShowDone):
+                //isGameStop = false;
+                StartCoroutine(RiverCardShow());
+                _isRiverShowDone = true;
+                Player1BetIn();
+                Player2BetIn();
+                Player3BetIn();
+                Player4BetIn();
+                Player5BetIn();
+                ResetBetAmount();
+                //WinPoker();
+                break;
+            case true when _isFlopShowDone && _isRiverShowDone && !_isResultAnnounced:
+                AnnounceResults();
+                _isResultAnnounced = true;
+                break;
+            default:
+                print("All values are equal");
+                break;
         }
     }
-    // if (player1BetAmount != player2BetAmount || player2BetAmount != player3BetAmount ||
-    //     player3BetAmount != player4BetAmount || player4BetAmount != player5BetAmount) return;
-    if (!equal) return;
-    if (!(player1BetAmount > 0)) return;
 
-    switch (_allBetEqual)
-    {
-        case false:
-            StartCoroutine(FlopCardShow());
-            _allBetEqual = true;
-            Player1BetIn();
-            Player2BetIn();
-            Player3BetIn();
-            Player4BetIn();
-            Player5BetIn();
-            ResetBetAmount();
-            return;
-        case true when !_isFlopShowDone:
-            StartCoroutine(TurnCardShow());
-            _isFlopShowDone = true;
-            Player1BetIn();
-            Player2BetIn();
-            Player3BetIn();
-            Player4BetIn();
-            Player5BetIn();
-            ResetBetAmount();
-            return;
-        case true when (_isFlopShowDone && !_isRiverShowDone):
-            isGameStop = false;
-            StartCoroutine(RiverCardShow());
-            _isRiverShowDone = true;
-            Player1BetIn();
-            Player2BetIn();
-            Player3BetIn();
-            Player4BetIn();
-            Player5BetIn();
-            ResetBetAmount();
-            WinPoker();
-            return;
-        default:
-            print("All values are equal");
-            break;
-    }*/
-    
-      // Check if all non-folded players have bet the same amount
-       bool equal = true;
-       float betAmount = 0f;
-       bool isFirstPlayer = true;
-       foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
-       {
-           if (isFirstPlayer)
-           {
-               betAmount = playerSquare.betAmount;
-               isFirstPlayer = false;
-           }
-           else
-           {
-               if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
-               {
-                   equal = false;
-                   break;
-               }
-           }
-       }
-   
-       // If not all non-folded players have bet the same amount, exit the method
-       if (!equal) return;
-   
-       // If no non-folded player has bet anything, exit the method
-       if (betAmount <= 0f) return;
-   
-       // Switch on the game state based on which cards have been shown
-       switch (_allBetEqual)
-       {
-           case false:
-               StartCoroutine(FlopCardShow());
-               _allBetEqual = true;
-               Player1BetIn();
-               Player2BetIn();
-               Player3BetIn();
-               Player4BetIn();
-               Player5BetIn();
-               ResetBetAmount();
-               break;
-           case true when !_isFlopShowDone:
-               StartCoroutine(TurnCardShow());
-               _isFlopShowDone = true;
-               Player1BetIn();
-               Player2BetIn();
-               Player3BetIn();
-               Player4BetIn();
-               Player5BetIn();
-               ResetBetAmount();
-               break;
-           case true when (_isFlopShowDone && !_isRiverShowDone):
-               //isGameStop = false;
-               StartCoroutine(RiverCardShow());
-               _isRiverShowDone = true;
-               Player1BetIn();
-               Player2BetIn();
-               Player3BetIn();
-               Player4BetIn();
-               Player5BetIn();
-               ResetBetAmount();
-               //WinPoker();
-               break;
-           case true when _isFlopShowDone && _isRiverShowDone && !_isResultAnnounced:
-               AnnounceResults();
-               _isResultAnnounced = true;
-               break;
-           default:
-               print("All values are equal");
-               break;
-       }
-    }
-    
 
     public void ResetBetAmount()
     {
@@ -1991,7 +1992,7 @@ public class PokerGameManager : MonoBehaviour
                     }
                 });
             });
-            
+
         });
         yield return new WaitForSeconds(0.4f);
         StartCoroutine(SecondCardShow());
@@ -2023,7 +2024,7 @@ public class PokerGameManager : MonoBehaviour
                     }
                 });
             });
-            
+
         });
         yield return new WaitForSeconds(0.4f);
         StartCoroutine(ThirdCardShow());
@@ -2055,7 +2056,7 @@ public class PokerGameManager : MonoBehaviour
                     }
                 });
             });
-            
+
         });
         yield return new WaitForSeconds(2f);
     }
@@ -2086,7 +2087,7 @@ public class PokerGameManager : MonoBehaviour
                     }
                 });
             });
-            
+
         });
         yield return new WaitForSeconds(2f);
     }
@@ -2117,11 +2118,11 @@ public class PokerGameManager : MonoBehaviour
                     }
                 });
             });
-            
+
         });
         yield return new WaitForSeconds(4f);
     }
-    
+
     private void AnnounceResults()
     {
         isGameStop = false;
@@ -2135,9 +2136,9 @@ public class PokerGameManager : MonoBehaviour
         {
             playerSquare.DisplayPlayerCard();
         }*/
-        
+
         ResetBetAmount();
-        
+
         WinPoker();
     }
     public PokerWinDataMaintain MatchResult(CardSuffle cards1, CardSuffle cards2, CardSuffle cards3, CardSuffle cards4, CardSuffle cards5, CardSuffle card6, CardSuffle card7)
@@ -2183,7 +2184,7 @@ public class PokerGameManager : MonoBehaviour
 
         newCardSS1 = NewSort(newData);
         bool isColor = IsColorMatch(newCardSS1);
-        
+
         List<CardSuffle> getRonList = ConvertCardNo(RonValue(newCardSS1));
         List<CardSuffle> getRonColorList = ConvertCardNo(RonColorValue(newCardSS1, GetFindColor(newCardSS1)));
 
@@ -3182,13 +3183,13 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         CloseMenuScreen();
     }*/
-    
+
     public void SettingsButtonClick()
     {
         SoundManager.Instance.ButtonClick();
         OpenSettingsScreen();
     }
-    
+
     public void SettingsCloseButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -3210,17 +3211,17 @@ public class PokerGameManager : MonoBehaviour
     {
         menuScreenObj.SetActive(false);
     }*/
-    
+
     void OpenSettingsScreen()
     {
         settingsScreenObj.SetActive(true);
     }
-    
+
     void CloseSettingsScreen()
     {
         settingsScreenObj.SetActive(false);
     }
-    
+
 
     public void LobbyButtonClick()
     {
@@ -3251,7 +3252,7 @@ public class PokerGameManager : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Error Screen
     public void OpenErrorScreen()
     {
@@ -3270,7 +3271,7 @@ public class PokerGameManager : MonoBehaviour
         Instantiate(shopPrefab, shopPrefabParent.transform);
         errorScreenObj.SetActive(false);
     }
-    
+
     public bool CheckMoney(float money)
     {
 
@@ -3342,7 +3343,7 @@ public class PokerGameManager : MonoBehaviour
                     DisplayCurrentBalance();
                     Destroy(genBetObj, 0.4f);
                 }
-                
+
             }
         }
     }
@@ -3352,7 +3353,7 @@ public class PokerGameManager : MonoBehaviour
         if (DataManager.Instance.joinPlayerDatas[0].userId.Equals(DataManager.Instance.playerData._id))
         {
             isAdmin = true;
-           // SetRoomData();
+            // SetRoomData();
             //TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
     }
@@ -3371,7 +3372,7 @@ public class PokerGameManager : MonoBehaviour
         obj.AddField("gameMode", 5);
         TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);
     }
-    
+
     public void SetPokerWon(string value)
     {
         JSONObject obj = new JSONObject();
@@ -3387,12 +3388,12 @@ public class PokerGameManager : MonoBehaviour
         //print("Deck no : " + deckNo);
         mainList = listStoreDatas[deckNo].noList;
         gameDealerNo = dealearNo;
-        
+
         foreach (var t in playerSquList.Where(t => t.gameObject.activeSelf == true))
         {
             t.CardGenerate();
         }
-        
+
         if (isAdmin) return;
         if (waitNextRoundScreenObj.activeSelf)
         {
@@ -3734,7 +3735,7 @@ public class PokerGameManager : MonoBehaviour
     #endregion
 
     #region Game Play UI Player
-    
+
     public void StartGamePlay()
     {
         if (isAdmin)
@@ -3743,7 +3744,7 @@ public class PokerGameManager : MonoBehaviour
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         //Checking bet amount is equal of current players
-        InvokeRepeating(nameof(CheckBetAmount),0f,1f);
+        InvokeRepeating(nameof(CheckBetAmount), 0f, 1f);
         waitNextRoundScreenObj.SetActive(false);
         playerFindScreenObj.SetActive(false);
         SoundManager.Instance.CasinoTurnSound();
@@ -3773,12 +3774,12 @@ public class PokerGameManager : MonoBehaviour
         _isFlopShowDone = false;
         _isRiverShowDone = false;
         _isResultAnnounced = false;
-        
+
         for (int i = 0; i < pokerPlayers.Count; i++)
         {
             pokerPlayers[i].gameObject.SetActive(false);
         }
-        
+
         isGameStarted = true;
 
         StartCoroutine(DataMaintain());
@@ -4378,7 +4379,7 @@ public class PokerGameManager : MonoBehaviour
                             player5.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
                             player5.UpdateAvatar();
                             playerSquList.Add(player5);
-                           // playerSquList.Add(player1);
+                            // playerSquList.Add(player1);
                             cntPlayer++;
                         }
                         else if (cntPlayer == 2)
@@ -4539,7 +4540,7 @@ public class PokerGameManager : MonoBehaviour
                 }
             }
         }
-        
+
         int playerSend = DataManager.Instance.joinPlayerDatas.Count;
 
         float speed = 0.2f;
@@ -4577,7 +4578,7 @@ public class PokerGameManager : MonoBehaviour
 
 
         DisplayAndSetDealer();
-        
+
         /*for (int i = 0; i < playerSquList.Count; i++)
         {
             if (playerSquList[i].playerNo == gameDealerNo)
@@ -4590,7 +4591,7 @@ public class PokerGameManager : MonoBehaviour
                 playerSquList[i].delearObj.SetActive(false);
             }
         }*/
-        
+
         bool isSB = false;
         bool isBB = false;
         /*if (gameDealerNo == 1 && player1.playerNo != gameDealerNo)
@@ -4758,11 +4759,11 @@ public class PokerGameManager : MonoBehaviour
             // double bet
             //player1.PlayerSetBet(bbAmount, "start");
         }*/
-        
+
         SetSBAndBBFlags(gameDealerNo);
 
         lastPrice = bbAmount;
-       
+
 
 
         if (player1.delearObj.activeSelf == true)
@@ -4797,10 +4798,10 @@ public class PokerGameManager : MonoBehaviour
         //        playerSquList[i].NotATurn();
         //    }
         //}
-        
+
         ResetChecks();
         ResetFillLines();
-        
+
         StartTheTurn();
 
         for (int i = 0; i < playerSquList.Count; i++)
@@ -4811,17 +4812,17 @@ public class PokerGameManager : MonoBehaviour
             }
         }
 
-        
+
         //StartCoroutine(TurnCardShow());
         //StartCoroutine(RiverCardShow());
-        
+
         player1.DisplayPlayerCard();
         isGameStop = true;
         ActivateBotPlayers();
         PlaceInitialSB_BBBets();
-        
+
     }
-    
+
     void DisplayAndSetDealer()
     {
         int gameDealerNo = this.gameDealerNo;
@@ -4832,10 +4833,10 @@ public class PokerGameManager : MonoBehaviour
             player.delearObj.SetActive(player.playerNo == gameDealerNo);
         }
     }
-    
+
     private void SetSBAndBBFlags(int dealerPosition)
     {
-        if(!isAdmin) return;
+        if (!isAdmin) return;
         int playerCount = pokerPlayers.Count;
 
         for (int i = 0; i < playerCount; i++)
@@ -4856,10 +4857,10 @@ public class PokerGameManager : MonoBehaviour
 
         int sbPlayerNo = pokerPlayers[sbPosition].playerNo;
         int bbPlayerNo = pokerPlayers[bbPosition].playerNo;
-        
+
         SendSB_BBFlags(sbPlayerNo, bbPlayerNo);
     }
-    
+
     public void GetSBAndBBFlags(int sbPlayerNo, int bbPlayerNo)
     {
         int playerCount = pokerPlayers.Count;
@@ -4870,10 +4871,10 @@ public class PokerGameManager : MonoBehaviour
             pokerPlayers[i].sbIcon.gameObject.SetActive(false);
             pokerPlayers[i].bbIcon.gameObject.SetActive(false);
         }
-        
+
         int sbPlayerIndex = pokerPlayers.FindIndex(player => player.playerNo == sbPlayerNo);
         int bbPlayerIndex = pokerPlayers.FindIndex(player => player.playerNo == bbPlayerNo);
-        
+
         if (sbPlayerIndex != -1)
         {
             pokerPlayers[sbPlayerIndex].isSB = true;
@@ -4885,9 +4886,9 @@ public class PokerGameManager : MonoBehaviour
             pokerPlayers[bbPlayerIndex].isBB = true;
             pokerPlayers[bbPlayerIndex].bbIcon.SetActive(true);
         }
-        
+
     }
-    
+
     private void StartTheTurn()
     {
         int playerCount = pokerPlayers.Count;
@@ -4899,16 +4900,16 @@ public class PokerGameManager : MonoBehaviour
 
             if (!currentPlayer.isBB) continue;
             nextPlayer.isTurn = true;
-            
+
             if (nextPlayer.playerId == DataManager.Instance.playerData._id)
             {
                 OpenOnScreen();
             }
-            
+
             return;
         }
     }
-    
+
     private void PlaceInitialSB_BBBets()
     {
         if (!isAdmin) return;
@@ -4930,14 +4931,14 @@ public class PokerGameManager : MonoBehaviour
             }
         }
     }
-    
+
     private void PlaceBet(PokerPlayer player, float amount)
     {
         if (!player.isBot)
         {
             print("--Real Player--");
             SoundManager.Instance.ButtonClick();
-        
+
             if (CheckMoney(amount) == false)
             {
                 SoundManager.Instance.ButtonClick();
@@ -4965,7 +4966,7 @@ public class PokerGameManager : MonoBehaviour
         player5.isBot = false;
     }
 
-    
+
     private void ActivateBotPlayers()
     {
         var joinPlayerDatas = DataManager.Instance.joinPlayerDatas;
@@ -4990,33 +4991,33 @@ public class PokerGameManager : MonoBehaviour
         switch (num)
         {
             case 1:
-            {
-                int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-                if(playerSquList[index].isFold) return;
-                BetAnim(playerSquList[index], betAmount);
-                SoundManager.Instance.ThreeBetSound();
-                break;
-            }
+                {
+                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
+                    if (playerSquList[index].isFold) return;
+                    BetAnim(playerSquList[index], betAmount);
+                    SoundManager.Instance.ThreeBetSound();
+                    break;
+                }
             case 2:
-            {
-                int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-                if(playerSquList[index].isFold) return;
-                BetAnim(playerSquList[index], betAmount);
-                SoundManager.Instance.ThreeBetSound();
-                break;
-            }
+                {
+                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
+                    if (playerSquList[index].isFold) return;
+                    BetAnim(playerSquList[index], betAmount);
+                    SoundManager.Instance.ThreeBetSound();
+                    break;
+                }
             case 3:
-            {
-                int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-                if(playerSquList[index].isFold) return;
-                BetAnim(playerSquList[index], betAmount);
-                SoundManager.Instance.ThreeBetSound();
-                break;
-            }
+                {
+                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
+                    if (playerSquList[index].isFold) return;
+                    BetAnim(playerSquList[index], betAmount);
+                    SoundManager.Instance.ThreeBetSound();
+                    break;
+                }
             case 4:
-            {
-                break;
-            }
+                {
+                    break;
+                }
         }
     }
 
@@ -5045,7 +5046,7 @@ public class PokerGameManager : MonoBehaviour
             potAmount = totalBetAmount;
             potTxt.text = potAmount.ToString();
         });
-            
+
     }
     public void Player2BetIn()
     {
@@ -5058,7 +5059,7 @@ public class PokerGameManager : MonoBehaviour
             potAmount = totalBetAmount;
             potTxt.text = potAmount.ToString();
         });
-           
+
     }
     public void Player3BetIn()
     {
@@ -5071,7 +5072,7 @@ public class PokerGameManager : MonoBehaviour
             potAmount = totalBetAmount;
             potTxt.text = potAmount.ToString();
         });
-            
+
     }
     public void Player4BetIn()
     {
@@ -5084,7 +5085,7 @@ public class PokerGameManager : MonoBehaviour
             potAmount = totalBetAmount;
             potTxt.text = potAmount.ToString();
         });
-            
+
     }
     public void Player5BetIn()
     {
@@ -5097,7 +5098,7 @@ public class PokerGameManager : MonoBehaviour
             potAmount = totalBetAmount;
             potTxt.text = potAmount.ToString();
         });
-           
+
     }
 
     public void SendSB_BBFlags(int SbId, int BbId)
@@ -5132,7 +5133,7 @@ public class PokerGameManager : MonoBehaviour
         obj.AddField("FoldPlayerId", foldPlayer);
         TestSocketIO.Instace.Senddata("PokerSendFlodData", obj);
     }
-    
+
     public void SetPokerWonData(string winnerPlayerId)
     {
         JSONObject obj = new JSONObject();
@@ -5195,7 +5196,7 @@ public class PokerGameManager : MonoBehaviour
     }
 
     #endregion
-    
+
 
     public void ChangeAAdmin(string leavePlayerId, string adminId)
     {

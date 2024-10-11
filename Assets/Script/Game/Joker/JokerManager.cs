@@ -186,6 +186,8 @@ public class JokerManager : MonoBehaviour
     public Sprite musicoffSprite;
 
 
+    public Transform chipsTransform;
+
     private void Awake()
     {
         if (Instance == null)
@@ -407,7 +409,7 @@ public class JokerManager : MonoBehaviour
             {
                 cnt2++;
             }
-            if(cards[i].color == CardColorType.JOKER)
+            if (cards[i].color == CardColorType.JOKER)
             {
                 cnt1++;
                 cnt2++;
@@ -426,7 +428,7 @@ public class JokerManager : MonoBehaviour
                     print("Enter Card");
                     twoCardSuffle.Add(cards[i]);
                 }
-                else if(cards[i].color == CardColorType.JOKER)
+                else if (cards[i].color == CardColorType.JOKER)
                 {
                     print("Enter Card");
                     twoCardSuffle.Add(cards[i]);
@@ -493,7 +495,7 @@ public class JokerManager : MonoBehaviour
             {
                 cnt4++;
             }
-            else if(cards[i].color == CardColorType.JOKER)
+            else if (cards[i].color == CardColorType.JOKER)
             {
                 cnt1++;
                 cnt2++;
@@ -517,15 +519,15 @@ public class JokerManager : MonoBehaviour
         List<CardSuffle> ronvalue = new List<CardSuffle>();
         bool isRon = false;
         //These are Joker rules
-        if(cards[1].cardNo == cards[0].cardNo + 1 || cards[1].cardNo == cards[0].cardNo + 2)
+        if (cards[1].cardNo == cards[0].cardNo + 1 || cards[1].cardNo == cards[0].cardNo + 2)
         {
             isRon = true;
         }
-        else if(cards[0].cardNo == 2 && cards[1].cardNo == 3)
+        else if (cards[0].cardNo == 2 && cards[1].cardNo == 3)
         {
             isRon = true;
         }
-        else if(cards[0].cardNo == 3 && cards[1].cardNo == 14)
+        else if (cards[0].cardNo == 3 && cards[1].cardNo == 14)
         {
             isRon = true;
         }
@@ -674,7 +676,7 @@ public class JokerManager : MonoBehaviour
             }
             //currentPriceIndex += 1;
             currentPriceValue = numbers[currentPriceIndex];
-            priceBtnTxt.text = player1.isSeen ? "Chaal\n" + currentPriceValue : "Blind\n" + currentPriceValue;
+            priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
         }
         player1.isSeen = true;
         player1.isBlind = false;
@@ -685,7 +687,7 @@ public class JokerManager : MonoBehaviour
         //minusBtn.gameObject.SetActive(true);
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        priceBtnTxt.text = "Chaal\n" + currentPriceValue;
+        priceBtnTxt.text = "Chaal : " + currentPriceValue;
         ChangeCardStatus("SEEN", player1.playerNo);
     }
 
@@ -765,7 +767,7 @@ public class JokerManager : MonoBehaviour
         currentPriceValue = minLimitValue;
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
-        priceBtnTxt.text = "Blind\n" + currentPriceValue;
+        priceBtnTxt.text = "Blind : " + currentPriceValue;
         minusBtn.interactable = false;
         rulesTab.SetActive(false);
         roundCounter = 0;
@@ -1906,8 +1908,8 @@ public class JokerManager : MonoBehaviour
         priceBtnTxt.text = player1.isPack switch
         {
             //currentPriceValue /= 2;
-            false when player1.isBlind => "Blind\n" + currentPriceValue,
-            false when player1.isSeen => "Chaal\n" + currentPriceValue,
+            false when player1.isBlind => "Blind : " + currentPriceValue,
+            false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
     }
@@ -1959,8 +1961,8 @@ public class JokerManager : MonoBehaviour
         priceBtnTxt.text = player1.isPack switch
         {
             //currentPriceValue *= 2;
-            false when player1.isBlind => "Blind\n" + currentPriceValue,
-            false when player1.isSeen => "Chaal\n" + currentPriceValue,
+            false when player1.isBlind => "Blind : " + currentPriceValue,
+            false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
     }
@@ -2021,7 +2023,7 @@ public class JokerManager : MonoBehaviour
     //    {
     //        currentPriceValue = doubleLimitValue;
     //        currentPriceIndex = 1;
-            
+
     //        if (CheckMoney(currentPriceValue) == false)
     //        {
     //            SoundManager.Instance.ThreeBetSound();
@@ -2371,7 +2373,7 @@ public class JokerManager : MonoBehaviour
     private void SpawnCoin(int priceIndex)
     {
         //Instantiate(chipObj, boxCollider.transform);
-        Vector3 dPos = GetRandomPosInBoxCollider2D();
+        Vector3 dPos = GetRandomPositionWithinTransform(chipsTransform);
         JokerPlayer chipOrigin = new JokerPlayer();
         foreach (var item in teenPattiPlayers)
         {
@@ -2381,10 +2383,12 @@ public class JokerManager : MonoBehaviour
                 break;
             }
         }
+        Debug.Log(dPos);
         GameObject coin = Instantiate(chipObj, /*playerPosition[currentPlayer - 1]*/chipOrigin.transform);
+        coin.transform.parent = chipsTransform;
         coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
         //coin.transform.position = new Vector3(targetBetObj.transform.position.x, targetBetObj.transform.position.y, 0f);
-        ChipGenerate(coin, dPos);
+        ChipGenerate(coin, dPos, chipsTransform);
         spawnedCoins.Add(coin);
         /*GameObject genBetObj = Instantiate(chipObj, playerPosition[currentPlayer - 1]);
         genBetObj.transform.GetComponent<Image>().sprite = chipsSprite[currentPriceIndex];
@@ -2395,6 +2399,24 @@ public class JokerManager : MonoBehaviour
         });*/
     }
 
+    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+    {
+        RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
+
+        // Calculate the local bounds
+        Vector2 size = rectTransform.rect.size;
+        Vector3 localRandomPos = new Vector3(
+            UnityEngine.Random.Range(-size.x / 2.5f, size.x / 2.5f),
+            UnityEngine.Random.Range(-size.y / 2.5f, size.y / 2.5f),
+            0
+        );
+
+        // Convert local position to world position
+        //Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
+
+        return localRandomPos;
+    }
+
     private Vector3 GetRandomPosInBoxCollider2D()
     {
         Bounds bounds = boxCollider.bounds;
@@ -2402,10 +2424,11 @@ public class JokerManager : MonoBehaviour
         float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, 90f);
     }
-    public void ChipGenerate(GameObject chip, Vector3 endPos)
+    public void ChipGenerate(GameObject chip, Vector3 endPos, Transform trans)
     {
-        chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
-        chip.transform.DOMove(endPos, 0.2f).OnComplete(() =>
+        //chip.transform
+        //chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
+        chip.transform.DOLocalMove(endPos, 0.2f).OnComplete(() =>
         {
             chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
             {
@@ -3358,7 +3381,7 @@ public class JokerManager : MonoBehaviour
                     }
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
-                    priceBtnTxt.text = player1.isSeen ? "Chaal\n" + currentPriceValue : "Blind\n" + currentPriceValue;
+                    priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
                     EnableSeeCards();
@@ -3657,8 +3680,8 @@ public class JokerManager : MonoBehaviour
             priceBtnTxt.text = "Chaal\n" + currentPriceValue;
         }
     }*/
-    
-    const float epsilon = 0.0001f; 
+
+    const float epsilon = 0.0001f;
 
     public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
     {
@@ -3727,7 +3750,7 @@ public class JokerManager : MonoBehaviour
                 //currentPriceValue /= 2;
                 //currentPriceValue = minLimitValue;
                 currentSeenValue = curPrice;
-                if(player1.isTurn)
+                if (player1.isTurn)
                     currentPriceValue = currentBlindValue;
             }
             else if (isB)
@@ -3753,7 +3776,7 @@ public class JokerManager : MonoBehaviour
                     }
                 }
             }
-            priceBtnTxt.text = "Blind\n" + curPrice;
+            priceBtnTxt.text = "Blind : " + curPrice;
         }
         else if (!player1.isPack && player1.isSeen)
         {
@@ -3788,7 +3811,7 @@ public class JokerManager : MonoBehaviour
                 }
                 currentSeenValue = currentPriceValue;
             }
-            priceBtnTxt.text = "Chaal\n" + curPrice;
+            priceBtnTxt.text = "Chaal : " + curPrice;
         }
     }
 
@@ -4618,7 +4641,7 @@ public class JokerManager : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Sounds
 
     private void CheckSound()
@@ -4641,7 +4664,7 @@ public class JokerManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
+
 
     public void VibrationButtonClick()
     {
@@ -4657,7 +4680,7 @@ public class JokerManager : MonoBehaviour
             vibrationImg.sprite = vibrationonSprite;
         }
     }
-    
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();

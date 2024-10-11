@@ -428,8 +428,9 @@ public class DataManager : MonoBehaviour
 
     public void UserTurnVibrate()
     {
+        Debug.Log("SetVibration : " + GetVibration());
         // Check if the device supports vibration
-        if (!SystemInfo.supportsVibration) return;
+        if (!SystemInfo.supportsVibration || GetVibration() == 1) return;
         // Vibrate the device for 500 milliseconds
         Handheld.Vibrate();
     }
@@ -1062,7 +1063,7 @@ public class DataManager : MonoBehaviour
         {
             if (joinPlayerDatas[i].userId.Equals(playerData._id))
             {
-               joinPlayerDatas[i].balance = playerData.balance;
+                joinPlayerDatas[i].balance = playerData.balance;
             }
         }
 
@@ -1085,7 +1086,7 @@ public class DataManager : MonoBehaviour
         if (MainMenuManager.Instance != null)
         {
             MainMenuManager.Instance.coinTxt.text = playerData.balance.ToString();
-        } 
+        }
         if (MainMenuManager.Instance != null)
         {
             MainMenuManager.Instance.bonusTxt.text = playerData.bonus.ToString();
@@ -1125,7 +1126,7 @@ public class DataManager : MonoBehaviour
         if (AviatorGameManager.Instance != null)
         {
             AviatorGameManager.Instance.UpdateBalance();
-        } 
+        }
         if (SpinAndWinManager.Instance != null)
         {
             SpinAndWinManager.Instance.UpdateNameBalance();

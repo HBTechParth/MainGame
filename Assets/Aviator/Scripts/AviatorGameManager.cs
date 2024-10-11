@@ -14,7 +14,7 @@ public class AviatorGameManager : MonoBehaviour
     public event Action OnGameStart;
     public event Action OnGameCrash;
     public event Action OnGameRestart;
-    
+
     public float betAmount = 0f;
     private float totalBetAmount = 0f;
     public float minCrashTime = 1f;
@@ -22,26 +22,26 @@ public class AviatorGameManager : MonoBehaviour
     public float crashTime;
     public float gameRestartDelay = 10f;
 
-    [Header("--- Supporting Scripts ---")] 
+    [Header("--- Supporting Scripts ---")]
     public RocketController controller;
     public GraphManager graph;
-    
-    [Header("--- User Data ---")] 
+
+    [Header("--- User Data ---")]
     public Image avatarImg;
     public Text userNameTxt;
     public Text balanceTxt;
-    
-    [Header("--- Menu UI ---")] 
+
+    [Header("--- Menu UI ---")]
     public GameObject menuScreenObj;
     public GameObject ruleScreenObj;
     public GameObject errorScreenObj;
     public GameObject waitNextRoundScreenObj;
-    
+
     [Header("--- Canvas Objects ---")]
     public GameObject lineCanvas;
     public GameObject rocketCanvas;
     public GameObject bettingScene;
-    
+
     [Header("--- Game Betting ---")]
     public Text timerTxt;
     public float fixTimerValue;
@@ -63,7 +63,7 @@ public class AviatorGameManager : MonoBehaviour
     public Sprite[] chipsSprite;
     public List<GameObject> betChipList = new List<GameObject>();
 
-    [Header("--- GamePlay ---")] 
+    [Header("--- GamePlay ---")]
     public GameObject multiplayerObj;
     public Text multiplierText;
     public float multiplierSpeed = 1f;
@@ -73,7 +73,7 @@ public class AviatorGameManager : MonoBehaviour
     public Text leftCashOutText;
     public float playerWinAmount;
 
-    [Header("--- Fake Bot ---")] 
+    [Header("--- Fake Bot ---")]
     public float botBettingDuration = 5f;
     public GameObject botBettingStartPoint;
     public bool shouldBotBet = true;
@@ -81,13 +81,13 @@ public class AviatorGameManager : MonoBehaviour
     public Image[] botPlayers;
     public Text[] botPlayersName;
     public Text[] botPlayersCoins;
-    
+
     [Header("--- History ---")]
     public GameObject historyPrefab;
     public Transform historyParent;
     public List<string> historyList = new List<string>();
-    
-    
+
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image musicImg;
@@ -101,6 +101,8 @@ public class AviatorGameManager : MonoBehaviour
     //private bool isAdmin = false;
     private bool isBettingSceneActive = false;
 
+    public Text winTxt;
+
     private void Awake()
     {
         if (Instance == null)
@@ -111,7 +113,7 @@ public class AviatorGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
     }
 
     private void Start()
@@ -148,7 +150,7 @@ public class AviatorGameManager : MonoBehaviour
         controller.HandleGameRestart();
         graph.HandleGameRestart();
     }
-    
+
     public bool IsGameRunning()
     {
         return isGameRunning;
@@ -160,7 +162,7 @@ public class AviatorGameManager : MonoBehaviour
         OnGameStart?.Invoke();
         StartCoroutine(GameLoop());
         StartCoroutine(UpdateMultiplierText());
-        
+
         foreach (GameObject chip in betChipList)
         {
             Destroy(chip);
@@ -202,14 +204,14 @@ public class AviatorGameManager : MonoBehaviour
                 // Update DataManager.Instance.historyPoints
                 DataManager.Instance.historyPoints = string.Join(",", historyList);
                 SetWinData(DataManager.Instance.historyPoints);
-                
+
                 Invoke(nameof(RestartGame), gameRestartDelay); // Delay to reset the game
             }
 
             yield return null;
         }
     }
-    
+
     private IEnumerator UpdateMultiplierText()
     {
         float elapsedTime = 0f;
@@ -223,12 +225,12 @@ public class AviatorGameManager : MonoBehaviour
             yield return null;
         }
     }
-    
+
     private IEnumerator BlinkMultiplier()
     {
         yield return multiplierText.DOFade(0f, 0.2f).SetLoops(6, LoopType.Yoyo).WaitForCompletion();
     }
-    
+
     private void UpdateCashOutText()
     {
         if (betAmount > 0)
@@ -243,7 +245,7 @@ public class AviatorGameManager : MonoBehaviour
             leftCashOutText.text = "0.00";
         }
     }
-    
+
     private void RestartGame()
     {
         multiplier = 1f;
@@ -261,14 +263,14 @@ public class AviatorGameManager : MonoBehaviour
         betAmount = 0f;
         playerWinAmount = 0f;
         totalBetAmount = 0f;
-        totalBetText.text = "0";
-        totalBetText.text = "0";
-        myBetText.text = "0";
+        totalBetText.text = "Total Bet : " + "0";
+        totalBetText.text = "Total Bet : " + "0";
+        myBetText.text = "PLACE BET : 0";
         rightCashOutText.text = "0";
         leftCashOutText.text = "0";
         EnableBettingScene();
     }
-    
+
     private void EnableBettingScene()
     {
         SoundManager.Instance.CasinoTurnSound();
@@ -284,7 +286,7 @@ public class AviatorGameManager : MonoBehaviour
     {
         return multiplier * betAmount;
     }
-    
+
     private void GenerateRandomCrashTime()
     {
         crashTime = UnityEngine.Random.Range(minCrashTime, maxCrashTime);
@@ -321,12 +323,12 @@ public class AviatorGameManager : MonoBehaviour
     private void LoadHistoryData()
     {
         string historyData = DataManager.Instance.historyPoints;
-        
+
         if (string.IsNullOrEmpty(historyData))
         {
             historyData = "0.5X,20X,5X,15X,2.2X,6X,5.63X,6.66X,5.5X,5X";
         }
-        
+
         string[] historyArray = historyData.Split(',');
 
         historyList.Clear();
@@ -340,7 +342,7 @@ public class AviatorGameManager : MonoBehaviour
 
         UpdateHistoryPrefabs();
     }
-    
+
     private void UpdateHistoryPrefabs()
     {
         // Clear existing history prefabs
@@ -357,7 +359,7 @@ public class AviatorGameManager : MonoBehaviour
             historyText.text = t;
         }
     }
-    
+
     public void GetUpdatedHistory(string data)
     {
         //if (isAdmin) return;
@@ -401,13 +403,13 @@ public class AviatorGameManager : MonoBehaviour
     #endregion
 
     #region Betting
-    
+
     public void ChipButtonClick(int no)
     {
         SoundManager.Instance.ButtonClick();
         BottomChipAnim(no);
     }
-    
+
     void BottomChipAnim(int no)
     {
         selectChipNo = no;
@@ -416,7 +418,7 @@ public class AviatorGameManager : MonoBehaviour
             chipBtn[i].transform.DOMoveY(i == no ? upValue : downValue, 0.05f);
         }
     }
-    
+
     private void CalculateBetAreaBounds()
     {
         float betAreaWidth = Mathf.Abs(maxBetAreaX - minBetAreaX);
@@ -436,20 +438,20 @@ public class AviatorGameManager : MonoBehaviour
         }
 
         SoundManager.Instance.ThreeBetSound();
-        DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,"Aviator-Bet-" + DataManager.Instance.gameId, "game", 2);
-        
+        DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId, "Aviator-Bet-" + DataManager.Instance.gameId, "game", 2);
+
         betAmount += chipPrice[selectChipNo];
         totalBetAmount += chipPrice[selectChipNo];
-        totalBetText.text = totalBetAmount.ToString("F2");
-        myBetText.text = betAmount.ToString("F2");
-        
+        totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
+        myBetText.text = "PLACE BET : " + betAmount.ToString("F2");
+
         Vector3 rPos = GetRandomPositionWithinBettingArea();
         GameObject chipGen = Instantiate(chipObj, bettingArea.transform);
         chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
         chipGen.transform.position = avatarImg.transform.position;
         betChipList.Add(chipGen);
         ChipGenerate(chipGen, rPos);
-        
+
     }
 
     private void ChipGenerate(GameObject chip, Vector3 endPos)
@@ -463,7 +465,7 @@ public class AviatorGameManager : MonoBehaviour
             });
         });
     }
-    
+
     private Vector3 GetRandomPositionWithinBettingArea()
     {
         float randomX = UnityEngine.Random.Range(minBetAreaX, maxBetAreaX);
@@ -471,7 +473,7 @@ public class AviatorGameManager : MonoBehaviour
 
         return new Vector3(randomX, randomY, 0f);
     }
-    
+
     //To see the betting area
     /*private void OnDrawGizmos()
     {
@@ -493,8 +495,7 @@ public class AviatorGameManager : MonoBehaviour
         }
         return false;
     }
-    
-    
+
     public void CashOutButtonClick()
     {
         if (isGameRunning && betAmount > 0)
@@ -507,16 +508,22 @@ public class AviatorGameManager : MonoBehaviour
 
             rightCashOutButton.interactable = false;
             leftCashOutButton.interactable = false;
-        
+
             if (playerWinAmount != 0)
             {
                 SoundManager.Instance.CasinoWinSound();
                 Debug.Log("Player Win Amount   =  " + playerWinAmount);
+                winTxt.rectTransform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+                winTxt.text = "You won " + playerWinAmount.ToString("F2");
+                DOVirtual.DelayedCall(3f, () =>
+                {
+                    winTxt.rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
+                });
                 DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "aviator-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommission), 1);
             }
         }
     }
-    
+
 
     #endregion
 
@@ -540,14 +547,14 @@ public class AviatorGameManager : MonoBehaviour
     {
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
         balanceTxt.text = DataManager.Instance.playerData.balance.ToString();
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , avatarImg);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), avatarImg);
     }
-    
+
     public void UpdateBalance()
     {
         balanceTxt.text = DataManager.Instance.playerData.balance.ToString();
     }
-    
+
     void CreateAdmin()
     {
         if (DataManager.Instance.joinPlayerDatas[0].userId.Equals(DataManager.Instance.playerData._id))
@@ -565,7 +572,7 @@ public class AviatorGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         OpenMenuScreen();
     }
-    
+
     void OpenMenuScreen()
     {
         menuScreenObj.SetActive(true);
@@ -576,7 +583,7 @@ public class AviatorGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         menuScreenObj.SetActive(false);
     }
-    
+
     void OpenRuleScreen()
     {
         ruleScreenObj.SetActive(true);
@@ -587,7 +594,7 @@ public class AviatorGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         ruleScreenObj.SetActive(false);
     }
-    
+
     public void OpenErrorScreen()
     {
         errorScreenObj.SetActive(true);
@@ -605,8 +612,8 @@ public class AviatorGameManager : MonoBehaviour
         //Instantiate(shopPrefab, shopPrefabParent.transform);
         errorScreenObj.SetActive(false);
     }
-    
-    
+
+
     public void MenuSubButtonClick(int no)
     {
         SoundManager.Instance.ButtonClick();
@@ -627,7 +634,7 @@ public class AviatorGameManager : MonoBehaviour
             //Instantiate(shopPrefab, shopPrefabParent.transform);
         }
     }
-    
+
     private void SetChipBtnInteractable(bool isInteractable)
     {
         foreach (GameObject btn in chipBtn)
@@ -635,7 +642,7 @@ public class AviatorGameManager : MonoBehaviour
             btn.GetComponent<Button>().interactable = isInteractable;
         }
     }
-    
+
 
     #endregion
 
@@ -647,13 +654,13 @@ public class AviatorGameManager : MonoBehaviour
         LoadBotPlayers();
         botPlayersList.gameObject.SetActive(true);
     }
-    
+
     public void ClosePlayersButtonClick()
     {
         SoundManager.Instance.ButtonClick();
         botPlayersList.gameObject.SetActive(false);
     }
-    
+
     private IEnumerator BotBettingCoroutine()
     {
         while (isBettingSceneActive)
@@ -669,7 +676,7 @@ public class AviatorGameManager : MonoBehaviour
                 betChipList.Add(chipGen);
                 ChipGenerate(chipGen, randomPosition);
                 totalBetAmount += chipPrice[randomChipIndex];
-                totalBetText.text = totalBetAmount.ToString("F2");
+                totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
             }
 
             yield return new WaitForSeconds(botBettingDuration);
@@ -705,8 +712,8 @@ public class AviatorGameManager : MonoBehaviour
     #endregion
 
     #region Sounds
-    
-    
+
+
     private void CheckSound()
     {
         soundImg.sprite = DataManager.Instance.GetSound() == 0 ? soundonSprite : soundoffSprite;
@@ -726,8 +733,8 @@ public class AviatorGameManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
-    
+
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();

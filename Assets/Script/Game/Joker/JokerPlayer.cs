@@ -61,7 +61,7 @@ public class JokerPlayer : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        if(playerId == DataManager.Instance.playerData._id)
+        if (playerId == DataManager.Instance.playerData._id)
             DataManager.Instance.LoadProfileImage(avatar, avatarImg);
         else
             StartCoroutine(DataManager.Instance.GetImages(avatar, avatarImg));
@@ -542,6 +542,10 @@ public class JokerPlayer : MonoBehaviour
         cardImg1.sprite = JokerManager.Instance.simpleCardSprite;
         cardImg2.sprite = JokerManager.Instance.simpleCardSprite;
         cardImg3.sprite = JokerManager.Instance.simpleCardSprite;
+        //Debug.Log(card1.cardSprite);
+        //Debug.Log(card2.cardSprite);
+        //Debug.Log(card3.cardSprite);
+
         int startIndex = (playerNo - 1) * 3;
         if (startIndex >= 0)
         {
@@ -572,6 +576,17 @@ public class JokerPlayer : MonoBehaviour
                 card3 = winMaintain.winList[2];
             }
         }
+        Debug.Log("1 Card : " + card1.cardSprite);
+        Debug.Log("2 Card : " + card2.cardSprite);
+        Debug.Log("3 Card : " + card3.cardSprite);
+
+        //if (card1.cardSprite.name == "Joker_Card 1")
+        //    cardImg1.sprite = card1.cardSprite;
+        //if (card2.cardSprite.name == "Joker_Card 1")
+        //    cardImg2.sprite = card2.cardSprite;
+        //if (card3.cardSprite.name == "Joker_Card 1")
+        //    cardImg3.sprite = card3.cardSprite;
+
         //else if(startIndex == 0)//This is to give custom cards to player for testing cards logic (Remove >= and add > in first condition to use this)
         //{
         //    card1 = new JokerManager.CardSuffle();

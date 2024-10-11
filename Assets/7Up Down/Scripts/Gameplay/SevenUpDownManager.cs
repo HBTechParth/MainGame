@@ -114,7 +114,7 @@ public class SevenUpDownManager : MonoBehaviour
 
     public int maxWinListCount = 16;
     public List<GameObject> chipsHistory = new List<GameObject>();
-    
+
     [Header("--- Sounds ---")]
     public Image soundImg;
     public Image vibrationImg;
@@ -158,7 +158,7 @@ public class SevenUpDownManager : MonoBehaviour
         }
         SoundManager.Instance.StopBackgroundMusic();
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), playerAvatar));
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , playerAvatar);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), playerAvatar);
         playerName.text = DataManager.Instance.playerData.firstName;
         ChipButtonClick(0);
         UpdateBalance();
@@ -167,14 +167,14 @@ public class SevenUpDownManager : MonoBehaviour
         InitialiseScene();
         CheckSound();
     }
-    
+
 
     public void InitialiseScene()
     {
-        if(DataManager.Instance.joinPlayerDatas.Count >= TestSocketIO.Instace.sevenUpDownRequirePlayer)
+        if (DataManager.Instance.joinPlayerDatas.Count >= TestSocketIO.Instace.sevenUpDownRequirePlayer)
         {
             CreateAdmin(); //Creating Admin
-            if(DataManager.Instance.joinPlayerDatas.Count == 1 && isAdmin)
+            if (DataManager.Instance.joinPlayerDatas.Count == 1 && isAdmin)
             {
                 SetUpPlayers();
                 StartCoroutine(StartBet());
@@ -229,7 +229,7 @@ public class SevenUpDownManager : MonoBehaviour
             return;
 
         bool hasMoney = CheckMoney(chipValue[selectedChipNo]);
-        if(hasMoney == false)
+        if (hasMoney == false)
         {
             SoundManager.Instance.ButtonClick();
             OpenErrorScreen();
@@ -242,7 +242,8 @@ public class SevenUpDownManager : MonoBehaviour
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(chipValue[selectedChipNo].ToString(), DataManager.Instance.gameId, "Seven_Up_Down_Bet-" + DataManager.Instance.gameId, "game", 13);
                     downBetValue += (int)chipValue[selectedChipNo];
-                    Vector3 randomPosition = new Vector3(Random.Range(min7Downx, max7Downx), Random.Range(min7Downy, max7Downy));
+                    //Vector3 randomPosition = new Vector3(Random.Range(min7Downx, max7Downx), Random.Range(min7Downy, max7Downy));
+                    Vector3 randomPosition = GetRandomPositionWithinTransform(downArea);
                     GameObject chip = Instantiate(chipPrefab, downArea);
                     chip.transform.GetComponent<Image>().sprite = chipSprite[selectedChipNo];
                     chip.transform.position = playerProfile.transform.position;
@@ -256,7 +257,8 @@ public class SevenUpDownManager : MonoBehaviour
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(chipValue[selectedChipNo].ToString(), DataManager.Instance.gameId, "Seven_Up_Down_Bet-" + DataManager.Instance.gameId, "game", 13);
                     upBetValue += (int)chipValue[selectedChipNo];
-                    Vector3 randomPosition = new Vector3(Random.Range(min7Upx, max7Upx), Random.Range(min7Upy, max7Upy));
+                    //Vector3 randomPosition = new Vector3(Random.Range(min7Upx, max7Upx), Random.Range(min7Upy, max7Upy));
+                    Vector3 randomPosition = GetRandomPositionWithinTransform(upArea);
                     GameObject chip = Instantiate(chipPrefab, upArea);
                     chip.transform.GetComponent<Image>().sprite = chipSprite[selectedChipNo];
                     chip.transform.position = playerProfile.transform.position;
@@ -270,7 +272,8 @@ public class SevenUpDownManager : MonoBehaviour
                     SoundManager.Instance.ThreeBetSound();
                     DataManager.Instance.DebitAmount(chipValue[selectedChipNo].ToString(), DataManager.Instance.gameId, "Seven_Up_Down_Bet-" + DataManager.Instance.gameId, "game", 13);
                     onBetValue += (int)chipValue[selectedChipNo];
-                    Vector3 randomPosition = new Vector3(Random.Range(min7Onx, max7Onx), Random.Range(min7Ony, max7Ony));
+                    //Vector3 randomPosition = new Vector3(Random.Range(min7Onx, max7Onx), Random.Range(min7Ony, max7Ony));
+                    Vector3 randomPosition = GetRandomPositionWithinTransform(onArea);
                     GameObject chip = Instantiate(chipPrefab, onArea);
                     chip.transform.GetComponent<Image>().sprite = chipSprite[selectedChipNo];
                     chip.transform.position = playerProfile.transform.position;
@@ -283,6 +286,23 @@ public class SevenUpDownManager : MonoBehaviour
         totalBetText.text = totalBet.ToString();
         SendSevenUpDownBet(number, selectedChipNo);//SocketEvent to send to admin/other players
         UpdateBalance();
+    }
+    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+    {
+        RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
+
+        // Calculate the local bounds
+        Vector2 size = rectTransform.rect.size;
+        Vector3 localRandomPos = new Vector3(
+            UnityEngine.Random.Range(-size.x / 2.5f, size.x / 2.5f),
+            UnityEngine.Random.Range(-size.y / 2.5f, size.y / 2.5f),
+            0
+        );
+
+        // Convert local position to world position
+        //Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
+
+        return localRandomPos;
     }
 
     public void ChipButtonClick(int no)
@@ -480,19 +500,21 @@ public class SevenUpDownManager : MonoBehaviour
         up7Win.SetActive(false);
         WinAfterRoundChange();
     }
-    
+
     public void WinAmountTextOff()
     {
         winAnimationTxt.gameObject.SetActive(false);
     }
-    
+
 
     public void MoveChips(List<GameObject> chips, Transform winArea, float minX, float maxX, float minY, float maxY, float animationSpeed, List<GameObject> addChips)
     {
         for (int i = 0; i < chips.Count; i++)
         {
             int no = i;
-            Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            //Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            Vector3 randomPosition = GetRandomPositionWithinTransform(winArea);
+
             chips[no].transform.DOScale(Vector3.zero, animationSpeed);
             chips[no].transform.DOMove(dealer.transform.position, animationSpeed).OnComplete(() =>
             {
@@ -508,7 +530,12 @@ public class SevenUpDownManager : MonoBehaviour
                 addChips.Add(chips[no]);
             });
         }
+        Application.deepLinkActivated += ONTab;
+    }
 
+    private void ONTab(string obj)
+    {
+        Debug.Log("Deep link activated");
     }
 
     #endregion
@@ -523,7 +550,7 @@ public class SevenUpDownManager : MonoBehaviour
         obj.AddField("Dice2", dice2);
         obj.AddField("dateTime", DateTime.UtcNow.ToString());
         obj.AddField("gameMode", 13);
-        TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);   
+        TestSocketIO.Instace.SetRoomdata(TestSocketIO.Instace.roomid, obj);
     }
 
     public void SetDiceData(int dice1, int dice2)
@@ -634,13 +661,13 @@ public class SevenUpDownManager : MonoBehaviour
         {
             if (playerList[i].playerId.Equals(playerID))
             {
-                otherProfile= playerList[i].transform;
+                otherProfile = playerList[i].transform;
                 break;
             }
         }
         SevenUpDownBet(area, chipNo, otherProfile);
 
-        
+
 
     }
 
@@ -648,8 +675,8 @@ public class SevenUpDownManager : MonoBehaviour
     {
         if (area == 1)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(min7Downx, max7Downx),
-                Random.Range(min7Downy, max7Downy));
+            //Vector3 randomPosition = new Vector3(Random.Range(min7Downx, max7Downx), Random.Range(min7Downy, max7Downy));
+            Vector3 randomPosition = GetRandomPositionWithinTransform(downArea);
             GameObject chip = Instantiate(chipPrefab, downArea);
             chip.transform.GetComponent<Image>().sprite = chipSprite[chipNo];
             chip.transform.position = profile.transform.position;//pending
@@ -658,7 +685,8 @@ public class SevenUpDownManager : MonoBehaviour
         }
         else if (area == 2)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(min7Upx, max7Upx), Random.Range(min7Upy, max7Upy));
+            //Vector3 randomPosition = new Vector3(Random.Range(min7Upx, max7Upx), Random.Range(min7Upy, max7Upy));
+            Vector3 randomPosition = GetRandomPositionWithinTransform(upArea);
             GameObject chip = Instantiate(chipPrefab, upArea);
             chip.transform.GetComponent<Image>().sprite = chipSprite[chipNo];
             chip.transform.position = profile.transform.position;//pending
@@ -667,7 +695,8 @@ public class SevenUpDownManager : MonoBehaviour
         }
         else if (area == 3)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(min7Onx, max7Onx), Random.Range(min7Ony, max7Ony));
+            //Vector3 randomPosition = new Vector3(Random.Range(min7Onx, max7Onx), Random.Range(min7Ony, max7Ony));
+            Vector3 randomPosition = GetRandomPositionWithinTransform(onArea);
             GameObject chip = Instantiate(chipPrefab, onArea);
             chip.transform.GetComponent<Image>().sprite = chipSprite[chipNo];
             chip.transform.position = profile.transform.position;//pending
@@ -676,7 +705,7 @@ public class SevenUpDownManager : MonoBehaviour
         }
     }
 
-    
+
 
     #endregion
 
@@ -686,7 +715,7 @@ public class SevenUpDownManager : MonoBehaviour
     {
         isEnterBetStop = true;
         _isClickAvailable = true;
-        if(isAdmin)
+        if (isAdmin)
         {
             dice1Result = Random.Range(1, 7);
             dice2Result = Random.Range(1, 7);
@@ -694,7 +723,7 @@ public class SevenUpDownManager : MonoBehaviour
             //SetDiceData(dice1Result, dice2Result);//testing to see if it works without this function call
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
-   //     yield return new WaitForSeconds(0.2f);
+        //     yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
@@ -710,7 +739,7 @@ public class SevenUpDownManager : MonoBehaviour
         DataManager.Instance.UserTurnVibrate();
         _isClickAvailable = false;
         isEnterBetStop = true;
-      //  yield return new WaitForSeconds(0.2f);
+        //  yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
         Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
@@ -719,9 +748,9 @@ public class SevenUpDownManager : MonoBehaviour
         {
             //if (upBetValue + downBetValue + onBetValue > 0)
             //{
-                dice1Result = Random.Range(1, 7);
-                dice2Result = Random.Range(1, 7);
-                SetDiceData(dice1Result, dice2Result);
+            dice1Result = Random.Range(1, 7);
+            dice2Result = Random.Range(1, 7);
+            SetDiceData(dice1Result, dice2Result);
             //}
         }
         yield return new WaitForSeconds(1.5f);
@@ -767,7 +796,7 @@ public class SevenUpDownManager : MonoBehaviour
     }
     public void RestartTimer()
     {
-        
+
         downBetValue = 0;
         upBetValue = 0;
         onBetValue = 0;
@@ -791,7 +820,7 @@ public class SevenUpDownManager : MonoBehaviour
             }
             else
                 SetUpPlayers();
-            
+
         }
     }
 
@@ -801,7 +830,7 @@ public class SevenUpDownManager : MonoBehaviour
         playerName.text = DataManager.Instance.playerData.firstName;
         UpdateBalance();
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), playerAvatar));
-        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL") , playerAvatar);
+        DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), playerAvatar);
         for (int i = 0; i < playerList.Count; i++)
         {
             if (counter < DataManager.Instance.joinPlayerDatas.Count)
@@ -885,7 +914,7 @@ public class SevenUpDownManager : MonoBehaviour
         var shuffledName = names.OrderBy(_ => rand.Next()).ToList();
         int[] randomNames = shuffledName.Take(playerList.Count).ToArray();
 
-        for (int i = 0;i < playerList.Count; i++)
+        for (int i = 0; i < playerList.Count; i++)
         {
             //item.
             //history.avatar = BotManager.Instance.botUser_Profile_URL[randomAvatars]
@@ -985,7 +1014,7 @@ public class SevenUpDownManager : MonoBehaviour
             return;
 
         //HistoryTracker(item);
-        
+
 
         for (int i = 0; i < historyHolder.childCount; i++)
         {
@@ -997,12 +1026,12 @@ public class SevenUpDownManager : MonoBehaviour
         {
             HistoryTracker(winList[i], diceResultList[i]);
         }
-        
+
     }
 
     public void HistoryLoader(string data, string diceData)
     {
-        if(diceData != "")
+        if (diceData != "")
             diceResultList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         if (data != "")
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
@@ -1037,7 +1066,7 @@ public class SevenUpDownManager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
+
 
     public void VibrationButtonClick()
     {
@@ -1053,7 +1082,7 @@ public class SevenUpDownManager : MonoBehaviour
             vibrationImg.sprite = vibrationonSprite;
         }
     }
-    
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();

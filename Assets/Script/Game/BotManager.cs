@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using SimpleJSON;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public enum BotType
 {

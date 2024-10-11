@@ -76,7 +76,8 @@ public class SevenUpDownAIManager : MonoBehaviour
         {
             case 1://7 Down
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 downPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Downx, SevenUpDownManager.Instance.max7Downx), Random.Range(SevenUpDownManager.Instance.min7Downy, SevenUpDownManager.Instance.max7Downy));
+                //Vector3 downPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Downx, SevenUpDownManager.Instance.max7Downx), Random.Range(SevenUpDownManager.Instance.min7Downy, SevenUpDownManager.Instance.max7Downy));
+                Vector3 downPosition = SevenUpDownManager.Instance.GetRandomPositionWithinTransform(SevenUpDownManager.Instance.downArea);                
                 int downchipIndex = Random.Range(0, chipSprites.Length);
                 GameObject downchip = Instantiate(SevenUpDownManager.Instance.chipPrefab, SevenUpDownManager.Instance.downArea);
                 int downspawnLocation = Random.Range(0, playerProfilesLocation.Count);
@@ -87,7 +88,8 @@ public class SevenUpDownAIManager : MonoBehaviour
                 break;
             case 2://7 Up
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 upPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Upx, SevenUpDownManager.Instance.max7Upx), Random.Range(SevenUpDownManager.Instance.min7Upy, SevenUpDownManager.Instance.max7Upy));
+                //Vector3 upPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Upx, SevenUpDownManager.Instance.max7Upx), Random.Range(SevenUpDownManager.Instance.min7Upy, SevenUpDownManager.Instance.max7Upy));
+                Vector3 upPosition = SevenUpDownManager.Instance.GetRandomPositionWithinTransform(SevenUpDownManager.Instance.upArea);
                 int upchipIndex = Random.Range(0, chipSprites.Length);
                 GameObject upchip = Instantiate(SevenUpDownManager.Instance.chipPrefab, SevenUpDownManager.Instance.upArea);
                 int upspawnLocation = Random.Range(0, playerProfilesLocation.Count);
@@ -98,7 +100,8 @@ public class SevenUpDownAIManager : MonoBehaviour
                 break;
             case 3://7
                 SoundManager.Instance.ThreeBetSound();
-                Vector3 onPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Onx, SevenUpDownManager.Instance.max7Onx), Random.Range(SevenUpDownManager.Instance.min7Ony, SevenUpDownManager.Instance.max7Ony));
+                //Vector3 onPosition = new Vector3(Random.Range(SevenUpDownManager.Instance.min7Onx, SevenUpDownManager.Instance.max7Onx), Random.Range(SevenUpDownManager.Instance.min7Ony, SevenUpDownManager.Instance.max7Ony));
+                Vector3 onPosition = SevenUpDownManager.Instance.GetRandomPositionWithinTransform(SevenUpDownManager.Instance.onArea);
                 int onchipIndex = Random.Range(0, chipSprites.Length);
                 GameObject onchip = Instantiate(SevenUpDownManager.Instance.chipPrefab, SevenUpDownManager.Instance.onArea);
                 int onspawnLocation = Random.Range(0, playerProfilesLocation.Count);
