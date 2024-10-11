@@ -617,8 +617,12 @@ public class TeenPattiManager : MonoBehaviour
 
     public void EnableSeeCards()
     {
+        Debug.Log("EnableSeeCards   - " + boxDisplayCount);
+
         boxDisplayCount++;
+        Debug.Log("EnableSeeCards   - " + boxDisplayCount);
         if (boxDisplayCount != 4) return;
+        Debug.Log("EnableSeeCards   - " + boxDisplayCount);
         SeeButtonClick();
     }
 
@@ -626,12 +630,14 @@ public class TeenPattiManager : MonoBehaviour
 
     public void SeeButtonClick()
     {
+        Debug.Log("EnableSeeCards   - ");
+
         SoundManager.Instance.ButtonClick();
         for (int i = 0; i < player1.seeObj.Length; i++)
         {
             player1.seeObj[i].SetActive(false);
         }
-
+        Debug.Log("SeeButtonClick");
         player1.CardDisplay();
         DisplayRules();
 
@@ -641,27 +647,31 @@ public class TeenPattiManager : MonoBehaviour
             currentPriceValue = doubleLimitValue;
             currentPriceIndex = 1;
         }*/
-        if (currentPlayer == player1.playerNo && !player1.isSeen)//if seen bet is also minimumValue, then the value will not increase
-        {
-            if (currentSeenValue > currentPriceValue)
-            {
-                currentPriceValue = currentSeenValue - 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceValue = numbers[i];
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            //currentPriceIndex += 1;
-            currentPriceValue = numbers[currentPriceIndex];
-            priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
-            priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
-        }
+        /* if (currentPlayer == player1.playerNo && !player1.isSeen)//if seen bet is also minimumValue, then the value will not increase
+         {
+
+             Debug.Log("currentSeenValue => " + currentSeenValue + "  currentPriceValue  =>  " + currentPriceValue);
+             *//*  if (currentSeenValue > currentPriceValue)
+               {
+                   currentPriceValue = currentSeenValue - 3;
+                   for (int i = 0; i < numbers.Length; i++)
+                   {
+                       if (currentPriceValue <= numbers[i])
+                       {
+                           currentPriceValue = numbers[i];
+                           currentPriceIndex = i;
+                           runningPriceIndex = i;
+                           break;
+                       }
+                   }
+               }*//*
+             //currentPriceIndex += 1;
+             Debug.Log("Number of index   =>  " + numbers[currentPriceIndex]);
+             Debug.Log("currentPriceValue   =>  " + currentPriceValue);
+             //   currentPriceValue = numbers[currentPriceIndex];
+             priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+             priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
+         }*/
         player1.isSeen = true;
         player1.isBlind = false;
         player1.isPack = false;
@@ -671,9 +681,31 @@ public class TeenPattiManager : MonoBehaviour
         //minusBtn.gameObject.SetActive(true);
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        priceBtnTxt.text = "Chaal : " + currentPriceValue;
-        priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
-        Debug.Log("ChangeCardStatus   =>  " + playerNo);
+        // if (player1.isTurn)
+        {
+
+            Debug.Log("currentPriceValue  ;;;;;;;;;;;;;;;;    => " + currentPriceValue);
+            Debug.Log("is turn => " + player1.isTurn + "  is blind = > " + player1.isBlind);
+            boxDisplayCount = 5;
+            if (player1.isTurn)
+            {
+
+                Debug.Log("is turn  IF  => " + currentPriceValue);
+               // float amount = currentPriceValue * 2;
+                currentPriceValue = currentPriceValue * 2;
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+            }
+            else
+            {
+                Debug.Log("is turn ELSE => " + currentPriceValue);
+
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+            }
+        }
 
         ChangeCardStatus("SEEN", player1.playerNo, false);
     }
@@ -970,14 +1002,14 @@ public class TeenPattiManager : MonoBehaviour
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         minLimitValue = DataManager.Instance.betPrice;
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            if (minLimitValue == numbers[i])
-            {
-                currentPriceIndex = i;
-                runningPriceIndex = i;
-            }
-        }
+        /*  for (int i = 0; i < numbers.Length; i++)
+          {
+              if (minLimitValue == numbers[i])
+              {
+                  currentPriceIndex = i;
+                  runningPriceIndex = i;
+              }
+          }*/
 
         SoundManager.Instance.CasinoTurnSound();
         DataManager.Instance.UserTurnVibrate();
@@ -1011,6 +1043,7 @@ public class TeenPattiManager : MonoBehaviour
         currentPriceValue = minLimitValue;
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
+        Debug.Log("==========currentPriceValue==========" + currentPriceValue);
         priceBtnTxt.text = "Blind : " + currentPriceValue;
         priceBtnTxtDouble.text = "Blind : " + currentPriceValue * 2;
 
@@ -2016,6 +2049,7 @@ public class TeenPattiManager : MonoBehaviour
                     ShowTextChange();
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
+                    Debug.Log("EnableSeeCards");
                     EnableSeeCards();
                 }
                 else
@@ -2234,11 +2268,15 @@ public class TeenPattiManager : MonoBehaviour
                     return;
                 }
                 //BetAnim(player1, currentPriceValue);
+                Debug.Log("currentPriceValue  =>  " + currentPriceValue);
                 SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId);
                 Debug.LogError("slideShowPlayer.playerId => " + slideShowPlayer.playerId + "    is bot =>  " + slideShowPlayer.isBot);
 
                 Debug.Log("player1 => " + player1.playerBalence.text);
+
+
                 DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 1);
+                BetAnim(player1, currentPriceValue, currentPriceIndex);
                 Debug.Log("player1 => " + player1.playerBalence.text);
                 Debug.Log("playerBetAmount => " + playerBetAmount);
                 playerBetAmount += currentPriceValue;
@@ -2249,6 +2287,9 @@ public class TeenPattiManager : MonoBehaviour
                 if (slideShowPlayer.isBot)
                 {
                     Debug.Log("Slid Show OPEN");
+                    delay = UnityEngine.Random.Range(0f, 3f);
+                    Invoke(nameof(OnPopupButtonClick), delay);
+
                     Invoke(nameof(OnPopupButtonClick), delay);
                 }
                 break;
@@ -2429,6 +2470,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void StartBet()
     {
+        Debug.Log(" =====StartBet ");
         if (CheckMoney(currentPriceValue) == false)
         {
             SoundManager.Instance.ButtonClick();
@@ -2463,6 +2505,8 @@ public class TeenPattiManager : MonoBehaviour
     {
         if (!isGameStop)
         {
+
+
             if (CheckMoney(currentPriceValue) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
@@ -2471,20 +2515,22 @@ public class TeenPattiManager : MonoBehaviour
                 OpenErrorScreen();
                 return;
             }
-            if (player1.isBlind)
-            {
-                currentBlindValue = currentPriceValue;
-                //currentPriceValue = currentBlindValue;
-                //for (int i = 0; i < numbers.Length; i++)
-                //{
-                //    if(currentPriceValue == numbers[i])
-                //    {
-                //        currentPriceIndex = i;
-                //        runningPriceIndex = i;
-                //        break;
-                //    }
-                //}
-            }
+            /*    if (player1.isBlind)
+                {
+                    Debug.Log("currentBlindValue   =>  " + currentBlindValue);
+                    Debug.Log("currentPriceValue   =>  " + currentPriceValue);
+                    currentBlindValue = currentPriceValue;
+                    //currentPriceValue = currentBlindValue;
+                    //for (int i = 0; i < numbers.Length; i++)
+                    //{
+                    //    if(currentPriceValue == numbers[i])
+                    //    {
+                    //        currentPriceIndex = i;
+                    //        runningPriceIndex = i;
+                    //        break;
+                    //    }
+                    //}
+                }*/
             SoundManager.Instance.ThreeBetSound();
             BetAnim(player1, currentPriceValue, currentPriceIndex);
             DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
@@ -2511,29 +2557,31 @@ public class TeenPattiManager : MonoBehaviour
                 OpenErrorScreen();
                 return;
             }
-            if (player1.isBlind)
-            {
-                currentBlindValue = currentPriceValue * 2;
-                //currentPriceValue = currentBlindValue;
-                //for (int i = 0; i < numbers.Length; i++)
-                //{
-                //    if(currentPriceValue == numbers[i])
-                //    {
-                //        currentPriceIndex = i;
-                //        runningPriceIndex = i;
-                //        break;
-                //    }
-                //}
-            }
+            /*  if (player1.isBlind)
+              {
+                  currentBlindValue = currentPriceValue * 2;
+                  //currentPriceValue = currentBlindValue;
+                  //for (int i = 0; i < numbers.Length; i++)
+                  //{
+                  //    if(currentPriceValue == numbers[i])
+                  //    {
+                  //        currentPriceIndex = i;
+                  //        runningPriceIndex = i;
+                  //        break;
+                  //    }
+                  //}
+              }*/
             SoundManager.Instance.ThreeBetSound();
             BetAnim(player1, currentPriceValue * 2, currentPriceIndex);
-            DataManager.Instance.DebitAmount((currentPriceValue * 2).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
-            playerBetAmount += currentPriceValue * 2;
+            currentPriceValue = currentPriceValue * 2;
+            Debug.Log("currentPriceValue  =>  " + currentPriceValue);
+            DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
+            playerBetAmount += currentPriceValue;
             //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
             // bonusUseValue
             // User Maintain
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue * 2, player1.isBlind ? "Blind" : "Bet", "", "");
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
             Debug.LogError("mahadeV 4");
 
             ChangePlayerTurn(player1.playerNo);
@@ -3970,46 +4018,58 @@ public class TeenPattiManager : MonoBehaviour
 
                     ShowTextChange();
                     player1.GetAdjacentPlayersPrice(nextPlayerNo, out float currentPrice, out int priceIndex);
-                    foreach (var item in playerSquList)
-                    {
-                        if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue == numbers[j])
-                                {
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
-                        {
-                            currentPriceValue = currentPriceValue + 3;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue <= numbers[j])
-                                {
-                                    currentPriceValue = numbers[j];
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                    currentSeenValue = currentPriceValue;
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                        }
-                    }
+                    currentPriceValue = currentPrice;
+                    currentPriceIndex = priceIndex;
+                    /*     foreach (var item in playerSquList)
+                         {
+                             if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
+                             {
+
+
+                                 Debug.Log("currentPriceValue => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue == numbers[j])
+                                     {
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
+                             {
+
+                                 Debug.Log("currentPriceValue Else => " + currentPriceValue);
+
+                                 currentPriceValue = currentPriceValue + 3;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue <= numbers[j])
+                                     {
+                                         currentPriceValue = numbers[j];
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                         currentSeenValue = currentPriceValue;
+                                         break;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
+                             {
+
+                                 Debug.Log("currentPriceValue Else IF => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                             }
+                         }*/
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
                     priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
@@ -4017,6 +4077,7 @@ public class TeenPattiManager : MonoBehaviour
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
                     IsBoTShowRound4ENd();
+                    Debug.Log("EnableSeeCards");
 
                     EnableSeeCards();
                 }
@@ -4337,6 +4398,8 @@ public class TeenPattiManager : MonoBehaviour
     public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
     {
         print("Got Bet for player =" + playerNo);
+
+        currentPriceValue = amount;
         if (type == "Show")
         {
             //ShowCardToAllUser("Show", true);
@@ -4396,10 +4459,11 @@ public class TeenPattiManager : MonoBehaviour
             isS = true;
         }
         //currentPriceValue = amount;
-        if (!player1.isPack && player1.isBlind)
+      /*  if (!player1.isPack && player1.isBlind)
         {
             if (isS)
             {
+                Debug.Log("IS S => " + curPrice);
                 currentSeenValue = curPrice;
                 if (player1.isTurn)
                     currentPriceValue = currentBlindValue;
@@ -4418,6 +4482,7 @@ public class TeenPattiManager : MonoBehaviour
             }
             else if (isB)
             {
+                Debug.Log("IS b => " + curPrice);
                 currentPriceValue = curPrice;
                 currentBlindValue = curPrice;
                 currentSeenValue = curPrice + 3;
@@ -4438,10 +4503,10 @@ public class TeenPattiManager : MonoBehaviour
                         break;
                     }
                 }
-                /*currentPriceValue = amount;
+                *//*currentPriceValue = amount;
                 minLimitValue = amount;
                 if(minLimitValue > 5)
-                    priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*/
+                    priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*//*
             }
             priceBtnTxt.text = "Blind : " + curPrice;
             priceBtnTxtDouble.text = "Blind : " + curPrice * 2;
@@ -4450,8 +4515,9 @@ public class TeenPattiManager : MonoBehaviour
         {
             if (isS)
             {
+                Debug.Log("IS S => " + curPrice);
                 currentSeenValue = curPrice;
-                /*currentPriceValue = amount;
+                *//*currentPriceValue = amount;
                 for (int i = 0; i < numbers.Length; i++)
                 {
                     if(currentPriceValue == numbers[i])
@@ -4460,11 +4526,12 @@ public class TeenPattiManager : MonoBehaviour
                         runningPriceIndex = i;
                         break;
                     }
-                }*/
+                }*//*
                 currentPriceValue = curPrice;
             }
             else if (isB)
             {
+                Debug.Log("IS b => " + curPrice);
                 currentBlindValue = curPrice;
                 currentPriceValue = curPrice + 3;
                 for (int i = 0; i < numbers.Length; i++)
@@ -4482,7 +4549,7 @@ public class TeenPattiManager : MonoBehaviour
             }
             priceBtnTxt.text = "Chaal : " + curPrice;
             priceBtnTxtDouble.text = "Chaal : " + curPrice * 2;
-        }
+        }*/
     }
 
 
