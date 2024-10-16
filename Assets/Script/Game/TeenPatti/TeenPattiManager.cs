@@ -51,7 +51,7 @@ public class TeenPattiManager : MonoBehaviour
     public Sprite simpleCardSprite;
     public float[] chipPrice;
     public Sprite[] chipsSprite;
-    public GameObject chipObj;
+    public PlaceChips chipObj;
     public Transform[] playerPosition;
     public List<GameObject> spawnedCoins = new List<GameObject>();
     public BoxCollider2D boxCollider;
@@ -690,9 +690,10 @@ public class TeenPattiManager : MonoBehaviour
             if (player1.isTurn)
             {
 
-                Debug.Log("is turn  IF  => " + currentPriceValue);
-               // float amount = currentPriceValue * 2;
+                Debug.Log("is turn  IF BEfore => " + currentPriceValue);
+                // float amount = currentPriceValue * 2;
                 currentPriceValue = currentPriceValue * 2;
+                Debug.Log("is turn  IF  After => " + currentPriceValue);
                 priceBtnTxt.text = "Chaal : " + currentPriceValue;
                 priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
             }
@@ -736,6 +737,7 @@ public class TeenPattiManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         ResetWinLossAnimation();
         yield return new WaitForSeconds(1f);
+        isPotlimitCross = false;
         winnerPlayer.Clear();
 
 
@@ -2532,6 +2534,7 @@ public class TeenPattiManager : MonoBehaviour
                     //}
                 }*/
             SoundManager.Instance.ThreeBetSound();
+            Debug.LogError("currentPriceValue  -=>  " + currentPriceValue);
             BetAnim(player1, currentPriceValue, currentPriceIndex);
             DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
             playerBetAmount += currentPriceValue;
@@ -2541,8 +2544,8 @@ public class TeenPattiManager : MonoBehaviour
             runningPriceIndex = currentPriceIndex;
             SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
             Debug.LogError("mahadeV 4");
-
-            ChangePlayerTurn(player1.playerNo);
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
         }
     }
     public void BetButtonClickDouble()
@@ -2690,9 +2693,10 @@ public class TeenPattiManager : MonoBehaviour
             totalBetAmount += amount;
             betAmountTxt.text = totalBetAmount.ToString();
         });*/
-        Debug.Log("amount  => " + amount);
+        Debug.LogError("totalBetAmount amount  => " + amount);
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
         totalBetAmount += amount;
-        Debug.Log("totalBetAmount  => " + totalBetAmount);
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
         float currentBalance = float.Parse(player.playerBalence.text);
         Debug.Log("currentBalance => " + currentBalance);
         Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
@@ -2715,9 +2719,24 @@ public class TeenPattiManager : MonoBehaviour
             }
         }
         player.playerBalence.text = currentBalance.ToString();
-        betAmountTxt.text = totalBetAmount.ToString();
+        betAmountTxt.text = totalBetAmount.ToString("0.##");
         Debug.Log("PRICE INDEX _______ > " + priceIndex);
-        SpawnCoin(priceIndex, player.transform);
+        SpawnCoin(priceIndex, player.transform, amount);
+        Debug.LogError("totalBetAmount => " + totalBetAmount + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue);
+        if (totalBetAmount > MainMenuManager.Instance.potLimitValue && isAdmin)
+        {
+            crossPotLimitTable();
+            Debug.LogError("===========Cross Limit====================");
+        }
+
+    }
+    public bool isPotlimitCross = false;
+    public void crossPotLimitTable()
+    {
+        Debug.LogError("===========Cross Limit====================");
+        isPotlimitCross = true;
+        ShowCardToAllUser();
+        CheckFinalWinner("Show");
     }
 
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
@@ -2927,16 +2946,17 @@ public class TeenPattiManager : MonoBehaviour
         print("Bot Betting done " + currentAmount + " index = " + index);
         if (index < 0 || playerSquList[index].isPack) return;
 
+        Debug.Log("playerSquList[index]  =>  " + playerSquList[index].name);
         Debug.Log("roundCounter = > " + roundCounter);
-        switch (roundCounter)
+        BetAnim(playerSquList[index], currentAmount, currentIndex);
+        SoundManager.Instance.ThreeBetSound();
+        /*switch (roundCounter)
         {
             case <= 1:
             case 2:
             case 3:
             case 4:
             case 5:
-                BetAnim(playerSquList[index], currentAmount, currentIndex);
-                SoundManager.Instance.ThreeBetSound();
                 break;
 
             case >= 7 when num <= 4:
@@ -2946,7 +2966,7 @@ public class TeenPattiManager : MonoBehaviour
 
             case >= 7 when num == 5:
                 break;
-        }
+        }*/
 
     }
 
@@ -2968,7 +2988,7 @@ public class TeenPattiManager : MonoBehaviour
         SlideShowSendSocket(sendId, currentId, "Cancel");
     }
 
-    private void SpawnCoin(int priceIndex, Transform player)
+    private void SpawnCoin(int priceIndex, Transform player, float amount)
     {
         if (chipObj == null)
         {
@@ -3002,19 +3022,31 @@ public class TeenPattiManager : MonoBehaviour
             return;
         }
 
-        if (priceIndex < 0 || priceIndex >= chipsSprite.Length)
+
+        PlaceChips coin = Instantiate(chipObj, chipOrigin.transform);
+        coin.amountText.text = "" + amount;
+        Debug.LogError("SWAP CHIP AMOUNT =>   " + amount);
+        if (amount > 0 && amount <= 50)
         {
-            Debug.LogError("priceIndex is out of bounds");
-            return;
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[0];
         }
-        else if (chipsSprite[priceIndex] == null)
+        else if (amount > 50 && amount <= 500)
         {
-            Debug.LogError("chipsSprite[priceIndex] is null");
-            return;
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[1];
+        }
+        else if (amount > 500 && amount <= 1000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[2];
+        }
+        else if (amount > 1000 && amount <= 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[3];
+        }
+        else if (amount > 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[4];
         }
 
-        GameObject coin = Instantiate(chipObj, chipOrigin.transform);
-        coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
 
         if (player == null || player.transform == null)
         {
@@ -3022,8 +3054,8 @@ public class TeenPattiManager : MonoBehaviour
             return;
         }
 
-        ChipGenerate(coin, player.transform, dPos);
-        spawnedCoins.Add(coin);
+        ChipGenerate(coin.gameObject, player.transform, dPos);
+        spawnedCoins.Add(coin.gameObject);
 
         Debug.Log("Coin spawned and added to the list");
     }
@@ -3679,6 +3711,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void ChangePlayerTurn(int pNo)
     {
+        if (isWinningRun) return;
         Debug.Log("---- Change Turn  ------- " + pNo);
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3734,7 +3767,10 @@ public class TeenPattiManager : MonoBehaviour
         obj.AddField("RoundNo", UnityEngine.Random.Range(1, 4));
         //obj.AddField("WinnerList", value);
         obj.AddField("Action", "WinData");
+        obj.AddField("isLimitCross", isPotlimitCross);
         TestSocketIO.Instace.Senddata("TeenPattiWinnerData", obj);
+        isWinningRun = true;
+
     }
 
     public void ChangeCardStatus(string value, int pno, bool isSlidShowSend)
@@ -4017,6 +4053,8 @@ public class TeenPattiManager : MonoBehaviour
                 {
 
                     ShowTextChange();
+                    Debug.Log("--------------------------------------------------------------------------------");
+
                     player1.GetAdjacentPlayersPrice(nextPlayerNo, out float currentPrice, out int priceIndex);
                     currentPriceValue = currentPrice;
                     currentPriceIndex = priceIndex;
@@ -4233,8 +4271,10 @@ public class TeenPattiManager : MonoBehaviour
     public void CreditWinnerAmount(string playerID)
     {
         float winnerAmount = (float)totalBetAmount;
+        Debug.Log("isPotlimitCross => " + isPotlimitCross + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue + "  totalBetAmount => " + totalBetAmount);
 
-        PlayerWinLossImgSet(playerID);
+        if (!isPotlimitCross && MainMenuManager.Instance.potLimitValue > totalBetAmount)
+            PlayerWinLossImgSet(playerID);
         //print("Win No : " + winnerNo[i]);
         for (int j = 0; j < teenPattiPlayers.Count; j++)
         {
@@ -4459,97 +4499,97 @@ public class TeenPattiManager : MonoBehaviour
             isS = true;
         }
         //currentPriceValue = amount;
-      /*  if (!player1.isPack && player1.isBlind)
-        {
-            if (isS)
-            {
-                Debug.Log("IS S => " + curPrice);
-                currentSeenValue = curPrice;
-                if (player1.isTurn)
-                    currentPriceValue = currentBlindValue;
-                //currentPriceValue /= 2;
-                //currentPriceValue = minLimitValue;
-                //currentPriceValue = curPrice / 2;
-                //for (int i = numbers.Length - 1; i >= 0; i--)
-                //{
-                //    if (currentPriceValue >= numbers[i])
-                //    {
-                //        currentPriceIndex = i;
-                //        runningPriceIndex = i;
-                //        break;
-                //    }
-                //}
-            }
-            else if (isB)
-            {
-                Debug.Log("IS b => " + curPrice);
-                currentPriceValue = curPrice;
-                currentBlindValue = curPrice;
-                currentSeenValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentSeenValue <= numbers[i])
-                    {
-                        currentSeenValue = numbers[i];
-                        break;
-                    }
-                }
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-                *//*currentPriceValue = amount;
-                minLimitValue = amount;
-                if(minLimitValue > 5)
-                    priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*//*
-            }
-            priceBtnTxt.text = "Blind : " + curPrice;
-            priceBtnTxtDouble.text = "Blind : " + curPrice * 2;
-        }
-        else if (!player1.isPack && player1.isSeen)
-        {
-            if (isS)
-            {
-                Debug.Log("IS S => " + curPrice);
-                currentSeenValue = curPrice;
-                *//*currentPriceValue = amount;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if(currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }*//*
-                currentPriceValue = curPrice;
-            }
-            else if (isB)
-            {
-                Debug.Log("IS b => " + curPrice);
-                currentBlindValue = curPrice;
-                currentPriceValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        currentPriceValue = numbers[i];
-                        break;
-                    }
-                }
-                currentSeenValue = currentPriceValue;
-                //currentPriceValue = curPrice;
-            }
-            priceBtnTxt.text = "Chaal : " + curPrice;
-            priceBtnTxtDouble.text = "Chaal : " + curPrice * 2;
-        }*/
+        /*  if (!player1.isPack && player1.isBlind)
+          {
+              if (isS)
+              {
+                  Debug.Log("IS S => " + curPrice);
+                  currentSeenValue = curPrice;
+                  if (player1.isTurn)
+                      currentPriceValue = currentBlindValue;
+                  //currentPriceValue /= 2;
+                  //currentPriceValue = minLimitValue;
+                  //currentPriceValue = curPrice / 2;
+                  //for (int i = numbers.Length - 1; i >= 0; i--)
+                  //{
+                  //    if (currentPriceValue >= numbers[i])
+                  //    {
+                  //        currentPriceIndex = i;
+                  //        runningPriceIndex = i;
+                  //        break;
+                  //    }
+                  //}
+              }
+              else if (isB)
+              {
+                  Debug.Log("IS b => " + curPrice);
+                  currentPriceValue = curPrice;
+                  currentBlindValue = curPrice;
+                  currentSeenValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentSeenValue <= numbers[i])
+                      {
+                          currentSeenValue = numbers[i];
+                          break;
+                      }
+                  }
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }
+                  *//*currentPriceValue = amount;
+                  minLimitValue = amount;
+                  if(minLimitValue > 5)
+                      priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;*//*
+              }
+              priceBtnTxt.text = "Blind : " + curPrice;
+              priceBtnTxtDouble.text = "Blind : " + curPrice * 2;
+          }
+          else if (!player1.isPack && player1.isSeen)
+          {
+              if (isS)
+              {
+                  Debug.Log("IS S => " + curPrice);
+                  currentSeenValue = curPrice;
+                  *//*currentPriceValue = amount;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if(currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }*//*
+                  currentPriceValue = curPrice;
+              }
+              else if (isB)
+              {
+                  Debug.Log("IS b => " + curPrice);
+                  currentBlindValue = curPrice;
+                  currentPriceValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue <= numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          currentPriceValue = numbers[i];
+                          break;
+                      }
+                  }
+                  currentSeenValue = currentPriceValue;
+                  //currentPriceValue = curPrice;
+              }
+              priceBtnTxt.text = "Chaal : " + curPrice;
+              priceBtnTxtDouble.text = "Chaal : " + curPrice * 2;
+          }*/
     }
 
 
@@ -4662,7 +4702,6 @@ public class TeenPattiManager : MonoBehaviour
             if (livePlayers[0].playerNo == playerNo || livePlayers[0].isBot)
             {
                 SetTeenPattiWon(livePlayers[0].playerId);
-                isWinningRun = true;
                 Debug.LogWarning("------------------won is called-------------------------------------");
                 CreditWinnerAmount(livePlayers[0].playerId);
             }
@@ -4676,10 +4715,17 @@ public class TeenPattiManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("IS ADMIN => " + isAdmin);
-            if (isAdmin && !isSLidShow1)
+            Debug.Log("IS ADMIN => " + isAdmin + "isSLidShow1  =>" + isSLidShow1 + "packPlayer.playerNo  =>  " + packPlayer.playerNo + "  NO => " + playerNo + " BOT =>  " + packPlayer.isBot);
+
+            if (isAdmin && !isSLidShow1 && packPlayer.playerNo == playerNo)
             {
                 ChangePlayerTurn(packPlayer.playerNo);
+
+            }
+            else if (packPlayer.isBot && isAdmin && !isSLidShow1)
+            {
+                ChangePlayerTurn(packPlayer.playerNo);
+
             }
 
         }
@@ -5094,7 +5140,8 @@ public class TeenPattiManager : MonoBehaviour
             t.CardDisplay();
         }
         //CheckFinalWinner(type);
-        WinnerDataSet();
+        if (winnerPlayer.Count <= 2 && !isPotlimitCross)
+            WinnerDataSet();
         bottomBox.SetActive(false);
     }
 
@@ -5102,10 +5149,13 @@ public class TeenPattiManager : MonoBehaviour
     public void WinnerDataSet()
     {
         if (winnerPlayer.Count <= 1) return;
+
         profileImgP1.sprite = winnerPlayer[0].avatarImg.sprite;
         profileImgP2.sprite = winnerPlayer[1].avatarImg.sprite;
+
         usernameP1.text = winnerPlayer[0].playerNameTxt.text;
         usernameP2.text = winnerPlayer[1].playerNameTxt.text;
+
         P1card1.sprite = winnerPlayer[0].cardImg1.sprite;
         P1card2.sprite = winnerPlayer[0].cardImg2.sprite;
         P1card3.sprite = winnerPlayer[0].cardImg3.sprite;

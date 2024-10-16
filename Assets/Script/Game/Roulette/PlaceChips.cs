@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlaceChips : MonoBehaviour
 {
     public GameObject placeObjPrefab;
     public string placeStr;
     public float scaleSpeed;
+    public TextMeshProUGUI amountText; 
 
     // Start is called before the first frame update
     void Start()

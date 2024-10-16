@@ -15217,7 +15217,7 @@ MonoBehaviour:
   m_text: 'Munawar '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -23064,7 +23064,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.99, y: -42.93}
-  m_SizeDelta: {x: 198.26, y: 66.16}
+  m_SizeDelta: {x: 200, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1166647007
 BoxCollider2D:
@@ -23090,7 +23090,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 176.52, y: 52.3}
+  m_Size: {x: 200, y: 65}
   m_EdgeRadius: 0
 --- !u!1 &1167064176
 GameObject:
@@ -26466,17 +26466,12 @@ MonoBehaviour:
   - 1000
   - 5000
   chipsSprite:
-  - {fileID: 21300000, guid: 089dbdd344219af4ca8a9e9f607c407e, type: 3}
-  - {fileID: 21300000, guid: bc62e10ff7cbc4e0a920a632355d5445, type: 3}
-  - {fileID: 21300000, guid: 26722ff7956d5b142977ffae37ac60be, type: 3}
-  - {fileID: 21300000, guid: 1c54de5f6d6054d279d66e3cb2d3fdad, type: 3}
-  - {fileID: 21300000, guid: d30112cbf4bec4ddcb75459d87fd669b, type: 3}
-  - {fileID: 21300000, guid: a50e197cf84331044be56cf38df92b07, type: 3}
-  - {fileID: 21300000, guid: 59fced95ecef2a5409fe0e4cddb83130, type: 3}
-  - {fileID: 21300000, guid: 7a83fe6cf9b514064b2151e7f214b542, type: 3}
-  - {fileID: 21300000, guid: aab6ee7bcdb97455db7827a4ab3c7784, type: 3}
-  - {fileID: 21300000, guid: aa504e5f43e9419468b7630b25704eaa, type: 3}
-  chipObj: {fileID: 8424946546736511762, guid: fab1cede41edbad4cb684f512c609e22, type: 3}
+  - {fileID: 21300000, guid: 7d884ac080de10247b0c2bcd436200f6, type: 3}
+  - {fileID: 21300000, guid: 0c64d3693d7ca5a42af094509fe4fc82, type: 3}
+  - {fileID: 21300000, guid: dc022c93ca512a940982999878dfb540, type: 3}
+  - {fileID: 21300000, guid: eee8e4faef8d2194ea94ddb60f35c97a, type: 3}
+  - {fileID: 21300000, guid: e5f306cc8ce35f948928d058f557a185, type: 3}
+  chipObj: {fileID: 8424946546736511772, guid: fab1cede41edbad4cb684f512c609e22, type: 3}
   playerPosition:
   - {fileID: 1857613332}
   - {fileID: 2052213369}
@@ -43553,7 +43548,7 @@ MonoBehaviour:
   m_text: 'Munawar '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -67,12 +67,12 @@ public class TestSocketIO : MonoBehaviour
     public void TestError(SocketIOEvent e)
     {
         Debug.Log("[SocketIO] Error received===::: " + e.name + " " + e.data);
-        // if(isSocketError == false && DailyReward.Instance!=null) 
-        // {
-        //     connectServerObj.SetActive(true);
-        //     isSocketError = true;
-        //     // DataManager.Instance.OpenConnectServer();
-        // }
+        /*  if (isSocketError == false && DailyReward.Instance != null)
+          {
+              connectServerObj.SetActive(true);
+              isSocketError = true;
+              // DataManager.Instance.OpenConnectServer();
+          }*/
     }
 
     public void TestClose(SocketIOEvent e)
@@ -2207,9 +2207,9 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
             string WinnerPlayerId = data["WinnerPlayerId"];
-            TeenPattiManager.Instance.resetNUMForBot= data["ResetNo"];
+            TeenPattiManager.Instance.resetNUMForBot = data["ResetNo"];
             TeenPattiManager.Instance.RoundresetNUMForBot = data["RoundNo"];
-
+            TeenPattiManager.Instance.isPotlimitCross = data["isLimitCross"];
 
 
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
@@ -2286,7 +2286,7 @@ public class TestSocketIO : MonoBehaviour
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
                 print("Teen Patti playerNo : " + playerNo);
-                TeenPattiManager.Instance.GetCardStatus(cardStatus, playerNo,isSlidShow);
+                TeenPattiManager.Instance.GetCardStatus(cardStatus, playerNo, isSlidShow);
             }
         }
         else if (SceneManager.GetActiveScene().name == "Joker")

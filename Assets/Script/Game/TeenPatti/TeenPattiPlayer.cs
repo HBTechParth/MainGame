@@ -138,7 +138,7 @@ public class TeenPattiPlayer : MonoBehaviour
             if (!isTurn || !isBot) return;
             if (!TeenPattiManager.Instance.isAdmin) return;
             StartCoroutine(CallBotFunction());
-            print("---------------------------Bot is called------------------" + playerNo);
+            print("---------------------------   Bot is called   ------------------" + playerNo);
         }
     }
 
@@ -584,7 +584,11 @@ public class TeenPattiPlayer : MonoBehaviour
             priceIndex = TeenPattiManager.Instance.currentPriceIndex;
         }
         else
+        {
+            Debug.Log("--------------------------------------------------------------------------------");
             GetAdjacentPlayersPrice(playerNo, out currentPrice, out priceIndex);
+
+        }
         print("delearObj-------- > " + currentPrice + "---" + priceIndex + "---");
 
         TeenPattiManager.Instance.currentPriceValue = currentPrice;
@@ -737,7 +741,7 @@ public class TeenPattiPlayer : MonoBehaviour
         }
 
         // Loop backward until we find a non-packed player.
-        while (TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].isPack)
+        while (TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].isPack)
         {
             // Decrement index to move backwards.
             previousPlayerIndex--;

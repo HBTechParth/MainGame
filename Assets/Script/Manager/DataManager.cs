@@ -550,6 +550,7 @@ public class DataManager : MonoBehaviour
             JSONNode data = JSON.Parse(values["data"].ToString());
 
             string login = GetLoginValue();
+
             if (values["success"] == false && login == "Y")
             {
                 // if token expires then login vale is set to NO then show login screen.

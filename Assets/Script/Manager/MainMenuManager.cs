@@ -73,7 +73,8 @@ public class MainMenuManager : MonoBehaviour
     public GameObject ludoModeSelect;
     public Button twoPlayerButton;
     public Button fourPlayerButton;
-    private float selectedValue;
+    public float selectedValue;
+    public float potLimitValue;
 
     //public List<TournamentData> tournamentData = new List<TournamentData>();
     public List<CouponData> couponDatas = new List<CouponData>();
@@ -329,19 +330,20 @@ public class MainMenuManager : MonoBehaviour
                     string getTour = IsAvaliableSingleTournament(GameType.Teen_Patti);
                     gameName.text = "";
 
-
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
                         {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
                             //    Debug.Log("Amount   =? " + item.betAmount);
 
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues);
+                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues, potValue);
                     else
                         GenerateTournamentError();
 
@@ -371,13 +373,19 @@ public class MainMenuManager : MonoBehaviour
                     gameName.text = "";
 
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Poker, minBetValues);
+                        SelectValueOfTournament(GameType.Poker, minBetValues, potValue);
                     else
                         GenerateTournamentError();
 
@@ -459,13 +467,19 @@ public class MainMenuManager : MonoBehaviour
                     string getTournamentID = IsAvaliableSingleTournament(GameType.Joker);
 
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Joker, minBetValues);
+                        SelectValueOfTournament(GameType.Joker, minBetValues, potValue);
                     else
                         GenerateTournamentError();
                     //if (!string.IsNullOrEmpty(getTournamentID))
@@ -485,13 +499,19 @@ public class MainMenuManager : MonoBehaviour
                     DataManager.Instance.gameMode = GameType.Teen_Patti_AK47;
                     string getTournamentID = IsAvaliableSingleTournament(GameType.Teen_Patti_AK47);
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues);
+                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues, potValue);
                     else
                         GenerateTournamentError();
 
@@ -512,15 +532,21 @@ public class MainMenuManager : MonoBehaviour
                     DataManager.Instance.gameMode = GameType.Point_Rummy;
                     string getTournamentID = IsAvaliableSingleTournament(GameType.Point_Rummy);
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                         Debug.Log("Point Amount   =? " + item.betAmount);
 
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues);
+                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues, potValue);
                     else
                         GenerateTournamentError();
 
@@ -541,13 +567,19 @@ public class MainMenuManager : MonoBehaviour
                     //Pool Rummy
                     DataManager.Instance.gameMode = GameType.Pool_Rummy;
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues);
+                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues, potValue);
                     else
                         GenerateTournamentError();
                     //string getTournamentID = IsAvaliableSingleTournament(GameType.Pool_Rummy);
@@ -568,13 +600,20 @@ public class MainMenuManager : MonoBehaviour
                     //Deal Rummy
                     DataManager.Instance.gameMode = GameType.Deal_Rummy;
                     List<float> minBetValues = new List<float>();
+                    List<float> potValue = new List<float>();
+
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
+                        {
                             minBetValues.Add(item.betAmount);
+                            potValue.Add(item.potLimit);
+
+                        }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues);
+                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues, potValue);
+
                     else
                         GenerateTournamentError();
                     //string getTournamentID = IsAvaliableSingleTournament(GameType.Deal_Rummy);
@@ -822,13 +861,28 @@ public class MainMenuManager : MonoBehaviour
             }
         });
     }*/
-
-    private void SelectValueOfTournament(GameType modeType, List<float> minimumBetOrEntryFeesOrPointValue)
+    public SelectTableManager selectTableClone;
+    public GameObject selectTableClonetrans;
+    private void SelectValueOfTournament(GameType modeType, List<float> minimumBetOrEntryFeesOrPointValue, List<float> potValues)
     {
         for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
         {
 
             Debug.Log("VAL = " + minimumBetOrEntryFeesOrPointValue[i]);
+        }
+        for (int i = 0; i < selectTableClonetrans.transform.childCount; i++)
+        {
+            Destroy(selectTableClonetrans.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
+        {
+
+            SelectTableManager g = Instantiate(selectTableClone, selectTableClonetrans.transform);
+            g.bootText.text = "" + minimumBetOrEntryFeesOrPointValue[i];
+            g.bootValue = minimumBetOrEntryFeesOrPointValue[i];
+
+            g.potLimitText.text = potValues[i].ToString();
+            g.potValue = potValues[i];
         }
         tableSelectionScreen.SetActive(true);
         ClearEntryValues();
@@ -999,13 +1053,19 @@ public class MainMenuManager : MonoBehaviour
 
 
         List<float> minBetValues = new List<float>();
+        List<float> potValue = new List<float>();
+
         foreach (var item in DataManager.Instance.tournamentData)
         {
             if (item.modeType == DataManager.Instance.gameMode)
+            {
                 minBetValues.Add(item.betAmount);
+                potValue.Add(item.potLimit);
+
+            }
         }
         if (minBetValues.Count > 0)
-            SelectValueOfTournament(GameType.Ludo, minBetValues);
+            SelectValueOfTournament(GameType.Ludo, minBetValues, potValue);
         else
             GenerateTournamentError();
     }
