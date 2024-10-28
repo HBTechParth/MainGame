@@ -59,10 +59,16 @@ public class TeenPattiManager : MonoBehaviour
     public float maxBoardX;
     public float minBoardY;
     public float maxBoardY;
-
+    public float crossChalLimitLastChallSave = -1f;
 
     [Header("--- Menu Screen ---")]
     public GameObject menuScreenObj;
+
+    [Header("--- Table Data ---")]
+    public TextMeshProUGUI bootAmountText;
+    public TextMeshProUGUI maxBlindsText;
+    public TextMeshProUGUI chaalLimitText;
+    public TextMeshProUGUI potLimitText;
 
     [Header("--- Rule Screen ---")]
     public GameObject ruleScreenObj;
@@ -102,6 +108,7 @@ public class TeenPattiManager : MonoBehaviour
     public Text betAmountTxt;
     public Text priceBtnTxt;
     public Text priceBtnTxtDouble;
+    public GameObject doubleBUtton;
     public Button plusBtn;
     public Button minusBtn;
     //public GameObject blindx2button;
@@ -692,9 +699,13 @@ public class TeenPattiManager : MonoBehaviour
 
                 Debug.Log("is turn  IF BEfore => " + currentPriceValue);
                 // float amount = currentPriceValue * 2;
-                currentPriceValue = currentPriceValue * 2;
+                if ((currentPriceValue * 2) < MainMenuManager.Instance.challLimit)
+                {
+                    currentPriceValue = currentPriceValue * 2;
+                }
                 Debug.Log("is turn  IF  After => " + currentPriceValue);
                 priceBtnTxt.text = "Chaal : " + currentPriceValue;
+
                 priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
             }
             else
@@ -725,7 +736,7 @@ public class TeenPattiManager : MonoBehaviour
     {
 
         Debug.Log("isGameStarted => " + isGameStarted);
-
+        Debug.Log("MYRESET");
 
         isGameStarted = false;
         DeleteAllCoins();
@@ -737,9 +748,11 @@ public class TeenPattiManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         ResetWinLossAnimation();
         yield return new WaitForSeconds(1f);
+        totalBetAmount = 0;
         isPotlimitCross = false;
         winnerPlayer.Clear();
-
+        crossChalLimitLastChallSave = -1f;
+        doubleBUtton.SetActive(true);
 
         isWinningRun = false;
         for (int j = 0; j < playerSquList.Count; j++)
@@ -2191,12 +2204,18 @@ public class TeenPattiManager : MonoBehaviour
 
                 break;
         }*/
-
+        Debug.Log("joinPlayerDatas =<  " + DataManager.Instance.joinPlayerDatas.Count);
+        Debug.Log("joinPlayerDatas =<  " + playerSquList.Count);
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
+            Debug.Log("joinPlayerDatas =<  " + DataManager.Instance.joinPlayerDatas[i].userId);
             if (DataManager.Instance.joinPlayerDatas[i].userId.EndsWith("TeenPatti"))
             {
-                playerSquList[i].isBot = true;
+                if (teenPattiPlayers[i].gameObject.activeInHierarchy)
+                {
+                    teenPattiPlayers[i].isBot = true;
+                }
+                //playerSquList[i].isBot = true;
             }
         }
     }
@@ -3009,19 +3028,23 @@ public class TeenPattiManager : MonoBehaviour
 
         foreach (var item in teenPattiPlayers)
         {
-            if (item.playerNo == currentPlayer)
+            Debug.LogError("coin send => " + item.playerNo + "    currentPlayer => " + currentPlayer);
+
+            // Check if the player number matches and if the player is active
+            if (item.playerNo == currentPlayer && item.gameObject.activeInHierarchy)  // Assuming `isActive` is a boolean property
             {
                 chipOrigin = item;
                 break;
             }
         }
-
         if (chipOrigin == null || chipOrigin.transform == null)
         {
             Debug.LogError("chipOrigin or chipOrigin.transform is null");
             return;
         }
 
+        Debug.Log("ORIGIN =>   " + chipOrigin.name);
+        Debug.Log("ORIGIN =>   " + chipOrigin.transform);
 
         PlaceChips coin = Instantiate(chipObj, chipOrigin.transform);
         coin.amountText.text = "" + amount;
@@ -3053,7 +3076,7 @@ public class TeenPattiManager : MonoBehaviour
             Debug.LogError("Player or Player.transform is null");
             return;
         }
-
+        Debug.Log("coin send => " + player.transform + "  coin.gameObject  = " + coin.gameObject + "  Pos  =>  " + dPos);
         ChipGenerate(coin.gameObject, player.transform, dPos);
         spawnedCoins.Add(coin.gameObject);
 
@@ -3070,7 +3093,9 @@ public class TeenPattiManager : MonoBehaviour
     public void ChipGenerate(GameObject chip, Transform playerStartPosition, Vector3 endPos)
     {
         // Set the chip's starting position to the player's position
+        Debug.Log("playerStartPosition   => " + playerStartPosition.position);
         chip.transform.position = playerStartPosition.position;
+        Debug.Log("chip.transform.position   => " + chip.transform.position);
 
         // Random rotation for the chip
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
@@ -3764,7 +3789,7 @@ public class TeenPattiManager : MonoBehaviour
         obj.AddField("RoomId", DataManager.Instance.gameId);
         obj.AddField("WinnerPlayerId", winnerPlayerId);
         obj.AddField("ResetNo", UnityEngine.Random.Range(1, 4));
-        obj.AddField("RoundNo", UnityEngine.Random.Range(1, 4));
+        obj.AddField("RoundNo", UnityEngine.Random.Range(1, 3));
         //obj.AddField("WinnerList", value);
         obj.AddField("Action", "WinData");
         obj.AddField("isLimitCross", isPotlimitCross);
@@ -3808,10 +3833,251 @@ public class TeenPattiManager : MonoBehaviour
 
     public void GetPlayerTurn(int playerNo)
     {
+        /* Debug.Log("GetPlayerTurn => " + playerNo);
+         bool isPlayerNotEnter = false;
+         int nextPlayerNo = 0;
+         //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
+         Debug.Log("playerSquList => " + playerSquList.Count);
+         if (playerSquList.Count == playerNo)
+         {
+             nextPlayerNo = 1;
+             roundCounter++;
+         }
+         else
+         {
+             nextPlayerNo = playerNo + 1;
+             Debug.Log("nextPlayerNo  => " + nextPlayerNo);
+             //foreach (var item in playerSquList)
+             //{
+             //    if(item.playerNo == 5 && )
+             //}
+         }
+
+
+
+         if (nextPlayerNo == 1)
+         {
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+             if (isCheckTurnPack(nextPlayerNo) == false)
+             {
+                 nextPlayerNo = 1;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+
+             }
+             else
+             {
+                 nextPlayerNo = 2;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+                 if (isCheckTurnPack(nextPlayerNo) == false)
+                 {
+                     nextPlayerNo = 2;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+                 }
+                 else
+                 {
+                     nextPlayerNo = 3;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+                     if (isCheckTurnPack(nextPlayerNo) == false)
+                     {
+                         nextPlayerNo = 3;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+                     }
+                     else
+                     {
+                         nextPlayerNo = 4;
+             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
+                         if (isCheckTurnPack(nextPlayerNo) == false)
+                         {
+                             nextPlayerNo = 4;
+                         }
+                         else
+                         {
+                             nextPlayerNo = 5;
+                             if (isCheckTurnPack(nextPlayerNo) == false)
+                             {
+                                 nextPlayerNo = 5;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+         else if (nextPlayerNo == 2)
+         {
+             if (isCheckTurnPack(nextPlayerNo) == false)
+             {
+                 nextPlayerNo = 2;
+             }
+             else
+             {
+                 nextPlayerNo = 3;
+                 if (isCheckTurnPack(nextPlayerNo) == false)
+                 {
+                     nextPlayerNo = 3;
+                 }
+                 else
+                 {
+                     nextPlayerNo = 4;
+                     if (isCheckTurnPack(nextPlayerNo) == false)
+                     {
+                         nextPlayerNo = 4;
+                     }
+                     else
+                     {
+                         nextPlayerNo = 5;
+                         if (isCheckTurnPack(nextPlayerNo) == false)
+                         {
+                             nextPlayerNo = 5;
+                         }
+                         else
+                         {
+                             nextPlayerNo = 1;
+                             if (isCheckTurnPack(nextPlayerNo) == false)
+                             {
+                                 nextPlayerNo = 1;
+                                 roundCounter++;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+         else if (nextPlayerNo == 3)
+         {
+             if (isCheckTurnPack(nextPlayerNo) == false)
+             {
+                 nextPlayerNo = 3;
+             }
+             else
+             {
+                 nextPlayerNo = 4;
+                 if (isCheckTurnPack(nextPlayerNo) == false)
+                 {
+                     nextPlayerNo = 4;
+                 }
+                 else
+                 {
+                     nextPlayerNo = 5;
+                     if (isCheckTurnPack(nextPlayerNo) == false)
+                     {
+                         nextPlayerNo = 5;
+                     }
+                     else
+                     {
+                         nextPlayerNo = 1;
+                         if (isCheckTurnPack(nextPlayerNo) == false)
+                         {
+                             nextPlayerNo = 1;
+                             roundCounter++;
+                         }
+                         else
+                         {
+                             nextPlayerNo = 2;
+                             if (isCheckTurnPack(nextPlayerNo) == false)
+                             {
+                                 nextPlayerNo = 2;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+         else if (nextPlayerNo == 4)
+         {
+             if (isCheckTurnPack(nextPlayerNo) == false)
+             {
+                 nextPlayerNo = 4;
+             }
+             else
+             {
+                 nextPlayerNo = 5;
+                 if (isCheckTurnPack(nextPlayerNo) == false)
+                 {
+                     nextPlayerNo = 5;
+                 }
+                 else
+                 {
+                     nextPlayerNo = 1;
+                     if (isCheckTurnPack(nextPlayerNo) == false)
+                     {
+                         nextPlayerNo = 1;
+                         roundCounter++;
+                     }
+                     else
+                     {
+                         nextPlayerNo = 2;
+                         if (isCheckTurnPack(nextPlayerNo) == false)
+                         {
+                             nextPlayerNo = 2;
+                         }
+                         else
+                         {
+                             nextPlayerNo = 3;
+                             if (isCheckTurnPack(nextPlayerNo) == false)
+                             {
+                                 nextPlayerNo = 3;
+                             }
+                         }
+                     }
+                 }
+
+             }
+         }
+         else if (nextPlayerNo == 5)
+         {
+             Debug.Log("NO  = ? ");
+             if (isCheckTurnPack(nextPlayerNo) == false)
+             {
+                 Debug.Log("NO  = ? ");
+                 nextPlayerNo = 5;
+             }
+             else
+             {
+                 nextPlayerNo = 1;
+                 Debug.Log("NO  = ? " + nextPlayerNo);
+                 if (isCheckTurnPack(nextPlayerNo) == false)
+                 {
+                     nextPlayerNo = 1;
+                     Debug.Log("NO  = ? " + nextPlayerNo);
+                     roundCounter++;
+                 }
+                 else
+                 {
+                     nextPlayerNo = 2;
+                     Debug.Log("NO  = ? " + nextPlayerNo);
+                     if (isCheckTurnPack(nextPlayerNo) == false)
+                     {
+                         nextPlayerNo = 2;
+                         Debug.Log("NO  = ? " + nextPlayerNo);
+                     }
+                     else
+                     {
+                         nextPlayerNo = 3;
+                         Debug.Log("NO  = ? " + nextPlayerNo);
+                         if (isCheckTurnPack(nextPlayerNo) == false)
+                         {
+                             nextPlayerNo = 3;
+                             Debug.Log("NO  = ? " + nextPlayerNo);
+                         }
+                         else
+                         {
+                             nextPlayerNo = 4;
+                             Debug.Log("NO  = ? " + nextPlayerNo);
+                             if (isCheckTurnPack(nextPlayerNo) == false)
+                             {
+                                 nextPlayerNo = 4;
+                                 Debug.Log("NO  = ? " + nextPlayerNo);
+                             }
+                         }
+                     }
+                 }
+             }
+         }*/
+        //nextPlayerNo = playerNo;
         Debug.Log("GetPlayerTurn => " + playerNo);
-        bool isPlayerNotEnter = false;
         int nextPlayerNo = 0;
-        //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
+
+        // Check if we have reached the last player in the list
         if (playerSquList.Count == playerNo)
         {
             nextPlayerNo = 1;
@@ -3820,227 +4086,32 @@ public class TeenPattiManager : MonoBehaviour
         else
         {
             nextPlayerNo = playerNo + 1;
-            //foreach (var item in playerSquList)
-            //{
-            //    if(item.playerNo == 5 && )
-            //}
         }
 
-
-
-        if (nextPlayerNo == 1)
+        // Loop to check each player turn until a valid one is found
+        for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (isCheckTurnPack(nextPlayerNo) == false)
+            Debug.Log("Checking player: " + nextPlayerNo);
+
+            // If this player has not packed, we can exit the loop
+            if (!isCheckTurnPack(nextPlayerNo))
+            {
+                Debug.Log("Valid Player Turn: " + nextPlayerNo);
+                break;
+            }
+
+            // Otherwise, increment to the next player
+            nextPlayerNo++;
+
+            // If we've exceeded the number of players, wrap around to player 1
+            if (nextPlayerNo > playerSquList.Count)
             {
                 nextPlayerNo = 1;
+                roundCounter++;
+            }
+        }
 
-            }
-            else
-            {
-                nextPlayerNo = 2;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 2;
-                }
-                else
-                {
-                    nextPlayerNo = 3;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 3;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 4;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 4;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 5;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 5;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 2)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 2;
-            }
-            else
-            {
-                nextPlayerNo = 3;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 3;
-                }
-                else
-                {
-                    nextPlayerNo = 4;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 4;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 5;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 5;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 1;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 1;
-                                roundCounter++;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 3)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 3;
-            }
-            else
-            {
-                nextPlayerNo = 4;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 4;
-                }
-                else
-                {
-                    nextPlayerNo = 5;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 5;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 1;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 1;
-                            roundCounter++;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 2;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 4)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 4;
-            }
-            else
-            {
-                nextPlayerNo = 5;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 5;
-                }
-                else
-                {
-                    nextPlayerNo = 1;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 1;
-                        roundCounter++;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 2;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 2;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 3;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 3;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        else if (nextPlayerNo == 5)
-        {
-            Debug.Log("NO  = ? ");
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                Debug.Log("NO  = ? ");
-                nextPlayerNo = 5;
-            }
-            else
-            {
-                nextPlayerNo = 1;
-                Debug.Log("NO  = ? " + nextPlayerNo);
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 1;
-                    Debug.Log("NO  = ? " + nextPlayerNo);
-                    roundCounter++;
-                }
-                else
-                {
-                    nextPlayerNo = 2;
-                    Debug.Log("NO  = ? " + nextPlayerNo);
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 2;
-                        Debug.Log("NO  = ? " + nextPlayerNo);
-                    }
-                    else
-                    {
-                        nextPlayerNo = 3;
-                        Debug.Log("NO  = ? " + nextPlayerNo);
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 3;
-                            Debug.Log("NO  = ? " + nextPlayerNo);
-                        }
-                        else
-                        {
-                            nextPlayerNo = 4;
-                            Debug.Log("NO  = ? " + nextPlayerNo);
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 4;
-                                Debug.Log("NO  = ? " + nextPlayerNo);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //nextPlayerNo = playerNo;
-
+        Debug.Log("Final Player Turn: " + nextPlayerNo);
         print("Next Player No : " + nextPlayerNo + "");
         currentPlayer = nextPlayerNo;
         for (int i = 0; i < playerSquList.Count; i++)
@@ -4272,13 +4343,26 @@ public class TeenPattiManager : MonoBehaviour
     {
         float winnerAmount = (float)totalBetAmount;
         Debug.Log("isPotlimitCross => " + isPotlimitCross + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue + "  totalBetAmount => " + totalBetAmount);
+        int activePlayersCount = teenPattiPlayers
+     .Count(player => player.gameObject.activeSelf && player.isPack == false);
 
-        if (!isPotlimitCross && MainMenuManager.Instance.potLimitValue > totalBetAmount)
-            PlayerWinLossImgSet(playerID);
+        // If only one player is not packed, the condition is met
+        if (activePlayersCount == 1)
+        {
+            // Your condition logic here
+            Debug.Log("Only one player is not packed.");
+        }
+        else
+        {
+            // Logic for when this condition is not met
+            Debug.Log("More than one player is not packed, or all are packed.");
+            if (!isPotlimitCross && MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                PlayerWinLossImgSet(playerID);
+        }
         //print("Win No : " + winnerNo[i]);
         for (int j = 0; j < teenPattiPlayers.Count; j++)
         {
-            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeSelf == true)
+            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
                 Debug.Log("CreditWinnerAmount  ");
                 float adminPercentage = DataManager.Instance.adminPercentage;
@@ -5140,6 +5224,7 @@ public class TeenPattiManager : MonoBehaviour
             t.CardDisplay();
         }
         //CheckFinalWinner(type);
+        Debug.Log("winnerPlayer  Count => " + winnerPlayer.Count + "  iSPot  => " + isPotlimitCross);
         if (winnerPlayer.Count <= 2 && !isPotlimitCross)
             WinnerDataSet();
         bottomBox.SetActive(false);
@@ -5619,4 +5704,11 @@ public class TeenPattiManager : MonoBehaviour
 
     #endregion
 
+    public void TableInfoDataSet()
+    {
+        bootAmountText.text = "Boot Amount = " + MainMenuManager.Instance.selectedValue;
+        maxBlindsText.text = "Max Blinds = " + 4;
+        chaalLimitText.text = "Chaal Limit = " + MainMenuManager.Instance.challLimit;
+        potLimitText.text = "Pot Limit = " + MainMenuManager.Instance.potLimitValue;
+    }
 }

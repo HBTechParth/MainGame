@@ -7,6 +7,8 @@ public class AK47Player : MonoBehaviour
 {
     public Image avatarImg;
     public Text playerNameTxt;
+    public Text playerBalence;
+
     public Image cardImg1;
     public Image cardImg2;
     public Image cardImg3;
@@ -18,6 +20,7 @@ public class AK47Player : MonoBehaviour
 
     public GameObject seenImg;
     public GameObject packImg;
+    public GameObject blindIMG;
 
     public int playerNo;
     public GameObject sendBetObj;
@@ -113,7 +116,7 @@ public class AK47Player : MonoBehaviour
                 //userTurnCount++;
                 //if (userTurnCount >= 4)
                 //{
-                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
                 //}
                 CheckLife();
                 //}
@@ -400,11 +403,25 @@ public class AK47Player : MonoBehaviour
     {
         _isFunctionCalled = true;
         if (isPack) yield break;
-
+        int num1;
+     
         if (!isSeen)
         {
-            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-            yield return new WaitForSeconds(1.5f);  // Add a 2-second delay
+            num1 = Random.Range(0, 2);
+            Debug.Log("NUM  => " + num1);
+            if (num1 == 0)
+            {
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+                AK47Manager.Instance.ChangeCardStatus("Blind", playerNo, false);
+                yield return new WaitForSeconds(1.5f);
+            }
+            else if (num1 == 1)
+            {
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+                AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo, false);
+                yield return new WaitForSeconds(1.5f);  // Add a 2-second delay
+            }
         }
         float currentPrice;
         int priceIndex;
@@ -460,7 +477,7 @@ public class AK47Player : MonoBehaviour
         }
         else
         {
-            AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
+            AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
         }
     }
 
@@ -481,7 +498,7 @@ public class AK47Player : MonoBehaviour
             case 3:
                 /*AK47Manager.Instance.ShowCardToAllUser();
                 AK47Manager.Instance.CheckFinalWinner("Show");*/
-                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
                 break;
         }
     }

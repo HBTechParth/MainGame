@@ -141,5 +141,6 @@ public class Transaction
     public string transactionType;
     public string note;
     public string createdAt;
+    public string tournamentId;
 }
 

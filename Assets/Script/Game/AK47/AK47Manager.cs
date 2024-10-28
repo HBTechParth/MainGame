@@ -39,7 +39,7 @@ public class AK47Manager : MonoBehaviour
     public Sprite simpleCardSprite;
     public float[] chipPrice;
     public Sprite[] chipsSprite;
-    public GameObject chipObj;
+    public PlaceChips chipObj;
     public Transform[] playerPosition;
     public List<GameObject> spawnedCoins = new List<GameObject>();
     public BoxCollider2D boxCollider;
@@ -97,7 +97,7 @@ public class AK47Manager : MonoBehaviour
     public float timerSpeed;
     public bool isGameStop;
     public int[] numbers = { 5, 10, 20, 50, 100, 200, 250, 500, 1000, 5000 };
- //   public float[] numbers = { 0.3f, 0.5f, 1, 3, 10, 20, 250, 500, 1000, 5000 };
+    //   public float[] numbers = { 0.3f, 0.5f, 1, 3, 10, 20, 250, 500, 1000, 5000 };
     public int currentPriceIndex = 0;
     public int runningPriceIndex;
     public Image sideShowPopupImage;
@@ -426,7 +426,7 @@ public class AK47Manager : MonoBehaviour
                 }
             }
             print("No Enter : " + noEnter);
-            if(noEnter != -1)
+            if (noEnter != -1)
                 twoCardSuffle.Add(cards[noEnter]);
 
         }
@@ -538,9 +538,9 @@ public class AK47Manager : MonoBehaviour
         //    isRon = true;
         //}
         //These are AK47 rules
-        if(cards[0].cardNo == 14 || cards[0].cardNo == 13 || cards[0].cardNo == 4 || cards[0].cardNo == 7)
+        if (cards[0].cardNo == 14 || cards[0].cardNo == 13 || cards[0].cardNo == 4 || cards[0].cardNo == 7)
         {
-            if(cards[2].cardNo == cards[1].cardNo + 1 || cards[2].cardNo == cards[1].cardNo + 2)
+            if (cards[2].cardNo == cards[1].cardNo + 1 || cards[2].cardNo == cards[1].cardNo + 2)
             {
                 isRon = true;
                 //cards[0].cardNo = 0;
@@ -629,7 +629,7 @@ public class AK47Manager : MonoBehaviour
         CardSuffle temp = new CardSuffle();
         for (int i = 0; i < cards.Count; i++)
         {
-            if(cards[i].cardNo == 1 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
+            if (cards[i].cardNo == 1 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
             {
                 cards[i].cardNo = 14;
                 temp = cards[0];
@@ -745,7 +745,7 @@ public class AK47Manager : MonoBehaviour
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
         priceBtnTxt.text = "Chaal : " + currentPriceValue;
-        ChangeCardStatus("SEEN", player1.playerNo);
+        ChangeCardStatus("SEEN", player1.playerNo,false);
     }
 
     public void GiftButtonClick(TeenPattiPlayer giftPlayer)
@@ -761,7 +761,12 @@ public class AK47Manager : MonoBehaviour
         isGameStarted = false;
         DeleteAllCoins();
         yield return new WaitForSeconds(6f);
-
+        for (int j = 0; j < playerSquList.Count; j++)
+        {
+            playerSquList[j].cardImg1.GetComponent<Image>().DOFade(1f, 0.5f);
+            playerSquList[j].cardImg2.GetComponent<Image>().DOFade(1f, 0.5f);
+            playerSquList[j].cardImg3.GetComponent<Image>().DOFade(1f, 0.5f);
+        }
         //print("Enther The Generate Player");
         if (isAdmin)
         {
@@ -842,6 +847,7 @@ public class AK47Manager : MonoBehaviour
             }
             currentPlayer.packImg.SetActive(false);
             currentPlayer.seenImg.SetActive(false);
+            currentPlayer.blindIMG.SetActive(false);
             currentPlayer.cardImg1.gameObject.SetActive(false);
             currentPlayer.cardImg2.gameObject.SetActive(false);
             currentPlayer.cardImg3.gameObject.SetActive(false);
@@ -874,6 +880,8 @@ public class AK47Manager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -883,6 +891,8 @@ public class AK47Manager : MonoBehaviour
                 else
                 {
                     player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player2.playerNo = (i + 1);
@@ -911,6 +921,8 @@ public class AK47Manager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -936,6 +948,8 @@ public class AK47Manager : MonoBehaviour
                         {
 
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -948,6 +962,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -974,6 +990,8 @@ public class AK47Manager : MonoBehaviour
                         {
 
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -987,6 +1005,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1013,6 +1033,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1024,6 +1046,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1045,6 +1069,8 @@ public class AK47Manager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
@@ -1069,6 +1095,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1080,6 +1108,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1091,6 +1121,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1104,6 +1136,8 @@ public class AK47Manager : MonoBehaviour
             }
             else if (player1.playerNo == 2)
             {
+                Debug.Log("NO ________>     2-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1116,19 +1150,23 @@ public class AK47Manager : MonoBehaviour
                     {
                         if (cntPlayer == 0)
                         {
-                            player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                            player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                            player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
-                            player3.playerNo = (i + 1);
-                            player3.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                            player3.UpdateAvatar();
-                            playerSquList.Add(player3);
-                            playerSquList.Add(player1);
+                            player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
+                            player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                            player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            player4.playerNo = (i + 1);
+                            player4.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                            player4.UpdateAvatar();
+                            playerSquList.Add(player4);
                             cntPlayer++;
                         }
                         else if (cntPlayer == 1)
                         {
+
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1136,16 +1174,21 @@ public class AK47Manager : MonoBehaviour
                             player2.UpdateAvatar();
                             playerSquList.Add(player2);
                             cntPlayer++;
+
+
                         }
                         else if (cntPlayer == 2)
                         {
-                            player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                            player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                            player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
-                            player4.playerNo = (i + 1);
-                            player4.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                            player4.UpdateAvatar();
-                            playerSquList.Add(player4);
+                            player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
+                            player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                            player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            player3.playerNo = (i + 1);
+                            player3.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                            player3.UpdateAvatar();
+                            playerSquList.Add(player3);
+                            playerSquList.Add(player1);
                             cntPlayer++;
                         }
                     }
@@ -1166,6 +1209,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1177,6 +1222,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1189,6 +1236,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1215,6 +1264,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1226,6 +1277,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1237,6 +1290,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1259,6 +1314,8 @@ public class AK47Manager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -1282,6 +1339,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1293,6 +1352,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1305,6 +1366,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1316,6 +1379,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1343,6 +1408,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1354,6 +1421,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1366,6 +1435,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1377,6 +1448,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1404,6 +1477,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1416,6 +1491,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1428,6 +1505,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1439,6 +1518,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1466,6 +1547,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1477,6 +1560,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1489,6 +1574,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1501,6 +1588,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1528,6 +1617,8 @@ public class AK47Manager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1539,6 +1630,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1551,6 +1644,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1562,6 +1657,8 @@ public class AK47Manager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1574,79 +1671,119 @@ public class AK47Manager : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(1f);
+        ActivateBotPlayers();
 
+
+
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+                Debug.Log(".");
+            }
+            else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                Debug.Log("<color=blue>.</color>");
+                StartBetTORealPlayer(teenPattiPlayers[i]);
+            }
+        }
+
+
+        yield return new WaitForSeconds(1f);
         int playerSend = DataManager.Instance.joinPlayerDatas.Count;
 
         float speed = 0.2f;
 
-        // first card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        Debug.Log($"Starting card distribution for {playerSend} players.");
+
+        // Track the number of cards each active player has received
+        int[] cardsGiven = new int[teenPattiPlayers.Count];
+        int totalCardsDistributed = 0;
+        int totalCardsNeeded = playerSend * 3; // Each active player needs 3 cards
+
+        // Continue distributing cards until all active players have received three cards each
+        while (totalCardsDistributed < totalCardsNeeded)
         {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            bool cardDistributedInThisRound = false;
+
+            for (int i = 0; i < teenPattiPlayers.Count; i++)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg1.transform.position, speed).OnComplete(() =>
+                Debug.Log(" cardsGiven = > " + cardsGiven[i]);
+                if (teenPattiPlayers[i].gameObject.activeSelf && cardsGiven[i] < 3)
                 {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
-                });
+                    int currentCardIndex = cardsGiven[i] + 1; // Card index to be distributed (1, 2, or 3)
+                    Debug.Log($"Player {i + 1} is active. Sending card {currentCardIndex}...");
 
-                yield return new WaitForSeconds(speed);
+                    GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
+                    SoundManager.Instance.CasinoCardMoveSound();
+                    obj.transform.position = cardTmpStart.transform.position;
+
+                    // Determine which card image to move to (cardImg1, cardImg2, or cardImg3)
+                    Transform targetCardPosition = currentCardIndex switch
+                    {
+                        1 => teenPattiPlayers[i].cardImg1.transform, // First card position
+                        2 => teenPattiPlayers[i].cardImg2.transform, // Second card position
+                        3 => teenPattiPlayers[i].cardImg3.transform, // Third card position
+                        _ => null
+                    };
+
+                    Debug.Log($"Card {currentCardIndex} is moving to Player {i + 1}'s position...");
+
+                    // Perform the animation to move the card to the appropriate position
+                    obj.transform.DOMove(targetCardPosition.position, speed).OnComplete(() =>
+                    {
+                        Debug.Log($"Card {currentCardIndex} reached Player {i + 1}. Activating card image...");
+                        Destroy(obj);
+
+                        // Activate the appropriate card image once the animation is complete
+                        switch (currentCardIndex)
+                        {
+                            case 1:
+                                teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - First card activated.");
+                                break;
+                            case 2:
+                                teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Second card activated.");
+                                break;
+                            case 3:
+                                teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Third card activated.");
+                                break;
+                        }
+                    });
+
+                    // Update tracking variables
+                    cardsGiven[i]++;
+                    totalCardsDistributed++;
+
+                    // Indicate that a card was distributed in this round
+                    cardDistributedInThisRound = true;
+
+                    // Wait for the animation to complete before moving to the next player
+                    yield return new WaitForSeconds(speed);
+
+                    // Exit loop if all cards have been distributed
+                    if (totalCardsDistributed >= totalCardsNeeded)
+                    {
+                        break;
+                    }
+                }
             }
 
-        }
-        yield return new WaitForSeconds(speed);
-        // second card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            // Check if no card was distributed in this round (safety check to prevent infinite loop)
+            if (!cardDistributedInThisRound)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg2.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
+                Debug.LogError("No card was distributed in this round! Exiting to prevent infinite loop.");
+                break;
             }
-
         }
-        yield return new WaitForSeconds(speed);
-        //Third card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
-            {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
 
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg3.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
-            }
-
-        }
+        Debug.Log("All three cards have been successfully distributed to all active players.");
 
         yield return new WaitForSeconds(speed);
         for (int i = 0; i < player1.seeObj.Length; i++)
@@ -1682,7 +1819,6 @@ public class AK47Manager : MonoBehaviour
 
         isGameStop = false;
 
-        ActivateBotPlayers();
         isBotActivate = true;
         for (int i = 0; i < playerSquList.Count; i++)
         {
@@ -1835,7 +1971,7 @@ public class AK47Manager : MonoBehaviour
         if (!isGameStop)
         {
             SoundManager.Instance.ButtonClick();
-            ChangeCardStatus("PACK", player1.playerNo);
+            ChangeCardStatus("PACK", player1.playerNo,true);
             bottomBox.SetActive(false);
         }
     }
@@ -2037,7 +2173,22 @@ public class AK47Manager : MonoBehaviour
         DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 2);
         playerBetAmount += currentPriceValue;
     }
+    public void StartBetTORealPlayer(AK47Player player)
+    {
+        if (CheckMoney(currentPriceValue) == false)
+        {
+            SoundManager.Instance.ButtonClick();
+            Debug.Log("OpenErrorScreen");
 
+           // OpenErrorScreenONBET();
+            return;
+        }
+        SoundManager.Instance.ThreeBetSound();
+        string id = player.playerId;
+        BetAnim(player, currentPriceValue, currentPriceIndex);
+        DataManager.Instance.DebitAmount((currentPriceValue).ToString(), id, "TeenPatti-Bet-" + id, "game", 2);
+        playerBetAmount += currentPriceValue;
+    }
     public void BetButtonClick()
     {
         if (!isGameStop)
@@ -2081,7 +2232,7 @@ public class AK47Manager : MonoBehaviour
         {
             currentPriceValue = doubleLimitValue;
             currentPriceIndex = 1;
-            
+
             if (CheckMoney(currentPriceValue) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
@@ -2175,19 +2326,36 @@ public class AK47Manager : MonoBehaviour
 
     public void BetAnim(AK47Player player, float amount, int priceIndex)
     {
-        /*GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
-        genBetObj.transform.GetChild(1).GetComponent<Text>().text = amount.ToString();
-        genBetObj.transform.position = player.sendBetObj.transform.position;
-        genBetObj.transform.DOMove(targetBetObj.transform.position, 0.3f).OnComplete(() =>
-        {
-            Destroy(genBetObj);
-            totalBetAmount += amount;
-            betAmountTxt.text = totalBetAmount.ToString();
-        });*/
+        Debug.LogError("totalBetAmount amount  => " + amount);
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
         totalBetAmount += amount;
-        betAmountTxt.text = totalBetAmount.ToString();
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
+        float currentBalance = float.Parse(player.playerBalence.text);
+        Debug.Log("currentBalance => " + currentBalance);
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        // Subtract the amount from the balance
+        currentBalance -= amount;
+        Debug.LogError("CHAL AMount  " + amount);
+        // Update the player's balance text with the new balance
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas[i].userId + "   DataManager.Instance.playerData._id   =>  " + DataManager.Instance.playerData._id);
+            if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(player.playerId))
+            {
+                float balance;
+                if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out balance))
+                {
+                    balance -= amount;
 
-        SpawnCoin(priceIndex);
+                    DataManager.Instance.joinPlayerDatas[i].balance = balance.ToString();
+                }
+            }
+        }
+        player.playerBalence.text = currentBalance.ToString();
+        betAmountTxt.text = totalBetAmount.ToString("0.##");
+        Debug.Log("PRICE INDEX _______ > " + priceIndex);
+
+        SpawnCoin(priceIndex, player.transform, amount);
     }
 
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
@@ -2434,11 +2602,25 @@ public class AK47Manager : MonoBehaviour
         SlideShowSendSocket(sendId, currentId, "Cancel");
     }
 
-    private void SpawnCoin(int priceIndex)
+    private void SpawnCoin(int priceIndex, Transform player, float amount)
     {
-        //Instantiate(chipObj, boxCollider.transform);
-        Vector3 dPos = GetRandomPositionWithinTransform(chipsTransform);
-        AK47Player chipOrigin = new AK47Player();
+        if (chipObj == null)
+        {
+            Debug.LogError("chipObj is null");
+            return;
+        }
+
+        if (teenPattiPlayers == null || teenPattiPlayers.Count == 0)
+        {
+            Debug.LogError("teenPattiPlayers list is null or empty");
+            return;
+        }
+
+        Debug.Log("SpawnCoin called");
+
+        Vector3 dPos = GetRandomPosInBoxCollider2D();
+        AK47Player chipOrigin = null;
+
         foreach (var item in teenPattiPlayers)
         {
             if (item.playerNo == currentPlayer)
@@ -2447,19 +2629,49 @@ public class AK47Manager : MonoBehaviour
                 break;
             }
         }
-        GameObject coin = Instantiate(chipObj, /*playerPosition[currentPlayer - 1]*/chipOrigin.transform);
-        coin.transform.parent = chipsTransform;
-        coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
-        //coin.transform.position = new Vector3(targetBetObj.transform.position.x, targetBetObj.transform.position.y, 0f);
-        ChipGenerate(coin, dPos);
-        spawnedCoins.Add(coin);
-        /*GameObject genBetObj = Instantiate(chipObj, playerPosition[currentPlayer - 1]);
-        genBetObj.transform.GetComponent<Image>().sprite = chipsSprite[currentPriceIndex];
-        genBetObj.transform.position = playerPosition[currentPlayer - 1].transform.position;
-        genBetObj.transform.DOMove(targetBetObj.transform.position, 0.3f).OnComplete(() =>
+
+        if (chipOrigin == null || chipOrigin.transform == null)
         {
-            spawnedCoins.Add(genBetObj);
-        });*/
+            Debug.LogError("chipOrigin or chipOrigin.transform is null");
+            return;
+        }
+
+
+        PlaceChips coin = Instantiate(chipObj, chipOrigin.transform);
+        coin.amountText.text = "" + amount;
+        Debug.LogError("SWAP CHIP AMOUNT =>   " + amount);
+        if (amount > 0 && amount <= 50)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[0];
+        }
+        else if (amount > 50 && amount <= 500)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[1];
+        }
+        else if (amount > 500 && amount <= 1000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[2];
+        }
+        else if (amount > 1000 && amount <= 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[3];
+        }
+        else if (amount > 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[4];
+        }
+
+
+        if (player == null || player.transform == null)
+        {
+            Debug.LogError("Player or Player.transform is null");
+            return;
+        }
+
+        ChipGenerate(coin.gameObject, player.transform, dPos);
+        spawnedCoins.Add(coin.gameObject);
+
+        Debug.Log("Coin spawned and added to the list");
     }
 
     public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
@@ -2487,15 +2699,24 @@ public class AK47Manager : MonoBehaviour
         float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, 90f);
     }
-    public void ChipGenerate(GameObject chip, Vector3 endPos)
+    public void ChipGenerate(GameObject chip, Transform playerStartPosition, Vector3 endPos)
     {
-        //chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
-        chip.transform.DOLocalMove(endPos, 0.2f).OnComplete(() =>
+        // Set the chip's starting position to the player's position
+        chip.transform.position = playerStartPosition.position;
+
+        // Random rotation for the chip
+        chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
+
+        // Move the chip to the end position
+        chip.transform.DOMove(endPos, 0.3f).OnComplete(() =>
         {
-            chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
+            // Scale down slightly and then back to normal
+            chip.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.1f).OnComplete(() =>
             {
                 chip.transform.DOScale(Vector3.one, 0.07f);
-                chip.transform.SetParent(playerPosition[currentPlayer - 1]);
+
+                // Optionally set the parent if needed (you can remove this if it's not required)
+                chip.transform.SetParent(playerStartPosition);
             });
         });
     }
@@ -3146,7 +3367,7 @@ public class AK47Manager : MonoBehaviour
         TestSocketIO.Instace.Senddata("TeenPattiWinnerData", obj);
     }
 
-    public void ChangeCardStatus(string value, int pno)
+    public void ChangeCardStatus(string value, int pno, bool isSlidShowSend)
     {
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3155,7 +3376,7 @@ public class AK47Manager : MonoBehaviour
         obj.AddField("PlayerNo", pno);
         obj.AddField("CardStatus", value);
         obj.AddField("Action", "CardStatus");
-
+        obj.AddField("Method", isSlidShowSend);
         //player1.isSeen = true;
 
         TestSocketIO.Instace.Senddata("TeenPattiChangeCardStatus", obj);
@@ -3179,7 +3400,7 @@ public class AK47Manager : MonoBehaviour
         bool isPlayerNotEnter = false;
         int nextPlayerNo = 0;
         //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
-        if (playerNo == 5)
+        if (playerSquList.Count == playerNo)
         {
             nextPlayerNo = 1;
             roundCounter++;
@@ -3746,8 +3967,8 @@ public class AK47Manager : MonoBehaviour
             priceBtnTxt.text = "Chaal\n" + currentPriceValue;
         }
     }*/
-    
-    const float epsilon = 0.0001f; 
+
+    const float epsilon = 0.0001f;
 
     public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
     {
@@ -3802,6 +4023,7 @@ public class AK47Manager : MonoBehaviour
         }
         if (teenPattiPlayers[playerIndex].isBlind)
         {
+            teenPattiPlayers[playerIndex].blindIMG.SetActive(true);
             isB = true;
         }
         else if (teenPattiPlayers[playerIndex].isSeen)
@@ -3817,7 +4039,7 @@ public class AK47Manager : MonoBehaviour
                 //currentPriceValue = minLimitValue;
                 //currentPriceValue = curPrice;
                 currentSeenValue = curPrice;
-                if(player1.isTurn)
+                if (player1.isTurn)
                     currentPriceValue = currentBlindValue;
             }
             else if (isB)
@@ -3904,8 +4126,10 @@ public class AK47Manager : MonoBehaviour
         //print("Card Status : " + value + "    Player No  :" + playerNo);
         for (int i = 0; i < playerSquList.Count; i++)
         {
+
             if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == playerNo)
             {
+                Debug.Log("VALUE =>  " + value);
                 if (value.Equals("SEEN"))
                 {
                     playerSquList[i].isSeen = true;
@@ -3914,8 +4138,21 @@ public class AK47Manager : MonoBehaviour
                     ShowTextChange();
                     //ShowTextChange(teenPattiPlayers[i]);
 
-                    Debug.Log("Hereeeee");
                     playerSquList[i].seenImg.SetActive(true);
+                    playerSquList[i].blindIMG.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
+                }
+                else if (value.Equals("Blind"))
+                {
+                    playerSquList[i].isSeen = false;
+                    playerSquList[i].isBlind = true;
+                    playerSquList[i].isPack = false;
+                    ShowTextChange();
+                    //ShowTextChange(teenPattiPlayers[i]);
+
+                    playerSquList[i].blindIMG.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
                 }
                 else if (value.Equals("PACK"))
                 {
@@ -3927,8 +4164,16 @@ public class AK47Manager : MonoBehaviour
                         playerSquList[i].seeObj[j].SetActive(false);
                     }
                     playerSquList[i].packImg.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].blindIMG.SetActive(false);
+
+
+                    playerSquList[i].cardImg1.GetComponent<Image>().DOFade(0.7f, 0.5f);
+                    playerSquList[i].cardImg2.GetComponent<Image>().DOFade(0.7f, 0.5f);
+                    playerSquList[i].cardImg3.GetComponent<Image>().DOFade(0.7f, 0.5f);
                     //CheckWin();
                     CheckPackTime(playerSquList[i]);
+
                     // Greejesh Pack Check
 
 
@@ -3999,23 +4244,44 @@ public class AK47Manager : MonoBehaviour
         {
             if (teenPattiPlayers[i].playerId.Equals(leavePlayerId))
             {
+                // Log when a player is found with matching playerId
+                Debug.Log($"Player with ID: {leavePlayerId} found at index {i}");
+
                 teenPattiPlayers[i].isPack = true;
                 teenPattiPlayers[i].isBlind = false;
                 teenPattiPlayers[i].isSeen = false;
+
+                // Log state changes of the player
+                Debug.Log($"Player {teenPattiPlayers[i].playerNameTxt.text} is now packed. Blind: {teenPattiPlayers[i].isBlind}, Seen: {teenPattiPlayers[i].isSeen}");
+
                 for (int j = 0; j < teenPattiPlayers[i].seeObj.Length; j++)
                 {
                     teenPattiPlayers[i].seeObj[j].SetActive(false);
+                    // Log the deactivation of see objects
+                    Debug.Log($"Deactivated seeObj[{j}] for player {teenPattiPlayers[i].playerNameTxt.text}");
                 }
-                teenPattiPlayers[i].packImg.SetActive(true);
 
-                //teenPattiPlayers[i].gameObject.SetActive(false);
-                //DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[i]);
+                teenPattiPlayers[i].packImg.SetActive(true);
+                teenPattiPlayers[i].blindIMG.SetActive(false);
+                teenPattiPlayers[i].seenImg.SetActive(false);
+                // Log the activation of the pack image
+                Debug.Log($"Activated pack image for player {teenPattiPlayers[i].playerNameTxt.text}");
+
+                // Start coroutine to remove player with log
+                Debug.Log($"Starting coroutine to remove player {teenPattiPlayers[i].playerNameTxt.text}");
                 StartCoroutine(WaitGameToCompleteRemovePlayer(CheckLeftPlayer, i));
+
+                // Log the pack time check
+                Debug.Log($"Checking pack time for player {teenPattiPlayers[i].playerNameTxt.text}");
                 CheckPackTime(teenPattiPlayers[i]);
-                if (teenPattiPlayers[i].isTurn)
+                if (teenPattiPlayers[i].isTurn )
                 {
+                    // Log the change of turn if it's the current player's turn
+                    Debug.Log($"It was {teenPattiPlayers[i].playerNameTxt.text}'s turn. Changing to the next player.");
                     ChangePlayerTurn(teenPattiPlayers[i].playerNo);
                 }
+
+                Debug.Log($"teenPattiPlayers[i].isTurn  {teenPattiPlayers[i].isTurn}");
             }
         }
 
@@ -4059,16 +4325,20 @@ public class AK47Manager : MonoBehaviour
                 }
             }
         }*/
-
+        Debug.Log("playerData  = " + DataManager.Instance.playerData._id + "   joinPlayerDatas  = " + DataManager.Instance.joinPlayerDatas[0].userId);
         if (DataManager.Instance.playerData._id.Equals(DataManager.Instance.joinPlayerDatas[0].userId))
         {
+            Debug.Log("ISADMIN   =" + isAdmin);
             isAdmin = true;
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas.Count + "   waitNextRoundScreenObj  > " + waitNextRoundScreenObj.activeSelf);
             if (DataManager.Instance.joinPlayerDatas.Count == 5 && waitNextRoundScreenObj.activeSelf)
             {
                 DataManager.Instance.joinPlayerDatas.RemoveAt(0);
                 //RoundGenerate();
                 CheckJoinedPlayers();
                 StartGamePlay();
+                Debug.LogError("StartGamePlay");
+
                 if (waitNextRoundScreenObj.activeSelf)
                 {
                     waitNextRoundScreenObj.SetActive(false);
@@ -4079,11 +4349,13 @@ public class AK47Manager : MonoBehaviour
         }
         else
         {
+            Debug.Log("isGameStarted   =>  " + isGameStarted);
             if (!isGameStarted)
             {
                 isAdmin = false;
             }
 
+            Debug.Log("Count   =>  " + DataManager.Instance.joinPlayerDatas.Count);
             if (DataManager.Instance.joinPlayerDatas.Count < 6) return;
             int index = DataManager.Instance.joinPlayerDatas.FindIndex(leftPlayer => leftPlayer.userId == leavePlayerId);
             DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[index]);
@@ -4711,8 +4983,8 @@ public class AK47Manager : MonoBehaviour
     }
 
     #endregion
-    
-    
+
+
     #region Sounds
 
     private void CheckSound()
@@ -4735,7 +5007,7 @@ public class AK47Manager : MonoBehaviour
             soundImg.sprite = soundonSprite;
         }
     }
-    
+
 
     public void VibrationButtonClick()
     {
@@ -4751,7 +5023,7 @@ public class AK47Manager : MonoBehaviour
             vibrationImg.sprite = vibrationonSprite;
         }
     }
-    
+
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();

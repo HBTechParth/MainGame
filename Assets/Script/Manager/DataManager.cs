@@ -593,6 +593,7 @@ public class DataManager : MonoBehaviour
                 };
                 t.betAmount = data[i]["betAmount"];
                 t.minBet = data[i]["minBet"];
+                t.minbuy = data[i]["minbuy"];
                 t.maxBet = data[i]["maxBet"];
                 t.maxPayout = data[i]["maxPayout"];
                 t.challLimit = data[i]["challLimit"];
@@ -839,7 +840,7 @@ public class DataManager : MonoBehaviour
 
     public void DebitAmount(string amount, string roomId, string note, string logType, int betNo)
     {
-        print("amount :  " + amount);
+        print("DebitAmount    - - - - - - - -     amount :  " + amount);
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
         form.AddField("gameId", roomId);
@@ -847,7 +848,7 @@ public class DataManager : MonoBehaviour
         form.AddField("logType", logType);
         form.AddField("betNo", betNo);
         form.AddField("tournamentId", tournamentID);
-        print("This is the debet data -> " + form);
+        Debug.Log($"DebitAmount called with data: amount = {amount}, roomId = {roomId}, note = {note}, logType = {logType}, betNo = {betNo}, tournamentID = {tournamentID}");
         DebitAmount_Send(form);
     }
 
@@ -873,6 +874,7 @@ public class DataManager : MonoBehaviour
             }
         }
         print("<color=blue> Debit Value : </color>" + request.downloadHandler.text);
+        Debug.Log("Debit Value data =>    " + JSON.Parse(values["data"].ToString()));
         Setplayerdata(data);
         //Balance_Txt.text = data["balance"].ToString().Trim('"');
         //        playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
