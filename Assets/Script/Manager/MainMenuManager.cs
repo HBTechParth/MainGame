@@ -343,7 +343,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                             //    Debug.Log("Amount   =? " + item.betAmount);
 
@@ -389,7 +389,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                     }
@@ -485,7 +485,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                     }
@@ -519,7 +519,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                     }
@@ -554,7 +554,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                         Debug.Log("Point Amount   =? " + item.betAmount);
@@ -591,7 +591,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                     }
@@ -626,7 +626,7 @@ public class MainMenuManager : MonoBehaviour
                         {
                             minBetValues.Add(item.betAmount);
                             potValue.Add(item.potLimit);
-                            minBuy.Add(item.minbuy);
+                            minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
                         }
                     }
@@ -1086,7 +1086,7 @@ public class MainMenuManager : MonoBehaviour
             {
                 minBetValues.Add(item.betAmount);
                 potValue.Add(item.potLimit);
-                minBuy.Add(item.minbuy);
+                minBuy.Add(item.minBuy);
                 chalLimit.Add(item.challLimit);
             }
         }
@@ -2556,7 +2556,7 @@ public class TournamentData
     public float maxPayout;
     public float challLimit;
     public float potLimit;
-    public float minbuy;
+    public float minBuy;
     public int players;
     public int winner;
     public List<string> winnerRow = new List<string>();

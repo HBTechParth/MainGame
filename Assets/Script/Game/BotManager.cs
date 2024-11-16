@@ -35,7 +35,7 @@ public class BotManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        //GenerateName();
+        GenerateName();
     }
 
     // Start is called before the first frame update

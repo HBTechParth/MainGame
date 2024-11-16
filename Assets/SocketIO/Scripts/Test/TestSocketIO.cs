@@ -2058,6 +2058,8 @@ public class TestSocketIO : MonoBehaviour
 
                 TeenPattiManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice);
             }
+
+            TeenPattiManager.Instance.ShowStatus(playerID, betType);
         }
         else if (SceneManager.GetActiveScene().name == "Joker")
         {

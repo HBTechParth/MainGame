@@ -594,13 +594,13 @@ public class TeenPattiPlayer : MonoBehaviour
             Debug.Log("--------------------------------------------------------------------------------");
 
             // Check if the player is going to pack based on num == 5 and other conditions
-            if (num == 5 && TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo != this.playerNo)
-            {
-                // Player is going to pack, no need to call GetAdjacentPlayersPrice
-                Debug.Log("Player will pack, skipping GetAdjacentPlayersPrice...");
-                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
-                yield break; // Exit coroutine as the player is packing
-            }
+            /*  if (num == 5 && TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo != this.playerNo)
+              {
+                  // Player is going to pack, no need to call GetAdjacentPlayersPrice
+                  Debug.Log("Player will pack, skipping GetAdjacentPlayersPrice...");
+                  TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                  yield break; // Exit coroutine as the player is packing
+              }*/
 
             // Call GetAdjacentPlayersPrice if packing condition is not met
             GetAdjacentPlayersPrice(playerNo, out currentPrice, out priceIndex);
@@ -631,13 +631,18 @@ public class TeenPattiPlayer : MonoBehaviour
         //TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
     }
 
+
+
     private void HandleBetForRounds(int num)
     {
+        Debug.Log("SHIGHAM AGAIN   =>  " + num);
+        TeenPattiManager.Instance.CheckActivePlayer();
         Debug.LogError("NUM => " + num);
         float playerBalanceValue;
         if (float.TryParse(playerBalence.text, out playerBalanceValue))
         {
             Debug.Log("playerBalence => " + playerBalence.text + "   currentPriceValue  =>  " + TeenPattiManager.Instance.currentPriceValue);
+
             if (playerBalanceValue < TeenPattiManager.Instance.currentPriceValue)
             {
                 Debug.Log("ChangeCardStatus   =>  " + playerNo + "  ");
@@ -647,47 +652,82 @@ public class TeenPattiPlayer : MonoBehaviour
             }
             else
             {
+                bool isDoubleBet = isSeen && Random.Range(0, 5) == 4;
+
+                float potentialBetAmount = TeenPattiManager.Instance.currentPriceValue * 2;
+
+                float betAmount = (isDoubleBet && potentialBetAmount <= MainMenuManager.Instance.challLimit)
+                    ? potentialBetAmount
+                    : TeenPattiManager.Instance.currentPriceValue;
+
+                TeenPattiManager.Instance.currentPriceValue = betAmount;
+                Debug.Log("BOT CHALL     =>    " + betAmount);
                 if (num != 5)
                 {
-                    SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-                    Debug.LogError("mahadeV - BOT1 =>  " + TeenPattiManager.Instance.currentPriceValue);
-                    TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                    SendBotBetNo(num, playerNo, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                    Debug.LogError("mahadeV - BOT1 =>  " + betAmount);
+                    TeenPattiManager.Instance.BetAnim(this, betAmount, TeenPattiManager.Instance.currentPriceIndex);
                     SoundManager.Instance.ThreeBetSound();
                     TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
                 }
-                else if (TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo == this.playerNo)
-                {
-                    SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-                    Debug.LogError("mahadeV - BOT2 => " + TeenPattiManager.Instance.currentPriceValue);
-                    TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-                    SoundManager.Instance.ThreeBetSound();
-                    TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
-                }
+                /* else if (TeenPattiManager.Instance.winningBotNo != -1 && TeenPattiManager.Instance.winningBotNo == this.playerNo)
+                 {
+                     SendBotBetNo(num, playerNo, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                     Debug.LogError("mahadeV - BOT2 => " + betAmount);
+                     TeenPattiManager.Instance.BetAnim(this, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                     SoundManager.Instance.ThreeBetSound();
+                     TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
+                 }*/
                 else
                 {
-                    Debug.Log("ChangeCardStatus   =>  " + playerNo);
-                    TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                    int n = Random.Range(0, 2);
+
+                    Debug.Log("SHIGHAM AGAIN   =  " + n);
+
+                    if (n == 0)
+                    {
+                        Debug.Log("ChangeCardStatus PACK  =>  " + playerNo);
+                        BotShow();
+                    }
+                    else
+                    {
+                        SendBotBetNo(num, playerNo, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                        Debug.LogError("mahadeV - BOT1 =>  " + betAmount);
+                        TeenPattiManager.Instance.BetAnim(this, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                        SoundManager.Instance.ThreeBetSound();
+                        TeenPattiManager.Instance.ChangePlayerTurn(playerNo);
+                    }
                 }
             }
         }
     }
 
-
     private void HandleBetForOtherRounds(int num)
     {
+        Debug.Log("SHIGHAM AGAIN  1   =  " + num);
+        TeenPattiManager.Instance.CheckActivePlayer();
+
         float playerBalanceValue;
         if (float.TryParse(playerBalence.text, out playerBalanceValue))
         {
             if (playerBalanceValue < TeenPattiManager.Instance.currentPriceValue)
             {
                 TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
-                Debug.Log("<color=red>------------------------------------------- Not money ----------------------------------------------<color>");
+                Debug.Log("<color=red>------------------------------------------- Not enough money ----------------------------------------------<color>");
                 return;
-                /* SoundManager.Instance.ThreeBetSound();
-                 TeenPattiManager.Instance.ChangePlayerTurn(playerNo);*/
             }
-
         }
+
+        bool isDoubleBet = isSeen && Random.Range(0, 5) == 4;
+
+        float potentialBetAmount = TeenPattiManager.Instance.currentPriceValue * 2;
+
+        float betAmount = (isDoubleBet && potentialBetAmount <= MainMenuManager.Instance.challLimit)
+            ? potentialBetAmount
+            : TeenPattiManager.Instance.currentPriceValue;
+
+        TeenPattiManager.Instance.currentPriceValue = betAmount;
+        Debug.Log("BOT CHALL     =>    " + betAmount);
 
         switch (num)
         {
@@ -695,10 +735,10 @@ public class TeenPattiPlayer : MonoBehaviour
             case 2:
             case 4:
             case 5:
-                SendBotBetNo(num, playerNo, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
-                Debug.LogError("mahadeV -bOT3");
+                SendBotBetNo(num, playerNo, betAmount, TeenPattiManager.Instance.currentPriceIndex);
+                Debug.LogError("mahadeV - BOT3");
 
-                TeenPattiManager.Instance.BetAnim(this, TeenPattiManager.Instance.currentPriceValue, TeenPattiManager.Instance.currentPriceIndex);
+                TeenPattiManager.Instance.BetAnim(this, betAmount, TeenPattiManager.Instance.currentPriceIndex);
                 SoundManager.Instance.ThreeBetSound();
                 Debug.Log("ChangeCardStatus   =>  " + playerNo);
 
@@ -706,68 +746,174 @@ public class TeenPattiPlayer : MonoBehaviour
                 break;
 
             case 3:
-                /*TeenPattiManager.Instance.ShowCardToAllUser();
-                TeenPattiManager.Instance.CheckFinalWinner("Show");*/
-                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                BotShow();
                 break;
         }
-
     }
+    public void BotShow()
+    {
+        if (TeenPattiManager.Instance.activePlayerOnTable == 2)
+        {
+            int n = Random.Range(0, 3);
+            if (n == 2)
+            {
+                TeenPattiManager.Instance.ShowCardToAllUser();
+                TeenPattiManager.Instance.CheckAllPlayers(TeenPattiManager.Instance.winnerPlayer);
+            }
+            else
+            {
+                Debug.Log("PLAYER PACK =  " + playerNo);
+                TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+            }
+        }
+        else
+        {
+            Debug.Log("PLAYER PACK =  " + playerNo);
+            TeenPattiManager.Instance.ChangeCardStatus("PACK", playerNo, false);
+        }
+    }
+
 
     TeenPattiPlayer prevPlayer;
     TeenPattiPlayer currPlayer;
     public void GetAdjacentPlayersPrice(int playerNo, out float currentPriceValue, out int currentPriceIndex)
     {
         Debug.Log("<color=red> ============= Enter GetAdjacentPlayersPrice ========  </color>");
-        int totalPlayers = TeenPattiManager.Instance.teenPattiPlayers.Count;
 
 
-        /*Debug.Log(".............. Pla No  => " + playerNo);
+        // Check if we have reached the last player in the list
+        /* int totalPlayers = DataManager.Instance.joinPlayerDatas.Count;
 
-        int previousPlayerIndex = (playerNo - 1 + totalPlayers) % totalPlayers;
+         //int totalPlayers = TeenPattiManager.Instance.teenPattiPlayers.Count;
+         // int previousPlayerIndex = playerNo - 1;  // Start from the player before the current player
+         //int totalPlayers = DataManager.Instance.joinPlayerDatas.Count;
 
-        Debug.Log(".............. previousPlayerIndex  => " + previousPlayerIndex);
-        // Get the previous non-packed player
-        var prevPlayer = GetNonPackPlayer(previousPlayerIndex, totalPlayers, -1);*/
-        int previousPlayerIndex;
+         int previousPlayerIndex;
 
-        // Get the total number of players in the game.
+         // Get the total number of players in the game.
 
-        // Calculate the starting previous index.
-        previousPlayerIndex = (playerNo - 1);
+         // Calculate the starting previous index.
+         previousPlayerIndex = (playerNo - 1);
 
-        // If `playerNo` is 1, set previous to the last player.
-        if (previousPlayerIndex < 1)
-        {
-            previousPlayerIndex = totalPlayers;
-        }
+         // If playerNo is 1, set previous to the last player.
+         if (previousPlayerIndex < 1)
+         {
+             previousPlayerIndex = totalPlayers;
+         }
 
-        // Loop backward until we find a non-packed player.
-        while (TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].isPack)
-        {
-            // Decrement index to move backwards.
-            previousPlayerIndex--;
 
-            // If index goes below 1, wrap around to the last player.
-            if (previousPlayerIndex < 1)
-            {
-                previousPlayerIndex = totalPlayers;
-            }
-        }
+         // Loop backward until we find a non-packed player.
+         while (TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].isPack)
+         {
+             // Decrement index to move backwards.
+             previousPlayerIndex--;
+
+             // If index goes below 1, wrap around to the last player.
+             if (previousPlayerIndex < 1)
+             {
+                 previousPlayerIndex = totalPlayers;
+             }
+         }
+
+
+
+
+         *//*    // Loop until we find a valid previous player
+             while (true)
+             {
+                 // Wrap around if the index goes below 1
+                 if (previousPlayerIndex == 1)
+                 {
+                     previousPlayerIndex = totalPlayers;
+                 }
+
+                 // Get the player at the calculated index
+                 var player = TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1];
+
+                 // Check if the player is active and not packed
+                 if (player.gameObject.activeInHierarchy && !player.isPack)
+                 {
+                     // Found the previous active, non-packed player
+                     Debug.Log("Previous active, non-packed player index: " + previousPlayerIndex);
+                     break;
+                 }
+
+                 // Decrement index to check the next player in reverse
+                 previousPlayerIndex--;
+             }
+     */
+        /*   // If `playerNo` is 1, set previous to the last player.
+           if (previousPlayerIndex < 1)
+           {
+               previousPlayerIndex = totalPlayers;
+           }
+
+           // Loop backward until we find a non-packed player.
+           while (TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[previousPlayerIndex - 1].isPack)
+           {
+               // Decrement index to move backwards.
+               previousPlayerIndex--;
+
+               // If index goes below 1, wrap around to the last player.
+               if (previousPlayerIndex < 1)
+               {
+                   previousPlayerIndex = totalPlayers;
+               }
+           }*//*
 
         for (int i = 0; i < TeenPattiManager.Instance.teenPattiPlayers.Count; i++)
         {
-            if (TeenPattiManager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[i].playerNo == previousPlayerIndex)
+            Debug.Log("activeInHierarchy  =>  " + TeenPattiManager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy + "   playerNo   =>  " + TeenPattiManager.Instance.teenPattiPlayers[i].playerNo + "  previousPlayerIndex =>  " + previousPlayerIndex + "  isPack  => " + !TeenPattiManager.Instance.teenPattiPlayers[i].isPack);
+            if (TeenPattiManager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[i].playerNo == previousPlayerIndex && !TeenPattiManager.Instance.teenPattiPlayers[i].isPack)
             {
                 prevPlayer = TeenPattiManager.Instance.teenPattiPlayers[i];
+                Debug.Log("PRE   " + prevPlayer.name);
+            }
+        }*/
+        int previousPlayerIndex;
+        previousPlayerIndex = (playerNo - 1);
+        for (int i = 0; i < TeenPattiManager.Instance.teenPattiPlayers.Count; i++)
+        {
+            Debug.Log("Checking player: " + previousPlayerIndex);
+
+            // If this player has not packed, we can exit the loop
+            if (isPrevPlayerPack(previousPlayerIndex))
+            {
+                Debug.Log("Valid Player Turn: " + previousPlayerIndex);
+                for (int j = 0; j < TeenPattiManager.Instance.teenPattiPlayers.Count; j++)
+                {
+                    Debug.Log("pre =  " + previousPlayerIndex + " TeenPattiManager.Instance.teenPattiPlayers[i].no   " + TeenPattiManager.Instance.teenPattiPlayers[i].playerNo);
+                    if(previousPlayerIndex== TeenPattiManager.Instance.teenPattiPlayers[j].playerNo)
+                    {
+                        prevPlayer = TeenPattiManager.Instance.teenPattiPlayers[j];
+                        Debug.Log("PRE   " + prevPlayer.name);
+
+                    }
+                }
+
+                break;
+            }
+
+            // Otherwise, increment to the next player
+            previousPlayerIndex--;
+
+            // If we've exceeded the number of players, wrap around to player 1
+            Debug.Log("PREV INDEX =>  " + previousPlayerIndex);
+            if (previousPlayerIndex < 1)
+            {
+                previousPlayerIndex = DataManager.Instance.joinPlayerDatas.Count;
+                Debug.Log("PREV INDEX =>  " + previousPlayerIndex);
             }
         }
+
+
+
         var currPlayer = this;
         Debug.Log("prevPlayer => " + prevPlayer.name + "  currPlayer =>  " + currPlayer.name);
 
         print("current bot player = " + currPlayer + " playerNo = " + playerNo + " global playerNo = " + this.playerNo);
         Debug.Log("TeenPattiManager.Instance.currentPriceValue   => " + TeenPattiManager.Instance.currentPriceValue);
-        if ((TeenPattiManager.Instance.currentPriceValue) > MainMenuManager.Instance.challLimit)
+        if ((TeenPattiManager.Instance.currentPriceValue) > MainMenuManager.Instance.challLimit || (TeenPattiManager.Instance.currentPriceValue * 2) > MainMenuManager.Instance.challLimit)
         {
             Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + TeenPattiManager.Instance.currentPriceValue);
             TeenPattiManager.Instance.doubleBUtton.SetActive(false);
@@ -776,26 +922,26 @@ public class TeenPattiPlayer : MonoBehaviour
             {
                 // This block will execute only the first time
                 currentPriceValue = TeenPattiManager.Instance.currentPriceValue;  // Set current price value
-            Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + currentPriceValue);
+                Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + currentPriceValue);
                 currentPriceIndex = TeenPattiManager.Instance.currentPriceIndex;  // Set current price index
 
                 // Store the initial price value
                 TeenPattiManager.Instance.crossChalLimitLastChallSave = TeenPattiManager.Instance.currentPriceValue;
-            Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + TeenPattiManager.Instance.crossChalLimitLastChallSave);
+                Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + TeenPattiManager.Instance.crossChalLimitLastChallSave);
             }
             else
             {
                 // Use the stored price value on subsequent entries
-            Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + TeenPattiManager.Instance.crossChalLimitLastChallSave);
+                Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + TeenPattiManager.Instance.crossChalLimitLastChallSave);
                 currentPriceValue = TeenPattiManager.Instance.crossChalLimitLastChallSave;
-            Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + currentPriceValue);
+                Debug.LogError("TeenPattiManager.Instance.currentPriceValue /////=>  " + currentPriceValue);
                 currentPriceIndex = TeenPattiManager.Instance.currentPriceIndex;  // Set current price index
 
             }
         }
         else
         {
-            if (prevPlayer.isBlind && currPlayer.isBlind)
+            if (prevPlayer.isBlind && prevPlayer.blindIMG.activeInHierarchy && currPlayer.isBlind)
             {
                 Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
                 Debug.Log("Both me and previous player are blind." + TeenPattiManager.Instance.currentPriceValue);
@@ -804,7 +950,7 @@ public class TeenPattiPlayer : MonoBehaviour
 
                 currentPriceIndex = TeenPattiManager.Instance.currentPriceIndex;
             }
-            else if (prevPlayer.isSeen && currPlayer.isSeen)
+            else if (prevPlayer.isSeen && prevPlayer.seenImg.activeInHierarchy && currPlayer.isSeen)
             {
                 // Do not change the value if both players are already seen
                 Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
@@ -812,7 +958,7 @@ public class TeenPattiPlayer : MonoBehaviour
                 currentPriceValue = TeenPattiManager.Instance.currentPriceValue;
                 currentPriceIndex = TeenPattiManager.Instance.currentPriceIndex;
             }
-            else if (prevPlayer.isBlind && currPlayer.isSeen)
+            else if (prevPlayer.isBlind && prevPlayer.blindIMG.activeInHierarchy && currPlayer.isSeen)
             {
                 // First transition from blind to seen — double the value.
                 Debug.Log("I am seen, previous player is blind." + TeenPattiManager.Instance.currentPriceValue);
@@ -820,7 +966,7 @@ public class TeenPattiPlayer : MonoBehaviour
                 currentPriceValue = TeenPattiManager.Instance.currentPriceValue * 2;
                 currentPriceIndex = (TeenPattiManager.Instance.currentPriceIndex + 1) % TeenPattiManager.Instance.numbers.Length;
             }
-            else if (currPlayer.isBlind && prevPlayer.isSeen)
+            else if (currPlayer.isBlind && prevPlayer.isSeen && prevPlayer.seenImg.activeInHierarchy)
             {
                 // If the current player is blind and the previous is seen, halve the value.
                 Debug.Log("I am blind, previous player is seen." + TeenPattiManager.Instance.currentPriceValue);
@@ -852,6 +998,20 @@ public class TeenPattiPlayer : MonoBehaviour
 
     }
 
+    bool isPrevPlayerPack(int prevPlayerNo)
+    {
+        for (int i = 0; i < TeenPattiManager.Instance.teenPattiPlayers.Count; i++)
+        {
+            Debug.Log("I =>  " + i + "  playerSquList[i].gameObject.activeInHierarchy  => " + TeenPattiManager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy + "  playerSquList[i].playerNo = " + TeenPattiManager.Instance.teenPattiPlayers[i].playerNo + "   nextPlayerNo = > " + prevPlayerNo + "   playerSquList[i].isPack  =  " + TeenPattiManager.Instance.teenPattiPlayers[i].isPack);
+            if (TeenPattiManager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy && TeenPattiManager.Instance.teenPattiPlayers[i].playerNo == prevPlayerNo && TeenPattiManager.Instance.teenPattiPlayers[i].isPack == false)
+            {
+                Debug.Log("RETURN TRUE ");
+                return true;
+            }
+        }
+        Debug.Log("RETURN FALSE ");
+        return false;
+    }
 
     private TeenPattiPlayer GetNonPackPlayer(int playerIndex, int totalPlayers, int step)
     {
