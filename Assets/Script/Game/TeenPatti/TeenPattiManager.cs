@@ -745,6 +745,7 @@ public class TeenPattiManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         ResetWinLossAnimation();
         yield return new WaitForSeconds(1f);
+        CheckAllPlayerIsValidOrNot();
         totalBetAmount = 0;
         isPotlimitCross = false;
         winnerPlayer.Clear();
@@ -792,6 +793,33 @@ public class TeenPattiManager : MonoBehaviour
             print("Enther The Generate Player1");
             //isBotActivate = true;
 
+        }
+    }
+
+    public void CheckAllPlayerIsValidOrNot()
+    {
+        for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+        {
+            // Convert balance from string to float
+            if (float.TryParse(DataManager.Instance.joinPlayerDatas[j].balance, out float balanceValue))
+            {
+                if (balanceValue < minLimitValue)
+                {
+                    if (DataManager.Instance.joinPlayerDatas[j].userId == player1.playerId)
+                    {
+                        Debug.Log("MenuSubButtonClick");
+                        MenuSubButtonClick(1);
+                    }
+                    DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+                    Debug.Log("joinPlayerDatas  =>  " + DataManager.Instance.joinPlayerDatas[j].userId + "player1.playerId  =  " + player1.playerId);
+                    Debug.Log($"Removed player {j} from the player list.");
+                    break; // Exit the loop after removing
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid balance value for player {j}: {DataManager.Instance.joinPlayerDatas[j].balance}");
+            }
         }
     }
     public void ResetWinLossAnimation()
@@ -1935,28 +1963,51 @@ public class TeenPattiManager : MonoBehaviour
 
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
+         
             if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
-                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
-                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
-                Debug.Log(".");
+                if (!CheckMoney(currentPriceValue))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                    BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+                    Debug.Log(".");
+                }
             }
-            else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy && teenPattiPlayers[i].name == "Player 1")
+            else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
-                //  StartBetTORealPlayer(teenPattiPlayers[i]); Debug.Log("<color=blue> YO YO BuSTAND  </color>" + teenPattiPlayers[i].name + " teenPattiPlayers[i]  = " + teenPattiPlayers[i].playerBalence.text);
-                BetAnim(player1, currentPriceValue, currentPriceIndex);
-                DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
-                playerBetAmount += currentPriceValue;
-                runningPriceIndex = currentPriceIndex;
-                if (!player1.isSeen && !player1.isBlind && !player1.isPack)
-                {
-                    player1.isBlind = true;
-                }
-                SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
+                Debug.LogError("IF IN  ");
+                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+            
             }
+            // Check for bot players
+            if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy && teenPattiPlayers[i].name == "Player 1")
+            {
+
+                Debug.LogError("IF IN  ");
+                if (!CheckMoney(currentPriceValue))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", true);
+                }
+            }
+            // Check for Player 1
         }
-     
+
+
         yield return new WaitForSeconds(1f);
 
         int playerSend = DataManager.Instance.joinPlayerDatas.Count;
@@ -2301,7 +2352,7 @@ public class TeenPattiManager : MonoBehaviour
                 }
                 //BetAnim(player1, currentPriceValue);
                 Debug.Log("currentPriceValue  =>  " + currentPriceValue);
-                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId);
+                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId, false);
                 Debug.LogError("slideShowPlayer.playerId => " + slideShowPlayer.playerId + "    is bot =>  " + slideShowPlayer.isBot);
 
                 Debug.Log("player1 => " + player1.playerBalence.text);
@@ -2579,7 +2630,7 @@ public class TeenPattiManager : MonoBehaviour
             {
                 player1.isBlind = true;
             }
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
             Debug.LogError("mahadeV 4");
             if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
                 ChangePlayerTurn(player1.playerNo);
@@ -2625,7 +2676,7 @@ public class TeenPattiManager : MonoBehaviour
             {
                 player1.isBlind = true;
             }
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
             Debug.LogError("mahadeV 4");
 
             ChangePlayerTurn(player1.playerNo);
@@ -3218,6 +3269,7 @@ public class TeenPattiManager : MonoBehaviour
     {
 
         float currentBalance = float.Parse(DataManager.Instance.playerData.balance);
+        Debug.Log("currentBalance  => " + float.Parse(DataManager.Instance.playerData.balance));
         if ((currentBalance - money) < 0)
         {
             return false;
@@ -3827,7 +3879,7 @@ public class TeenPattiManager : MonoBehaviour
     }
 
 
-    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow)
+    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow, bool fIRSTBET)
     {
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3840,6 +3892,7 @@ public class TeenPattiManager : MonoBehaviour
         obj.AddField("currentPrice", currentPriceValue);
         obj.AddField("playerSlideShowSendId", playerSlideShowSend);
         obj.AddField("playerIdSlideShowId", playerIdSlideShow);
+        obj.AddField("FIRSTBET", fIRSTBET);
         obj.AddField("Action", "PlaceBet");
         TestSocketIO.Instace.Senddata("TeenPattiSendBetData", obj);
         Debug.LogError("mahadeV");
@@ -4290,6 +4343,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
+            if (!teenPattiPlayers[i].cardImg3.gameObject.activeInHierarchy) return;
             if (teenPattiPlayers[i].playerId == id)
             {
                 if (type == "Blind")
@@ -4518,7 +4572,7 @@ public class TeenPattiManager : MonoBehaviour
         }
 
 
-        Invoke(nameof(GameRestartRound), 0.4f);
+      //  Invoke(nameof(GameRestartRound), 0.4f);
     }
 
     public void PlayerWinLossImgSet(string winnerId)
@@ -4609,7 +4663,7 @@ public class TeenPattiManager : MonoBehaviour
     }
     const float epsilon = 0.0001f;
 
-    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
+    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice, bool firstBet)
     {
         print("Got Bet for player =" + playerNo);
 
@@ -4650,7 +4704,7 @@ public class TeenPattiManager : MonoBehaviour
 
         bool isB = false;
         bool isS = false;
-        if (type != "SideShow")
+        if (type != "SideShow" && !firstBet)
         {
             BetAnim(teenPattiPlayers[playerIndex], amount, curIndex);
             currentPriceIndex = curIndex;
@@ -4662,12 +4716,12 @@ public class TeenPattiManager : MonoBehaviour
                 //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
             }*/
         }
-        if (teenPattiPlayers[playerIndex].isBlind)
+        if (teenPattiPlayers[playerIndex].isBlind && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
             teenPattiPlayers[playerIndex].blindIMG.SetActive(true);
             isB = true;
         }
-        else if (teenPattiPlayers[playerIndex].isSeen)
+        else if (teenPattiPlayers[playerIndex].isSeen && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
             teenPattiPlayers[playerIndex].seenImg.SetActive(true);
             isS = true;

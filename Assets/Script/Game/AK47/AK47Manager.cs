@@ -1674,22 +1674,50 @@ public class AK47Manager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ActivateBotPlayers();
 
-
-
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
+
             if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
-                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
-                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
-                Debug.Log(".");
+                if (!CheckMoney(currentPriceValue))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                  //  OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                    BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+                    Debug.Log(".");
+                }
             }
             else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
-                Debug.Log("<color=blue>.</color>");
-                StartBetTORealPlayer(teenPattiPlayers[i]);
+                Debug.LogError("IF IN  ");
+                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+
             }
+            // Check for bot players
+            if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy && teenPattiPlayers[i].name == "Player 1")
+            {
+
+                Debug.LogError("IF IN  ");
+                if (!CheckMoney(currentPriceValue))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                  //  OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", true);
+                }
+            }
+            // Check for Player 1
         }
 
 
@@ -2012,7 +2040,7 @@ public class AK47Manager : MonoBehaviour
                     return;
                 }
                 //BetAnim(player1, currentPriceValue);
-                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId);
+                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId,false);
                 DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 1);
                 playerBetAmount += currentPriceValue;
                 //Game Stop and check the card and one card is pack
@@ -2221,7 +2249,7 @@ public class AK47Manager : MonoBehaviour
             // bonusUseValue
             // User Maintain
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "",false);
             ChangePlayerTurn(player1.playerNo);
         }
     }
@@ -2253,7 +2281,7 @@ public class AK47Manager : MonoBehaviour
                 currentPriceIndex = 1;
             }*/
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "");
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "",false);
             ChangePlayerTurn(player1.playerNo);
             blindx2button.SetActive(false);
             plusBtn.gameObject.SetActive(true);
@@ -3337,7 +3365,7 @@ public class AK47Manager : MonoBehaviour
     }
 
 
-    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow)
+    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow, bool fIRSTBET)
     {
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3350,6 +3378,7 @@ public class AK47Manager : MonoBehaviour
         obj.AddField("currentPrice", currentPriceValue);
         obj.AddField("playerSlideShowSendId", playerSlideShowSend);
         obj.AddField("playerIdSlideShowId", playerIdSlideShow);
+        obj.AddField("FIRSTBET", fIRSTBET);
         obj.AddField("Action", "PlaceBet");
         TestSocketIO.Instace.Senddata("TeenPattiSendBetData", obj);
     }

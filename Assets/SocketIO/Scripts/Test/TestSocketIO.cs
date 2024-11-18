@@ -2051,12 +2051,12 @@ public class TestSocketIO : MonoBehaviour
             int currentPrice = data["currentPrice"];
             string playerSlideShowSendId = data["playerSlideShowSendId"];
             string playerIdSlideShowId = data["playerIdSlideShowId"];
-
+            bool firstBet = data["FIRSTBET"];
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID /*&& playerID == DataManager.Instance.playerData._id*/)
             {
                 //print("Teen Patti playerNo : " + playerNo);
 
-                TeenPattiManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice);
+                TeenPattiManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice,firstBet);
             }
 
             TeenPattiManager.Instance.ShowStatus(playerID, betType);

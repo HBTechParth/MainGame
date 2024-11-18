@@ -6917,7 +6917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 187, y: -13.799988}
+  m_AnchoredPosition: {x: 193.5, y: -14.140015}
   m_SizeDelta: {x: 130.65, y: 130.66}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &422208393
@@ -7008,7 +7008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2c52c68233605564f970c526edec07d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbaf58d3e5194b341993624c65236280, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -24720,7 +24720,7 @@ MonoBehaviour:
   P2card2: {fileID: 674029802}
   P2card3: {fileID: 875005202}
   winSprite: {fileID: 21300000, guid: 269b1a8cdffeccf4e95c464d09d816aa, type: 3}
-  lossSprite: {fileID: 21300000, guid: d8b234ec729ccd34eb171920a6f46a7e, type: 3}
+  lossSprite: {fileID: 21300000, guid: dacef4dc217247343855e09fe9121e71, type: 3}
   resetNUMForBot: 1
   RoundresetNUMForBot: 1
   isPotlimitCross: 0

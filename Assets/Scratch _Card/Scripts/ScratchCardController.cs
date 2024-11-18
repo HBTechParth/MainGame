@@ -15,6 +15,7 @@ namespace ScratchCard
         private RewardItem selectedReward;
         private void Start()
         {
+            scratchCardMask.gameObject.SetActive(true);
             // Intro animation for the card
             cardObject.transform.localScale = Vector3.zero;
             cardObject.transform.DOScale(Vector3.one, 1f)
@@ -29,6 +30,9 @@ namespace ScratchCard
         
         private void HandleScratchCardCleared()
         {
+            Debug.Log("Clear ScratchCard");
+            scratchCardMask.gameObject.SetActive(false);
+
             if (selectedReward.isMoney)
             {
                 // Credit the bonus amount
