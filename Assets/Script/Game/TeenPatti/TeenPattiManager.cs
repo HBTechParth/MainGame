@@ -1966,7 +1966,7 @@ public class TeenPattiManager : MonoBehaviour
          
             if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
-                if (!CheckMoney(currentPriceValue))
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
                 {
                     SoundManager.Instance.ThreeBetSound();
                     Debug.Log("OpenErrorScreen");
@@ -1992,7 +1992,7 @@ public class TeenPattiManager : MonoBehaviour
             {
 
                 Debug.LogError("IF IN  ");
-                if (!CheckMoney(currentPriceValue))
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
                 {
                     SoundManager.Instance.ThreeBetSound();
                     Debug.Log("OpenErrorScreen");
@@ -2002,6 +2002,7 @@ public class TeenPattiManager : MonoBehaviour
                 else
                 {
                     SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", true);
+                    DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
                 }
             }
             // Check for Player 1
@@ -2343,7 +2344,7 @@ public class TeenPattiManager : MonoBehaviour
                 //ChangePlayerTurn(player1.playerNo);
                 break;
             case "Side Show":
-                if (CheckMoney(currentPriceValue) == false)
+                if (CheckMoney(currentPriceValue,player1) == false)
                 {
                     SoundManager.Instance.ButtonClick();
                     Debug.Log("OpenErrorScreen");
@@ -2555,7 +2556,7 @@ public class TeenPattiManager : MonoBehaviour
     public void StartBet()
     {
         Debug.Log(" =====StartBet ");
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue,player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -2571,7 +2572,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void StartBetTORealPlayer(TeenPattiPlayer player)
     {
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue,player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -2593,7 +2594,7 @@ public class TeenPattiManager : MonoBehaviour
         Debug.Log("isGameStop     = " + isGameStop);
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue) == false)
+            if (CheckMoney(currentPriceValue,player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
                 Debug.Log("OpenErrorScreen");
@@ -2619,6 +2620,7 @@ public class TeenPattiManager : MonoBehaviour
                 }*/
             SoundManager.Instance.ThreeBetSound();
             Debug.LogError("currentPriceValue  -=>  " + currentPriceValue);
+            Debug.Log("PLATER BALENCE TEXT   =  " + player1.playerBalence.text);
             BetAnim(player1, currentPriceValue, currentPriceIndex);
             DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 3);
             playerBetAmount += currentPriceValue;
@@ -2640,7 +2642,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue * 2) == false)
+            if (CheckMoney(currentPriceValue * 2,player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
                 Debug.Log("OpenErrorScreen");
@@ -2678,8 +2680,8 @@ public class TeenPattiManager : MonoBehaviour
             }
             SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
             Debug.LogError("mahadeV 4");
-
-            ChangePlayerTurn(player1.playerNo);
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
         }
     }
     //public void DoubleBetButtonClick()
@@ -2785,7 +2787,7 @@ public class TeenPattiManager : MonoBehaviour
             totalBetAmount += amount;
             betAmountTxt.text = totalBetAmount.ToString();
         });*/
-        Debug.LogError("totalBetAmount amount  => " + amount);
+        Debug.LogError(" amount  => " + amount);
         Debug.LogError("totalBetAmount  => " + totalBetAmount);
         totalBetAmount += amount;
         Debug.LogError("totalBetAmount  => " + totalBetAmount);
@@ -2794,7 +2796,8 @@ public class TeenPattiManager : MonoBehaviour
         Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
         // Subtract the amount from the balance
         currentBalance -= amount;
-        Debug.LogError("CHAL AMount  " + amount);
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text)); 
+        Debug.LogError("CHAL AMount  " + currentBalance);
         // Update the player's balance text with the new balance
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
@@ -2804,9 +2807,13 @@ public class TeenPattiManager : MonoBehaviour
                 float balance;
                 if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out balance))
                 {
+                    Debug.Log("b=     " + balance);
+                    Debug.Log("a=     " + amount);
                     balance -= amount;
 
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].userName);
                     DataManager.Instance.joinPlayerDatas[i].balance = balance.ToString();
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].balance);
                 }
             }
         }
@@ -3265,11 +3272,11 @@ public class TeenPattiManager : MonoBehaviour
         errorScreenObj.SetActive(false);
     }
 
-    public bool CheckMoney(float money)
+    public bool CheckMoney(float money,TeenPattiPlayer player)
     {
 
-        float currentBalance = float.Parse(DataManager.Instance.playerData.balance);
-        Debug.Log("currentBalance  => " + float.Parse(DataManager.Instance.playerData.balance));
+        float currentBalance = float.Parse(player.playerBalence.text);
+        Debug.Log("currentBalance  => " +currentBalance);
         if ((currentBalance - money) < 0)
         {
             return false;
@@ -3951,247 +3958,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void GetPlayerTurn(int playerNo)
     {
-        /* Debug.Log("GetPlayerTurn => " + playerNo);
-         bool isPlayerNotEnter = false;
-         int nextPlayerNo = 0;
-         //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
-         Debug.Log("playerSquList => " + playerSquList.Count);
-         if (playerSquList.Count == playerNo)
-         {
-             nextPlayerNo = 1;
-             roundCounter++;
-         }
-         else
-         {
-             nextPlayerNo = playerNo + 1;
-             Debug.Log("nextPlayerNo  => " + nextPlayerNo);
-             //foreach (var item in playerSquList)
-             //{
-             //    if(item.playerNo == 5 && )
-             //}
-         }
-
-
-
-         if (nextPlayerNo == 1)
-         {
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-             if (isCheckTurnPack(nextPlayerNo) == false)
-             {
-                 nextPlayerNo = 1;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-
-             }
-             else
-             {
-                 nextPlayerNo = 2;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-                 if (isCheckTurnPack(nextPlayerNo) == false)
-                 {
-                     nextPlayerNo = 2;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-                 }
-                 else
-                 {
-                     nextPlayerNo = 3;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-                     if (isCheckTurnPack(nextPlayerNo) == false)
-                     {
-                         nextPlayerNo = 3;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-                     }
-                     else
-                     {
-                         nextPlayerNo = 4;
-             Debug.Log("Plyer Turn IN => " + nextPlayerNo);
-                         if (isCheckTurnPack(nextPlayerNo) == false)
-                         {
-                             nextPlayerNo = 4;
-                         }
-                         else
-                         {
-                             nextPlayerNo = 5;
-                             if (isCheckTurnPack(nextPlayerNo) == false)
-                             {
-                                 nextPlayerNo = 5;
-                             }
-                         }
-                     }
-                 }
-             }
-         }
-         else if (nextPlayerNo == 2)
-         {
-             if (isCheckTurnPack(nextPlayerNo) == false)
-             {
-                 nextPlayerNo = 2;
-             }
-             else
-             {
-                 nextPlayerNo = 3;
-                 if (isCheckTurnPack(nextPlayerNo) == false)
-                 {
-                     nextPlayerNo = 3;
-                 }
-                 else
-                 {
-                     nextPlayerNo = 4;
-                     if (isCheckTurnPack(nextPlayerNo) == false)
-                     {
-                         nextPlayerNo = 4;
-                     }
-                     else
-                     {
-                         nextPlayerNo = 5;
-                         if (isCheckTurnPack(nextPlayerNo) == false)
-                         {
-                             nextPlayerNo = 5;
-                         }
-                         else
-                         {
-                             nextPlayerNo = 1;
-                             if (isCheckTurnPack(nextPlayerNo) == false)
-                             {
-                                 nextPlayerNo = 1;
-                                 roundCounter++;
-                             }
-                         }
-                     }
-                 }
-             }
-         }
-         else if (nextPlayerNo == 3)
-         {
-             if (isCheckTurnPack(nextPlayerNo) == false)
-             {
-                 nextPlayerNo = 3;
-             }
-             else
-             {
-                 nextPlayerNo = 4;
-                 if (isCheckTurnPack(nextPlayerNo) == false)
-                 {
-                     nextPlayerNo = 4;
-                 }
-                 else
-                 {
-                     nextPlayerNo = 5;
-                     if (isCheckTurnPack(nextPlayerNo) == false)
-                     {
-                         nextPlayerNo = 5;
-                     }
-                     else
-                     {
-                         nextPlayerNo = 1;
-                         if (isCheckTurnPack(nextPlayerNo) == false)
-                         {
-                             nextPlayerNo = 1;
-                             roundCounter++;
-                         }
-                         else
-                         {
-                             nextPlayerNo = 2;
-                             if (isCheckTurnPack(nextPlayerNo) == false)
-                             {
-                                 nextPlayerNo = 2;
-                             }
-                         }
-                     }
-                 }
-             }
-         }
-         else if (nextPlayerNo == 4)
-         {
-             if (isCheckTurnPack(nextPlayerNo) == false)
-             {
-                 nextPlayerNo = 4;
-             }
-             else
-             {
-                 nextPlayerNo = 5;
-                 if (isCheckTurnPack(nextPlayerNo) == false)
-                 {
-                     nextPlayerNo = 5;
-                 }
-                 else
-                 {
-                     nextPlayerNo = 1;
-                     if (isCheckTurnPack(nextPlayerNo) == false)
-                     {
-                         nextPlayerNo = 1;
-                         roundCounter++;
-                     }
-                     else
-                     {
-                         nextPlayerNo = 2;
-                         if (isCheckTurnPack(nextPlayerNo) == false)
-                         {
-                             nextPlayerNo = 2;
-                         }
-                         else
-                         {
-                             nextPlayerNo = 3;
-                             if (isCheckTurnPack(nextPlayerNo) == false)
-                             {
-                                 nextPlayerNo = 3;
-                             }
-                         }
-                     }
-                 }
-
-             }
-         }
-         else if (nextPlayerNo == 5)
-         {
-             Debug.Log("NO  = ? ");
-             if (isCheckTurnPack(nextPlayerNo) == false)
-             {
-                 Debug.Log("NO  = ? ");
-                 nextPlayerNo = 5;
-             }
-             else
-             {
-                 nextPlayerNo = 1;
-                 Debug.Log("NO  = ? " + nextPlayerNo);
-                 if (isCheckTurnPack(nextPlayerNo) == false)
-                 {
-                     nextPlayerNo = 1;
-                     Debug.Log("NO  = ? " + nextPlayerNo);
-                     roundCounter++;
-                 }
-                 else
-                 {
-                     nextPlayerNo = 2;
-                     Debug.Log("NO  = ? " + nextPlayerNo);
-                     if (isCheckTurnPack(nextPlayerNo) == false)
-                     {
-                         nextPlayerNo = 2;
-                         Debug.Log("NO  = ? " + nextPlayerNo);
-                     }
-                     else
-                     {
-                         nextPlayerNo = 3;
-                         Debug.Log("NO  = ? " + nextPlayerNo);
-                         if (isCheckTurnPack(nextPlayerNo) == false)
-                         {
-                             nextPlayerNo = 3;
-                             Debug.Log("NO  = ? " + nextPlayerNo);
-                         }
-                         else
-                         {
-                             nextPlayerNo = 4;
-                             Debug.Log("NO  = ? " + nextPlayerNo);
-                             if (isCheckTurnPack(nextPlayerNo) == false)
-                             {
-                                 nextPlayerNo = 4;
-                                 Debug.Log("NO  = ? " + nextPlayerNo);
-                             }
-                         }
-                     }
-                 }
-             }
-         }*/
-        //nextPlayerNo = playerNo;
+      
         Debug.Log("GetPlayerTurn => " + playerNo);
         int nextPlayerNo = 0;
 
@@ -5140,7 +4907,7 @@ public class TeenPattiManager : MonoBehaviour
                 teenSlideShowPlayers.Add(teenPattiPlayers[i]);
             }
         }
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue,slideShowPlayer) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -5373,6 +5140,7 @@ public class TeenPattiManager : MonoBehaviour
     public void ShowCardToAllUser()
     {
         winMaintain.Clear();
+        winnerPlayer.Clear();
         foreach (var t in teenPattiPlayers.Where(t => t.gameObject.activeSelf && !t.isPack))
         {
             t.isSeen = true;

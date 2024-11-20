@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -47,6 +48,7 @@ public class AK47Manager : MonoBehaviour
     public float maxBoardX;
     public float minBoardY;
     public float maxBoardY;
+    public float crossChalLimitLastChallSave = -1f;
 
 
     [Header("--- Menu Screen ---")]
@@ -59,6 +61,11 @@ public class AK47Manager : MonoBehaviour
     public GameObject messageScreeObj;
     public GameObject giftScreenObj;
 
+    [Header("--- Table Data ---")]
+    public TextMeshProUGUI bootAmountText;
+    public TextMeshProUGUI maxBlindsText;
+    public TextMeshProUGUI chaalLimitText;
+    public TextMeshProUGUI potLimitText;
 
     [Header("--- Prefab ---")]
     public GameObject targetBetObj;
@@ -77,6 +84,7 @@ public class AK47Manager : MonoBehaviour
 
     [Header("--- Game UI ---")]
     public GameObject errorScreenObj;
+    public GameObject errorScreenObjONBET;
     public GameObject slideShowPanel;
     public Text slideShowName;
     public Image slideShowProfilePic;
@@ -88,9 +96,13 @@ public class AK47Manager : MonoBehaviour
     public Text rulesText;
     public Text betAmountTxt;
     public Text priceBtnTxt;
+    public Text priceBtnTxtDouble;
+
     public GameObject blindx2button;
     public Button plusBtn;
     public Button minusBtn;
+    public GameObject doubleBUtton;
+
     public bool isAdmin;
     public int playerNo;
     public int currentPlayer;
@@ -130,6 +142,8 @@ public class AK47Manager : MonoBehaviour
     public float currentPriceValue;
     public float currentBlindValue;
     public float currentSeenValue;
+    public int totalRoundComplate = 0;
+
 
     public AK47Player slideShowPlayer;
     public List<TeenPattiWinMaintain> winMaintain = new List<TeenPattiWinMaintain>();
@@ -154,12 +168,37 @@ public class AK47Manager : MonoBehaviour
 
     public Transform chipsTransform;
 
+    [Header("--- WinnerPanel ---")]
+    public GameObject winnerPanel;
+    public GameObject vsImg;
+    public GameObject leftImg;
+    public GameObject rightIMg;
+    public Image winorlossP1;
+    public Image winorlossP2;
+    public Image profileImgP1;
+    public Image profileImgP2;
+    public TextMeshProUGUI usernameP1;
+    public TextMeshProUGUI usernameP2;
+    public TextMeshProUGUI cardStatusP1;
+    public TextMeshProUGUI cardStatusP2;
+    public Image P1card1;
+    public Image P1card2;
+    public Image P1card3;
+    public Image P2card1;
+    public Image P2card2;
+    public Image P2card3;
+    public Sprite winSprite;
+    public Sprite lossSprite;
+
+
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        Time.timeScale = 1;
     }
     // Start is called before the first frame update
     void Start()
@@ -699,53 +738,89 @@ public class AK47Manager : MonoBehaviour
 
     public void SeeButtonClick()
     {
+        Debug.Log("EnableSeeCards   - ");
+
         SoundManager.Instance.ButtonClick();
         for (int i = 0; i < player1.seeObj.Length; i++)
         {
             player1.seeObj[i].SetActive(false);
         }
-
+        Debug.Log("SeeButtonClick");
         player1.CardDisplay();
         DisplayRules();
 
-        //if (currentPriceValue < 10)
-        //{
-        //    currentPriceValue = doubleLimitValue;
-        //    currentPriceIndex = 1;
-        //}
-        if (currentPlayer == player1.playerNo && !player1.isSeen)//if seen bet is also minimumValue, then the value will not increase
+        //currentPriceValue = minLimitValue * 2;
+        /*if (currentPriceValue < 10)
         {
-            if (currentSeenValue > currentPriceValue)
-            {
-                currentPriceValue = currentSeenValue - 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceValue = numbers[i];
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            //currentPriceIndex += 1;
-            currentPriceValue = numbers[currentPriceIndex];
-            priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
-        }
+            currentPriceValue = doubleLimitValue;
+            currentPriceIndex = 1;
+        }*/
+        /* if (currentPlayer == player1.playerNo && !player1.isSeen)//if seen bet is also minimumValue, then the value will not increase
+         {
 
+             Debug.Log("currentSeenValue => " + currentSeenValue + "  currentPriceValue  =>  " + currentPriceValue);
+             *//*  if (currentSeenValue > currentPriceValue)
+               {
+                   currentPriceValue = currentSeenValue - 3;
+                   for (int i = 0; i < numbers.Length; i++)
+                   {
+                       if (currentPriceValue <= numbers[i])
+                       {
+                           currentPriceValue = numbers[i];
+                           currentPriceIndex = i;
+                           runningPriceIndex = i;
+                           break;
+                       }
+                   }
+               }*//*
+             //currentPriceIndex += 1;
+             Debug.Log("Number of index   =>  " + numbers[currentPriceIndex]);
+             Debug.Log("currentPriceValue   =>  " + currentPriceValue);
+             //   currentPriceValue = numbers[currentPriceIndex];
+             priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+             priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
+         }*/
         player1.isSeen = true;
         player1.isBlind = false;
         player1.isPack = false;
         //currentPriceIndex = 1;
-
         //blindx2button.SetActive(false);
         //plusBtn.gameObject.SetActive(true);
         //minusBtn.gameObject.SetActive(true);
         //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
         //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        priceBtnTxt.text = "Chaal : " + currentPriceValue;
-        ChangeCardStatus("SEEN", player1.playerNo,false);
+        // if (player1.isTurn)
+        {
+
+            Debug.Log("currentPriceValue  ;;;;;;;;;;;;;;;;    => " + currentPriceValue);
+            Debug.Log("is turn => " + player1.isTurn + "  is blind = > " + player1.isBlind);
+            boxDisplayCount = 5;
+            if (player1.isTurn)
+            {
+
+                Debug.Log("is turn  IF BEfore => " + currentPriceValue);
+                // float amount = currentPriceValue * 2;
+                if ((currentPriceValue * 2) < MainMenuManager.Instance.challLimit)
+                {
+                    currentPriceValue = currentPriceValue * 2;
+                }
+                Debug.Log("is turn  IF  After => " + currentPriceValue);
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+            }
+            else
+            {
+                Debug.Log("is turn ELSE => " + currentPriceValue);
+
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+            }
+        }
+
+        ChangeCardStatus("SEEN", player1.playerNo, false);
     }
 
     public void GiftButtonClick(TeenPattiPlayer giftPlayer)
@@ -755,24 +830,67 @@ public class AK47Manager : MonoBehaviour
         GiftSendManager.Instance.gameName = "TeenPatti";
         GiftSendManager.Instance.teenPattiOtherPlayer = giftPlayer;
     }
-
+    public int resetNUMForBot = 1;
+    public int RoundresetNUMForBot = 1;
     public IEnumerator RestartGamePlay()
     {
+        Debug.Log("isGameStarted => " + isGameStarted);
+        Debug.Log("MYRESET");
+
         isGameStarted = false;
         DeleteAllCoins();
-        yield return new WaitForSeconds(6f);
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            Debug.Log("name  =  " + playerSquList[i].name);
+            playerSquList[i].NotATurn();
+        }
+        Debug.Log("<color=blue>-------RestartGamePlay BEFORE---------</color>");
+        yield return new WaitForSeconds(5f);
+        ResetWinLossAnimation();
+        yield return new WaitForSeconds(1f);
+        CheckAllPlayerIsValidOrNot();
+        totalBetAmount = 0;
+        isPotlimitCross = false;
+        winnerPlayer.Clear();
+        crossChalLimitLastChallSave = -1f;
+        doubleBUtton.SetActive(true);
+
+        isWinningRun = false;
         for (int j = 0; j < playerSquList.Count; j++)
         {
             playerSquList[j].cardImg1.GetComponent<Image>().DOFade(1f, 0.5f);
             playerSquList[j].cardImg2.GetComponent<Image>().DOFade(1f, 0.5f);
             playerSquList[j].cardImg3.GetComponent<Image>().DOFade(1f, 0.5f);
         }
+        Debug.Log("<color=blue>--------RestartGamePlay AFTER--------</color>");
+
+
+
+        //  CheckAllPlayerBalanceAndReplace();
+        //  yield return new WaitForSeconds(3f);
         //print("Enther The Generate Player");
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            // Convert balance string to a float
+            float playerBalance;
+            if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out playerBalance))
+            {
+                if (playerBalance < minLimitValue)
+                {
+                    Debug.Log("PLAYER BALANCE => " + playerBalance + "  PLAYER NAME =>  " + DataManager.Instance.joinPlayerDatas[i].userName);
+                }
+            }
+        }
+        //  Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
+         SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
+        CheckNewPlayers();
         if (isAdmin)
         {
+
             winningBotNo = -1;
-            CheckNewPlayers();
             StartGamePlay();
+            Debug.LogError("StartGamePlay");
+
             //SetRoomData();
             //TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
             print("Enther The Generate Player1");
@@ -781,25 +899,127 @@ public class AK47Manager : MonoBehaviour
         }
     }
 
+    public void CheckAllPlayerIsValidOrNot()
+    {
+        for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+        {
+            // Convert balance from string to float
+            if (float.TryParse(DataManager.Instance.joinPlayerDatas[j].balance, out float balanceValue))
+            {
+                if (balanceValue < minLimitValue)
+                {
+                    if (DataManager.Instance.joinPlayerDatas[j].userId == player1.playerId)
+                    {
+                        Debug.Log("MenuSubButtonClick");
+                        MenuSubButtonClick(1);
+                    }
+                    DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+                    Debug.Log("joinPlayerDatas  =>  " + DataManager.Instance.joinPlayerDatas[j].userId + "player1.playerId  =  " + player1.playerId);
+                    Debug.Log($"Removed player {j} from the player list.");
+                    break; // Exit the loop after removing
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid balance value for player {j}: {DataManager.Instance.joinPlayerDatas[j].balance}");
+            }
+        }
+    }
+
+    public void ResetWinLossAnimation()
+    {
+        // Step 1: Create a DOTween Sequence to manage the animations in order
+        DG.Tweening.Sequence resetSequence = DOTween.Sequence();
+
+        // Step 2: Move `leftImg` to -1000 on the x-axis and then deactivate it
+        resetSequence.Append(leftImg.transform.DOLocalMoveX(-1000f, 0.3f).SetEase(Ease.InOutSine)) // Animate to x = -1000
+                     .AppendCallback(() => leftImg.SetActive(false)); // After move, deactivate the image
+
+        // Step 3: Move `rightIMg` to 1000 on the x-axis and then deactivate it
+        resetSequence.Append(rightIMg.transform.DOLocalMoveX(1000f, 0.3f).SetEase(Ease.InOutSine)) // Animate to x = 1000
+                     .AppendCallback(() => rightIMg.SetActive(false)); // After move, deactivate the image
+
+        // Step 4: Deactivate `vsImg` after left and right images are hidden
+        resetSequence.AppendInterval(0.1f) // Small delay before hiding vsImg
+                     .AppendCallback(() => vsImg.SetActive(false)); // Hide vs image
+
+        // Step 5: Deactivate `winnerPanel` last
+        resetSequence.AppendInterval(0.1f) // Small delay before hiding the winner panel
+                     .AppendCallback(() => winnerPanel.SetActive(false)); // Hide winner panel
+
+
+    }
+
+    public void SetBotRandomReset1(int count, int round)
+    {
+        Debug.Log(" ==================================  totalRoundComplate  => " + totalRoundComplate + " round  => " + round);
+
+        if (totalRoundComplate == round)
+        {
+
+            // Temporary list to hold all bot players
+            List<AK47Player> teenpatti = new List<AK47Player>();
+
+            // Filter out all bot players from playerSquList
+            for (int i = 0; i < playerSquList.Count; i++)
+            {
+                if (playerSquList[i].isBot)
+                {
+                    teenpatti.Add(playerSquList[i]);
+                }
+            }
+
+            // Check if count is valid
+            if (count > teenpatti.Count)
+            {
+                Debug.LogWarning($"Count {count} is greater than the number of bot players in the list. Adjusting to {teenpatti.Count}");
+                count = teenpatti.Count; // Adjust count to the maximum available bots
+            }
+
+            // Loop through the first 'count' bot players and remove them from DataManager's list
+            for (int i = 0; i < count; i++)
+            {
+                // Current bot player to remove
+                AK47Player botPlayer = teenpatti[i];
+
+                // Find and remove from DataManager's list based on userId
+                for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+                {
+                    if (DataManager.Instance.joinPlayerDatas[j].userId == botPlayer.playerId)
+                    {
+                        DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+                        Debug.Log($"Removed bot player with UserID: {botPlayer.playerId} from DataManager list.");
+                        break; // Exit the loop once the user is found and removed
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"Total Bot Players Removed: {count}");
+        totalRoundComplate = 0;
+    }
+
+
 
     public void StartGamePlay()
     {
         //StartCoroutine(RestartGamePlay());
         print("AK47 StartGameplay called");
+        totalRoundComplate++;
         if (isAdmin)
         {
             SetRoomData();
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         minLimitValue = DataManager.Instance.betPrice;
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            if (minLimitValue == numbers[i])
-            {
-                currentPriceIndex = i;
-                runningPriceIndex = i;
-            }
-        }
+        /*  for (int i = 0; i < numbers.Length; i++)
+          {
+              if (minLimitValue == numbers[i])
+              {
+                  currentPriceIndex = i;
+                  runningPriceIndex = i;
+              }
+          }*/
         SoundManager.Instance.CasinoTurnSound();
         DataManager.Instance.UserTurnVibrate();
         isGameStop = true;
@@ -831,6 +1051,8 @@ public class AK47Manager : MonoBehaviour
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
         priceBtnTxt.text = "Blind : " + currentPriceValue;
+        priceBtnTxtDouble.text = "Blind : " + currentPriceValue * 2;
+
         minusBtn.interactable = false;
         rulesTab.SetActive(false);
         roundCounter = 0;
@@ -1679,11 +1901,11 @@ public class AK47Manager : MonoBehaviour
 
             if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
-                if (!CheckMoney(currentPriceValue))
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
                 {
                     SoundManager.Instance.ThreeBetSound();
                     Debug.Log("OpenErrorScreen");
-                  //  OpenErrorScreenONBET();
+                    OpenErrorScreenONBET();
                     break; // Exit if there's an error
                 }
                 else
@@ -1705,16 +1927,18 @@ public class AK47Manager : MonoBehaviour
             {
 
                 Debug.LogError("IF IN  ");
-                if (!CheckMoney(currentPriceValue))
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
                 {
                     SoundManager.Instance.ThreeBetSound();
                     Debug.Log("OpenErrorScreen");
-                  //  OpenErrorScreenONBET();
+                    OpenErrorScreenONBET();
                     break; // Exit if there's an error
                 }
                 else
                 {
                     SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", true);
+                    DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
+
                 }
             }
             // Check for Player 1
@@ -1968,10 +2192,29 @@ public class AK47Manager : MonoBehaviour
 
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
+
+            Debug.Log("joinPlayerDatas =<  " + DataManager.Instance.joinPlayerDatas[i].userId);
+
             if (DataManager.Instance.joinPlayerDatas[i].userId.EndsWith("TeenPatti"))
             {
-                playerSquList[i].isBot = true;
+
+                for (int j = 0; j < teenPattiPlayers.Count; j++)
+                {
+                    if (teenPattiPlayers[j].gameObject.activeInHierarchy)
+                    {
+                        if (teenPattiPlayers[j].playerId == DataManager.Instance.joinPlayerDatas[i].userId && DataManager.Instance.joinPlayerDatas[i].userId.EndsWith("TeenPatti"))
+                        {
+                            teenPattiPlayers[j].isBot = true;
+                        }
+
+                    }
+
+                }
+
+                //playerSquList[i].isBot = true;
+
             }
+
         }
     }
 
@@ -1999,7 +2242,7 @@ public class AK47Manager : MonoBehaviour
         if (!isGameStop)
         {
             SoundManager.Instance.ButtonClick();
-            ChangeCardStatus("PACK", player1.playerNo,true);
+            ChangeCardStatus("PACK", player1.playerNo, false);
             bottomBox.SetActive(false);
         }
     }
@@ -2028,19 +2271,19 @@ public class AK47Manager : MonoBehaviour
         {
             case "Show":
                 ShowCardToAllUser();
-                CheckFinalWinner("Show");
+                //  CheckFinalWinner("Show");
+                CheckAllPlayers(winnerPlayer);
                 //SendTeenPattiBet(player1.playerNo, 0, "Show", "", "");
                 //ChangePlayerTurn(player1.playerNo);
                 break;
             case "Side Show":
-                if (CheckMoney(currentPriceValue) == false)
+                if (CheckMoney(currentPriceValue, player1) == false)
                 {
                     SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
-                    return;
+                    OpenErrorScreenONBET();
                 }
                 //BetAnim(player1, currentPriceValue);
-                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId,false);
+                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId, false);
                 DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 1);
                 playerBetAmount += currentPriceValue;
                 //Game Stop and check the card and one card is pack
@@ -2052,6 +2295,7 @@ public class AK47Manager : MonoBehaviour
 
     private void OnPopupButtonClick()
     {
+        if (TeenPattiManager.Instance.isPotlimitCross) return;
         if (isPopupOpen) return;
         isPopupOpen = true;
         sideShowPopupImage.gameObject.SetActive(true);
@@ -2133,6 +2377,13 @@ public class AK47Manager : MonoBehaviour
             false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
+        priceBtnTxtDouble.text = player1.isPack switch
+        {
+            //currentPriceValue /= 2;
+            false when player1.isBlind => "Blind : " + currentPriceValue * 2,
+            false when player1.isSeen => "Chaal : " + currentPriceValue * 2,
+            _ => priceBtnTxtDouble.text
+        };
     }
 
     public void PlusButtonClick()
@@ -2186,11 +2437,19 @@ public class AK47Manager : MonoBehaviour
             false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
         };
+
+        priceBtnTxtDouble.text = player1.isPack switch
+        {
+            //currentPriceValue *= 2;
+            false when player1.isBlind => "Blind : " + currentPriceValue * 2,
+            false when player1.isSeen => "Chaal : " + currentPriceValue * 2,
+            _ => priceBtnTxtDouble.text
+        };
     }
 
     public void StartBet()
     {
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue, player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             OpenErrorScreen();
@@ -2203,12 +2462,12 @@ public class AK47Manager : MonoBehaviour
     }
     public void StartBetTORealPlayer(AK47Player player)
     {
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue, player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
 
-           // OpenErrorScreenONBET();
+            OpenErrorScreenONBET();
             return;
         }
         SoundManager.Instance.ThreeBetSound();
@@ -2217,31 +2476,111 @@ public class AK47Manager : MonoBehaviour
         DataManager.Instance.DebitAmount((currentPriceValue).ToString(), id, "TeenPatti-Bet-" + id, "game", 2);
         playerBetAmount += currentPriceValue;
     }
+    /*  public void BetButtonClick()
+      {
+          if (!isGameStop)
+          {
+              if (CheckMoney(currentPriceValue) == false)
+              {
+                  SoundManager.Instance.ThreeBetSound();
+                  OpenErrorScreen();
+                  return;
+              }
+              if (player1.isBlind)
+              {
+                  currentBlindValue = currentPriceValue;
+                  //currentPriceValue = currentBlindValue;
+                  //for (int i = 0; i < numbers.Length; i++)
+                  //{
+                  //    if (currentPriceValue == numbers[i])
+                  //    {
+                  //        currentPriceIndex = i;
+                  //        runningPriceIndex = i;
+                  //        break;
+                  //    }
+                  //}
+              }
+              SoundManager.Instance.ThreeBetSound();
+              BetAnim(player1, currentPriceValue, currentPriceIndex);
+              DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
+              playerBetAmount += currentPriceValue;
+              //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
+              // bonusUseValue
+              // User Maintain
+              runningPriceIndex = currentPriceIndex;
+              SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "",false);
+              ChangePlayerTurn(player1.playerNo);
+          }
+      }
+
+      public void DoubleBetButtonClick()
+      {
+          if (!isGameStop)
+          {
+              currentPriceValue = doubleLimitValue;
+              currentPriceIndex = 1;
+
+              if (CheckMoney(currentPriceValue) == false)
+              {
+                  SoundManager.Instance.ThreeBetSound();
+                  OpenErrorScreen();
+                  return;
+              }
+              SoundManager.Instance.ThreeBetSound();
+              BetAnim(player1, currentPriceValue, currentPriceIndex);
+              DataManager.Instance.DebitAmount(currentPriceValue.ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
+              playerBetAmount += currentPriceValue;
+              // bonusUseValue
+              // User Maintain
+              *//*if (currentPriceValue < 10)
+                  currentPriceValue = 10;
+              if (runningPriceIndex < 1)
+              {
+                  runningPriceIndex = 1;
+                  currentPriceIndex = 1;
+              }*//*
+              runningPriceIndex = currentPriceIndex;
+              SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "",false);
+              ChangePlayerTurn(player1.playerNo);
+              blindx2button.SetActive(false);
+              plusBtn.gameObject.SetActive(true);
+              minusBtn.gameObject.SetActive(true);
+              priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
+              priceBtnTxt.text = "Chaal : " + currentPriceValue;
+          }
+      }*/
+
     public void BetButtonClick()
     {
+        Debug.Log("isGameStop     = " + isGameStop);
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue) == false)
+            if (CheckMoney(currentPriceValue, player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
+
                 OpenErrorScreen();
                 return;
             }
-            if (player1.isBlind)
-            {
-                currentBlindValue = currentPriceValue;
-                //currentPriceValue = currentBlindValue;
-                //for (int i = 0; i < numbers.Length; i++)
-                //{
-                //    if (currentPriceValue == numbers[i])
-                //    {
-                //        currentPriceIndex = i;
-                //        runningPriceIndex = i;
-                //        break;
-                //    }
-                //}
-            }
+            /*    if (player1.isBlind)
+                {
+                    Debug.Log("currentBlindValue   =>  " + currentBlindValue);
+                    Debug.Log("currentPriceValue   =>  " + currentPriceValue);
+                    currentBlindValue = currentPriceValue;
+                    //currentPriceValue = currentBlindValue;
+                    //for (int i = 0; i < numbers.Length; i++)
+                    //{
+                    //    if(currentPriceValue == numbers[i])
+                    //    {
+                    //        currentPriceIndex = i;
+                    //        runningPriceIndex = i;
+                    //        break;
+                    //    }
+                    //}
+                }*/
             SoundManager.Instance.ThreeBetSound();
+            Debug.LogError("currentPriceValue  -=>  " + currentPriceValue);
             BetAnim(player1, currentPriceValue, currentPriceIndex);
             DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
             playerBetAmount += currentPriceValue;
@@ -2249,47 +2588,63 @@ public class AK47Manager : MonoBehaviour
             // bonusUseValue
             // User Maintain
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "",false);
-            ChangePlayerTurn(player1.playerNo);
+            if (!player1.isSeen && !player1.isBlind && !player1.isPack)
+            {
+                player1.isBlind = true;
+            }
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
+            Debug.LogError("mahadeV 4");
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
         }
     }
-
-    public void DoubleBetButtonClick()
+    public void BetButtonClickDouble()
     {
         if (!isGameStop)
         {
-            currentPriceValue = doubleLimitValue;
-            currentPriceIndex = 1;
-
-            if (CheckMoney(currentPriceValue) == false)
+            if (CheckMoney(currentPriceValue * 2, player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
+
                 OpenErrorScreen();
                 return;
             }
+            /*  if (player1.isBlind)
+              {
+                  currentBlindValue = currentPriceValue * 2;
+                  //currentPriceValue = currentBlindValue;
+                  //for (int i = 0; i < numbers.Length; i++)
+                  //{
+                  //    if(currentPriceValue == numbers[i])
+                  //    {
+                  //        currentPriceIndex = i;
+                  //        runningPriceIndex = i;
+                  //        break;
+                  //    }
+                  //}
+              }*/
             SoundManager.Instance.ThreeBetSound();
-            BetAnim(player1, currentPriceValue, currentPriceIndex);
-            DataManager.Instance.DebitAmount(currentPriceValue.ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
+            BetAnim(player1, currentPriceValue * 2, currentPriceIndex);
+            currentPriceValue = currentPriceValue * 2;
+            Debug.Log("currentPriceValue  =>  " + currentPriceValue);
+            DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
             playerBetAmount += currentPriceValue;
+            //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
             // bonusUseValue
             // User Maintain
-            /*if (currentPriceValue < 10)
-                currentPriceValue = 10;
-            if (runningPriceIndex < 1)
-            {
-                runningPriceIndex = 1;
-                currentPriceIndex = 1;
-            }*/
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "",false);
-            ChangePlayerTurn(player1.playerNo);
-            blindx2button.SetActive(false);
-            plusBtn.gameObject.SetActive(true);
-            minusBtn.gameObject.SetActive(true);
-            priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
-            priceBtnTxt.text = "Chaal : " + currentPriceValue;
+            if (!player1.isSeen && !player1.isBlind && !player1.isPack)
+            {
+                player1.isBlind = true;
+            }
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
+            Debug.LogError("mahadeV 4");
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
         }
     }
+
     #endregion
 
     #region Menu Panel
@@ -2354,7 +2709,7 @@ public class AK47Manager : MonoBehaviour
 
     public void BetAnim(AK47Player player, float amount, int priceIndex)
     {
-        Debug.LogError("totalBetAmount amount  => " + amount);
+        Debug.LogError(" amount  => " + amount);
         Debug.LogError("totalBetAmount  => " + totalBetAmount);
         totalBetAmount += amount;
         Debug.LogError("totalBetAmount  => " + totalBetAmount);
@@ -2363,7 +2718,8 @@ public class AK47Manager : MonoBehaviour
         Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
         // Subtract the amount from the balance
         currentBalance -= amount;
-        Debug.LogError("CHAL AMount  " + amount);
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        Debug.LogError("CHAL AMount  " + currentBalance);
         // Update the player's balance text with the new balance
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
@@ -2373,19 +2729,77 @@ public class AK47Manager : MonoBehaviour
                 float balance;
                 if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out balance))
                 {
+                    Debug.Log("b=     " + balance);
+                    Debug.Log("a=     " + amount);
                     balance -= amount;
 
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].userName);
                     DataManager.Instance.joinPlayerDatas[i].balance = balance.ToString();
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].balance);
                 }
             }
         }
         player.playerBalence.text = currentBalance.ToString();
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        Debug.Log("player.playerBalence => " + player.name);
+
         betAmountTxt.text = totalBetAmount.ToString("0.##");
         Debug.Log("PRICE INDEX _______ > " + priceIndex);
-
         SpawnCoin(priceIndex, player.transform, amount);
-    }
+        Debug.LogError("totalBetAmount => " + totalBetAmount + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue);
+        if (totalBetAmount > MainMenuManager.Instance.potLimitValue && isAdmin)
+        {
+            crossPotLimitTable();
+            Debug.LogError("===========Cross Limit====================");
+        }
 
+    }
+    public bool isPotlimitCross = false;
+    public void crossPotLimitTable()
+    {
+        Debug.LogError("===========Cross Limit====================");
+        isPotlimitCross = true;
+        ShowCardToAllUser();
+        //  CheckFinalWinner("Show");
+        Debug.Log("winnerPlayer =>  " + winnerPlayer.Count);
+        CheckAllPlayers(winnerPlayer);
+    }
+    public void CheckAllPlayers(List<AK47Player> players)
+    {
+
+        AK47Player finalWinner = players[0];
+
+        for (int i = 1; i < players.Count; i++)
+        {
+            AK47Player currentPlayer = players[i];
+
+            if (currentPlayer.ruleNo < finalWinner.ruleNo)
+            {
+                finalWinner = currentPlayer;
+            }
+            else if (currentPlayer.ruleNo == finalWinner.ruleNo)
+            {
+                if (ComparePlayersByCards(currentPlayer, finalWinner))
+                {
+                    finalWinner = currentPlayer;
+                }
+            }
+        }
+
+        Debug.Log("The final winner is: " + finalWinner.name);
+        CreditWinnerAmount(finalWinner.playerId);
+        SetTeenPattiWon(finalWinner.playerId);
+    }
+    bool ComparePlayersByCards(AK47Player player1, AK47Player player2)
+    {
+        if (player1.card1.cardNo > player2.card1.cardNo) return true;
+        if (player1.card1.cardNo < player2.card1.cardNo) return false;
+
+        if (player1.card2.cardNo > player2.card2.cardNo) return true;
+        if (player1.card2.cardNo < player2.card2.cardNo) return false;
+
+        return player1.card3.cardNo > player2.card3.cardNo;
+    }
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
     {
         //if (isAdmin) return;
@@ -2592,26 +3006,29 @@ public class AK47Manager : MonoBehaviour
         int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
         print("Bot Betting done " + currentAmount + " index = " + index);
         if (index < 0 || playerSquList[index].isPack) return;
+        Debug.Log("playerSquList[index]  =>  " + playerSquList[index].name);
+        Debug.Log("roundCounter = > " + roundCounter);
+        BetAnim(playerSquList[index], currentAmount, currentIndex);
+        SoundManager.Instance.ThreeBetSound();
+        /*  switch (roundCounter)
+          {
+              case <= 1:
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+                  BetAnim(playerSquList[index], currentAmount, currentIndex);
+                  SoundManager.Instance.ThreeBetSound();
+                  break;
 
-        switch (roundCounter)
-        {
-            case <= 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                BetAnim(playerSquList[index], currentAmount, currentIndex);
-                SoundManager.Instance.ThreeBetSound();
-                break;
+              case >= 7 when num <= 4:
+                  BetAnim(playerSquList[index], currentAmount, currentIndex);
+                  SoundManager.Instance.ThreeBetSound();
+                  break;
 
-            case >= 7 when num <= 4:
-                BetAnim(playerSquList[index], currentAmount, currentIndex);
-                SoundManager.Instance.ThreeBetSound();
-                break;
-
-            case >= 7 when num == 5:
-                break;
-        }
+              case >= 7 when num == 5:
+                  break;
+          }*/
 
     }
 
@@ -2651,19 +3068,23 @@ public class AK47Manager : MonoBehaviour
 
         foreach (var item in teenPattiPlayers)
         {
-            if (item.playerNo == currentPlayer)
+            Debug.LogError("coin send => " + item.playerNo + "    currentPlayer => " + currentPlayer);
+
+            // Check if the player number matches and if the player is active
+            if (item.playerNo == currentPlayer && item.gameObject.activeInHierarchy)  // Assuming `isActive` is a boolean property
             {
                 chipOrigin = item;
                 break;
             }
         }
-
         if (chipOrigin == null || chipOrigin.transform == null)
         {
             Debug.LogError("chipOrigin or chipOrigin.transform is null");
             return;
         }
 
+        Debug.Log("ORIGIN =>   " + chipOrigin.name);
+        Debug.Log("ORIGIN =>   " + chipOrigin.transform);
 
         PlaceChips coin = Instantiate(chipObj, chipOrigin.transform);
         coin.amountText.text = "" + amount;
@@ -2695,30 +3116,30 @@ public class AK47Manager : MonoBehaviour
             Debug.LogError("Player or Player.transform is null");
             return;
         }
-
+        Debug.Log("coin send => " + player.transform + "  coin.gameObject  = " + coin.gameObject + "  Pos  =>  " + dPos);
         ChipGenerate(coin.gameObject, player.transform, dPos);
         spawnedCoins.Add(coin.gameObject);
 
         Debug.Log("Coin spawned and added to the list");
     }
 
-    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
-    {
-        RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
+    /* public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+     {
+         RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
 
-        // Calculate the local bounds
-        Vector2 size = rectTransform.rect.size;
-        Vector3 localRandomPos = new Vector3(
-            UnityEngine.Random.Range(-size.x / 2.5f, size.x / 2.5f),
-            UnityEngine.Random.Range(-size.y / 2.5f, size.y / 2.5f),
-            0
-        );
+         // Calculate the local bounds
+         Vector2 size = rectTransform.rect.size;
+         Vector3 localRandomPos = new Vector3(
+             UnityEngine.Random.Range(-size.x / 2.5f, size.x / 2.5f),
+             UnityEngine.Random.Range(-size.y / 2.5f, size.y / 2.5f),
+             0
+         );
 
-        // Convert local position to world position
-        //Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
+         // Convert local position to world position
+         //Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
 
-        return localRandomPos;
-    }
+         return localRandomPos;
+     }*/
 
     private Vector3 GetRandomPosInBoxCollider2D()
     {
@@ -2766,7 +3187,10 @@ public class AK47Manager : MonoBehaviour
     {
         errorScreenObj.SetActive(true);
     }
-
+    public void OpenErrorScreenONBET()
+    {
+        errorScreenObjONBET.SetActive(true);
+    }
     public void Error_Ok_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -2780,10 +3204,11 @@ public class AK47Manager : MonoBehaviour
         errorScreenObj.SetActive(false);
     }
 
-    public bool CheckMoney(float money)
+    public bool CheckMoney(float money, AK47Player player)
     {
 
-        float currentBalance = float.Parse(DataManager.Instance.playerData.balance);
+        float currentBalance = float.Parse(player.playerBalence.text);
+        Debug.Log("currentBalance  => " + currentBalance);
         if ((currentBalance - money) < 0)
         {
             return false;
@@ -3339,7 +3764,7 @@ public class AK47Manager : MonoBehaviour
 
     public void ChangePlayerTurn(int pNo)
     {
-
+        if (isWinningRun) return;
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
@@ -3386,14 +3811,19 @@ public class AK47Manager : MonoBehaviour
 
     public void SetTeenPattiWon(string winnerPlayerId)
     {
+
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
         obj.AddField("RoomId", DataManager.Instance.gameId);
         obj.AddField("WinnerPlayerId", winnerPlayerId);
+        obj.AddField("ResetNo", UnityEngine.Random.Range(1, 4));
+        obj.AddField("RoundNo", UnityEngine.Random.Range(1, 3));
         //obj.AddField("WinnerList", value);
         obj.AddField("Action", "WinData");
+        obj.AddField("isLimitCross", isPotlimitCross);
         TestSocketIO.Instace.Senddata("TeenPattiWinnerData", obj);
+        isWinningRun = true;
     }
 
     public void ChangeCardStatus(string value, int pno, bool isSlidShowSend)
@@ -3415,7 +3845,7 @@ public class AK47Manager : MonoBehaviour
     {
         for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
+            if (playerSquList[i].gameObject.activeInHierarchy && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
             {
                 return true;
             }
@@ -3426,9 +3856,10 @@ public class AK47Manager : MonoBehaviour
 
     public void GetPlayerTurn(int playerNo)
     {
-        bool isPlayerNotEnter = false;
+        Debug.Log("GetPlayerTurn => " + playerNo);
         int nextPlayerNo = 0;
-        //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
+
+        // Check if we have reached the last player in the list
         if (playerSquList.Count == playerNo)
         {
             nextPlayerNo = 1;
@@ -3438,265 +3869,107 @@ public class AK47Manager : MonoBehaviour
         {
             nextPlayerNo = playerNo + 1;
         }
-        if (nextPlayerNo == 1)
+
+        // Loop to check each player turn until a valid one is found
+        for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (isCheckTurnPack(nextPlayerNo) == false)
+            Debug.Log("Checking player: " + nextPlayerNo);
+
+            // If this player has not packed, we can exit the loop
+            if (!isCheckTurnPack(nextPlayerNo))
+            {
+                Debug.Log("Valid Player Turn: " + nextPlayerNo);
+                break;
+            }
+
+            // Otherwise, increment to the next player
+            nextPlayerNo++;
+
+            // If we've exceeded the number of players, wrap around to player 1
+            if (nextPlayerNo > playerSquList.Count)
             {
                 nextPlayerNo = 1;
+                roundCounter++;
+            }
+        }
 
-            }
-            else
-            {
-                nextPlayerNo = 2;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 2;
-                }
-                else
-                {
-                    nextPlayerNo = 3;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 3;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 4;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 4;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 5;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 5;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 2)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 2;
-            }
-            else
-            {
-                nextPlayerNo = 3;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 3;
-                }
-                else
-                {
-                    nextPlayerNo = 4;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 4;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 5;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 5;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 1;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 1;
-                                roundCounter++;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 3)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 3;
-            }
-            else
-            {
-                nextPlayerNo = 4;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 4;
-                }
-                else
-                {
-                    nextPlayerNo = 5;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 5;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 1;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 1;
-                            roundCounter++;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 2;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 4)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 4;
-            }
-            else
-            {
-                nextPlayerNo = 5;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 5;
-                }
-                else
-                {
-                    nextPlayerNo = 1;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 1;
-                        roundCounter++;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 2;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 2;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 3;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 3;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        else if (nextPlayerNo == 5)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 5;
-            }
-            else
-            {
-                nextPlayerNo = 1;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 1;
-                    roundCounter++;
-                }
-                else
-                {
-                    nextPlayerNo = 2;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 2;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 3;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 3;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 4;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 4;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //nextPlayerNo = playerNo;
-
-        print("Next Player No : " + nextPlayerNo);
+        Debug.Log("Final Player Turn: " + nextPlayerNo);
+        print("Next Player No : " + nextPlayerNo + "");
         currentPlayer = nextPlayerNo;
         for (int i = 0; i < playerSquList.Count; i++)
         {
             if (playerSquList[i].playerNo == nextPlayerNo)
             {
+                print("next chance given to :" + playerSquList[i].playerNo + " Teenpattiplayer = " + playerSquList[i].gameObject.name);
                 playerSquList[i].RestartFillLine();
                 if (playerSquList[i].playerNo == nextPlayerNo && playerSquList[i] == player1)
                 {
+
                     ShowTextChange();
+                    Debug.Log("--------------------------------------------------------------------------------");
+
                     player1.GetAdjacentPlayersPrice(nextPlayerNo, out float currentPrice, out int priceIndex);
-                    foreach (var item in playerSquList)
-                    {
-                        if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue == numbers[j])
-                                {
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
-                        {
-                            currentPriceValue = currentPriceValue + 3;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue <= numbers[j])
-                                {
-                                    currentPriceValue = numbers[j];
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                    currentSeenValue = currentPriceValue;
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                        }
-                    }
+                    currentPriceValue = currentPrice;
+                    currentPriceIndex = priceIndex;
+                    /*     foreach (var item in playerSquList)
+                         {
+                             if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
+                             {
+
+
+                                 Debug.Log("currentPriceValue => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue == numbers[j])
+                                     {
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
+                             {
+
+                                 Debug.Log("currentPriceValue Else => " + currentPriceValue);
+
+                                 currentPriceValue = currentPriceValue + 3;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue <= numbers[j])
+                                     {
+                                         currentPriceValue = numbers[j];
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                         currentSeenValue = currentPriceValue;
+                                         break;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
+                             {
+
+                                 Debug.Log("currentPriceValue Else IF => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                             }
+                         }*/
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
                     priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+                    priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
+                    IsBoTShowRound4ENd();
+                    Debug.Log("EnableSeeCards");
+
                     EnableSeeCards();
                 }
                 else
@@ -3711,7 +3984,42 @@ public class AK47Manager : MonoBehaviour
             }
         }
     }
+    public void IsBoTShowRound4ENd()
+    {
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            Debug.Log("isBot => " + playerSquList[i].isBot + "  PLAYER => " + playerSquList[i].name + "  roundCounter  => " + roundCounter);
+            if (playerSquList[i].isBot && roundCounter == 4)
+            {
+                Debug.Log("IS BLIND => " + playerSquList[i].isBlind);
+                if (playerSquList[i].isBlind)
+                {
+                    Debug.Log("ChangeCardStatus SEEN  =>  " + (i + 1));
+                    ChangeCardStatus("SEEN", (i + 1), false);
+                }
+            }
+        }
 
+    }
+    public void ShowStatus(string id, string type)
+    {
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (!teenPattiPlayers[i].cardImg3.gameObject.activeInHierarchy) return;
+            if (teenPattiPlayers[i].playerId == id)
+            {
+                if (type == "Blind")
+                {
+                    teenPattiPlayers[i].blindIMG.SetActive(true);
+                }
+                else if (type == "Bet")
+                {
+                    teenPattiPlayers[i].seenImg.SetActive(true);
+
+                }
+            }
+        }
+    }
     //public void GetPlayerTurn(int playerNo)
     //{
 
@@ -3834,53 +4142,79 @@ public class AK47Manager : MonoBehaviour
 
     public void CreditWinnerAmount(string playerID)
     {
+        for (int i = 0; i < player1.seeObj.Length; i++)
+        {
+            player1.seeObj[i].SetActive(false);
+        }
         float winnerAmount = (float)totalBetAmount;
+        Debug.Log("isPotlimitCross => " + isPotlimitCross + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue + "  totalBetAmount => " + totalBetAmount);
+        int activePlayersCount = teenPattiPlayers
+     .Count(player => player.gameObject.activeSelf && player.isPack == false);
 
+        // If only one player is not packed, the condition is met
+        Debug.Log("Only one player is not packed." + activePlayersCount);
+        if (activePlayersCount == 1)
+        {
+            // Your condition logic here
+            Debug.Log("Only one player is not packed.");
+        }
+        else
+        {
+            // Logic for when this condition is not met
+            Debug.Log("More than one player is not packed, or all are packed." + winnerPlayer.Count);
+            if (!isPotlimitCross && MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                PlayerWinLossImgSet(playerID);
+        }
         //print("Win No : " + winnerNo[i]);
         for (int j = 0; j < teenPattiPlayers.Count; j++)
         {
-            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeSelf == true)
+            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
+                Debug.Log("CreditWinnerAmount  ");
+                float adminPercentage = DataManager.Instance.adminPercentage;
+                float winAmount = winnerAmount;
+                float adminCommssion = (adminPercentage / 100);
+                float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
-                //Generate Number
+                // Generate Number
                 GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
-                genBetObj.transform.GetChild(1).GetComponent<Text>().text = winnerAmount.ToString();
+                genBetObj.transform.GetChild(1).GetComponent<Text>().text = playerWinAmount.ToString("F2"); // Display with 2 decimal places
                 genBetObj.transform.position = targetBetObj.transform.position;
                 totalBetAmount = 0;
-                //betAmountTxt.text = winnerAmount.ToString();
+
+                // Animate the bet object to the target position
                 genBetObj.transform.DOMove(teenPattiPlayers[j].sendBetObj.transform.position, 0.3f).OnComplete(() =>
                 {
-                    //betAmountTxt.text = winnerAmount.ToString();
-                    /*if (teenPattiPlayers[j].playerNo == player1.playerNo)
-                    {
-                        //Add to  winnner Amount
+                    // Parse current balance, add the win amount, and update the UI text
 
-                        float adminPercentage = DataManager.Instance.adminPercentage;
-
-                        float winAmount = winnerAmount;
-                        float adminCommssion = (adminPercentage / 100);
-                        float playerWinAmount = winAmount - (winAmount * adminCommssion);
-
-                        print(playerWinAmount + "<-------- Crediting amount in animation");
-
-                        if (playerWinAmount != 0)
-                        {
-                            SoundManager.Instance.CasinoWinSound();
-                            DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
-                        }
-                    }*/
                 });
 
+                float currentBalance = float.Parse(teenPattiPlayers[j].playerBalence.text);
+                float newBalance = currentBalance + playerWinAmount;
+                Debug.Log("WIN AMOU   => " + playerWinAmount);
+                Debug.Log("Player Name => " + teenPattiPlayers[j].name);
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+                teenPattiPlayers[j].playerBalence.text = newBalance.ToString("F2"); // Update balance with 2 decimal formatting
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+
+                // Update the player's balance in the DataManager instance
+                for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+                {
+                    if (teenPattiPlayers[j].playerId == DataManager.Instance.joinPlayerDatas[i].userId)
+                    {
+                        Debug.Log("Player Name => " + DataManager.Instance.joinPlayerDatas[i].userName);
+
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                        DataManager.Instance.joinPlayerDatas[i].balance = newBalance.ToString("F2");
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                    }
+                }
                 // Happening outside Dotween animation
                 if (teenPattiPlayers[j].playerNo == player1.playerNo)
                 {
                     //Add to  winnner Amount
 
-                    float adminPercentage = DataManager.Instance.adminPercentage;
 
-                    float winAmount = winnerAmount;
-                    float adminCommssion = (adminPercentage / 100);
-                    float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
                     print(playerWinAmount + "<-------- Crediting amount Outside animation");
 
@@ -3890,18 +4224,96 @@ public class AK47Manager : MonoBehaviour
                         winAnimationTxt.gameObject.SetActive(true);
                         winAnimationTxt.text = "+" + playerWinAmount;
                         Invoke(nameof(WinAmountTextOff), 1.5f);
-                        DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
+                        DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "AK47-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
                     }
                 }
-
                 Destroy(genBetObj, 0.4f);
             }
         }
-
-
-        Invoke(nameof(GameRestartRound), 0.4f);
     }
 
+
+    public void PlayerWinLossImgSet(string winnerId)
+    {
+        Debug.Log("PlayerWinLossImgSet  =>   " + winnerPlayer.Count);
+        if (winnerPlayer.Count <= 1) return;
+
+        Debug.Log("PlayerWinLossImgSet  =>   " + winnerPlayer.Count);
+
+        winnerPanel.SetActive(true);
+        if (winnerPlayer[0].playerId == winnerId)
+        {
+            winorlossP1.sprite = winSprite;
+            leftImg.transform.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            winorlossP1.sprite = lossSprite;
+            leftImg.transform.GetComponent<Image>().color = Color.red;
+        }
+
+        if (winnerPlayer[1].playerId == winnerId)
+        {
+            winorlossP2.sprite = winSprite;
+            rightIMg.transform.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            winorlossP2.sprite = lossSprite;
+            rightIMg.transform.GetComponent<Image>().color = Color.red;
+        }
+        cardStatusP1.text = GetRuleText(winnerPlayer[0]);
+        cardStatusP2.text = GetRuleText(winnerPlayer[1]);
+
+        // Step 1: Display `vsImg` first and wait for 0.2 seconds
+        vsImg.SetActive(true);
+
+        // Sequence to control animations step-by-step
+        DG.Tweening.Sequence sequence = DOTween.Sequence();
+
+        // Step 1: Set initial positions (optional, if needed for debugging)
+        leftImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1000f, leftImg.GetComponent<RectTransform>().anchoredPosition.y);
+        rightIMg.GetComponent<RectTransform>().anchoredPosition = new Vector2(1000f, rightIMg.GetComponent<RectTransform>().anchoredPosition.y);
+
+        // Step 2: Show leftImg and move to x = 335 with a delay of 0.2 seconds
+        leftImg.SetActive(false); // Initially hide
+        sequence.AppendInterval(0.2f) // Wait for 0.2 seconds
+                .AppendCallback(() => leftImg.SetActive(true)) // Activate leftImg
+                .Append(leftImg.GetComponent<RectTransform>().DOAnchorPosX(335f, 0.5f).SetEase(Ease.OutBounce)) // Move to x = 335 in 0.5 seconds
+                .AppendInterval(0.2f); // Wait for 0.2 seconds before showing rightImg
+
+        // Step 3: Show rightImg and move to x = -335
+        rightIMg.SetActive(false); // Initially hide
+        sequence.AppendCallback(() => rightIMg.SetActive(true)) // Activate rightImg
+                .Append(rightIMg.GetComponent<RectTransform>().DOAnchorPosX(-335f, 0.5f).SetEase(Ease.OutBounce)) // Move to x = -335 in 0.5 seconds
+                .AppendInterval(0.2f); // Optional wait after showing rightImg
+        // Display the rules and set winner/loser images and colors based on winnerId
+        sequence.AppendCallback(() =>
+        {
+
+            // Set win/loss states and colors
+        });
+    }
+    public string GetRuleText(AK47Player player)
+    {
+        switch (player.ruleNo)
+        {
+            case 1:
+                return "TRAIL";
+            case 2:
+                return "PURE";
+            case 3:
+                return "SEQUENCE";
+            case 4:
+                return "COLOR";
+            case 5:
+                return "PAIR";
+            case 6:
+                return "HIGH";
+            default:
+                return "UNKNOWN RULE";
+        }
+    }
     public void WinAmountTextOff()
     {
         winAnimationTxt.gameObject.SetActive(false);
@@ -3999,8 +4411,9 @@ public class AK47Manager : MonoBehaviour
 
     const float epsilon = 0.0001f;
 
-    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
+    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice, bool firstBet)
     {
+        currentPriceValue = amount;
 
         if (type == "Show")
         {
@@ -4038,7 +4451,7 @@ public class AK47Manager : MonoBehaviour
 
         bool isB = false;
         bool isS = false;
-        if (type != "SideShow")
+        if (type != "SideShow" && !firstBet)
         {
             BetAnim(teenPattiPlayers[playerIndex], amount, curIndex);
             currentPriceIndex = curIndex;
@@ -4050,87 +4463,89 @@ public class AK47Manager : MonoBehaviour
             //    priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
             //}
         }
-        if (teenPattiPlayers[playerIndex].isBlind)
+        if (teenPattiPlayers[playerIndex].isBlind && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
             teenPattiPlayers[playerIndex].blindIMG.SetActive(true);
             isB = true;
         }
-        else if (teenPattiPlayers[playerIndex].isSeen)
+        else if (teenPattiPlayers[playerIndex].isSeen && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
+            teenPattiPlayers[playerIndex].seenImg.SetActive(true);
             isS = true;
         }
         //currentPriceValue = amount;
-        if (!player1.isPack && player1.isBlind)
-        {
-            if (isS)
-            {
-                //currentPriceValue /= 2;
-                //currentPriceValue = minLimitValue;
-                //currentPriceValue = curPrice;
-                currentSeenValue = curPrice;
-                if (player1.isTurn)
-                    currentPriceValue = currentBlindValue;
-            }
-            else if (isB)
-            {
-                currentPriceValue = curPrice;
-                currentBlindValue = curPrice;
-                currentSeenValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentSeenValue <= numbers[i])
-                    {
-                        currentSeenValue = numbers[i];
-                        break;
-                    }
-                }
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            priceBtnTxt.text = "Blind : " + curPrice;
-        }
-        else if (!player1.isPack && player1.isSeen)
-        {
-            if (isS)
-            {
-                /*currentPriceValue = amount;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if(currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }*/
-                currentSeenValue = curPrice;
-                currentPriceValue = curPrice;
-            }
-            else if (isB)
-            {
-                currentBlindValue = curPrice;
-                currentPriceValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        currentPriceValue = numbers[i];
-                        break;
-                    }
-                }
-                currentSeenValue = currentPriceValue;
-            }
-            priceBtnTxt.text = "Chaal : " + curPrice;
-        }
+        /*  if (!player1.isPack && player1.isBlind)
+          {
+              if (isS)
+              {
+                  //currentPriceValue /= 2;
+                  //currentPriceValue = minLimitValue;
+                  //currentPriceValue = curPrice;
+                  currentSeenValue = curPrice;
+                  if (player1.isTurn)
+                      currentPriceValue = currentBlindValue;
+              }
+              else if (isB)
+              {
+                  currentPriceValue = curPrice;
+                  currentBlindValue = curPrice;
+                  currentSeenValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentSeenValue <= numbers[i])
+                      {
+                          currentSeenValue = numbers[i];
+                          break;
+                      }
+                  }
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }
+              }
+              priceBtnTxt.text = "Blind : " + curPrice;
+          }
+          else if (!player1.isPack && player1.isSeen)
+          {
+              if (isS)
+              {
+                  *//*currentPriceValue = amount;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if(currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }*//*
+                  currentSeenValue = curPrice;
+                  currentPriceValue = curPrice;
+              }
+              else if (isB)
+              {
+                  currentBlindValue = curPrice;
+                  currentPriceValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue <= numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          currentPriceValue = numbers[i];
+                          break;
+                      }
+                  }
+                  currentSeenValue = currentPriceValue;
+              }
+              priceBtnTxt.text = "Chaal : " + curPrice;
+          }
+  */
     }
 
 
@@ -4214,7 +4629,7 @@ public class AK47Manager : MonoBehaviour
 
     }
 
-
+    public bool isWinningRun = false;
     void CheckPackTime(AK47Player packPlayer)
     {
         print("Enter The Check Player");
@@ -4222,19 +4637,24 @@ public class AK47Manager : MonoBehaviour
         print(teenPattiPlayers.Count);
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
-            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeSelf == true)
+            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 livePlayers.Add(teenPattiPlayers[i]);
             }
         }
         print("livePlayers.Count : " + livePlayers.Count);
-        packPlayer.isTurn = false;
-        if (livePlayers.Count == 1)
+        //  packPlayer.isTurn = false;
+        print("NAME : " + packPlayer.name);
+
+        //  Debug.Log("isWinningRun  =>  " + isWinningRun);
+        if (livePlayers.Count == 1 && !isWinningRun)
         {
             livePlayers[0].isTurn = false;
             string winValue = ",";
             winValue += livePlayers[0].playerNo + ",";
-            if (livePlayers[0].playerNo == playerNo)
+            Debug.Log("livePlayers[0].playerNo  =>  " + livePlayers[0].playerNo + "  playerNo  => " + playerNo);
+            Debug.Log("WIN AMOUNT =>  " + winValue);
+            if (livePlayers[0].playerNo == playerNo || livePlayers[0].isBot)
             {
                 SetTeenPattiWon(livePlayers[0].playerId);
                 Debug.LogWarning("------------------won is called-------------------------------------");
@@ -4245,18 +4665,40 @@ public class AK47Manager : MonoBehaviour
                 t.SetActive(true);
             }
 
-            StartCoroutine(RestartGamePlay());
+
         }
         else
         {
-            if (isAdmin)
-            {
-                ChangePlayerTurn(packPlayer.playerNo);
-            }
+            /* Debug.Log("IS ADMIN => " + isAdmin + "isSLidShow1  =>" + isSLidShow1 + "packPlayer.playerNo  =>  " + packPlayer.playerNo + "  NO => " + playerNo + " BOT =>  " + packPlayer.isBot);
+
+             if (!isSLidShow1 && packPlayer.playerNo == playerNo)
+             {
+
+                 ChangePlayerTurn(packPlayer.playerNo);
+
+             }
+             else if (packPlayer.isBot && isAdmin && !isSLidShow1)
+             {
+                 ChangePlayerTurn(packPlayer.playerNo);
+
+             }*/
+            ChangePlayerTurn(packPlayer.playerNo);
         }
     }
 
-
+    public int activePlayerOnTable;
+    public void CheckActivePlayer()
+    {
+        activePlayerOnTable = 0;
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (teenPattiPlayers[i].gameObject.activeInHierarchy && !teenPattiPlayers[i].isPack)
+            {
+                activePlayerOnTable++;
+            }
+        }
+        Debug.Log("ACTIVE PLAYER = " + activePlayerOnTable);
+    }
     public void ChangeAAdmin(string leavePlayerId, string adminId)
     {
 
@@ -4303,7 +4745,7 @@ public class AK47Manager : MonoBehaviour
                 // Log the pack time check
                 Debug.Log($"Checking pack time for player {teenPattiPlayers[i].playerNameTxt.text}");
                 CheckPackTime(teenPattiPlayers[i]);
-                if (teenPattiPlayers[i].isTurn )
+                if (teenPattiPlayers[i].isTurn && !isWinningRun)
                 {
                     // Log the change of turn if it's the current player's turn
                     Debug.Log($"It was {teenPattiPlayers[i].playerNameTxt.text}'s turn. Changing to the next player.");
@@ -4419,7 +4861,7 @@ public class AK47Manager : MonoBehaviour
                 //teenSlideShowPlayers.Add(teenPattiPlayers[i]);
             }
         }
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue, slideShowPlayer) == false)
         {
             SoundManager.Instance.ButtonClick();
             OpenErrorScreen();
@@ -4620,16 +5062,51 @@ public class AK47Manager : MonoBehaviour
 
     }
 
+    public List<AK47Player> winnerPlayer;
 
     public void ShowCardToAllUser()
     {
         winMaintain.Clear();
+        winnerPlayer.Clear();
+        foreach (var t in teenPattiPlayers.Where(t => t.gameObject.activeSelf && !t.isPack))
+        {
+            t.isSeen = true;
+            t.isBlind = false;// Set isSeen to true for each player who is active and not packed
+            Debug.Log("T NAME  = " + t.name);
+        }
         foreach (var t in teenPattiPlayers.Where(t => t.gameObject.activeSelf == true && (t.isSeen || t.isBlind) && t.isPack == false))
         {
+            Debug.Log("T NAME  = " + t.name);
+            winnerPlayer.Add(t);
             t.CardDisplay();
+
         }
         //CheckFinalWinner(type);
+        Debug.Log("winnerPlayer  Count => " + winnerPlayer.Count + "  iSPot  => " + isPotlimitCross);
+        if (winnerPlayer.Count <= 2 && !isPotlimitCross)
+            WinnerDataSet();
         bottomBox.SetActive(false);
+    }
+
+    public void WinnerDataSet()
+    {
+        if (winnerPlayer.Count <= 1) return;
+
+        profileImgP1.sprite = winnerPlayer[0].avatarImg.sprite;
+        profileImgP2.sprite = winnerPlayer[1].avatarImg.sprite;
+
+        usernameP1.text = winnerPlayer[0].playerNameTxt.text;
+        usernameP2.text = winnerPlayer[1].playerNameTxt.text;
+
+        P1card1.sprite = winnerPlayer[0].cardImg1.sprite;
+        P1card2.sprite = winnerPlayer[0].cardImg2.sprite;
+        P1card3.sprite = winnerPlayer[0].cardImg3.sprite;
+
+        P2card1.sprite = winnerPlayer[1].cardImg1.sprite;
+        P2card2.sprite = winnerPlayer[1].cardImg2.sprite;
+        P2card3.sprite = winnerPlayer[1].cardImg3.sprite;
+
+
     }
 
     public string CheckFinalWinner(string type)
@@ -4735,6 +5212,7 @@ public class AK47Manager : MonoBehaviour
         if (winnerPlayer.Count > 0)
         {
             ShowCardToAllUser();
+            CreditWinnerAmount(winnerPlayerId);
             ShowWinPlayer("Show", winnerPlayer);
         }
     }
@@ -4763,8 +5241,12 @@ public class AK47Manager : MonoBehaviour
                 t.SetActive(true);
             }
             SoundManager.Instance.CasinoWinSound();
+            if (isGameStarted)
+            {
+                Debug.Log("------ RestartGamePlay ---- ");
+                StartCoroutine(RestartGamePlay());
+            }
 
-            StartCoroutine(RestartGamePlay());
         }
         else if (teenPattiWinner.Count > 1)
         {
@@ -5073,5 +5555,11 @@ public class AK47Manager : MonoBehaviour
 
 
     #endregion
-
+    public void TableInfoDataSet()
+    {
+        bootAmountText.text = "Boot Amount = " + MainMenuManager.Instance.selectedValue;
+        maxBlindsText.text = "Max Blinds = " + 4;
+        chaalLimitText.text = "Chaal Limit = " + MainMenuManager.Instance.challLimit;
+        potLimitText.text = "Pot Limit = " + MainMenuManager.Instance.potLimitValue;
+    }
 }

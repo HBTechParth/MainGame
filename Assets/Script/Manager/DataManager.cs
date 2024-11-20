@@ -882,7 +882,7 @@ public class DataManager : MonoBehaviour
         Debug.Log("Debit Value data =>    " + data.ToString());
         Setplayerdata(data);
         //Balance_Txt.text = data["balance"].ToString().Trim('"');
-        //        playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
+        //playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
         //playerData.deposit = data[nameof(DataManager.Instance.playerData.deposit)];
         //playerData.winings = data[nameof(DataManager.Instance.playerData.winings)];
         //playerData.bonus = data[nameof(DataManager.Instance.playerData.bonus)];

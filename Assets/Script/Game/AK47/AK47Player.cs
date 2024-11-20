@@ -72,9 +72,9 @@ public class AK47Player : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        //if (TeenPattiManager.Instance.player1 == this)
+        //if (AK47Manager.Instance.player1 == this)
         //{
-        //    TeenPattiManager.Instance. = 
+        //    AK47Manager.Instance. = 
         //}
         //Debug.Log("Gaurav HERE 1 ");
         if (!AK47Manager.Instance.isBotActivate) return;
@@ -107,7 +107,7 @@ public class AK47Player : MonoBehaviour
                     //    seeObj[j].SetActive(false);
                     //}
                     //packImg.SetActive(true);
-                    //TeenPattiManager.Instance.CheckWin();
+                    //AK47Manager.Instance.CheckWin();
                     AK47Manager.Instance.skippedChanceObject.SetActive(true);
                     TestSocketIO.Instace.LeaveRoom();
                 }
@@ -116,12 +116,14 @@ public class AK47Player : MonoBehaviour
                 //userTurnCount++;
                 //if (userTurnCount >= 4)
                 //{
-                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
                 //}
-                CheckLife();
+                //     CheckLife();
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
                 //}
+                Debug.Log("ChangePlayerTurn   =>  " + playerNo);
+
                 AK47Manager.Instance.ChangePlayerTurn(playerNo);
-                //if (this == TeenPattiManager.Instance.player1)
+                //if (this == AK47Manager.Instance.player1)
                 //{
                 //}
                 //Pack and Change Turn
@@ -174,237 +176,17 @@ public class AK47Player : MonoBehaviour
         if (_isFunctionCalled) yield break;
         //BotAutoBet();
         StartCoroutine(BotAutoBetCoroutine());
-        //TeenPattiManager.Instance.BetAnim(this, 0.1f);
+        //AK47Manager.Instance.BetAnim(this, 0.1f);
     }
 
-    //private void BotAutoBet()
-    //{
-    //    int num = Random.Range(1, 6);
-
-    //    SendBotBetNo(num, playerNo);
-
-    //    switch (AK47Manager.Instance.roundCounter)
-    //    {
-    //        //after 1st round
-    //        case <= 1:
-    //            switch (num)
-    //            {
-    //                case 1:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 2:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 3:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 4:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 5:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //            }
-
-    //            break;
-    //        case 2:
-    //            switch (num)
-    //            {
-    //                case 1:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 2:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 3:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 4:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 5:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
-    //                        //TeenPattiManager.Instance.BetAnim(this, 5f);
-    //                        break;
-    //                    }
-    //            }
-
-    //            break;
-
-    //        case 3:
-    //            switch (num)
-    //            {
-    //                case 1:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
-    //                        break;
-    //                    }
-    //                case 2:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 3:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 4:
-    //                    {
-    //                        if (isPack) return;
-    //                        if (!isSeen)
-    //                        {
-    //                            AK47Manager.Instance.ChangeCardStatus("SEEN", playerNo);
-    //                        }
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 5:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
-    //                        //AK47Manager.Instance.BetAnim(this, 5f);
-    //                        break;
-    //                    }
-    //            }
-
-    //            break;
-    //        case >= 4:
-    //            switch (num)
-    //            {
-    //                case 1:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 2:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 3:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.ChangeCardStatus("PACK", playerNo);
-    //                        break;
-    //                    }
-    //                case 4:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //                case 5:
-    //                    {
-    //                        if (isPack) return;
-    //                        AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-    //                        SoundManager.Instance.ThreeBetSound();
-    //                        break;
-    //                    }
-    //            }
-
-    //            break;
-    //    }
-    //    AK47Manager.Instance.ChangePlayerTurn(playerNo);
-
-    //    _isFunctionCalled = true;
-    //}
 
     private IEnumerator BotAutoBetCoroutine()
     {
         _isFunctionCalled = true;
         if (isPack) yield break;
+        isTurn = true;
         int num1;
-     
+
         if (!isSeen)
         {
             num1 = Random.Range(0, 2);
@@ -423,23 +205,47 @@ public class AK47Player : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);  // Add a 2-second delay
             }
         }
+        int num = Random.Range(1, 6);
+        Debug.Log("Randomly generated num => " + num);
+
         float currentPrice;
         int priceIndex;
+
+        Debug.Log("delearObj.activeInHierarchy  =>  " + delearObj.activeInHierarchy + "  AK47Manager.Instance.roundCounter  =>  " + AK47Manager.Instance.roundCounter);
+
         if (delearObj.activeInHierarchy && AK47Manager.Instance.roundCounter == 0)
         {
-            currentPrice = AK47Manager.Instance.minLimitValue;
+            if (isSeen)
+                currentPrice = AK47Manager.Instance.minLimitValue * 2;
+            else
+                currentPrice = AK47Manager.Instance.minLimitValue;
+
             priceIndex = AK47Manager.Instance.currentPriceIndex;
         }
         else
+        {
+            Debug.Log("--------------------------------------------------------------------------------");
+
+            // Check if the player is going to pack based on num == 5 and other conditions
+            /*  if (num == 5 && AK47Manager.Instance.winningBotNo != -1 && AK47Manager.Instance.winningBotNo != this.playerNo)
+              {
+                  // Player is going to pack, no need to call GetAdjacentPlayersPrice
+                  Debug.Log("Player will pack, skipping GetAdjacentPlayersPrice...");
+                  AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                  yield break; // Exit coroutine as the player is packing
+              }*/
+
+            // Call GetAdjacentPlayersPrice if packing condition is not met
             GetAdjacentPlayersPrice(playerNo, out currentPrice, out priceIndex);
-        print("-------- > " + currentPrice + "---" + priceIndex + "---");
+        }
+
+        print("delearObj-------- > " + currentPrice + "---" + priceIndex + "---");
 
         AK47Manager.Instance.currentPriceValue = currentPrice;
         AK47Manager.Instance.currentPriceIndex = priceIndex;
+        Debug.Log("currentPriceValue   =>  " + AK47Manager.Instance.currentPriceValue);
 
-        int num = Random.Range(1, 6);
-        //SendBotBetNo(num, playerNo, currentPrice, priceIndex);
-
+        // Now handle the bets based on the round counter
         switch (AK47Manager.Instance.roundCounter)
         {
             case <= 1:
@@ -455,95 +261,305 @@ public class AK47Player : MonoBehaviour
                 break;
         }
 
-        //AK47Manager.Instance.ChangePlayerTurn(playerNo);
     }
 
     private void HandleBetForRounds(int num)
     {
-        if (num != 5)
+        Debug.Log("SHIGHAM AGAIN   =>  " + num);
+        AK47Manager.Instance.CheckActivePlayer();
+        Debug.LogError("NUM => " + num);
+        float playerBalanceValue;
+        if (float.TryParse(playerBalence.text, out playerBalanceValue))
         {
-            SendBotBetNo(num, playerNo, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-            AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-            SoundManager.Instance.ThreeBetSound();
-            AK47Manager.Instance.ChangePlayerTurn(playerNo);
+            Debug.Log("playerBalence => " + playerBalence.text + "   currentPriceValue  =>  " + AK47Manager.Instance.currentPriceValue);
 
-        }
-        else if (AK47Manager.Instance.winningBotNo != -1 && AK47Manager.Instance.winningBotNo == this.playerNo)
-        {
-            SendBotBetNo(num, playerNo, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-            AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-            SoundManager.Instance.ThreeBetSound();
-            AK47Manager.Instance.ChangePlayerTurn(playerNo);
-        }
-        else
-        {
-            AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
+            if (playerBalanceValue < AK47Manager.Instance.currentPriceValue)
+            {
+                Debug.Log("ChangeCardStatus   =>  " + playerNo + "  ");
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                Debug.Log("<color=red>------------------------------------------- Not enough money ----------------------------------------------</color>");
+                return;
+            }
+            else
+            {
+                bool isDoubleBet = isSeen && Random.Range(0, 5) == 4;
+
+                float potentialBetAmount = AK47Manager.Instance.currentPriceValue * 2;
+
+                float betAmount = (isDoubleBet && potentialBetAmount <= MainMenuManager.Instance.challLimit)
+                    ? potentialBetAmount
+                    : AK47Manager.Instance.currentPriceValue;
+
+                AK47Manager.Instance.currentPriceValue = betAmount;
+                Debug.Log("BOT CHALL     =>    " + betAmount);
+                if (num != 5)
+                {
+                    SendBotBetNo(num, playerNo, betAmount, AK47Manager.Instance.currentPriceIndex);
+                    Debug.LogError("mahadeV - BOT1 =>  " + betAmount);
+                    AK47Manager.Instance.BetAnim(this, betAmount, AK47Manager.Instance.currentPriceIndex);
+                    SoundManager.Instance.ThreeBetSound();
+                    AK47Manager.Instance.ChangePlayerTurn(playerNo);
+                }
+                /* else if (AK47Manager.Instance.winningBotNo != -1 && AK47Manager.Instance.winningBotNo == this.playerNo)
+                 {
+                     SendBotBetNo(num, playerNo, betAmount, AK47Manager.Instance.currentPriceIndex);
+                     Debug.LogError("mahadeV - BOT2 => " + betAmount);
+                     AK47Manager.Instance.BetAnim(this, betAmount, AK47Manager.Instance.currentPriceIndex);
+                     SoundManager.Instance.ThreeBetSound();
+                     AK47Manager.Instance.ChangePlayerTurn(playerNo);
+                 }*/
+                else
+                {
+                    int n = Random.Range(0, 2);
+
+                    Debug.Log("SHIGHAM AGAIN   =  " + n);
+
+                    if (n == 0)
+                    {
+                        Debug.Log("ChangeCardStatus PACK  =>  " + playerNo);
+                        BotShow();
+                    }
+                    else
+                    {
+                        SendBotBetNo(num, playerNo, betAmount, AK47Manager.Instance.currentPriceIndex);
+                        Debug.LogError("mahadeV - BOT1 =>  " + betAmount);
+                        AK47Manager.Instance.BetAnim(this, betAmount, AK47Manager.Instance.currentPriceIndex);
+                        SoundManager.Instance.ThreeBetSound();
+                        AK47Manager.Instance.ChangePlayerTurn(playerNo);
+                    }
+                }
+            }
         }
     }
 
     private void HandleBetForOtherRounds(int num)
     {
+        Debug.Log("SHIGHAM AGAIN  1   =  " + num);
+        AK47Manager.Instance.CheckActivePlayer();
+
+        float playerBalanceValue;
+        if (float.TryParse(playerBalence.text, out playerBalanceValue))
+        {
+            if (playerBalanceValue < AK47Manager.Instance.currentPriceValue)
+            {
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
+                Debug.Log("<color=red>------------------------------------------- Not enough money ----------------------------------------------<color>");
+                return;
+            }
+        }
+
+        bool isDoubleBet = isSeen && Random.Range(0, 5) == 4;
+
+        float potentialBetAmount = AK47Manager.Instance.currentPriceValue * 2;
+
+        float betAmount = (isDoubleBet && potentialBetAmount <= MainMenuManager.Instance.challLimit)
+            ? potentialBetAmount
+            : AK47Manager.Instance.currentPriceValue;
+
+        AK47Manager.Instance.currentPriceValue = betAmount;
+        Debug.Log("BOT CHALL     =>    " + betAmount);
+
         switch (num)
         {
             case 1:
             case 2:
             case 4:
             case 5:
-                SendBotBetNo(num, playerNo, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
-                AK47Manager.Instance.BetAnim(this, AK47Manager.Instance.currentPriceValue, AK47Manager.Instance.currentPriceIndex);
+                SendBotBetNo(num, playerNo, betAmount, AK47Manager.Instance.currentPriceIndex);
+                Debug.LogError("mahadeV - BOT3");
+
+                AK47Manager.Instance.BetAnim(this, betAmount, AK47Manager.Instance.currentPriceIndex);
                 SoundManager.Instance.ThreeBetSound();
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
                 AK47Manager.Instance.ChangePlayerTurn(playerNo);
                 break;
 
             case 3:
-                /*AK47Manager.Instance.ShowCardToAllUser();
-                AK47Manager.Instance.CheckFinalWinner("Show");*/
-                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo,false);
+                BotShow();
                 break;
         }
     }
-
-    public void GetAdjacentPlayersPrice(int playerNo, out float currentPriceValue, out int currentPriceIndex)
+    public void BotShow()
     {
-        int totalPlayers = AK47Manager.Instance.teenPattiPlayers.Count;
-
-        int previousPlayerIndex = (playerNo - 2 + totalPlayers) % totalPlayers;
-        var prevPlayer = GetNonPackPlayer(previousPlayerIndex, totalPlayers, -1);
-
-        var currPlayer = /*AK47Manager.Instance.teenPattiPlayers[playerNo - 1]*/this;
-
-        if (prevPlayer.isBlind && currPlayer.isBlind)
+        if (AK47Manager.Instance.activePlayerOnTable == 2)
         {
-            currentPriceValue = AK47Manager.Instance.numbers[AK47Manager.Instance.currentPriceIndex];
-            currentPriceIndex = AK47Manager.Instance.currentPriceIndex;
-        }
-        else if (prevPlayer.isSeen && currPlayer.isSeen)
-        {
-            currentPriceValue = AK47Manager.Instance.numbers[AK47Manager.Instance.currentPriceIndex];
-            currentPriceIndex = AK47Manager.Instance.currentPriceIndex;
-        }
-        else if (prevPlayer.isBlind && currPlayer.isSeen)
-        {
-            currentPriceValue = AK47Manager.Instance.numbers[(AK47Manager.Instance.currentPriceIndex + 1) % AK47Manager.Instance.numbers.Length];
-            currentPriceIndex = (AK47Manager.Instance.currentPriceIndex + 1) % AK47Manager.Instance.numbers.Length;
-        }
-        else if (currPlayer.isBlind && prevPlayer.isSeen)
-        {
-            currentPriceValue = AK47Manager.Instance.numbers[(AK47Manager.Instance.currentPriceIndex - 1 + AK47Manager.Instance.numbers.Length) % AK47Manager.Instance.numbers.Length];
-            currentPriceIndex = (AK47Manager.Instance.currentPriceIndex - 1 + AK47Manager.Instance.numbers.Length) % AK47Manager.Instance.numbers.Length;
+            int n = Random.Range(0, 3);
+            if (n == 2)
+            {
+                AK47Manager.Instance.ShowCardToAllUser();
+                AK47Manager.Instance.CheckAllPlayers(AK47Manager.Instance.winnerPlayer);
+            }
+            else
+            {
+                Debug.Log("PLAYER PACK =  " + playerNo);
+                AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
+            }
         }
         else
         {
-            currentPriceValue = AK47Manager.Instance.numbers[(AK47Manager.Instance.currentPriceIndex - 1 + AK47Manager.Instance.numbers.Length) % AK47Manager.Instance.numbers.Length];
-            currentPriceIndex = (AK47Manager.Instance.currentPriceIndex - 1 + AK47Manager.Instance.numbers.Length) % AK47Manager.Instance.numbers.Length;
+            Debug.Log("PLAYER PACK =  " + playerNo);
+            AK47Manager.Instance.ChangeCardStatus("PACK", playerNo, false);
         }
     }
+    AK47Player prevPlayer;
+    AK47Player currPlayer;
+    public void GetAdjacentPlayersPrice(int playerNo, out float currentPriceValue, out int currentPriceIndex)
+    {
+        int previousPlayerIndex;
+        previousPlayerIndex = (playerNo - 1);
+        for (int i = 0; i < AK47Manager.Instance.teenPattiPlayers.Count; i++)
+        {
+            Debug.Log("Checking player: " + previousPlayerIndex);
 
+            // If this player has not packed, we can exit the loop
+            if (isPrevPlayerPack(previousPlayerIndex))
+            {
+                Debug.Log("Valid Player Turn: " + previousPlayerIndex);
+                for (int j = 0; j < AK47Manager.Instance.teenPattiPlayers.Count; j++)
+                {
+                    Debug.Log("pre =  " + previousPlayerIndex + " AK47Manager.Instance.teenPattiPlayers[i].no   " + AK47Manager.Instance.teenPattiPlayers[i].playerNo);
+                    if (previousPlayerIndex == AK47Manager.Instance.teenPattiPlayers[j].playerNo)
+                    {
+                        prevPlayer = AK47Manager.Instance.teenPattiPlayers[j];
+                        Debug.Log("PRE   " + prevPlayer.name);
+                        
+
+                    }
+                }
+
+                break;
+            }
+
+            // Otherwise, increment to the next player
+            previousPlayerIndex--;
+
+            // If we've exceeded the number of players, wrap around to player 1
+            Debug.Log("PREV INDEX =>  " + previousPlayerIndex);
+            if (previousPlayerIndex < 1)
+            {
+                previousPlayerIndex = DataManager.Instance.joinPlayerDatas.Count;
+                Debug.Log("PREV INDEX =>  " + previousPlayerIndex);
+            }
+        }
+
+
+
+        var currPlayer = this;
+        Debug.Log("prevPlayer => " + prevPlayer.name + "  currPlayer =>  " + currPlayer.name);
+
+        print("current bot player = " + currPlayer + " playerNo = " + playerNo + " global playerNo = " + this.playerNo);
+        Debug.Log("AK47Manager.Instance.currentPriceValue   => " + AK47Manager.Instance.currentPriceValue);
+        if ((AK47Manager.Instance.currentPriceValue) > MainMenuManager.Instance.challLimit || (AK47Manager.Instance.currentPriceValue * 2) > MainMenuManager.Instance.challLimit)
+        {
+            Debug.LogError("AK47Manager.Instance.currentPriceValue /////=>  " + AK47Manager.Instance.currentPriceValue);
+            if (AK47Manager.Instance.player1.isTurn)
+                AK47Manager.Instance.doubleBUtton.SetActive(false);
+            Debug.Log("crossChalLimitLastChallSave  =>  " + AK47Manager.Instance.crossChalLimitLastChallSave);
+            if (AK47Manager.Instance.crossChalLimitLastChallSave == -1f)
+            {
+                // This block will execute only the first time
+                currentPriceValue = AK47Manager.Instance.currentPriceValue;  // Set current price value
+                Debug.LogError("AK47Manager.Instance.currentPriceValue /////=>  " + currentPriceValue);
+                currentPriceIndex = AK47Manager.Instance.currentPriceIndex;  // Set current price index
+
+                // Store the initial price value
+                AK47Manager.Instance.crossChalLimitLastChallSave = AK47Manager.Instance.currentPriceValue;
+                Debug.LogError("AK47Manager.Instance.currentPriceValue /////=>  " + AK47Manager.Instance.crossChalLimitLastChallSave);
+            }
+            else
+            {
+                // Use the stored price value on subsequent entries
+                Debug.LogError("AK47Manager.Instance.currentPriceValue /////=>  " + AK47Manager.Instance.crossChalLimitLastChallSave);
+                currentPriceValue = AK47Manager.Instance.crossChalLimitLastChallSave;
+                Debug.LogError("AK47Manager.Instance.currentPriceValue /////=>  " + currentPriceValue);
+                currentPriceIndex = AK47Manager.Instance.currentPriceIndex;  // Set current price index
+
+            }
+        }
+        else
+        {
+            if (prevPlayer.isBlind && prevPlayer.blindIMG.activeInHierarchy && currPlayer.isBlind)
+            {
+                Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
+                Debug.Log("Both me and previous player are blind." + AK47Manager.Instance.currentPriceValue);
+
+                currentPriceValue = AK47Manager.Instance.currentPriceValue;
+
+                currentPriceIndex = AK47Manager.Instance.currentPriceIndex;
+            }
+            else if (prevPlayer.isSeen && prevPlayer.seenImg.activeInHierarchy && currPlayer.isSeen)
+            {
+                // Do not change the value if both players are already seen
+                Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
+                Debug.Log("Both me and previous player are seen (no change in amount)." + AK47Manager.Instance.currentPriceValue);
+                currentPriceValue = AK47Manager.Instance.currentPriceValue;
+                currentPriceIndex = AK47Manager.Instance.currentPriceIndex;
+            }
+            else if (prevPlayer.isBlind && prevPlayer.blindIMG.activeInHierarchy && currPlayer.isSeen)
+            {
+                // First transition from blind to seen — double the value.
+                Debug.Log("I am seen, previous player is blind." + AK47Manager.Instance.currentPriceValue);
+                Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
+                currentPriceValue = AK47Manager.Instance.currentPriceValue * 2;
+                currentPriceIndex = (AK47Manager.Instance.currentPriceIndex + 1) % AK47Manager.Instance.numbers.Length;
+            }
+            else if (currPlayer.isBlind && prevPlayer.isSeen && prevPlayer.seenImg.activeInHierarchy)
+            {
+                // If the current player is blind and the previous is seen, halve the value.
+                Debug.Log("I am blind, previous player is seen." + AK47Manager.Instance.currentPriceValue);
+                Debug.Log("Prev Name =>  " + prevPlayer.name + "   Curr Name  =>  " + currPlayer.name);
+                if (AK47Manager.Instance.minLimitValue > AK47Manager.Instance.currentPriceValue / 2)
+                {
+                    currentPriceValue = AK47Manager.Instance.minLimitValue;
+                }
+                else
+                {
+                    currentPriceValue = AK47Manager.Instance.currentPriceValue / 2;
+
+                }
+                currentPriceIndex = (AK47Manager.Instance.currentPriceIndex - 1 + AK47Manager.Instance.numbers.Length) % AK47Manager.Instance.numbers.Length;
+            }
+            else
+            {
+                // Default case — retain the current value and index.
+                Debug.Log("Default case — retain the current value and index.");
+                currentPriceValue = AK47Manager.Instance.currentPriceValue;
+                currentPriceIndex = AK47Manager.Instance.currentPriceIndex;
+            }
+            Debug.LogError("currentPriceValue =   " + currentPriceValue);
+        }
+        // Check player states and determine the appropriate price value and index.
+    }
+    bool isPrevPlayerPack(int prevPlayerNo)
+    {
+        for (int i = 0; i < AK47Manager.Instance.teenPattiPlayers.Count; i++)
+        {
+            Debug.Log("I =>  " + i + "  playerSquList[i].gameObject.activeInHierarchy  => " + AK47Manager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy + "  playerSquList[i].playerNo = " + AK47Manager.Instance.teenPattiPlayers[i].playerNo + "   nextPlayerNo = > " + prevPlayerNo + "   playerSquList[i].isPack  =  " + AK47Manager.Instance.teenPattiPlayers[i].isPack);
+            if (AK47Manager.Instance.teenPattiPlayers[i].gameObject.activeInHierarchy && AK47Manager.Instance.teenPattiPlayers[i].playerNo == prevPlayerNo && AK47Manager.Instance.teenPattiPlayers[i].isPack == false)
+            {
+                Debug.Log("RETURN TRUE ");
+                return true;
+            }
+        }
+        Debug.Log("RETURN FALSE ");
+        return false;
+    }
     private AK47Player GetNonPackPlayer(int playerIndex, int totalPlayers, int step)
     {
+        // Store the initial index to avoid infinite loops
+        int startIndex = playerIndex;
+
+        // Iterate until we find a non-packed player or return to the starting index
         while (AK47Manager.Instance.teenPattiPlayers[playerIndex].isPack)
         {
             playerIndex = (playerIndex + step + totalPlayers) % totalPlayers;
+
+            // If we have circled back to the start, break to avoid infinite loop
+            if (playerIndex == startIndex)
+            {
+                return null; // All players are packed; handle this case as needed
+            }
         }
         return AK47Manager.Instance.teenPattiPlayers[playerIndex];
     }
@@ -629,21 +645,21 @@ public class AK47Player : MonoBehaviour
 
     public void RestartFillLine()
     {
-        //TeenPattiManager.Instance.ShowTextChange();
+        //AK47Manager.Instance.ShowTextChange();
         fillLine.fillAmount = 1;
         isOneTimeEnter = false;
         isTurn = true;
         isCalled = false;
         _isFunctionCalled = false;
-        //if (this == TeenPattiManager.Instance.player1)
+        //if (this == AK47Manager.Instance.player1)
         //{
-        //    TeenPattiManager.Instance.bottomBox.SetActive(true);
+        //    AK47Manager.Instance.bottomBox.SetActive(true);
         //}
 
     }
     public void NotATurn()
     {
-        isOneTimeEnter = false;        
+        isOneTimeEnter = false;
         isTurn = false;
         _isFunctionCalled = false;
         fillLine.fillAmount = 0;

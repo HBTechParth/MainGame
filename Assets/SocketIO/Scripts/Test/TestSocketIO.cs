@@ -2056,7 +2056,7 @@ public class TestSocketIO : MonoBehaviour
             {
                 //print("Teen Patti playerNo : " + playerNo);
 
-                TeenPattiManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice,firstBet);
+                TeenPattiManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice, firstBet);
             }
 
             TeenPattiManager.Instance.ShowStatus(playerID, betType);
@@ -2099,13 +2099,14 @@ public class TestSocketIO : MonoBehaviour
             int currentPrice = data["currentPrice"];
             string playerSlideShowSendId = data["playerSlideShowSendId"];
             string playerIdSlideShowId = data["playerIdSlideShowId"];
-
+            bool firstBet = data["FIRSTBET"];
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID /*&& playerID == DataManager.Instance.playerData._id*/)
             {
                 //print("Teen Patti playerNo : " + playerNo);
 
-                AK47Manager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice);
+                AK47Manager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice,firstBet);
             }
+            AK47Manager.Instance.ShowStatus(playerID, betType);
         }
 
 
@@ -2264,6 +2265,10 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             string sRoomId = data["RoomId"];
             string WinnerPlayerId = data["WinnerPlayerId"];
+            AK47Manager.Instance.resetNUMForBot = data["ResetNo"];
+            AK47Manager.Instance.RoundresetNUMForBot = data["RoundNo"];
+            AK47Manager.Instance.isPotlimitCross = data["isLimitCross"];
+
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
                 AK47Manager.Instance.HandelTeenPattiWinData(WinnerPlayerId);
