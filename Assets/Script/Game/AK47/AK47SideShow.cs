@@ -53,12 +53,18 @@ public class AK47SideShow : MonoBehaviour
 
     public void AcceptButtonClick()
     {
+
+        Debug.Log("AcceptButtonClick  =>  " + sendId + "   current =>  " + currentId);
+
         AK47Manager.Instance.Accept_SlideShow(sendId, currentId);
         this.gameObject.SetActive(false);
     }
 
     public void CancelButtonClick()
     {
+
+        Debug.Log("CancelButtonClick  =>  " + sendId + "   current =>  " + currentId);
+
         AK47Manager.Instance.Cancel_SlideShow(sendId, currentId);
         this.gameObject.SetActive(false);
     }

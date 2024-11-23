@@ -18365,7 +18365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.6849976, y: 97}
+  m_AnchoredPosition: {x: 4.6849976, y: 111}
   m_SizeDelta: {x: 262.33, y: 83.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1166647007
@@ -18392,7 +18392,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 252.11, y: 74}
+  m_Size: {x: 252.14, y: 74}
   m_EdgeRadius: 0
 --- !u!1 &1167064176
 GameObject:
@@ -20964,13 +20964,13 @@ MonoBehaviour:
     cardSprite: {fileID: 21300000, guid: d87edabde682c48d69fded5628d82586, type: 3}
   - cardNo: 11
     color: 1
-    cardSprite: {fileID: 21300000, guid: 03b53796831c34732b783673d936bcab, type: 3}
+    cardSprite: {fileID: 21300000, guid: bd15416712aef4860bddd79a3d5bd3b8, type: 3}
   - cardNo: 12
     color: 1
     cardSprite: {fileID: 21300000, guid: e1891bd8b3a4d4a9ea6af454fdd8c3d7, type: 3}
   - cardNo: 13
     color: 1
-    cardSprite: {fileID: 21300000, guid: bd15416712aef4860bddd79a3d5bd3b8, type: 3}
+    cardSprite: {fileID: 21300000, guid: 03b53796831c34732b783673d936bcab, type: 3}
   - cardNo: 1
     color: 2
     cardSprite: {fileID: 21300000, guid: 358701fff420645faa24ab0c3340b905, type: 3}
@@ -21003,13 +21003,13 @@ MonoBehaviour:
     cardSprite: {fileID: 21300000, guid: 53b91aacef14545fabb87df7f1249145, type: 3}
   - cardNo: 11
     color: 2
-    cardSprite: {fileID: 21300000, guid: 51f7731fc8f9b493eba66fa968091bb4, type: 3}
+    cardSprite: {fileID: 21300000, guid: 95d31df9bfa9d4bb5abfe753765eebf9, type: 3}
   - cardNo: 12
     color: 2
     cardSprite: {fileID: 21300000, guid: 97403f01c7bb54ee4b84e26e444bdb5d, type: 3}
   - cardNo: 13
     color: 2
-    cardSprite: {fileID: 21300000, guid: 95d31df9bfa9d4bb5abfe753765eebf9, type: 3}
+    cardSprite: {fileID: 21300000, guid: 51f7731fc8f9b493eba66fa968091bb4, type: 3}
   - cardNo: 1
     color: 3
     cardSprite: {fileID: 21300000, guid: 15346a3d7103c46ccb617b7fee1bfad2, type: 3}
@@ -21042,13 +21042,13 @@ MonoBehaviour:
     cardSprite: {fileID: 21300000, guid: da6de26920e4341708a3dba9a0b5db5f, type: 3}
   - cardNo: 11
     color: 3
-    cardSprite: {fileID: 21300000, guid: 401d59823d4a64d4caece15b88368869, type: 3}
+    cardSprite: {fileID: 21300000, guid: a64833e4d5dcc495f8c3976833a8d28b, type: 3}
   - cardNo: 12
     color: 3
     cardSprite: {fileID: 21300000, guid: 43e6fedee7d1e4dea9ab77c1faf5a298, type: 3}
   - cardNo: 13
     color: 3
-    cardSprite: {fileID: 21300000, guid: a64833e4d5dcc495f8c3976833a8d28b, type: 3}
+    cardSprite: {fileID: 21300000, guid: 401d59823d4a64d4caece15b88368869, type: 3}
   - cardNo: 1
     color: 4
     cardSprite: {fileID: 21300000, guid: 151d219f537034951ba29c152213fec7, type: 3}
@@ -21081,13 +21081,13 @@ MonoBehaviour:
     cardSprite: {fileID: 21300000, guid: d97edc9a8e6754ae4906e4166b9b7ac2, type: 3}
   - cardNo: 11
     color: 4
-    cardSprite: {fileID: 21300000, guid: 80ed76991a819421698c937582efd375, type: 3}
+    cardSprite: {fileID: 21300000, guid: 4661ca88d29c44c77b2aca1ed935c34e, type: 3}
   - cardNo: 12
     color: 4
     cardSprite: {fileID: 21300000, guid: 3ea2333104ce543939fc764270598e63, type: 3}
   - cardNo: 13
     color: 4
-    cardSprite: {fileID: 21300000, guid: 4661ca88d29c44c77b2aca1ed935c34e, type: 3}
+    cardSprite: {fileID: 21300000, guid: 80ed76991a819421698c937582efd375, type: 3}
   listStoreDatas:
   - noList: 0d00000024000000050000002c0000002000000029000000230000001f0000001d0000000800000032000000310000000b0000001e0000002f00000014000000250000002a000000020000000e000000100000000700000003000000160000001500000006000000090000002600000028000000190000000a000000170000003300000012000000180000001a0000000f0000002b000000010000002700000021000000110000001b0000002e0000000400000022000000300000001c000000130000000c000000340000002d000000
   - noList: 03000000100000001f000000080000002d00000001000000230000002c00000015000000210000000a0000003000000018000000330000002500000011000000270000002b00000024000000130000001b00000017000000060000000b000000140000001c00000002000000280000000900000022000000070000000c0000001d0000002f00000029000000310000000d0000002a0000001a00000032000000120000000e000000340000001e000000200000000f0000002e0000000500000019000000040000002600000016000000
@@ -21501,16 +21501,16 @@ MonoBehaviour:
   - cardNo: 10
     color: 4
     cardSprite: {fileID: 21300000, guid: d97edc9a8e6754ae4906e4166b9b7ac2, type: 3}
-  - cardNo: 13
+  - cardNo: 11
     color: 1
     cardSprite: {fileID: 21300000, guid: bd15416712aef4860bddd79a3d5bd3b8, type: 3}
-  - cardNo: 13
+  - cardNo: 11
     color: 2
     cardSprite: {fileID: 21300000, guid: 95d31df9bfa9d4bb5abfe753765eebf9, type: 3}
-  - cardNo: 13
+  - cardNo: 11
     color: 3
     cardSprite: {fileID: 21300000, guid: a64833e4d5dcc495f8c3976833a8d28b, type: 3}
-  - cardNo: 13
+  - cardNo: 11
     color: 4
     cardSprite: {fileID: 21300000, guid: 4661ca88d29c44c77b2aca1ed935c34e, type: 3}
   - cardNo: 12
@@ -21525,16 +21525,16 @@ MonoBehaviour:
   - cardNo: 12
     color: 4
     cardSprite: {fileID: 21300000, guid: 3ea2333104ce543939fc764270598e63, type: 3}
-  - cardNo: 11
+  - cardNo: 13
     color: 1
     cardSprite: {fileID: 21300000, guid: 03b53796831c34732b783673d936bcab, type: 3}
-  - cardNo: 11
+  - cardNo: 13
     color: 2
     cardSprite: {fileID: 21300000, guid: 51f7731fc8f9b493eba66fa968091bb4, type: 3}
-  - cardNo: 11
+  - cardNo: 13
     color: 3
     cardSprite: {fileID: 21300000, guid: 401d59823d4a64d4caece15b88368869, type: 3}
-  - cardNo: 11
+  - cardNo: 13
     color: 4
     cardSprite: {fileID: 21300000, guid: 80ed76991a819421698c937582efd375, type: 3}
   - cardNo: 1
@@ -22384,7 +22384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -118.51001}
+  m_AnchoredPosition: {x: 0, y: -109}
   m_SizeDelta: {x: 165, y: 55.049988}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1323278654
@@ -33679,7 +33679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dbaf58d3e5194b341993624c65236280, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb26d3afaaa8618449cefb948cf3ec9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -35919,7 +35919,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35, y: -253.99998}
+  m_AnchoredPosition: {x: -46, y: -240}
   m_SizeDelta: {x: 429.22, y: 269.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2108407976

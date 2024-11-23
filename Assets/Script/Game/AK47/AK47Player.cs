@@ -423,7 +423,7 @@ public class AK47Player : MonoBehaviour
                     {
                         prevPlayer = AK47Manager.Instance.teenPattiPlayers[j];
                         Debug.Log("PRE   " + prevPlayer.name);
-                        
+
 
                     }
                 }
@@ -564,13 +564,22 @@ public class AK47Player : MonoBehaviour
         return AK47Manager.Instance.teenPattiPlayers[playerIndex];
     }
 
-    public void SumOfPlayerCards()
-    {
-        if (card1.cardNo == 4 || card1.cardNo == 7 || card1.cardNo == 13 || card1.cardNo == 14)
-            card1.cardNo = 14;
-        sumOfCards = card1.cardNo + card2.cardNo + card3.cardNo;
-    }
+    /* public void SumOfPlayerCards()
+     {
 
+         Debug.Log("card  my name " + card1.cardNo);
+         Debug.Log("card  my name " + card2.cardNo);
+         Debug.Log("card  my name " + card3.cardNo);
+
+         if (card1.cardNo == 4 || card1.cardNo == 7 || card1.cardNo == 13 || card1.cardNo == 14)
+             card1.cardNo = 14;
+         if (card2.cardNo == 4 || card2.cardNo == 7 || card2.cardNo == 13 || card2.cardNo == 14)
+             card1.cardNo = 14;
+         if (card3.cardNo == 4 || card3.cardNo == 7 || card3.cardNo == 13 || card3.cardNo == 14)
+             card1.cardNo = 14;
+         sumOfCards = card1.cardNo + card2.cardNo + card3.cardNo;
+     }
+ */
 
 
     public void CardGenerate()
@@ -592,24 +601,38 @@ public class AK47Player : MonoBehaviour
             print("This is card2 no  -> " + (AK47Manager.Instance.mainList[startIndex + 1] - 1));
             print("This is card3 no  -> " + (AK47Manager.Instance.mainList[startIndex + 2] - 1));
 
+
+            Debug.Log("MY CARD =  " + card1.cardNo);
+            Debug.Log("MY CARD =  " + card2.cardNo);
+            Debug.Log("MY CARD =  " + card3.cardNo);
+            // Step 1: Apply AK47 logic to cards
+            TeenPattiWinMaintain ak47WinMaintain = AK47Manager.Instance.FindAk47(card1, card2, card3);
+
+            // Step 2: Find the winning rule after applying AK47 logic
             TeenPattiWinMaintain winMaintain = AK47Manager.Instance.MatchResult(card1, card2, card3);
+
+            // Step 3: Get the winning rule number
             ruleNo = winMaintain.ruleNo;
-            if (winMaintain.ruleNo == 1 || winMaintain.ruleNo == 5)
+
+            // Step 4: Update card1, card2, and card3 based on the winList
+            if (winMaintain.winList != null && winMaintain.winList.Count == 3)
             {
                 card1 = winMaintain.winList[0];
                 card2 = winMaintain.winList[1];
                 card3 = winMaintain.winList[2];
             }
-            if (winMaintain.ruleNo == 2 || winMaintain.ruleNo == 3 || winMaintain.ruleNo == 4 || winMaintain.ruleNo == 6)
-            {
-                card1 = winMaintain.winList[0];
-                card2 = winMaintain.winList[1];
-                card3 = winMaintain.winList[2];
-            }
+
+            // Debugging to verify the result
+            Debug.Log($"Winning Rule: {ruleNo}");
+            Debug.Log($"Updated Cards: {card1.cardNo}, {card2.cardNo}, {card3.cardNo}");
+
         }
 
     }
-
+    public IEnumerator CallCheck()
+    {
+        yield return new WaitForSeconds(1f);
+    }
 
     public void CardDisplay()
     {

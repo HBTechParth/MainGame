@@ -325,405 +325,199 @@ public class AK47Manager : MonoBehaviour
     }
 
     #region GamePlay Manager
+    public TeenPattiWinMaintain FindAk47(CardSuffle card1, CardSuffle card2, CardSuffle card3)
+    {
+        TeenPattiWinMaintain ak47WinMaintain = new TeenPattiWinMaintain();
+        var jokerNumbers = new HashSet<int> { 1, 13, 4, 7 }; // Joker cards: A, K, 4, 7
+        var cards = new List<CardSuffle> { card1, card2, card3 };
+        var jokerCard = cards.FirstOrDefault(card => jokerNumbers.Contains(card.cardNo));
+        var nonJokerCards = cards.Where(card => !jokerNumbers.Contains(card.cardNo)).ToList();
+        int count = cards.Count(card => jokerNumbers.Contains(card.cardNo));
+
+        Debug.Log($"Total Joker Cards: {count}");
+
+        if (count == 3)
+        {
+            Debug.Log("All cards are jokers. Assigning number 1 to all.");
+            foreach (var card in cards)
+            {
+                card.cardNo = 1;
+            }
+        }
+        else if (count == 2)
+        {
+            var nonJokerCard = cards.First(card => !jokerNumbers.Contains(card.cardNo));
+            Debug.Log("nonJokerCard   = " + nonJokerCard.cardSprite.name);
+            foreach (var card in cards)
+            {
+                if (jokerNumbers.Contains(card.cardNo))
+                {
+                    card.cardNo = nonJokerCard.cardNo;
+                    Debug.Log("cardNo   = " + card.cardNo);
+                }
+            }
+        }
+        else if (count == 1)
+        {
+            if (nonJokerCards.Count == 2)
+            {
+                int first = nonJokerCards[0].cardNo;
+                int second = nonJokerCards[1].cardNo;
+
+                if (first > second)
+                {
+                    int temp = first;
+                    first = second;
+                    second = temp;
+                }
+
+                Debug.Log("FIRST   =  " + first);
+                Debug.Log("second   =  " + second);
+
+                if (first == second)
+                {
+                    jokerCard.cardNo = first;
+                    Debug.Log($"Trio formed: {first}, {first}, {first}");
+                    ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], jokerCard, nonJokerCards[1] };
+                    return ak47WinMaintain;
+                }
+                else if ((second - first == 1 || second - first == 2 || IsQKASequence(first, second)) && nonJokerCards[0].color == nonJokerCards[1].color)
+                {
+                    jokerCard.cardNo = IsQKASequence(first, second) ? 1 : (second - first == 1 ? second + 1 : first + 1); // Handle QKA or sequential gaps
+                    jokerCard.color = nonJokerCards[0].color; // Ensure all cards have the same suit
+
+                    Debug.Log($"Pure Straight formed: {first}, {nonJokerCards[1].cardNo}, {jokerCard.cardNo} (All {jokerCard.color})");
+                    ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+                    return ak47WinMaintain;
+                }
+                else if ((second - first == 1 || second - first == 2 || IsQKASequence(first, second)))
+                {
+                    jokerCard.cardNo = IsQKASequence(first, second) ? 1 : (second - first == 1 ? second + 1 : first + 1); // Handle QKA or sequential gaps
+                    jokerCard.color = nonJokerCards[0].color; // Ensure all cards have the same suit
+
+                    Debug.Log($"Pure Straight formed: {first}, {nonJokerCards[1].cardNo}, {jokerCard.cardNo} (All {jokerCard.color})");
+                    ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+                    return ak47WinMaintain;
+                }
+                else if (nonJokerCards[0].color == nonJokerCards[1].color)
+                {
+                    jokerCard.color = nonJokerCards[0].color;
+                    Debug.Log($"Flush formed: All cards have the suit {jokerCard.color}");
+                    ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], jokerCard, nonJokerCards[1] };
+                    return ak47WinMaintain;
+                }
+                else
+                {
+                    jokerCard.cardNo = Math.Max(first, second);
+                    Debug.Log($"High card logic: Joker takes the highest card number: {jokerCard.cardNo}");
+                    ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+                    return ak47WinMaintain;
+                }
+            }
+        }
+
+        Debug.Log("Unable to form any prioritized combination with the given cards.");
+        return ak47WinMaintain;
+    }
+
+    private bool IsQKASequence(int first, int second)
+    {
+        Debug.Log("IsQKASequence  =>  " +  (first == 12 && second == 13));
+        return (first == 12 && second == 13); // Q = 12, K = 13, Joker = A (1)
+    }
 
     public TeenPattiWinMaintain MatchResult(CardSuffle card1, CardSuffle card2, CardSuffle card3)
     {
         TeenPattiWinMaintain teenPattiWinMaintain = new TeenPattiWinMaintain();
+        List<CardSuffle> newData = new List<CardSuffle> { card1, card2, card3 };
+        newData = NewSort(newData);
 
-        List<CardSuffle> newData = new List<CardSuffle>();
-        newData.Add(card1);
-        newData.Add(card2);
-        newData.Add(card3);
-        //newData.Add(card3);//card3 = JOKER
-
-        newCardSS = newData;
-
-
-        newCardSS1 = NewSort(newData);
-
-        bool isColor = IsColorMatch(newCardSS1);
-        List<CardSuffle> threeCards = GetThreeCard(newCardSS1);
-        List<CardSuffle> twoCards = new List<CardSuffle>();
-        List<CardSuffle> ronCards = new List<CardSuffle>();//sequence
-        List<CardSuffle> highCards = new List<CardSuffle>();
-        if (threeCards.Count != 3)
-        {
-            twoCards = GetTwoCard(newCardSS1, isColor);
-            if (twoCards.Count != 3 || isColor == true)
-            {
-                ronCards = RonValue(newCardSS1);//sequence
-                if (ronCards.Count != 3)
-                    highCards = HighCard(newCardSS1);
-            }
-        }
-
-
-
-        //ronCard
+        bool isColor = IsColorMatch(newData);
+        List<CardSuffle> threeCards = GetThreeCard(newData);
+        List<CardSuffle> twoCards = GetTwoCard(newData);
+        List<CardSuffle> ronCards = RonValue(newData);
+        List<CardSuffle> highCards = HighCard(newData);
 
         if (threeCards.Count == 3)
         {
-            //Three List
-            Debug.Log("Three card");
-            teenPattiWinMaintain.ruleNo = 1;
+            teenPattiWinMaintain.ruleNo = 1; // Trio
             teenPattiWinMaintain.winList = threeCards;
         }
         else if (isColor && ronCards.Count == 3)
         {
-            Debug.Log("RON AND COLOR");
-            teenPattiWinMaintain.ruleNo = 2;
+            teenPattiWinMaintain.ruleNo = 2; // Color + Sequence
             teenPattiWinMaintain.winList = ronCards;
         }
         else if (ronCards.Count == 3)
         {
-            //ron List
-            Debug.Log("RON");
-            teenPattiWinMaintain.ruleNo = 3;
+            teenPattiWinMaintain.ruleNo = 3; // Sequence
             teenPattiWinMaintain.winList = ronCards;
         }
         else if (isColor)
         {
-            //High Card
-            Debug.Log("COLOR");
-            teenPattiWinMaintain.ruleNo = 4;
+            teenPattiWinMaintain.ruleNo = 4; // Color
             teenPattiWinMaintain.winList = highCards;
         }
-        else if (twoCards.Count == 3)
+        else if (twoCards.Count == 2) // Fix: Exactly 2 cards for a pair
         {
-            //Two Cards
-            Debug.Log("PAIR");
-            teenPattiWinMaintain.ruleNo = 5;
+            teenPattiWinMaintain.ruleNo = 5; // Pair
             teenPattiWinMaintain.winList = twoCards;
         }
         else if (highCards.Count == 3)
         {
-            //High Cards
-            Debug.Log("High card");
-            teenPattiWinMaintain.ruleNo = 6;
+            teenPattiWinMaintain.ruleNo = 6; // High Card
             teenPattiWinMaintain.winList = highCards;
         }
 
-
         return teenPattiWinMaintain;
-        //GetTwoCard(newCardSS1);
     }
 
-    List<CardSuffle> GetTwoCard(List<CardSuffle> cards, bool isColor)
+    private List<CardSuffle> NewSort(List<CardSuffle> cards)
     {
-        List<CardSuffle> twoCardSuffle = new List<CardSuffle>();
-        List<CardSuffle> checkforSequence = new List<CardSuffle>();
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int cnt3 = 0;
-        int startNo = cards[0].cardNo != 14 && cards[0].cardNo != 4 && cards[0].cardNo != 7 && cards[0].cardNo != 13 ? cards[0].cardNo :
-            cards[1].cardNo != 14 && cards[1].cardNo != 4 && cards[1].cardNo != 7 && cards[1].cardNo != 13 ? cards[1].cardNo : cards[2].cardNo;
-        int endNo = cards[1].cardNo != 14 && cards[1].cardNo != 4 && cards[1].cardNo != 7 && cards[1].cardNo != 13 && startNo != cards[1].cardNo ? cards[1].cardNo : cards[2].cardNo;
-        print("Card Satrt No : " + cards.Count);
-        print("Card End No : " + endNo);
-        for (int i = 0; i < cards.Count; i++)
-        {
-
-
-            if (cards[i].cardNo == startNo && cards[i].cardNo > endNo)
-            {
-                cnt1++;
-            }
-            else if (cards[i].cardNo == endNo && cards[i].cardNo > startNo)
-            {
-                cnt2++;
-            }
-            if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-            {
-                cnt1++;
-                cnt2++;
-                cnt3++;
-            }
-        }
-        print("card cnt 1 : " + cnt1);
-        print("card cnt 2 : " + cnt2);
-        if (cnt3 == 2)
-            return twoCardSuffle;
-        if (cnt1 == 2)
-        {
-            int noEnter = -1;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                print("Card No : " + cards[i].cardNo);
-                if (cards[i].cardNo == startNo)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else
-                {
-                    noEnter = i;
-                }
-            }
-            print("No Enter : " + noEnter);
-            if (noEnter != -1)
-                twoCardSuffle.Add(cards[noEnter]);
-
-        }
-        else if (cnt2 == 2)
-        {
-            int noEnter = -1;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards[i].cardNo == endNo)
-                {
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else
-                {
-                    noEnter = i;
-                }
-            }
-            if (noEnter != -1)
-                twoCardSuffle.Add(cards[noEnter]);
-        }
-        //if (isColor)
-        //{
-        //    checkforSequence = cards;
-        //    checkforSequence = RonValue(cards);
-        //}
-        //if (twoCardSuffle.Count == 3 && checkforSequence.Count != 3)
-        //{
-        //    for (int i = 0; i < cards.Count; i++)
-        //    {
-        //        if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-        //        {
-        //            if (cnt1 == 2)
-        //                cards[i].cardNo = startNo;
-        //            else if (cnt2 == 2)
-        //                cards[i].cardNo = endNo;
-        //        }
-        //    }
-        //}
-
-
-        print("Enter twoCard Suffle Count : " + twoCardSuffle.Count);
-        return twoCardSuffle;
-
+        return cards.OrderBy(card => card.cardNo).ToList();
     }
 
-    bool IsColorMatch(List<CardSuffle> cards)
+    private bool IsColorMatch(List<CardSuffle> cards)
     {
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int cnt3 = 0;
-        int cnt4 = 0;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].color == CardColorType.Clubs)
-            {
-                cnt1++;
-            }
-            else if (cards[i].color == CardColorType.Diamonds)
-            {
-                cnt2++;
-            }
-            else if (cards[i].color == CardColorType.Spades)
-            {
-                cnt3++;
-            }
-            else if (cards[i].color == CardColorType.Hearts)
-            {
-                cnt4++;
-            }
-            if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-            {
-                cnt1++;
-                cnt2++;
-                cnt3++;
-                cnt4++;
-            }
-        }
-
-        if (cnt1 >= 3 || cnt2 >= 3 || cnt3 >= 3 || cnt4 >= 3)
-        {
-            return true;
-        }
-
-        return false;
+        return cards.GroupBy(card => card.color).Any(group => group.Count() >= 3);
     }
 
-    List<CardSuffle> RonValue(List<CardSuffle> cards)//sequence
+    private List<CardSuffle> RonValue(List<CardSuffle> cards)
     {
-
-
-        List<CardSuffle> ronvalue = new List<CardSuffle>();
-        bool isRon = false;
-        //These are Joker rules
-        //if (cards[1].cardNo == cards[0].cardNo + 1)
-        //{
-        //    isRon = true;
-        //}
-        //else if (cards[0].cardNo == 2 && cards[1].cardNo == 3)
-        //{
-        //    isRon = true;
-        //}
-        //else if (cards[0].cardNo == 3 && cards[1].cardNo == 14)
-        //{
-        //    isRon = true;
-        //}
-        //These are AK47 rules
-        if (cards[0].cardNo == 14 || cards[0].cardNo == 13 || cards[0].cardNo == 4 || cards[0].cardNo == 7)
+        if (cards[1].cardNo == cards[0].cardNo + 1 && cards[2].cardNo == cards[0].cardNo + 2)
         {
-            if (cards[2].cardNo == cards[1].cardNo + 1 || cards[2].cardNo == cards[1].cardNo + 2)
-            {
-                isRon = true;
-                //cards[0].cardNo = 0;
-            }
+            return cards;
         }
-        else if (cards[1].cardNo == 14 || cards[1].cardNo == 13 || cards[1].cardNo == 4 || cards[1].cardNo == 7)
-        {
-            if (cards[2].cardNo == cards[0].cardNo + 1 || cards[2].cardNo == cards[0].cardNo + 2)
-            {
-                //cards[1].cardNo = 0;
-                isRon = true;
-            }
-        }
-        else if (cards[2].cardNo == 14 || cards[2].cardNo == 13 || cards[2].cardNo == 4 || cards[2].cardNo == 7)
-        {
-            if (cards[1].cardNo == cards[0].cardNo + 1 || cards[1].cardNo == cards[0].cardNo + 2)
-            {
-                isRon = true;
-                //cards[2].cardNo = 0;
-            }
-        }
-
-        //These are teenpatti rules
-        //if (cards[1].cardNo == cards[0].cardNo + 1 && cards[2].cardNo == cards[0].cardNo + 2)
-        //{
-        //    isRon = true;
-        //}
-        //else if (cards[0].cardNo == 2 && cards[1].cardNo == 3 && cards[2].cardNo == 14)
-        //{
-        //    isRon = true;
-        //}
-
-        if (isRon)
-        {
-            ronvalue = cards;
-        }
-
-
-
-        print("is Ron : " + isRon);
-        return ronvalue;
+        return new List<CardSuffle>();
     }
 
-    List<CardSuffle> GetThreeCard(List<CardSuffle> cards)
+    private List<CardSuffle> GetThreeCard(List<CardSuffle> cards)
     {
-        List<CardSuffle> threeCardSuffle = new List<CardSuffle>();
-        int cnt = 0;
-        int startNo = cards[0].cardNo != 14 && cards[0].cardNo != 4 && cards[0].cardNo != 7 && cards[0].cardNo != 13 ? cards[0].cardNo :
-            cards[1].cardNo != 14 && cards[1].cardNo != 4 && cards[1].cardNo != 7 && cards[1].cardNo != 13 ? cards[1].cardNo : cards[2].cardNo;
-
-        for (int i = 0; i < cards.Count; i++)
+        if (cards.All(card => card.cardNo == cards[0].cardNo))
         {
-            if (cards[i].cardNo == startNo)
-            {
-                cnt++;
-            }
-            if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-            {
-                cnt++;
-            }
+            return cards;
         }
-
-        if (cnt == 3)
-        {
-            //for (int i = 0; i < cards.Count; i++)
-            //{
-            //    if (cards[i].cardNo == 14 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-            //        cards[i].cardNo = startNo;
-            //}
-            threeCardSuffle = cards;
-        }
-
-        for (int i = 0; i < threeCardSuffle.Count; i++)
-        {
-            print(i + "-" + threeCardSuffle[i].cardNo);
-        }
-
-        return threeCardSuffle;
-
+        return new List<CardSuffle>();
     }
 
-    List<CardSuffle> HighCard(List<CardSuffle> cards)
+    private List<CardSuffle> GetTwoCard(List<CardSuffle> cards)
     {
-        print("high cards count : " + cards.Count);
-        List<CardSuffle> highCards = new List<CardSuffle>();
-        CardSuffle temp = new CardSuffle();
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].cardNo == 1 || cards[i].cardNo == 13 || cards[i].cardNo == 4 || cards[i].cardNo == 7)
-            {
-                cards[i].cardNo = 14;
-                temp = cards[0];
-                cards[0] = cards[i];
-                cards[i] = temp;
-            }
-        }
-        for (int i = cards.Count - 1; i >= 0; i--)
-        {
-            highCards.Add(cards[i]);
-        }
+        // Group cards by their cardNo and find pairs
+        var pairs = cards
+            .GroupBy(card => card.cardNo)
+            .Where(group => group.Count() == 2) // Exactly 2 cards form a pair
+            .SelectMany(group => group) // Flatten groups into a single list
+            .ToList();
 
-        return highCards;
+        return pairs;
     }
 
-    List<CardSuffle> NewSort(List<CardSuffle> cards)
+
+    private List<CardSuffle> HighCard(List<CardSuffle> cards)
     {
-        List<CardSuffle> newCards = new List<CardSuffle>();
-        //newCards = cards;
-        for (int i = 0; i < cardSufflesSort.Count; i++)
-        {
-            for (int j = 0; j < cards.Count; j++)
-            {
-                if (cardSufflesSort[i].cardNo == cards[j].cardNo && cardSufflesSort[i].color == cards[j].color)
-                {
-                    CardSuffle c = new CardSuffle();
-                    c.cardNo = cardSufflesSort[i].cardNo;
-                    c.color = cardSufflesSort[i].color;
-                    c.cardSprite = cardSufflesSort[i].cardSprite;
-                    //newCards.Add(cardSufflesSort[i]);
-                    newCards.Add(c);
-                    break;
-                }
-            }
-        }
-        print("new cards Count : " + newCards.Count);
-        for (int i = 0; i < newCards.Count; i++)
-        {
-            if (newCards[i].cardNo == 1)
-            {
-                newCards[i].cardNo = 14;
-            }
-            else if (newCards[i].cardNo == 11)
-            {
-                newCards[i].cardNo = 13;
-            }
-            else if (newCards[i].cardNo == 13)
-            {
-                newCards[i].cardNo = 11;
-
-            }
-        }
-
-        return newCards;
+        return cards.OrderByDescending(card => card.cardNo).ToList();
     }
+
 
     #endregion
 
@@ -882,7 +676,7 @@ public class AK47Manager : MonoBehaviour
             }
         }
         //  Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
-         SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
+        SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
         CheckNewPlayers();
         if (isAdmin)
         {
@@ -2087,7 +1881,7 @@ public class AK47Manager : MonoBehaviour
         {
             foreach (var player in playerSquList)
             {
-                player.SumOfPlayerCards();
+                // player.SumOfPlayerCards();
             }
             List<AK47Player> teenPattiWinner = new List<AK47Player>();
             List<AK47Player> sortedNumbersDescending = playerSquList.OrderByDescending(n => n.sumOfCards).ToList();
@@ -3044,6 +2838,8 @@ public class AK47Manager : MonoBehaviour
 
     public void Cancel_SlideShow(string sendId, string currentId)
     {
+        Debug.Log("CANCEL =============  Cancel_SlideShow SEND ");
+
         SlideShowSendSocket(sendId, currentId, "Cancel");
     }
 
@@ -3161,12 +2957,12 @@ public class AK47Manager : MonoBehaviour
         {
             // Scale down slightly and then back to normal
             chip.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.1f).OnComplete(() =>
-            {
-                chip.transform.DOScale(Vector3.one, 0.07f);
+        {
+            chip.transform.DOScale(Vector3.one, 0.07f);
 
-                // Optionally set the parent if needed (you can remove this if it's not required)
-                chip.transform.SetParent(playerStartPosition);
-            });
+            // Optionally set the parent if needed (you can remove this if it's not required)
+            chip.transform.SetParent(playerStartPosition);
+        });
         });
     }
 
@@ -4287,7 +4083,7 @@ public class AK47Manager : MonoBehaviour
         sequence.AppendCallback(() => rightIMg.SetActive(true)) // Activate rightImg
                 .Append(rightIMg.GetComponent<RectTransform>().DOAnchorPosX(-335f, 0.5f).SetEase(Ease.OutBounce)) // Move to x = -335 in 0.5 seconds
                 .AppendInterval(0.2f); // Optional wait after showing rightImg
-        // Display the rules and set winner/loser images and colors based on winnerId
+                                       // Display the rules and set winner/loser images and colors based on winnerId
         sequence.AppendCallback(() =>
         {
 
@@ -4545,7 +4341,7 @@ public class AK47Manager : MonoBehaviour
               }
               priceBtnTxt.text = "Chaal : " + curPrice;
           }
-  */
+    */
     }
 
 
@@ -4783,7 +4579,7 @@ public class AK47Manager : MonoBehaviour
                         isEnter = true;
                     }
                 }
-                
+
                 if (isEnter == false)
                 {
                     teenPattiPlayers[i].gameObject.SetActive(false);
@@ -5137,7 +4933,7 @@ public class AK47Manager : MonoBehaviour
 
         foreach (var player in teenPattiPlayers)
         {
-            player.SumOfPlayerCards();
+            // player.SumOfPlayerCards();
         }
 
         List<AK47Player> sortedNumbersDescending = teenPattiPlayers.OrderByDescending(n => n.sumOfCards).ToList();
