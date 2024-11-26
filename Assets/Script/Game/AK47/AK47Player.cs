@@ -587,7 +587,9 @@ public class AK47Player : MonoBehaviour
         cardImg1.sprite = AK47Manager.Instance.simpleCardSprite;
         cardImg2.sprite = AK47Manager.Instance.simpleCardSprite;
         cardImg3.sprite = AK47Manager.Instance.simpleCardSprite;
+        Debug.Log("playerNo   =>  " + playerNo);
         int startIndex = (playerNo - 1) * 3;
+        Debug.Log("startIndex   =>  " + startIndex);
         if (startIndex >= 0)
         {
             card1 = new CardSuffle();

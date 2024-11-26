@@ -2182,6 +2182,8 @@ public class TestSocketIO : MonoBehaviour
             string SlideShowPlayerId = data["SlideShowPlayerId"];
             string SlideShowType = data["SlideShowType"];
 
+            AK47Manager.Instance.senderID = SlideShowPlayerId;
+
             if (DataManager.Instance.playerData._id.Equals(SlideShowPlayerId) && tourId == DataManager.Instance.tournamentID && playerID != DataManager.Instance.playerData._id)
             {
                 //print("Teen Patti playerNo : " + playerNo);
@@ -2322,12 +2324,12 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
-
+            bool isSlidShow = data["Method"];
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
                 print("AK47 playerNo : " + playerNo);
-                AK47Manager.Instance.GetCardStatus(cardStatus, playerNo);
+                AK47Manager.Instance.GetCardStatus(cardStatus, playerNo,isSlidShow);
             }
         }
         else if (SceneManager.GetActiveScene().name == "PointRummy")

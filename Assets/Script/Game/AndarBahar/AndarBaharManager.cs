@@ -1744,6 +1744,14 @@ public class CardSuffle
     public CardColorType color;//1234-1-fulli,2-red cerkat,3-black,4-red heart
     public Sprite cardSprite;
 }
+
+[System.Serializable]
+public class dublicateCardSuffle
+{
+    public int cardNo;
+    public CardColorType color;//1234-1-fulli,2-red cerkat,3-black,4-red heart
+    public Sprite cardSprite;
+}
 [System.Serializable]
 public class ListStoreData
 {

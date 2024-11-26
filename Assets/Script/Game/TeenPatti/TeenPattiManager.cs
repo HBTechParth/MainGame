@@ -1963,7 +1963,7 @@ public class TeenPattiManager : MonoBehaviour
 
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
-         
+
             if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
@@ -1985,7 +1985,7 @@ public class TeenPattiManager : MonoBehaviour
                 Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
                 Debug.LogError("IF IN  ");
                 BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
-            
+
             }
             // Check for bot players
             if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy && teenPattiPlayers[i].name == "Player 1")
@@ -2344,7 +2344,7 @@ public class TeenPattiManager : MonoBehaviour
                 //ChangePlayerTurn(player1.playerNo);
                 break;
             case "Side Show":
-                if (CheckMoney(currentPriceValue,player1) == false)
+                if (CheckMoney(currentPriceValue, player1) == false)
                 {
                     SoundManager.Instance.ButtonClick();
                     Debug.Log("OpenErrorScreen");
@@ -2556,7 +2556,7 @@ public class TeenPattiManager : MonoBehaviour
     public void StartBet()
     {
         Debug.Log(" =====StartBet ");
-        if (CheckMoney(currentPriceValue,player1) == false)
+        if (CheckMoney(currentPriceValue, player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -2572,7 +2572,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void StartBetTORealPlayer(TeenPattiPlayer player)
     {
-        if (CheckMoney(currentPriceValue,player1) == false)
+        if (CheckMoney(currentPriceValue, player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -2594,7 +2594,7 @@ public class TeenPattiManager : MonoBehaviour
         Debug.Log("isGameStop     = " + isGameStop);
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue,player1) == false)
+            if (CheckMoney(currentPriceValue, player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
                 Debug.Log("OpenErrorScreen");
@@ -2642,7 +2642,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue * 2,player1) == false)
+            if (CheckMoney(currentPriceValue * 2, player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
                 Debug.Log("OpenErrorScreen");
@@ -2796,7 +2796,7 @@ public class TeenPattiManager : MonoBehaviour
         Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
         // Subtract the amount from the balance
         currentBalance -= amount;
-        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text)); 
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
         Debug.LogError("CHAL AMount  " + currentBalance);
         // Update the player's balance text with the new balance
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
@@ -3272,11 +3272,11 @@ public class TeenPattiManager : MonoBehaviour
         errorScreenObj.SetActive(false);
     }
 
-    public bool CheckMoney(float money,TeenPattiPlayer player)
+    public bool CheckMoney(float money, TeenPattiPlayer player)
     {
 
         float currentBalance = float.Parse(player.playerBalence.text);
-        Debug.Log("currentBalance  => " +currentBalance);
+        Debug.Log("currentBalance  => " + currentBalance);
         if ((currentBalance - money) < 0)
         {
             return false;
@@ -3958,7 +3958,7 @@ public class TeenPattiManager : MonoBehaviour
 
     public void GetPlayerTurn(int playerNo)
     {
-      
+
         Debug.Log("GetPlayerTurn => " + playerNo);
         int nextPlayerNo = 0;
 
@@ -4339,7 +4339,7 @@ public class TeenPattiManager : MonoBehaviour
         }
 
 
-      //  Invoke(nameof(GameRestartRound), 0.4f);
+        //  Invoke(nameof(GameRestartRound), 0.4f);
     }
 
     public void PlayerWinLossImgSet(string winnerId)
@@ -4907,7 +4907,7 @@ public class TeenPattiManager : MonoBehaviour
                 teenSlideShowPlayers.Add(teenPattiPlayers[i]);
             }
         }
-        if (CheckMoney(currentPriceValue,slideShowPlayer) == false)
+        if (CheckMoney(currentPriceValue, slideShowPlayer) == false)
         {
             SoundManager.Instance.ButtonClick();
             Debug.Log("OpenErrorScreen");
@@ -5283,7 +5283,9 @@ public class TeenPattiManager : MonoBehaviour
 
     public void HandelTeenPattiWinData(string winnerPlayerId)
     {
-        List<TeenPattiPlayer> winnerPlayer = teenPattiPlayers.Where(p => p.playerId == winnerPlayerId).ToList();
+        List<TeenPattiPlayer> winnerPlayer = teenPattiPlayers
+     .Where(p => p.playerId == winnerPlayerId && p.gameObject.activeInHierarchy)
+     .ToList();
 
         if (winnerPlayer.Count > 0)
         {
@@ -5298,6 +5300,8 @@ public class TeenPattiManager : MonoBehaviour
     public void ShowWinPlayer(string type, List<TeenPattiPlayer> teenPattiWinner)
     {
         isBotActivate = false;
+        Debug.Log("teenPattiWinner Count =>  " + teenPattiWinner.Count);
+        Debug.Log("teenPattiWinner Count =>  " + teenPattiWinner[0].name);
         if (teenPattiWinner.Count == 1)
         {
             int rule = teenPattiWinner[0].ruleNo;
