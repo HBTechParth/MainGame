@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -73,7 +74,7 @@ public class JokerManager : MonoBehaviour
     public Sprite simpleCardSprite;
     public float[] chipPrice;
     public Sprite[] chipsSprite;
-    public GameObject chipObj;
+    public PlaceChips chipObj;
     public Transform[] playerPosition;
     public List<GameObject> spawnedCoins = new List<GameObject>();
     public BoxCollider2D boxCollider;
@@ -81,6 +82,7 @@ public class JokerManager : MonoBehaviour
     public float maxBoardX;
     public float minBoardY;
     public float maxBoardY;
+    public float crossChalLimitLastChallSave = -1f;
 
 
     [Header("--- Menu Screen ---")]
@@ -93,6 +95,12 @@ public class JokerManager : MonoBehaviour
     public GameObject messageScreeObj;
     public GameObject giftScreenObj;
 
+
+    [Header("--- Table Data ---")]
+    public TextMeshProUGUI bootAmountText;
+    public TextMeshProUGUI maxBlindsText;
+    public TextMeshProUGUI chaalLimitText;
+    public TextMeshProUGUI potLimitText;
 
     [Header("--- Prefab ---")]
     public GameObject targetBetObj;
@@ -111,6 +119,7 @@ public class JokerManager : MonoBehaviour
 
     [Header("--- Game UI ---")]
     public GameObject errorScreenObj;
+    public GameObject errorScreenObjONBET;
     public GameObject slideShowPanel;
     public Text slideShowName;
     public Image slideShowProfilePic;
@@ -122,6 +131,8 @@ public class JokerManager : MonoBehaviour
     public Text rulesText;
     public Text betAmountTxt;
     public Text priceBtnTxt;
+    public Text priceBtnTxtDouble;
+    public GameObject doubleBUtton;
     public Button plusBtn;
     public Button minusBtn;
     public GameObject blindx2button;
@@ -188,12 +199,35 @@ public class JokerManager : MonoBehaviour
 
     public Transform chipsTransform;
 
+    [Header("--- WinnerPanel ---")]
+    public GameObject winnerPanel;
+    public GameObject vsImg;
+    public GameObject leftImg;
+    public GameObject rightIMg;
+    public Image winorlossP1;
+    public Image winorlossP2;
+    public Image profileImgP1;
+    public Image profileImgP2;
+    public TextMeshProUGUI usernameP1;
+    public TextMeshProUGUI usernameP2;
+    public TextMeshProUGUI cardStatusP1;
+    public TextMeshProUGUI cardStatusP2;
+    public Image P1card1;
+    public Image P1card2;
+    public Image P1card3;
+    public Image P2card1;
+    public Image P2card2;
+    public Image P2card3;
+    public Sprite winSprite;
+    public Sprite lossSprite;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        Time.timeScale = 1;
     }
     // Start is called before the first frame update
     void Start()
@@ -649,48 +683,56 @@ public class JokerManager : MonoBehaviour
 
     public void SeeButtonClick()
     {
+        Debug.Log("EnableSeeCards   - ");
+
         SoundManager.Instance.ButtonClick();
         for (int i = 0; i < player1.seeObj.Length; i++)
         {
             player1.seeObj[i].SetActive(false);
         }
-
+        Debug.Log("SeeButtonClick");
         player1.CardDisplay();
         DisplayRules();
 
-        if (currentPlayer == player1.playerNo && !player1.isSeen && player1.isTurn)//if seen bet is also minimumValue, then the value will not increase
-        {
-            if (currentSeenValue > currentPriceValue)
-            {
-                currentPriceValue = currentSeenValue - 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceValue = numbers[i];
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            //currentPriceIndex += 1;
-            currentPriceValue = numbers[currentPriceIndex];
-            priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
-        }
+
         player1.isSeen = true;
         player1.isBlind = false;
         player1.isPack = false;
-        //currentPriceIndex = 1;
-        //blindx2button.SetActive(false);
-        //plusBtn.gameObject.SetActive(true);
-        //minusBtn.gameObject.SetActive(true);
-        //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
-        //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        priceBtnTxt.text = "Chaal : " + currentPriceValue;
-        ChangeCardStatus("SEEN", player1.playerNo);
-    }
 
+        {
+
+            Debug.Log("currentPriceValue  ;;;;;;;;;;;;;;;;    => " + currentPriceValue);
+            Debug.Log("is turn => " + player1.isTurn + "  is blind = > " + player1.isBlind);
+            boxDisplayCount = 5;
+            if (player1.isTurn)
+            {
+
+                Debug.Log("is turn  IF BEfore => " + currentPriceValue);
+                // float amount = currentPriceValue * 2;
+                if ((currentPriceValue * 2) < MainMenuManager.Instance.challLimit)
+                {
+                    currentPriceValue = currentPriceValue * 2;
+                }
+                Debug.Log("is turn  IF  After => " + currentPriceValue);
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+            }
+            else
+            {
+                Debug.Log("is turn ELSE => " + currentPriceValue);
+
+                priceBtnTxt.text = "Chaal : " + currentPriceValue;
+                priceBtnTxtDouble.text = "Chaal : " + currentPriceValue * 2;
+                Debug.Log("ChangeCardStatus   =>  " + playerNo);
+
+            }
+        }
+
+        ChangeCardStatus("SEEN", player1.playerNo, false);
+    }
+    public int resetNUMForBot = 1;
+    public int RoundresetNUMForBot = 1;
     public void GiftButtonClick(TeenPattiPlayer giftPlayer)
     {
         SoundManager.Instance.ButtonClick();
@@ -701,16 +743,63 @@ public class JokerManager : MonoBehaviour
 
     public IEnumerator RestartGamePlay()
     {
+        Debug.Log("isGameStarted => " + isGameStarted);
+        Debug.Log("MYRESET");
+
         isGameStarted = false;
         DeleteAllCoins();
-        yield return new WaitForSeconds(6f);
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            Debug.Log("name  =  " + playerSquList[i].name);
+            playerSquList[i].NotATurn();
+        }
+        Debug.Log("<color=blue>-------RestartGamePlay BEFORE---------</color>");
+        yield return new WaitForSeconds(5f);
+        ResetWinLossAnimation();
+        yield return new WaitForSeconds(1f);
+         CheckAllPlayerIsValidOrNot();
+        totalBetAmount = 0;
+        isPotlimitCross = false;
+        winnerPlayer.Clear();
+        crossChalLimitLastChallSave = -1f;
+        doubleBUtton.SetActive(true);
 
+            isWinningRun = false;
+        for (int j = 0; j < playerSquList.Count; j++)
+        {
+            playerSquList[j].cardImg1.GetComponent<Image>().DOFade(1f, 0.5f);
+            playerSquList[j].cardImg2.GetComponent<Image>().DOFade(1f, 0.5f);
+            playerSquList[j].cardImg3.GetComponent<Image>().DOFade(1f, 0.5f);
+        }
+        Debug.Log("<color=blue>--------RestartGamePlay AFTER--------</color>");
+
+
+
+        //  CheckAllPlayerBalanceAndReplace();
+        //  yield return new WaitForSeconds(3f);
         //print("Enther The Generate Player");
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            // Convert balance string to a float
+            float playerBalance;
+            if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out playerBalance))
+            {
+                if (playerBalance < minLimitValue)
+                {
+                    Debug.Log("PLAYER BALANCE => " + playerBalance + "  PLAYER NAME =>  " + DataManager.Instance.joinPlayerDatas[i].userName);
+                }
+            }
+        }
+             Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
+           SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
+        CheckNewPlayers();
         if (isAdmin)
         {
+
             winningBotNo = -1;
-            CheckNewPlayers();
             StartGamePlay();
+            Debug.LogError("StartGamePlay");
+
             //SetRoomData();
             //TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
             print("Enther The Generate Player1");
@@ -718,25 +807,122 @@ public class JokerManager : MonoBehaviour
 
         }
     }
+    public void CheckAllPlayerIsValidOrNot()
+    {
+        for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+        {
+            // Convert balance from string to float
+            if (float.TryParse(DataManager.Instance.joinPlayerDatas[j].balance, out float balanceValue))
+            {
+                if (balanceValue < minLimitValue)
+                {
+                    if (DataManager.Instance.joinPlayerDatas[j].userId == player1.playerId)
+                    {
+                        Debug.Log("MenuSubButtonClick");
+                        MenuSubButtonClick(1);
+                    }
+                    DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+                    Debug.Log("joinPlayerDatas  =>  " + DataManager.Instance.joinPlayerDatas[j].userId + "player1.playerId  =  " + player1.playerId);
+                    Debug.Log($"Removed player {j} from the player list.");
+                    break; // Exit the loop after removing
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid balance value for player {j}: {DataManager.Instance.joinPlayerDatas[j].balance}");
+            }
+        }
+    }
 
+    public void SetBotRandomReset1(int count, int round)
+    {
+
+        if (1 == round)
+        {
+
+            // Temporary list to hold all bot players
+            List<JokerPlayer> teenpatti = new List<JokerPlayer>();
+
+            // Filter out all bot players from playerSquList
+            for (int i = 0; i < playerSquList.Count; i++)
+            {
+                if (playerSquList[i].isBot && playerSquList[i].gameObject.activeInHierarchy)
+                {
+                    teenpatti.Add(playerSquList[i]);
+                }
+            }
+
+            // Check if count is valid
+            if (count > teenpatti.Count)
+            {
+                Debug.LogWarning($"Count {count} is greater than the number of bot players in the list. Adjusting to {teenpatti.Count}");
+                count = teenpatti.Count; // Adjust count to the maximum available bots
+            }
+
+            // Loop through the first 'count' bot players and remove them from DataManager's list
+            for (int i = 0; i < count; i++)
+            {
+                // Current bot player to remove
+                JokerPlayer botPlayer = teenpatti[i];
+
+                // Find and remove from DataManager's list based on userId
+                for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+                {
+                    if (DataManager.Instance.joinPlayerDatas[j].userId == botPlayer.playerId)
+                    {
+                        DataManager.Instance.joinPlayerDatas.RemoveAt(j);
+                        Debug.Log($"Removed bot player with UserID: {botPlayer.playerId} from DataManager list.");
+                        break; // Exit the loop once the user is found and removed
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"Total Bot Players Removed: {count}");
+    }
+
+    public void ResetWinLossAnimation()
+    {
+        // Step 1: Create a DOTween Sequence to manage the animations in order
+        DG.Tweening.Sequence resetSequence = DOTween.Sequence();
+
+        // Step 2: Move `leftImg` to -1000 on the x-axis and then deactivate it
+        resetSequence.Append(leftImg.transform.DOLocalMoveX(-1000f, 0.3f).SetEase(Ease.InOutSine)) // Animate to x = -1000
+                     .AppendCallback(() => leftImg.SetActive(false)); // After move, deactivate the image
+
+        // Step 3: Move `rightIMg` to 1000 on the x-axis and then deactivate it
+        resetSequence.Append(rightIMg.transform.DOLocalMoveX(1000f, 0.3f).SetEase(Ease.InOutSine)) // Animate to x = 1000
+                     .AppendCallback(() => rightIMg.SetActive(false)); // After move, deactivate the image
+
+        // Step 4: Deactivate `vsImg` after left and right images are hidden
+        resetSequence.AppendInterval(0.1f) // Small delay before hiding vsImg
+                     .AppendCallback(() => vsImg.SetActive(false)); // Hide vs image
+
+        // Step 5: Deactivate `winnerPanel` last
+        resetSequence.AppendInterval(0.1f) // Small delay before hiding the winner panel
+                     .AppendCallback(() => winnerPanel.SetActive(false)); // Hide winner panel
+
+
+    }
 
     public void StartGamePlay()
     {
         //StartCoroutine(RestartGamePlay());
+        print("AK47 StartGameplay called");
         if (isAdmin)
         {
             SetRoomData();
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         minLimitValue = DataManager.Instance.betPrice;
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            if (minLimitValue == numbers[i])
-            {
-                currentPriceIndex = i;
-                runningPriceIndex = i;
-            }
-        }
+        /*  for (int i = 0; i < numbers.Length; i++)
+          {
+              if (minLimitValue == numbers[i])
+              {
+                  currentPriceIndex = i;
+                  runningPriceIndex = i;
+              }
+          }*/
         SoundManager.Instance.CasinoTurnSound();
         DataManager.Instance.UserTurnVibrate();
         isGameStop = true;
@@ -768,6 +954,8 @@ public class JokerManager : MonoBehaviour
         currentBlindValue = minLimitValue;
         currentSeenValue = minLimitValue;
         priceBtnTxt.text = "Blind : " + currentPriceValue;
+        priceBtnTxtDouble.text = "Blind : " + currentPriceValue * 2;
+
         minusBtn.interactable = false;
         rulesTab.SetActive(false);
         roundCounter = 0;
@@ -784,6 +972,7 @@ public class JokerManager : MonoBehaviour
             }
             currentPlayer.packImg.SetActive(false);
             currentPlayer.seenImg.SetActive(false);
+            currentPlayer.blindIMG.SetActive(false);
             currentPlayer.cardImg1.gameObject.SetActive(false);
             currentPlayer.cardImg2.gameObject.SetActive(false);
             currentPlayer.cardImg3.gameObject.SetActive(false);
@@ -816,6 +1005,8 @@ public class JokerManager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -825,6 +1016,8 @@ public class JokerManager : MonoBehaviour
                 else
                 {
                     player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player2.playerNo = (i + 1);
@@ -853,6 +1046,8 @@ public class JokerManager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -878,6 +1073,8 @@ public class JokerManager : MonoBehaviour
                         {
 
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -890,6 +1087,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -916,6 +1115,8 @@ public class JokerManager : MonoBehaviour
                         {
 
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -929,6 +1130,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -955,6 +1158,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -966,6 +1171,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -987,6 +1194,8 @@ public class JokerManager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
@@ -1011,6 +1220,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1022,6 +1233,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1033,6 +1246,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1046,6 +1261,8 @@ public class JokerManager : MonoBehaviour
             }
             else if (player1.playerNo == 2)
             {
+                Debug.Log("NO ________>     2-");
+
                 player2.gameObject.SetActive(true);
                 player3.gameObject.SetActive(true);
                 player4.gameObject.SetActive(true);
@@ -1058,19 +1275,23 @@ public class JokerManager : MonoBehaviour
                     {
                         if (cntPlayer == 0)
                         {
-                            player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                            player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                            player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
-                            player3.playerNo = (i + 1);
-                            player3.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                            player3.UpdateAvatar();
-                            playerSquList.Add(player3);
-                            playerSquList.Add(player1);
+                            player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
+                            player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                            player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            player4.playerNo = (i + 1);
+                            player4.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                            player4.UpdateAvatar();
+                            playerSquList.Add(player4);
                             cntPlayer++;
                         }
                         else if (cntPlayer == 1)
                         {
+
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1078,16 +1299,21 @@ public class JokerManager : MonoBehaviour
                             player2.UpdateAvatar();
                             playerSquList.Add(player2);
                             cntPlayer++;
+
+
                         }
                         else if (cntPlayer == 2)
                         {
-                            player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
-                            player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
-                            player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
-                            player4.playerNo = (i + 1);
-                            player4.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                            player4.UpdateAvatar();
-                            playerSquList.Add(player4);
+                            player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
+                            player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
+                            player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
+                            player3.playerNo = (i + 1);
+                            player3.avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
+                            player3.UpdateAvatar();
+                            playerSquList.Add(player3);
+                            playerSquList.Add(player1);
                             cntPlayer++;
                         }
                     }
@@ -1108,6 +1334,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1119,6 +1347,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1131,6 +1361,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1157,6 +1389,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1168,6 +1402,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1179,6 +1415,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1201,6 +1439,8 @@ public class JokerManager : MonoBehaviour
                 if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(DataManager.Instance.playerData._id))
                 {
                     player1.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                    player1.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                     player1.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                     player1.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                     player1.playerNo = (i + 1);
@@ -1224,6 +1464,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1235,6 +1477,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1247,6 +1491,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1258,6 +1504,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1285,6 +1533,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1296,6 +1546,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1308,6 +1560,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1319,6 +1573,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1346,6 +1602,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1358,6 +1616,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1370,6 +1630,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1381,6 +1643,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1408,6 +1672,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1419,6 +1685,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1431,6 +1699,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1443,6 +1713,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1470,6 +1742,8 @@ public class JokerManager : MonoBehaviour
                         if (cntPlayer == 0)
                         {
                             player2.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player2.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player2.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player2.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player2.playerNo = (i + 1);
@@ -1481,6 +1755,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 1)
                         {
                             player3.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player3.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player3.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player3.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player3.playerNo = (i + 1);
@@ -1493,6 +1769,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 2)
                         {
                             player4.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player4.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player4.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player4.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player4.playerNo = (i + 1);
@@ -1504,6 +1782,8 @@ public class JokerManager : MonoBehaviour
                         else if (cntPlayer == 3)
                         {
                             player5.playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
+                            player5.playerBalence.text = DataManager.Instance.joinPlayerDatas[i].balance;
+
                             player5.playerId = DataManager.Instance.joinPlayerDatas[i].userId;
                             player5.lobbyId = DataManager.Instance.joinPlayerDatas[i].lobbyId;
                             player5.playerNo = (i + 1);
@@ -1516,79 +1796,149 @@ public class JokerManager : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(1f);
+        ActivateBotPlayers();
 
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+
+            if (teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                    BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+                    Debug.Log(".");
+                }
+            }
+            else if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy)
+            {
+                Debug.Log("----NAme  = >  " + teenPattiPlayers[i]);
+                Debug.LogError("IF IN  ");
+                BetAnim(teenPattiPlayers[i], currentPriceValue, currentPriceIndex);
+
+            }
+            // Check for bot players
+            if (!teenPattiPlayers[i].isBot && teenPattiPlayers[i].gameObject.activeInHierarchy && teenPattiPlayers[i].name == "Player 1")
+            {
+
+                Debug.LogError("IF IN  ");
+                if (!CheckMoney(currentPriceValue, teenPattiPlayers[i]))
+                {
+                    SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
+                    break; // Exit if there's an error
+                }
+                else
+                {
+                    SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", true);
+                    DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 3);
+
+                }
+            }
+            // Check for Player 1
+        }
+
+
+        yield return new WaitForSeconds(1f);
         int playerSend = DataManager.Instance.joinPlayerDatas.Count;
 
         float speed = 0.2f;
 
-        // first card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        Debug.Log($"Starting card distribution for {playerSend} players.");
+
+        // Track the number of cards each active player has received
+        int[] cardsGiven = new int[teenPattiPlayers.Count];
+        int totalCardsDistributed = 0;
+        int totalCardsNeeded = playerSend * 3; // Each active player needs 3 cards
+
+        // Continue distributing cards until all active players have received three cards each
+        while (totalCardsDistributed < totalCardsNeeded)
         {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            bool cardDistributedInThisRound = false;
+
+            for (int i = 0; i < teenPattiPlayers.Count; i++)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg1.transform.position, speed).OnComplete(() =>
+                Debug.Log(" cardsGiven = > " + cardsGiven[i]);
+                if (teenPattiPlayers[i].gameObject.activeSelf && cardsGiven[i] < 3)
                 {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
-                });
+                    int currentCardIndex = cardsGiven[i] + 1; // Card index to be distributed (1, 2, or 3)
+                    Debug.Log($"Player {i + 1} is active. Sending card {currentCardIndex}...");
 
-                yield return new WaitForSeconds(speed);
+                    GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
+                    SoundManager.Instance.CasinoCardMoveSound();
+                    obj.transform.position = cardTmpStart.transform.position;
+
+                    // Determine which card image to move to (cardImg1, cardImg2, or cardImg3)
+                    Transform targetCardPosition = currentCardIndex switch
+                    {
+                        1 => teenPattiPlayers[i].cardImg1.transform, // First card position
+                        2 => teenPattiPlayers[i].cardImg2.transform, // Second card position
+                        3 => teenPattiPlayers[i].cardImg3.transform, // Third card position
+                        _ => null
+                    };
+
+                    Debug.Log($"Card {currentCardIndex} is moving to Player {i + 1}'s position...");
+
+                    // Perform the animation to move the card to the appropriate position
+                    obj.transform.DOMove(targetCardPosition.position, speed).OnComplete(() =>
+                    {
+                        Debug.Log($"Card {currentCardIndex} reached Player {i + 1}. Activating card image...");
+                        Destroy(obj);
+
+                        // Activate the appropriate card image once the animation is complete
+                        switch (currentCardIndex)
+                        {
+                            case 1:
+                                teenPattiPlayers[i].cardImg1.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - First card activated.");
+                                break;
+                            case 2:
+                                teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Second card activated.");
+                                break;
+                            case 3:
+                                teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
+                                Debug.Log($"Player {i + 1} - Third card activated.");
+                                break;
+                        }
+                    });
+
+                    // Update tracking variables
+                    cardsGiven[i]++;
+                    totalCardsDistributed++;
+
+                    // Indicate that a card was distributed in this round
+                    cardDistributedInThisRound = true;
+
+                    // Wait for the animation to complete before moving to the next player
+                    yield return new WaitForSeconds(speed);
+
+                    // Exit loop if all cards have been distributed
+                    if (totalCardsDistributed >= totalCardsNeeded)
+                    {
+                        break;
+                    }
+                }
             }
 
-        }
-        yield return new WaitForSeconds(speed);
-        // second card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
+            // Check if no card was distributed in this round (safety check to prevent infinite loop)
+            if (!cardDistributedInThisRound)
             {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
-
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg2.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg2.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
+                Debug.LogError("No card was distributed in this round! Exiting to prevent infinite loop.");
+                break;
             }
-
         }
-        yield return new WaitForSeconds(speed);
-        //Third card animation
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            //if(teenPattiPlayers[i].)
-            //while (p < playerSend)
-            //{
-            if (i < playerSend)
-            {
-                GameObject obj = Instantiate(cardTmpPrefab, prefabParent.transform);
-                SoundManager.Instance.CasinoCardMoveSound();
-                obj.transform.position = cardTmpStart.transform.position;
 
-
-                obj.transform.DOMove(teenPattiPlayers[i].cardImg3.transform.position, speed).OnComplete(() =>
-                {
-                    Destroy(obj);
-                    teenPattiPlayers[i].cardImg3.gameObject.SetActive(true);
-                });
-                yield return new WaitForSeconds(speed);
-            }
-
-        }
+        Debug.Log("All three cards have been successfully distributed to all active players.");
 
         yield return new WaitForSeconds(speed);
         for (int i = 0; i < player1.seeObj.Length; i++)
@@ -1624,7 +1974,6 @@ public class JokerManager : MonoBehaviour
 
         isGameStop = false;
 
-        ActivateBotPlayers();
         isBotActivate = true;
         for (int i = 0; i < playerSquList.Count; i++)
         {
@@ -1747,10 +2096,29 @@ public class JokerManager : MonoBehaviour
 
         for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
+
+            Debug.Log("joinPlayerDatas =<  " + DataManager.Instance.joinPlayerDatas[i].userId);
+
             if (DataManager.Instance.joinPlayerDatas[i].userId.EndsWith("TeenPatti"))
             {
-                playerSquList[i].isBot = true;
+
+                for (int j = 0; j < teenPattiPlayers.Count; j++)
+                {
+                    if (teenPattiPlayers[j].gameObject.activeInHierarchy)
+                    {
+                        if (teenPattiPlayers[j].playerId == DataManager.Instance.joinPlayerDatas[i].userId && DataManager.Instance.joinPlayerDatas[i].userId.EndsWith("TeenPatti"))
+                        {
+                            teenPattiPlayers[j].isBot = true;
+                        }
+
+                    }
+
+                }
+
+                //playerSquList[i].isBot = true;
+
             }
+
         }
     }
 
@@ -1778,7 +2146,7 @@ public class JokerManager : MonoBehaviour
         if (!isGameStop)
         {
             SoundManager.Instance.ButtonClick();
-            ChangeCardStatus("PACK", player1.playerNo);
+            ChangeCardStatus("PACK", player1.playerNo, false);
             bottomBox.SetActive(false);
         }
     }
@@ -1798,6 +2166,7 @@ public class JokerManager : MonoBehaviour
 
     public void ShowButtonClick(Text t)
     {
+        Debug.Log("ShowButtonClick  => " + t.text);
         if (isGameStop) return;
         SoundManager.Instance.ButtonClick();
         //BetAnim(player1, currentPriceValue);
@@ -1807,33 +2176,61 @@ public class JokerManager : MonoBehaviour
         {
             case "Show":
                 ShowCardToAllUser();
-                CheckFinalWinner("Show");
+                CheckAllPlayers(winnerPlayer);
+                //    CheckFinalWinner("Show");
                 //SendTeenPattiBet(player1.playerNo, 0, "Show", "", "");
                 //ChangePlayerTurn(player1.playerNo);
                 break;
             case "Side Show":
-                if (CheckMoney(currentPriceValue) == false)
+                if (CheckMoney(currentPriceValue, player1) == false)
                 {
                     SoundManager.Instance.ButtonClick();
-                    OpenErrorScreen();
+                    Debug.Log("OpenErrorScreen");
+                    OpenErrorScreenONBET();
                     return;
                 }
-                // BetAnim(player1, currentPriceValue);
-                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId);
-                DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 1);
+                //BetAnim(player1, currentPriceValue);
+                Debug.Log("currentPriceValue  =>  " + currentPriceValue);
+                SendTeenPattiBet(player1.playerNo, currentPriceValue, "SideShow", slideShowPlayer.playerId, player1.playerId, false);
+                Debug.LogError("slideShowPlayer.playerId => " + slideShowPlayer.playerId + "    is bot =>  " + slideShowPlayer.isBot);
+
+                Debug.Log("player1 => " + player1.playerBalence.text);
+
+
+                DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "TeenPatti-Bet-" + DataManager.Instance.gameId, "game", 1);
+                BetAnim(player1, currentPriceValue, currentPriceIndex);
+                Debug.Log("player1 => " + player1.playerBalence.text);
+                Debug.Log("playerBetAmount => " + playerBetAmount);
                 playerBetAmount += currentPriceValue;
+                Debug.Log("playerBetAmount => " + playerBetAmount);
+                Debug.Log("currentPriceValue => " + currentPriceValue);
                 //Game Stop and check the card and one card is pack
                 showButton.interactable = false;
-                Invoke(nameof(OnPopupButtonClick), delay);
+                if (slideShowPlayer.isBot)
+                {
+                    Debug.Log("Slid Show OPEN REJECT BY BOT ");
+                    delay = UnityEngine.Random.Range(1f, 4f);
+                    Invoke(nameof(OnPopupButtonClick), delay);
+
+                    Invoke(nameof(OnPopupButtonClick), delay);
+                }
                 break;
         }
     }
-
+    public Text sideShowPopupImageText;
     private void OnPopupButtonClick()
     {
-        if (isPopupOpen) return;
+        Debug.Log("Slid Show OPEN ====>   " + isPopupOpen);
+
+        if (JokerManager.Instance.isPotlimitCross) return;
+        if (sideShowPopupImage.gameObject.activeInHierarchy) return;
+        Debug.Log("Slid Show OPEN");
         isPopupOpen = true;
         sideShowPopupImage.gameObject.SetActive(true);
+        sideShowPopupImageText.text = "<color=yellow>[ " + slideShowPlayer.playerNameTxt.text + "]</color>" + " Denied SideShow Request";
+        Debug.Log("Player No   =>  " + playerNo);
+        Debug.Log("slideShowPlayer Player No   =>  " + slideShowPlayer.playerNo);
+        ChangePlayerTurn(playerNo);
         //sideShowPopupImage.transform.localScale = Vector3.zero;
         /*sideShowPopupImage.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
         {
@@ -1849,12 +2246,17 @@ public class JokerManager : MonoBehaviour
 
     public void ClosePopup()
     {
-        if (!isPopupOpen) return;
+        Debug.Log("Slid Show OPEN ====>   " + isPopupOpen);
+
+
+        if (!sideShowPopupImage.gameObject.activeInHierarchy) return;
+
         isPopupOpen = false;
-        sideShowPopupImage.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            sideShowPopupImage.gameObject.SetActive(false);
-        });
+        Debug.Log("Slid Show OPEN ====>   " + isPopupOpen);
+        sideShowPopupImage.gameObject.SetActive(false);
+        /*  sideShowPopupImage.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+          {
+          });*/
     }
 
     public void MinusButtonClick()
@@ -1911,6 +2313,13 @@ public class JokerManager : MonoBehaviour
             false when player1.isBlind => "Blind : " + currentPriceValue,
             false when player1.isSeen => "Chaal : " + currentPriceValue,
             _ => priceBtnTxt.text
+        };
+        priceBtnTxtDouble.text = player1.isPack switch
+        {
+            //currentPriceValue /= 2;
+            false when player1.isBlind => "Blind : " + currentPriceValue * 2,
+            false when player1.isSeen => "Chaal : " + currentPriceValue * 2,
+            _ => priceBtnTxtDouble.text
         };
     }
 
@@ -1969,7 +2378,7 @@ public class JokerManager : MonoBehaviour
 
     public void StartBet()
     {
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue, player1) == false)
         {
             SoundManager.Instance.ButtonClick();
             OpenErrorScreen();
@@ -1983,29 +2392,35 @@ public class JokerManager : MonoBehaviour
 
     public void BetButtonClick()
     {
+        Debug.Log("isGameStop     = " + isGameStop);
         if (!isGameStop)
         {
-            if (CheckMoney(currentPriceValue) == false)
+            if (CheckMoney(currentPriceValue, player1) == false)
             {
                 SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
+
                 OpenErrorScreen();
                 return;
             }
-            if (player1.isBlind)
-            {
-                currentBlindValue = currentPriceValue;
-                //currentPriceValue = currentBlindValue;
-                //for (int i = 0; i < numbers.Length; i++)
-                //{
-                //    if (currentPriceValue == numbers[i])
-                //    {
-                //        currentPriceIndex = i;
-                //        runningPriceIndex = i;
-                //        break;
-                //    }
-                //}
-            }
+            /*    if (player1.isBlind)
+                {
+                    Debug.Log("currentBlindValue   =>  " + currentBlindValue);
+                    Debug.Log("currentPriceValue   =>  " + currentPriceValue);
+                    currentBlindValue = currentPriceValue;
+                    //currentPriceValue = currentBlindValue;
+                    //for (int i = 0; i < numbers.Length; i++)
+                    //{
+                    //    if(currentPriceValue == numbers[i])
+                    //    {
+                    //        currentPriceIndex = i;
+                    //        runningPriceIndex = i;
+                    //        break;
+                    //    }
+                    //}
+                }*/
             SoundManager.Instance.ThreeBetSound();
+            Debug.LogError("currentPriceValue  -=>  " + currentPriceValue);
             BetAnim(player1, currentPriceValue, currentPriceIndex);
             DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 3);
             playerBetAmount += currentPriceValue;
@@ -2013,39 +2428,62 @@ public class JokerManager : MonoBehaviour
             // bonusUseValue
             // User Maintain
             runningPriceIndex = currentPriceIndex;
-            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "");
-            ChangePlayerTurn(player1.playerNo);
+            if (!player1.isSeen && !player1.isBlind && !player1.isPack)
+            {
+                player1.isBlind = true;
+            }
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
+            Debug.LogError("mahadeV 4   =>   " + MainMenuManager.Instance.potLimitValue + "      totalBetAmount  =>    " + totalBetAmount);
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
         }
     }
-    //public void DoubleBetButtonClick()
-    //{
-    //    if (!isGameStop)
-    //    {
-    //        currentPriceValue = doubleLimitValue;
-    //        currentPriceIndex = 1;
+    public void BetButtonClickDouble()
+    {
+        if (!isGameStop)
+        {
+            if (CheckMoney(currentPriceValue * 2, player1) == false)
+            {
+                SoundManager.Instance.ThreeBetSound();
+                Debug.Log("OpenErrorScreen");
 
-    //        if (CheckMoney(currentPriceValue) == false)
-    //        {
-    //            SoundManager.Instance.ThreeBetSound();
-    //            OpenErrorScreen();
-    //            return;
-    //        }
-    //        SoundManager.Instance.ThreeBetSound();
-    //        BetAnim(player1, currentPriceValue, currentPriceIndex);
-    //        DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 3);
-    //        playerBetAmount += currentPriceValue;
-    //        // bonusUseValue
-    //        // User Maintain
-    //        runningPriceIndex = currentPriceIndex;
-    //        SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "");
-    //        ChangePlayerTurn(player1.playerNo);
-    //        blindx2button.SetActive(false);
-    //        plusBtn.gameObject.SetActive(true);
-    //        minusBtn.gameObject.SetActive(true);
-    //        priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
-    //        priceBtnTxt.text = "Chaal\n" + currentPriceValue;
-    //    }
-    //}
+                OpenErrorScreen();
+                return;
+            }
+            /*  if (player1.isBlind)
+              {
+                  currentBlindValue = currentPriceValue * 2;
+                  //currentPriceValue = currentBlindValue;
+                  //for (int i = 0; i < numbers.Length; i++)
+                  //{
+                  //    if(currentPriceValue == numbers[i])
+                  //    {
+                  //        currentPriceIndex = i;
+                  //        runningPriceIndex = i;
+                  //        break;
+                  //    }
+                  //}
+              }*/
+            SoundManager.Instance.ThreeBetSound();
+            BetAnim(player1, currentPriceValue * 2, currentPriceIndex);
+            currentPriceValue = currentPriceValue * 2;
+            Debug.Log("currentPriceValue  =>  " + currentPriceValue);
+            DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 3);
+            playerBetAmount += currentPriceValue;
+            //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
+            // bonusUseValue
+            // User Maintain
+            runningPriceIndex = currentPriceIndex;
+            if (!player1.isSeen && !player1.isBlind && !player1.isPack)
+            {
+                player1.isBlind = true;
+            }
+            SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "", false);
+            Debug.LogError("mahadeV 4");
+            if (MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                ChangePlayerTurn(player1.playerNo);
+        }
+    }
 
     #endregion
 
@@ -2111,220 +2549,100 @@ public class JokerManager : MonoBehaviour
 
     public void BetAnim(JokerPlayer player, float amount, int priceIndex)
     {
-        /*GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
-        genBetObj.transform.GetChild(1).GetComponent<Text>().text = amount.ToString();
-        genBetObj.transform.position = player.sendBetObj.transform.position;
-        genBetObj.transform.DOMove(targetBetObj.transform.position, 0.3f).OnComplete(() =>
-        {
-            Destroy(genBetObj);
-            totalBetAmount += amount;
-            betAmountTxt.text = totalBetAmount.ToString();
-        });*/
+        Debug.LogError(" amount  => " + amount);
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
         totalBetAmount += amount;
-        betAmountTxt.text = totalBetAmount.ToString();
+        Debug.LogError("totalBetAmount  => " + totalBetAmount);
+        float currentBalance = float.Parse(player.playerBalence.text);
+        Debug.Log("currentBalance => " + currentBalance);
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        // Subtract the amount from the balance
+        currentBalance -= amount;
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        Debug.LogError("CHAL AMount  " + currentBalance);
+        // Update the player's balance text with the new balance
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas[i].userId + "   DataManager.Instance.playerData._id   =>  " + DataManager.Instance.playerData._id);
+            if (DataManager.Instance.joinPlayerDatas[i].userId.Equals(player.playerId))
+            {
+                float balance;
+                if (float.TryParse(DataManager.Instance.joinPlayerDatas[i].balance, out balance))
+                {
+                    Debug.Log("b=     " + balance);
+                    Debug.Log("a=     " + amount);
+                    balance -= amount;
 
-        SpawnCoin(priceIndex);
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].userName);
+                    DataManager.Instance.joinPlayerDatas[i].balance = balance.ToString();
+                    Debug.Log("na=     " + DataManager.Instance.joinPlayerDatas[i].balance);
+                }
+            }
+        }
+        player.playerBalence.text = currentBalance.ToString();
+        Debug.Log("player.playerBalence => " + float.Parse(player.playerBalence.text));
+        Debug.Log("player.playerBalence => " + player.name);
+
+        betAmountTxt.text = totalBetAmount.ToString("0.##");
+        Debug.Log("PRICE INDEX _______ > " + priceIndex);
+        SpawnCoin(priceIndex, player.transform, amount);
+        Debug.LogError("totalBetAmount => " + totalBetAmount + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue);
+        if (totalBetAmount > MainMenuManager.Instance.potLimitValue && isAdmin)
+        {
+            crossPotLimitTable();
+            Debug.LogError("===========Cross Limit====================");
+        }
+
     }
 
+    public bool isPotlimitCross = false;
+    public void crossPotLimitTable()
+    {
+        Debug.LogError("===========Cross Limit====================");
+        isPotlimitCross = true;
+        ShowCardToAllUser();
+        //  CheckFinalWinner("Show");
+        Debug.Log("winnerPlayer =>  " + winnerPlayer.Count);
+        CheckAllPlayers(winnerPlayer);
+    }
+    public void CheckAllPlayers(List<JokerPlayer> players)
+    {
+
+        JokerPlayer finalWinner = players[0];
+
+        for (int i = 1; i < players.Count; i++)
+        {
+            JokerPlayer currentPlayer = players[i];
+
+            if (currentPlayer.ruleNo < finalWinner.ruleNo)
+            {
+                finalWinner = currentPlayer;
+            }
+            else if (currentPlayer.ruleNo == finalWinner.ruleNo)
+            {
+                if (ComparePlayersByCards(currentPlayer, finalWinner))
+                {
+                    finalWinner = currentPlayer;
+                }
+            }
+        }
+
+        Debug.Log("The final winner is: " + finalWinner.name);
+        CreditWinnerAmount(finalWinner.playerId);
+        SetTeenPattiWon(finalWinner.playerId);
+    }
+    bool ComparePlayersByCards(JokerPlayer player1, JokerPlayer player2)
+    {
+        if (player1.card1.cardNo > player2.card1.cardNo) return true;
+        if (player1.card1.cardNo < player2.card1.cardNo) return false;
+
+        if (player1.card2.cardNo > player2.card2.cardNo) return true;
+        if (player1.card2.cardNo < player2.card2.cardNo) return false;
+
+        return player1.card3.cardNo > player2.card3.cardNo;
+    }
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
     {
-        //if (isAdmin) return;
-        //switch (roundCounter)
-        //{
-        //    case <= 1:
-        //        switch (num)
-        //        {
-        //            case 1:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 2:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 3:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 4:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 5:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //        }
-
-        //        break;
-        //    case 2:
-        //        switch (num)
-        //        {
-        //            case 1:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 2:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 3:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 4:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 5:
-        //                {
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[botPlayerNo].isPack) return;
-        //                    break;
-        //                }
-        //        }
-
-        //        break;
-        //    case 3:
-        //        switch (num)
-        //        {
-        //            case 1:
-        //                {
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[botPlayerNo].isPack) return;
-        //                    break;
-        //                }
-        //            case 2:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 3:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 4:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 5:
-        //                {
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[botPlayerNo].isPack) return;
-        //                    break;
-        //                }
-        //        }
-
-        //        break;
-        //    case >= 4:
-        //        switch (num)
-        //        {
-        //            case 1:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 2:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 3:
-        //                {
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[botPlayerNo].isPack) return;
-        //                    break;
-        //                }
-        //            case 4:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //            case 5:
-        //                {
-        //                    int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
-        //                    //ChangeCardStatus("SEEN", botPlayerNo);
-        //                    if (playerSquList[index].isPack) return;
-        //                    BetAnim(playerSquList[index], currentPriceValue, currentPriceIndex);
-        //                    SoundManager.Instance.ThreeBetSound();
-        //                    break;
-        //                }
-        //        }
-
-        //        break;
-        //}
-
         if (isAdmin) return;
 
         currentSeenValue = currentAmount;
@@ -2332,27 +2650,31 @@ public class JokerManager : MonoBehaviour
         int index = playerSquList.FindIndex(playerSqu => playerSqu.playerNo == botPlayerNo);
         print("Bot Betting done " + currentAmount + " index = " + index);
         if (index < 0 || playerSquList[index].isPack) return;
+        Debug.Log("playerSquList[index]  =>  " + playerSquList[index].name);
+        Debug.Log("roundCounter = > " + roundCounter);
+        BetAnim(playerSquList[index], currentAmount, currentIndex);
+        SoundManager.Instance.ThreeBetSound();
 
-        switch (roundCounter)
-        {
-            case <= 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                BetAnim(playerSquList[index], currentAmount, currentIndex);
-                SoundManager.Instance.ThreeBetSound();
-                break;
+        /* switch (roundCounter)
+         {
+             case <= 1:
+             case 2:
+             case 3:
+             case 4:
+             case 5:
+                 BetAnim(playerSquList[index], currentAmount, currentIndex);
+                 SoundManager.Instance.ThreeBetSound();
+                 break;
 
-            case >= 7 when num <= 4:
-                BetAnim(playerSquList[index], currentAmount, currentIndex);
-                SoundManager.Instance.ThreeBetSound();
-                break;
+             case >= 7 when num <= 4:
+                 BetAnim(playerSquList[index], currentAmount, currentIndex);
+                 SoundManager.Instance.ThreeBetSound();
+                 break;
 
-            case >= 7 when num == 5:
-                break;
-        }
-
+             case >= 7 when num == 5:
+                 break;
+         }
+ */
     }
 
 
@@ -2370,36 +2692,83 @@ public class JokerManager : MonoBehaviour
         SlideShowSendSocket(sendId, currentId, "Cancel");
     }
 
-    private void SpawnCoin(int priceIndex)
+    private void SpawnCoin(int priceIndex, Transform player, float amount)
     {
-        //Instantiate(chipObj, boxCollider.transform);
-        Vector3 dPos = GetRandomPositionWithinTransform(chipsTransform);
-        JokerPlayer chipOrigin = new JokerPlayer();
+        if (chipObj == null)
+        {
+            Debug.LogError("chipObj is null");
+            return;
+        }
+
+        if (teenPattiPlayers == null || teenPattiPlayers.Count == 0)
+        {
+            Debug.LogError("teenPattiPlayers list is null or empty");
+            return;
+        }
+
+        Debug.Log("SpawnCoin called");
+
+        Vector3 dPos = GetRandomPosInBoxCollider2D();
+        JokerPlayer chipOrigin = null;
+
         foreach (var item in teenPattiPlayers)
         {
-            if (item.playerNo == currentPlayer)
+            Debug.LogError("coin send => " + item.playerNo + "    currentPlayer => " + currentPlayer);
+
+            // Check if the player number matches and if the player is active
+            if (item.playerNo == currentPlayer && item.gameObject.activeInHierarchy)  // Assuming `isActive` is a boolean property
             {
                 chipOrigin = item;
                 break;
             }
         }
-        Debug.Log(dPos);
-        GameObject coin = Instantiate(chipObj, /*playerPosition[currentPlayer - 1]*/chipOrigin.transform);
-        coin.transform.parent = chipsTransform;
-        coin.transform.GetComponent<Image>().sprite = chipsSprite[priceIndex];
-        //coin.transform.position = new Vector3(targetBetObj.transform.position.x, targetBetObj.transform.position.y, 0f);
-        ChipGenerate(coin, dPos, chipsTransform);
-        spawnedCoins.Add(coin);
-        /*GameObject genBetObj = Instantiate(chipObj, playerPosition[currentPlayer - 1]);
-        genBetObj.transform.GetComponent<Image>().sprite = chipsSprite[currentPriceIndex];
-        genBetObj.transform.position = playerPosition[currentPlayer - 1].transform.position;
-        genBetObj.transform.DOMove(targetBetObj.transform.position, 0.3f).OnComplete(() =>
+        if (chipOrigin == null || chipOrigin.transform == null)
         {
-            spawnedCoins.Add(genBetObj);
-        });*/
+            Debug.LogError("chipOrigin or chipOrigin.transform is null");
+            return;
+        }
+
+        Debug.Log("ORIGIN =>   " + chipOrigin.name);
+        Debug.Log("ORIGIN =>   " + chipOrigin.transform);
+
+        PlaceChips coin = Instantiate(chipObj, chipOrigin.transform);
+        coin.amountText.text = "" + amount;
+        Debug.LogError("SWAP CHIP AMOUNT =>   " + amount);
+        if (amount > 0 && amount <= 50)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[0];
+        }
+        else if (amount > 50 && amount <= 500)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[1];
+        }
+        else if (amount > 500 && amount <= 1000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[2];
+        }
+        else if (amount > 1000 && amount <= 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[3];
+        }
+        else if (amount > 2000)
+        {
+            coin.transform.GetComponent<Image>().sprite = chipsSprite[4];
+        }
+
+
+        if (player == null || player.transform == null)
+        {
+            Debug.LogError("Player or Player.transform is null");
+            return;
+        }
+        Debug.Log("coin send => " + player.transform + "  coin.gameObject  = " + coin.gameObject + "  Pos  =>  " + dPos);
+        ChipGenerate(coin.gameObject, player.transform, dPos);
+        spawnedCoins.Add(coin.gameObject);
+
+        Debug.Log("Coin spawned and added to the list");
     }
 
-    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+    /*public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
     {
         RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
 
@@ -2415,7 +2784,7 @@ public class JokerManager : MonoBehaviour
         //Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
 
         return localRandomPos;
-    }
+    }*/
 
     private Vector3 GetRandomPosInBoxCollider2D()
     {
@@ -2424,16 +2793,24 @@ public class JokerManager : MonoBehaviour
         float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, 90f);
     }
-    public void ChipGenerate(GameObject chip, Vector3 endPos, Transform trans)
+    public void ChipGenerate(GameObject chip, Transform playerStartPosition, Vector3 endPos)
     {
-        //chip.transform
-        //chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
-        chip.transform.DOLocalMove(endPos, 0.2f).OnComplete(() =>
+        // Set the chip's starting position to the player's position
+        chip.transform.position = playerStartPosition.position;
+
+        // Random rotation for the chip
+        chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
+
+        // Move the chip to the end position
+        chip.transform.DOMove(endPos, 0.3f).OnComplete(() =>
         {
-            chip.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f).OnComplete(() =>
+            // Scale down slightly and then back to normal
+            chip.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.1f).OnComplete(() =>
             {
                 chip.transform.DOScale(Vector3.one, 0.07f);
-                chip.transform.SetParent(playerPosition[currentPlayer - 1]);
+
+                // Optionally set the parent if needed (you can remove this if it's not required)
+                chip.transform.SetParent(playerStartPosition);
             });
         });
     }
@@ -2455,7 +2832,10 @@ public class JokerManager : MonoBehaviour
     {
         errorScreenObj.SetActive(true);
     }
-
+    public void OpenErrorScreenONBET()
+    {
+        errorScreenObjONBET.SetActive(true);
+    }
     public void Error_Ok_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -2469,10 +2849,11 @@ public class JokerManager : MonoBehaviour
         errorScreenObj.SetActive(false);
     }
 
-    public bool CheckMoney(float money)
+    public bool CheckMoney(float money, JokerPlayer player)
     {
 
-        float currentBalance = float.Parse(DataManager.Instance.playerData.balance);
+        float currentBalance = float.Parse(player.playerBalence.text);
+        Debug.Log("currentBalance  => " + currentBalance);
         if ((currentBalance - money) < 0)
         {
             return false;
@@ -2483,7 +2864,6 @@ public class JokerManager : MonoBehaviour
         }
         return false;
     }
-
 
     #endregion
 
@@ -2842,11 +3222,32 @@ public class JokerManager : MonoBehaviour
         }
 
         List<JokerPlayer> availablePlayer = playerSquList.Where(t => t.gameObject.activeSelf && !t.isPack).ToList();
-        // showing next player for side show
-        var myIndex = availablePlayer.IndexOf(player1);
-        var nextIndex = (myIndex + 1) % availablePlayer.Count;
-        var nextPlayer = teenPattiPlayers[nextIndex];
-        slideShowPlayer = nextPlayer;
+        for (int i = 0; i < availablePlayer.Count; i++)
+        {
+            Debug.Log("AVAILABLE PLAYER => " + availablePlayer[i].name);
+        }
+        if (player5.gameObject.activeInHierarchy && !player5.isPack && player5.isSeen)
+        {
+            slideShowPlayer = player5;
+        }
+        else if (player4.gameObject.activeInHierarchy && !player4.isPack && player4.isSeen)
+        {
+            slideShowPlayer = player4;
+        }
+        else if (player3.gameObject.activeInHierarchy && !player3.isPack && player3.isSeen)
+        {
+            slideShowPlayer = player3;
+        }
+        else if (player2.gameObject.activeInHierarchy && !player2.isPack && player2.isSeen)
+        {
+            slideShowPlayer = player2;
+        }
+
+
+        Debug.Log("slideShowPlayer   => " + slideShowPlayer);
+
+
+
 
         if (availablePlayer.Count >= 3) return;
         showButton.interactable = true;
@@ -3028,6 +3429,8 @@ public class JokerManager : MonoBehaviour
     public void ChangePlayerTurn(int pNo)
     {
 
+        if (isWinningRun) return;
+
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
@@ -3053,7 +3456,7 @@ public class JokerManager : MonoBehaviour
     }
 
 
-    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow)
+    public void SendTeenPattiBet(int pNo, float amount, string betType, string playerSlideShowSend, string playerIdSlideShow, bool fIRSTBET)
     {
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3066,9 +3469,12 @@ public class JokerManager : MonoBehaviour
         obj.AddField("currentPrice", currentPriceValue);
         obj.AddField("playerSlideShowSendId", playerSlideShowSend);
         obj.AddField("playerIdSlideShowId", playerIdSlideShow);
+        obj.AddField("FIRSTBET", fIRSTBET);
         obj.AddField("Action", "PlaceBet");
         TestSocketIO.Instace.Senddata("TeenPattiSendBetData", obj);
+
     }
+
 
 
     public void SetTeenPattiWon(string winnerPlayerId)
@@ -3078,12 +3484,16 @@ public class JokerManager : MonoBehaviour
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
         obj.AddField("RoomId", DataManager.Instance.gameId);
         obj.AddField("WinnerPlayerId", winnerPlayerId);
+        obj.AddField("ResetNo", UnityEngine.Random.Range(1, 4));
+        obj.AddField("RoundNo", UnityEngine.Random.Range(1, 3));
         //obj.AddField("WinnerList", value);
         obj.AddField("Action", "WinData");
+        obj.AddField("isLimitCross", isPotlimitCross);
         TestSocketIO.Instace.Senddata("TeenPattiWinnerData", obj);
+          isWinningRun = true;
     }
 
-    public void ChangeCardStatus(string value, int pno)
+    public void ChangeCardStatus(string value, int pno, bool isSlidShowSend)
     {
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3092,7 +3502,7 @@ public class JokerManager : MonoBehaviour
         obj.AddField("PlayerNo", pno);
         obj.AddField("CardStatus", value);
         obj.AddField("Action", "CardStatus");
-
+        obj.AddField("Method", isSlidShowSend);
         //player1.isSeen = true;
 
         TestSocketIO.Instace.Senddata("TeenPattiChangeCardStatus", obj);
@@ -3102,7 +3512,7 @@ public class JokerManager : MonoBehaviour
     {
         for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
+            if (playerSquList[i].gameObject.activeInHierarchy && playerSquList[i].playerNo == nextPlayerNo && playerSquList[i].isPack == true)
             {
                 return true;
             }
@@ -3113,10 +3523,11 @@ public class JokerManager : MonoBehaviour
 
     public void GetPlayerTurn(int playerNo)
     {
-        bool isPlayerNotEnter = false;
+        Debug.Log("GetPlayerTurn => " + playerNo);
         int nextPlayerNo = 0;
-        //if (playerNo == DataManager.Instance.joinPlayerDatas.Count)//5
-        if (playerNo == 5)
+
+        // Check if we have reached the last player in the list
+        if (playerSquList.Count == playerNo)
         {
             nextPlayerNo = 1;
             roundCounter++;
@@ -3125,265 +3536,107 @@ public class JokerManager : MonoBehaviour
         {
             nextPlayerNo = playerNo + 1;
         }
-        if (nextPlayerNo == 1)
+
+        // Loop to check each player turn until a valid one is found
+        for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (isCheckTurnPack(nextPlayerNo) == false)
+            Debug.Log("Checking player: " + nextPlayerNo);
+
+            // If this player has not packed, we can exit the loop
+            if (!isCheckTurnPack(nextPlayerNo))
+            {
+                Debug.Log("Valid Player Turn: " + nextPlayerNo);
+                break;
+            }
+
+            // Otherwise, increment to the next player
+            nextPlayerNo++;
+
+            // If we've exceeded the number of players, wrap around to player 1
+            if (nextPlayerNo > playerSquList.Count)
             {
                 nextPlayerNo = 1;
+                roundCounter++;
+            }
+        }
 
-            }
-            else
-            {
-                nextPlayerNo = 2;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 2;
-                }
-                else
-                {
-                    nextPlayerNo = 3;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 3;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 4;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 4;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 5;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 5;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 2)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 2;
-            }
-            else
-            {
-                nextPlayerNo = 3;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 3;
-                }
-                else
-                {
-                    nextPlayerNo = 4;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 4;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 5;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 5;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 1;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 1;
-                                roundCounter++;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 3)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 3;
-            }
-            else
-            {
-                nextPlayerNo = 4;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 4;
-                }
-                else
-                {
-                    nextPlayerNo = 5;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 5;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 1;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 1;
-                            roundCounter++;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 2;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (nextPlayerNo == 4)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 4;
-            }
-            else
-            {
-                nextPlayerNo = 5;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 5;
-                }
-                else
-                {
-                    nextPlayerNo = 1;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 1;
-                        roundCounter++;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 2;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 2;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 3;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 3;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        else if (nextPlayerNo == 5)
-        {
-            if (isCheckTurnPack(nextPlayerNo) == false)
-            {
-                nextPlayerNo = 5;
-            }
-            else
-            {
-                nextPlayerNo = 1;
-                if (isCheckTurnPack(nextPlayerNo) == false)
-                {
-                    nextPlayerNo = 1;
-                    roundCounter++;
-                }
-                else
-                {
-                    nextPlayerNo = 2;
-                    if (isCheckTurnPack(nextPlayerNo) == false)
-                    {
-                        nextPlayerNo = 2;
-                    }
-                    else
-                    {
-                        nextPlayerNo = 3;
-                        if (isCheckTurnPack(nextPlayerNo) == false)
-                        {
-                            nextPlayerNo = 3;
-                        }
-                        else
-                        {
-                            nextPlayerNo = 4;
-                            if (isCheckTurnPack(nextPlayerNo) == false)
-                            {
-                                nextPlayerNo = 4;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //nextPlayerNo = playerNo;
-
-        print("Next Player No : " + nextPlayerNo);
+        Debug.Log("Final Player Turn: " + nextPlayerNo);
+        print("Next Player No : " + nextPlayerNo + "");
         currentPlayer = nextPlayerNo;
         for (int i = 0; i < playerSquList.Count; i++)
         {
             if (playerSquList[i].playerNo == nextPlayerNo)
             {
+                print("next chance given to :" + playerSquList[i].playerNo + " Teenpattiplayer = " + playerSquList[i].gameObject.name);
                 playerSquList[i].RestartFillLine();
                 if (playerSquList[i].playerNo == nextPlayerNo && playerSquList[i] == player1)
                 {
+
                     ShowTextChange();
+                    Debug.Log("--------------------------------------------------------------------------------");
+
                     player1.GetAdjacentPlayersPrice(nextPlayerNo, out float currentPrice, out int priceIndex);
-                    foreach (var item in playerSquList)
-                    {
-                        if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue == numbers[j])
-                                {
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
-                        {
-                            currentPriceValue = currentPriceValue + 3;
-                            for (int j = 0; j < numbers.Length; j++)
-                            {
-                                if (currentPriceValue <= numbers[j])
-                                {
-                                    currentPriceValue = numbers[j];
-                                    currentPriceIndex = j;
-                                    runningPriceIndex = j;
-                                    currentSeenValue = currentPriceValue;
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                        else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
-                        {
-                            currentSeenValue = currentPriceValue;
-                            //currentSeenValue = currentPriceValue;
-                            currentPriceValue = currentBlindValue;
-                        }
-                    }
+                    currentPriceValue = currentPrice;
+                    currentPriceIndex = priceIndex;
+                    /*     foreach (var item in playerSquList)
+                         {
+                             if (item.playerNo == playerNo && item.isSeen && player1.isBlind && item.isBot)//if bot has seen
+                             {
+
+
+                                 Debug.Log("currentPriceValue => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue == numbers[j])
+                                     {
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && item.isBot && item.isBlind && player1.isSeen)//if bot is blind
+                             {
+
+                                 Debug.Log("currentPriceValue Else => " + currentPriceValue);
+
+                                 currentPriceValue = currentPriceValue + 3;
+                                 for (int j = 0; j < numbers.Length; j++)
+                                 {
+                                     if (currentPriceValue <= numbers[j])
+                                     {
+                                         currentPriceValue = numbers[j];
+                                         currentPriceIndex = j;
+                                         runningPriceIndex = j;
+                                         currentSeenValue = currentPriceValue;
+                                         break;
+                                     }
+                                 }
+                                 break;
+                             }
+                             else if (item.playerNo == playerNo && player1.isBlind && item.isPack)
+                             {
+
+                                 Debug.Log("currentPriceValue Else IF => " + currentPriceValue);
+
+                                 currentSeenValue = currentPriceValue;
+                                 //currentSeenValue = currentPriceValue;
+                                 currentPriceValue = currentBlindValue;
+                             }
+                         }*/
                     //currentPriceValue = currentPrice;
                     //currentPriceIndex = priceIndex;
                     priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
+                    priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
                     bottomBox.SetActive(true);
                     DataManager.Instance.UserTurnVibrate();
+                    IsBoTShowRound4ENd();
+                    Debug.Log("EnableSeeCards");
+
                     EnableSeeCards();
                 }
                 else
@@ -3398,7 +3651,43 @@ public class JokerManager : MonoBehaviour
             }
         }
     }
+  
+    public void ShowStatus(string id, string type)
+    {
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (!teenPattiPlayers[i].cardImg3.gameObject.activeInHierarchy) return;
+            if (teenPattiPlayers[i].playerId == id)
+            {
+                if (type == "Blind")
+                {
+                    teenPattiPlayers[i].blindIMG.SetActive(true);
+                }
+                else if (type == "Bet")
+                {
+                    teenPattiPlayers[i].seenImg.SetActive(true);
 
+                }
+            }
+        }
+    }
+    public void IsBoTShowRound4ENd()
+    {
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            Debug.Log("isBot => " + playerSquList[i].isBot + "  PLAYER => " + playerSquList[i].name + "  roundCounter  => " + roundCounter);
+            if (playerSquList[i].isBot && roundCounter == 4)
+            {
+                Debug.Log("IS BLIND => " + playerSquList[i].isBlind);
+                if (playerSquList[i].isBlind)
+                {
+                    Debug.Log("ChangeCardStatus SEEN  =>  " + (i + 1));
+                    ChangeCardStatus("SEEN", (i + 1), false);
+                }
+            }
+        }
+
+    }
     //public void GetPlayerTurn(int playerNo)
     //{
 
@@ -3521,53 +3810,81 @@ public class JokerManager : MonoBehaviour
 
     public void CreditWinnerAmount(string playerID)
     {
+        for (int i = 0; i < player1.seeObj.Length; i++)
+        {
+            player1.seeObj[i].SetActive(false);
+        }
         float winnerAmount = (float)totalBetAmount;
+        Debug.Log("isPotlimitCross => " + isPotlimitCross + "  MainMenuManager.Instance.potLimitValue => " + MainMenuManager.Instance.potLimitValue + "  totalBetAmount => " + totalBetAmount);
+        int activePlayersCount = teenPattiPlayers
+     .Count(player => player.gameObject.activeSelf && player.isPack == false);
 
+        // If only one player is not packed, the condition is met
+        Debug.Log("Only one player is not packed." + activePlayersCount);
+        if (activePlayersCount == 1)
+        {
+            // Your condition logic here
+            Debug.Log("Only one player is not packed.");
+        }
+        else
+        {
+            // Logic for when this condition is not met
+            Debug.Log("More than one player is not packed, or all are packed." + winnerPlayer.Count);
+            if (!isPotlimitCross && MainMenuManager.Instance.potLimitValue > totalBetAmount)
+                PlayerWinLossImgSet(playerID);
+        }
         //print("Win No : " + winnerNo[i]);
         for (int j = 0; j < teenPattiPlayers.Count; j++)
         {
-            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeSelf == true)
+            if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
+                Debug.Log("CreditWinnerAmount  ");
+                float adminPercentage = DataManager.Instance.adminPercentage;
+                float winAmount = winnerAmount;
+                float adminCommssion = (adminPercentage / 100);
+                float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
-                //Generate Number
+                // Generate Number
                 GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
-                genBetObj.transform.GetChild(1).GetComponent<Text>().text = winnerAmount.ToString();
+                genBetObj.transform.GetChild(1).GetComponent<Text>().text = playerWinAmount.ToString("F2"); // Display with 2 decimal places
                 genBetObj.transform.position = targetBetObj.transform.position;
                 totalBetAmount = 0;
-                //betAmountTxt.text = winnerAmount.ToString();
+
+                // Animate the bet object to the target position
                 genBetObj.transform.DOMove(teenPattiPlayers[j].sendBetObj.transform.position, 0.3f).OnComplete(() =>
                 {
-                    //betAmountTxt.text = winnerAmount.ToString();
-                    /*if (teenPattiPlayers[j].playerNo == player1.playerNo)
-                    {
-                        //Add to  winnner Amount
+                    // Parse current balance, add the win amount, and update the UI text
 
-                        float adminPercentage = DataManager.Instance.adminPercentage;
-
-                        float winAmount = winnerAmount;
-                        float adminCommssion = (adminPercentage / 100);
-                        float playerWinAmount = winAmount - (winAmount * adminCommssion);
-
-                        print(playerWinAmount + "<-------- Crediting amount in animation");
-
-                        if (playerWinAmount != 0)
-                        {
-                            SoundManager.Instance.CasinoWinSound();
-                            DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
-                        }
-                    }*/
                 });
 
+                float currentBalance = float.Parse(teenPattiPlayers[j].playerBalence.text);
+                float newBalance = currentBalance + playerWinAmount;
+                Debug.Log("WIN AMOU   => " + playerWinAmount);
+                Debug.Log("Player Name => " + teenPattiPlayers[j].name);
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+                teenPattiPlayers[j].playerBalence.text = newBalance.ToString("F2"); // Update balance with 2 decimal formatting
+                Debug.Log("Player Bal => " + teenPattiPlayers[j].playerBalence.text);
+
+                // Update the player's balance in the DataManager instance
+                for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+                {
+                    if (teenPattiPlayers[j].playerId == DataManager.Instance.joinPlayerDatas[i].userId)
+                    {
+                        Debug.Log("Player Name => " + DataManager.Instance.joinPlayerDatas[i].userName);
+
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                        DataManager.Instance.joinPlayerDatas[i].balance = newBalance.ToString("F2");
+                        Debug.Log("Player BALLLL => " + DataManager.Instance.joinPlayerDatas[i].balance);
+                    }
+                }
                 // Happening outside Dotween animation
+
+                Debug.Log("teenPattiPlayers   >   " + teenPattiPlayers[j].playerNo + " player1.playerNo  =>  " + player1.playerNo);
                 if (teenPattiPlayers[j].playerNo == player1.playerNo)
                 {
                     //Add to  winnner Amount
 
-                    float adminPercentage = DataManager.Instance.adminPercentage;
 
-                    float winAmount = winnerAmount;
-                    float adminCommssion = (adminPercentage / 100);
-                    float playerWinAmount = winAmount - (winAmount * adminCommssion);
 
                     print(playerWinAmount + "<-------- Crediting amount Outside animation");
 
@@ -3577,114 +3894,109 @@ public class JokerManager : MonoBehaviour
                         winAnimationTxt.gameObject.SetActive(true);
                         winAnimationTxt.text = "+" + playerWinAmount;
                         Invoke(nameof(WinAmountTextOff), 1.5f);
-                        DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "TeenPatti-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
+                        DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "Joker-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), player1.playerNo);
                     }
                 }
-
                 Destroy(genBetObj, 0.4f);
             }
         }
-
-
-        Invoke(nameof(GameRestartRound), 0.4f);
     }
+    public List<JokerPlayer> winnerPlayer;
+    public void PlayerWinLossImgSet(string winnerId)
+    {
+        Debug.Log("PlayerWinLossImgSet  =>   " + winnerPlayer.Count);
+        if (winnerPlayer.Count <= 1) return;
 
+        Debug.Log("PlayerWinLossImgSet  =>   " + winnerPlayer.Count);
+
+        winnerPanel.SetActive(true);
+        if (winnerPlayer[0].playerId == winnerId)
+        {
+            winorlossP1.sprite = winSprite;
+            leftImg.transform.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            winorlossP1.sprite = lossSprite;
+            leftImg.transform.GetComponent<Image>().color = Color.red;
+        }
+
+        if (winnerPlayer[1].playerId == winnerId)
+        {
+            winorlossP2.sprite = winSprite;
+            rightIMg.transform.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            winorlossP2.sprite = lossSprite;
+            rightIMg.transform.GetComponent<Image>().color = Color.red;
+        }
+        cardStatusP1.text = GetRuleText(winnerPlayer[0]);
+        cardStatusP2.text = GetRuleText(winnerPlayer[1]);
+
+        // Step 1: Display `vsImg` first and wait for 0.2 seconds
+        vsImg.SetActive(true);
+
+        // Sequence to control animations step-by-step
+        DG.Tweening.Sequence sequence = DOTween.Sequence();
+
+        // Step 1: Set initial positions (optional, if needed for debugging)
+        leftImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1000f, leftImg.GetComponent<RectTransform>().anchoredPosition.y);
+        rightIMg.GetComponent<RectTransform>().anchoredPosition = new Vector2(1000f, rightIMg.GetComponent<RectTransform>().anchoredPosition.y);
+
+        // Step 2: Show leftImg and move to x = 335 with a delay of 0.2 seconds
+        leftImg.SetActive(false); // Initially hide
+        sequence.AppendInterval(0.2f) // Wait for 0.2 seconds
+                .AppendCallback(() => leftImg.SetActive(true)) // Activate leftImg
+                .Append(leftImg.GetComponent<RectTransform>().DOAnchorPosX(335f, 0.5f).SetEase(Ease.OutBounce)) // Move to x = 335 in 0.5 seconds
+                .AppendInterval(0.2f); // Wait for 0.2 seconds before showing rightImg
+
+        // Step 3: Show rightImg and move to x = -335
+        rightIMg.SetActive(false); // Initially hide
+        sequence.AppendCallback(() => rightIMg.SetActive(true)) // Activate rightImg
+                .Append(rightIMg.GetComponent<RectTransform>().DOAnchorPosX(-335f, 0.5f).SetEase(Ease.OutBounce)) // Move to x = -335 in 0.5 seconds
+                .AppendInterval(0.2f); // Optional wait after showing rightImg
+                                       // Display the rules and set winner/loser images and colors based on winnerId
+        sequence.AppendCallback(() =>
+        {
+
+            // Set win/loss states and colors
+        });
+    }
+    public string GetRuleText(JokerPlayer player)
+    {
+        switch (player.ruleNo)
+        {
+            case 1:
+                return "TRAIL";
+            case 2:
+                return "PURE";
+            case 3:
+                return "SEQUENCE";
+            case 4:
+                return "COLOR";
+            case 5:
+                return "PAIR";
+            case 6:
+                return "HIGH";
+            default:
+                return "UNKNOWN RULE";
+        }
+    }
     public void WinAmountTextOff()
     {
         winAnimationTxt.gameObject.SetActive(false);
 
     }
 
-    /*public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId)
-    {
 
-        if (type == "Show")
-        {
-            //ShowCardToAllUser("Show", true);
-        }
-        else if (type == "SideShow")
-        {
-            //print("Enter The First Slide Show");
-            if (playerSlideShowSendId.Equals(player1.playerId) && !playerIdSlideShowId.Equals(player1.playerId))
-            {
-                print("Enter The Second Side Show");
 
-                slideShowPanel.SetActive(true);
-                JokerSideShow.Instance.sendId = playerSlideShowSendId;
-                JokerSideShow.Instance.currentId = playerIdSlideShowId;
-            }
-        }
-        int playerIndex = 0;
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            if (teenPattiPlayers[i].playerNo == playerNo)
-            {
-                playerIndex = i;
-            }
-        }
-
-        bool isB = false;
-        bool isS = false;
-        if (type != "SideShow")
-        {
-            BetAnim(teenPattiPlayers[playerIndex], amount, currentPriceIndex);
-        }
-        if (teenPattiPlayers[playerIndex].isBlind)
-        {
-            isB = true;
-        }
-        else if (teenPattiPlayers[playerIndex].isSeen)
-        {
-            isS = true;
-        }
-        //currentPriceValue = amount;
-        if (!player1.isPack && player1.isBlind)
-        {
-            if (isS)
-            {
-                //currentPriceValue /= 2;
-                currentPriceValue = minLimitValue;
-            }
-            else if (isB)
-            {
-                currentPriceValue = amount;
-                minLimitValue = amount;
-                if (minLimitValue > 5)
-                    priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
-            }
-            priceBtnTxt.text = "Blind\n" + currentPriceValue;
-        }
-        else if (!player1.isPack && player1.isSeen)
-        {
-            if (isS)
-            {
-                currentPriceValue = amount;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            else if (isB)
-            {
-                if (amount == 5)
-                    currentPriceValue = amount * 2;
-                else if (amount == 10)
-                    currentPriceValue = 50;
-                //currentPriceValue = currentPriceValue * 2;
-            }
-            priceBtnTxt.text = "Chaal\n" + currentPriceValue;
-        }
-    }*/
 
     const float epsilon = 0.0001f;
 
-    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice)
+    public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId, int curIndex, int curPrice, bool firstBet)
     {
+        currentPriceValue = amount;
 
         if (type == "Show")
         {
@@ -3698,8 +4010,8 @@ public class JokerManager : MonoBehaviour
                 print("Enter The Second Side Show");
 
                 slideShowPanel.SetActive(true);
-                JokerSideShow.Instance.sendId = playerSlideShowSendId;
-                JokerSideShow.Instance.currentId = playerIdSlideShowId;
+                AK47SideShow.Instance.sendId = playerSlideShowSendId;
+                AK47SideShow.Instance.currentId = playerIdSlideShowId;
                 foreach (var item in DataManager.Instance.joinPlayerDatas)
                 {
                     if (playerIdSlideShowId == item.userId)
@@ -3722,7 +4034,7 @@ public class JokerManager : MonoBehaviour
 
         bool isB = false;
         bool isS = false;
-        if (type != "SideShow")
+        if (type != "SideShow" && !firstBet)
         {
             BetAnim(teenPattiPlayers[playerIndex], amount, curIndex);
             currentPriceIndex = curIndex;
@@ -3734,85 +4046,89 @@ public class JokerManager : MonoBehaviour
             //    priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
             //}
         }
-        if (teenPattiPlayers[playerIndex].isBlind)
+        if (teenPattiPlayers[playerIndex].isBlind && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
+            teenPattiPlayers[playerIndex].blindIMG.SetActive(true);
             isB = true;
         }
-        else if (teenPattiPlayers[playerIndex].isSeen)
+        else if (teenPattiPlayers[playerIndex].isSeen && teenPattiPlayers[playerIndex].cardImg3.gameObject.activeInHierarchy)
         {
+            teenPattiPlayers[playerIndex].seenImg.SetActive(true);
             isS = true;
         }
         //currentPriceValue = amount;
-        if (!player1.isPack && player1.isBlind)
-        {
-            if (isS)
-            {
-                //currentPriceValue /= 2;
-                //currentPriceValue = minLimitValue;
-                currentSeenValue = curPrice;
-                if (player1.isTurn)
-                    currentPriceValue = currentBlindValue;
-            }
-            else if (isB)
-            {
-                currentPriceValue = curPrice;
-                currentBlindValue = curPrice;
-                currentSeenValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentSeenValue <= numbers[i])
-                    {
-                        currentSeenValue = numbers[i];
-                        break;
-                    }
-                }
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }
-            }
-            priceBtnTxt.text = "Blind : " + curPrice;
-        }
-        else if (!player1.isPack && player1.isSeen)
-        {
-            if (isS)
-            {
-                /*currentPriceValue = amount;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if(currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }*/
-                currentSeenValue = curPrice;
-                currentPriceValue = curPrice;
-            }
-            else if (isB)
-            {
-                currentBlindValue = curPrice;
-                currentPriceValue = curPrice + 3;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue <= numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        currentPriceValue = numbers[i];
-                        break;
-                    }
-                }
-                currentSeenValue = currentPriceValue;
-            }
-            priceBtnTxt.text = "Chaal : " + curPrice;
-        }
+        /*  if (!player1.isPack && player1.isBlind)
+          {
+              if (isS)
+              {
+                  //currentPriceValue /= 2;
+                  //currentPriceValue = minLimitValue;
+                  //currentPriceValue = curPrice;
+                  currentSeenValue = curPrice;
+                  if (player1.isTurn)
+                      currentPriceValue = currentBlindValue;
+              }
+              else if (isB)
+              {
+                  currentPriceValue = curPrice;
+                  currentBlindValue = curPrice;
+                  currentSeenValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentSeenValue <= numbers[i])
+                      {
+                          currentSeenValue = numbers[i];
+                          break;
+                      }
+                  }
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }
+              }
+              priceBtnTxt.text = "Blind : " + curPrice;
+          }
+          else if (!player1.isPack && player1.isSeen)
+          {
+              if (isS)
+              {
+                  *//*currentPriceValue = amount;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if(currentPriceValue == numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          break;
+                      }
+                  }*//*
+                  currentSeenValue = curPrice;
+                  currentPriceValue = curPrice;
+              }
+              else if (isB)
+              {
+                  currentBlindValue = curPrice;
+                  currentPriceValue = curPrice + 3;
+                  for (int i = 0; i < numbers.Length; i++)
+                  {
+                      if (currentPriceValue <= numbers[i])
+                      {
+                          currentPriceIndex = i;
+                          runningPriceIndex = i;
+                          currentPriceValue = numbers[i];
+                          break;
+                      }
+                  }
+                  currentSeenValue = currentPriceValue;
+              }
+              priceBtnTxt.text = "Chaal : " + curPrice;
+          }
+    */
     }
 
 
@@ -3831,13 +4147,17 @@ public class JokerManager : MonoBehaviour
         ChangePlayerTurn(player1.playerNo);
     }
 
-    public void GetCardStatus(string value, int playerNo)
+    public bool isSLidShow1;
+    public void GetCardStatus(string value, int playerNo, bool isSLidShow)
     {
+        isSLidShow1 = isSLidShow;
         //print("Card Status : " + value + "    Player No  :" + playerNo);
         for (int i = 0; i < playerSquList.Count; i++)
         {
+
             if (playerSquList[i].gameObject.activeSelf == true && playerSquList[i].playerNo == playerNo)
             {
+                Debug.Log("VALUE =>  " + value);
                 if (value.Equals("SEEN"))
                 {
                     playerSquList[i].isSeen = true;
@@ -3847,6 +4167,20 @@ public class JokerManager : MonoBehaviour
                     //ShowTextChange(teenPattiPlayers[i]);
 
                     playerSquList[i].seenImg.SetActive(true);
+                    playerSquList[i].blindIMG.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
+                }
+                else if (value.Equals("Blind"))
+                {
+                    playerSquList[i].isSeen = false;
+                    playerSquList[i].isBlind = true;
+                    playerSquList[i].isPack = false;
+                    ShowTextChange();
+                    //ShowTextChange(teenPattiPlayers[i]);
+
+                    playerSquList[i].blindIMG.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].packImg.SetActive(false);
                 }
                 else if (value.Equals("PACK"))
                 {
@@ -3858,8 +4192,16 @@ public class JokerManager : MonoBehaviour
                         playerSquList[i].seeObj[j].SetActive(false);
                     }
                     playerSquList[i].packImg.SetActive(true);
+                    playerSquList[i].seenImg.SetActive(false);
+                    playerSquList[i].blindIMG.SetActive(false);
+
+
+                    playerSquList[i].cardImg1.GetComponent<Image>().DOFade(0.7f, 0.5f);
+                    playerSquList[i].cardImg2.GetComponent<Image>().DOFade(0.7f, 0.5f);
+                    playerSquList[i].cardImg3.GetComponent<Image>().DOFade(0.7f, 0.5f);
                     //CheckWin();
                     CheckPackTime(playerSquList[i]);
+
                     // Greejesh Pack Check
 
 
@@ -3871,7 +4213,7 @@ public class JokerManager : MonoBehaviour
 
     }
 
-
+    public bool isWinningRun = false;
     void CheckPackTime(JokerPlayer packPlayer)
     {
         print("Enter The Check Player");
@@ -3879,39 +4221,67 @@ public class JokerManager : MonoBehaviour
         print(teenPattiPlayers.Count);
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
-            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeSelf == true)
+            if (teenPattiPlayers[i].isPack == false && teenPattiPlayers[i].gameObject.activeInHierarchy)
             {
                 livePlayers.Add(teenPattiPlayers[i]);
             }
         }
         print("livePlayers.Count : " + livePlayers.Count);
-        packPlayer.isTurn = false;
-        if (livePlayers.Count == 1)
+        //  packPlayer.isTurn = false;
+        print("NAME : " + packPlayer.name);
+
+        //  Debug.Log("isWinningRun  =>  " + isWinningRun);
+        if (livePlayers.Count == 1 && !isWinningRun)
         {
             livePlayers[0].isTurn = false;
             string winValue = ",";
             winValue += livePlayers[0].playerNo + ",";
-            if (livePlayers[0].playerNo == playerNo)
+            Debug.Log("livePlayers[0].playerNo  =>  " + livePlayers[0].playerNo + "  playerNo  => " + playerNo);
+            Debug.Log("WIN AMOUNT =>  " + winValue);
+            if (livePlayers[0].playerNo == playerNo || livePlayers[0].isBot)
             {
                 SetTeenPattiWon(livePlayers[0].playerId);
                 Debug.LogWarning("------------------won is called-------------------------------------");
+                CreditWinnerAmount(livePlayers[0].playerId);
             }
             foreach (var t in livePlayers[0].playerWinObj)
             {
                 t.SetActive(true);
             }
 
-            StartCoroutine(RestartGamePlay());
+
         }
         else
         {
-            if (isAdmin)
-            {
-                ChangePlayerTurn(packPlayer.playerNo);
-            }
+            /* Debug.Log("IS ADMIN => " + isAdmin + "isSLidShow1  =>" + isSLidShow1 + "packPlayer.playerNo  =>  " + packPlayer.playerNo + "  NO => " + playerNo + " BOT =>  " + packPlayer.isBot);
+
+             if (!isSLidShow1 && packPlayer.playerNo == playerNo)
+             {
+
+                 ChangePlayerTurn(packPlayer.playerNo);
+
+             }
+             else if (packPlayer.isBot && isAdmin && !isSLidShow1)
+             {
+                 ChangePlayerTurn(packPlayer.playerNo);
+
+             }*/
+            ChangePlayerTurn(packPlayer.playerNo);
         }
     }
-
+    public int activePlayerOnTable;
+    public void CheckActivePlayer()
+    {
+        activePlayerOnTable = 0;
+        for (int i = 0; i < teenPattiPlayers.Count; i++)
+        {
+            if (teenPattiPlayers[i].gameObject.activeInHierarchy && !teenPattiPlayers[i].isPack)
+            {
+                activePlayerOnTable++;
+            }
+        }
+        Debug.Log("ACTIVE PLAYER = " + activePlayerOnTable);
+    }
 
     public void ChangeAAdmin(string leavePlayerId, string adminId)
     {
@@ -3929,23 +4299,44 @@ public class JokerManager : MonoBehaviour
         {
             if (teenPattiPlayers[i].playerId.Equals(leavePlayerId))
             {
+                // Log when a player is found with matching playerId
+                Debug.Log($"Player with ID: {leavePlayerId} found at index {i}");
+
                 teenPattiPlayers[i].isPack = true;
                 teenPattiPlayers[i].isBlind = false;
                 teenPattiPlayers[i].isSeen = false;
+
+                // Log state changes of the player
+                Debug.Log($"Player {teenPattiPlayers[i].playerNameTxt.text} is now packed. Blind: {teenPattiPlayers[i].isBlind}, Seen: {teenPattiPlayers[i].isSeen}");
+
                 for (int j = 0; j < teenPattiPlayers[i].seeObj.Length; j++)
                 {
                     teenPattiPlayers[i].seeObj[j].SetActive(false);
+                    // Log the deactivation of see objects
+                    Debug.Log($"Deactivated seeObj[{j}] for player {teenPattiPlayers[i].playerNameTxt.text}");
                 }
-                teenPattiPlayers[i].packImg.SetActive(true);
 
-                //teenPattiPlayers[i].gameObject.SetActive(false);
-                //DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[i]);
+                teenPattiPlayers[i].packImg.SetActive(true);
+                teenPattiPlayers[i].blindIMG.SetActive(false);
+                teenPattiPlayers[i].seenImg.SetActive(false);
+                // Log the activation of the pack image
+                Debug.Log($"Activated pack image for player {teenPattiPlayers[i].playerNameTxt.text}");
+
+                // Start coroutine to remove player with log
+                Debug.Log($"Starting coroutine to remove player {teenPattiPlayers[i].playerNameTxt.text}");
                 StartCoroutine(WaitGameToCompleteRemovePlayer(CheckLeftPlayer, i));
+
+                // Log the pack time check
+                Debug.Log($"Checking pack time for player {teenPattiPlayers[i].playerNameTxt.text}");
                 CheckPackTime(teenPattiPlayers[i]);
-                if (teenPattiPlayers[i].isTurn)
+                if (teenPattiPlayers[i].isTurn && !isWinningRun)
                 {
+                    // Log the change of turn if it's the current player's turn
+                    Debug.Log($"It was {teenPattiPlayers[i].playerNameTxt.text}'s turn. Changing to the next player.");
                     ChangePlayerTurn(teenPattiPlayers[i].playerNo);
                 }
+
+                Debug.Log($"teenPattiPlayers[i].isTurn  {teenPattiPlayers[i].isTurn}");
             }
         }
 
@@ -3976,7 +4367,7 @@ public class JokerManager : MonoBehaviour
                         isEnter = true;
                     }
                 }
-                
+
                 if (isEnter == false)
                 {
                     teenPattiPlayers[i].gameObject.SetActive(false);
@@ -3989,16 +4380,20 @@ public class JokerManager : MonoBehaviour
                 }
             }
         }*/
-
+        Debug.Log("playerData  = " + DataManager.Instance.playerData._id + "   joinPlayerDatas  = " + DataManager.Instance.joinPlayerDatas[0].userId);
         if (DataManager.Instance.playerData._id.Equals(DataManager.Instance.joinPlayerDatas[0].userId))
         {
+            Debug.Log("ISADMIN   =" + isAdmin);
             isAdmin = true;
+            Debug.Log("joinPlayerDatas => " + DataManager.Instance.joinPlayerDatas.Count + "   waitNextRoundScreenObj  > " + waitNextRoundScreenObj.activeSelf);
             if (DataManager.Instance.joinPlayerDatas.Count == 5 && waitNextRoundScreenObj.activeSelf)
             {
                 DataManager.Instance.joinPlayerDatas.RemoveAt(0);
                 //RoundGenerate();
                 CheckJoinedPlayers();
                 StartGamePlay();
+                Debug.LogError("StartGamePlay");
+
                 if (waitNextRoundScreenObj.activeSelf)
                 {
                     waitNextRoundScreenObj.SetActive(false);
@@ -4009,11 +4404,13 @@ public class JokerManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("isGameStarted   =>  " + isGameStarted);
             if (!isGameStarted)
             {
                 isAdmin = false;
             }
 
+            Debug.Log("Count   =>  " + DataManager.Instance.joinPlayerDatas.Count);
             if (DataManager.Instance.joinPlayerDatas.Count < 6) return;
             int index = DataManager.Instance.joinPlayerDatas.FindIndex(leftPlayer => leftPlayer.userId == leavePlayerId);
             DataManager.Instance.joinPlayerDatas.Remove(DataManager.Instance.joinPlayerDatas[index]);
@@ -4033,234 +4430,179 @@ public class JokerManager : MonoBehaviour
     #endregion
 
     #region CheckWin
+    public string senderID;
 
     public IEnumerator CheckSlideShowWinner(string playerId1, string playerId2, bool isSocket)
     {
         int cnt = 0;
 
-        //List<TeenPattiPlayer> teenSlideShowPlayers = new List<TeenPattiPlayer>();
+        List<JokerPlayer> teenSlideShowPlayers = new List<JokerPlayer>();
         for (int i = 0; i < teenPattiPlayers.Count; i++)
         {
             if (/*isSocket &&*/ teenPattiPlayers[i].gameObject.activeSelf == true && teenPattiPlayers[i].isPack == false && (teenPattiPlayers[i].playerId.Equals(playerId1) || teenPattiPlayers[i].playerId.Equals(playerId2)))
             {
                 cnt++;
                 teenPattiPlayers[i].CardDisplay();
-                //teenSlideShowPlayers.Add(teenPattiPlayers[i]);
+                teenSlideShowPlayers.Add(teenPattiPlayers[i]);
             }
         }
-        if (CheckMoney(currentPriceValue) == false)
+        if (CheckMoney(currentPriceValue, slideShowPlayer) == false)
         {
             SoundManager.Instance.ButtonClick();
             OpenErrorScreen();
             yield break;
         }
-        if (isSocket)
-        {
-            BetAnim(player1, currentPriceValue, currentPriceIndex);
-            DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 1);
-            playerBetAmount += currentPriceValue;
-        }
+        /*  if (isSocket)
+          {
+              BetAnim(player1, currentPriceValue, currentPriceIndex);
+              DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "Joker-Bet-" + DataManager.Instance.gameId, "game", 1);
+              playerBetAmount += currentPriceValue;
+          }*/
         yield return new WaitForSeconds(0.75f);
 
-        /*if (teenSlideShowPlayers.Count == 2)
+        if (teenSlideShowPlayers.Count == 2)
         {
-            TeenPattiPlayer slidePlayer1 = teenPattiPlayers[0];
-            TeenPattiPlayer slidePlayer2 = teenPattiPlayers[1];
+            JokerPlayer slidePlayer1 = teenSlideShowPlayers[0];
+            JokerPlayer slidePlayer2 = teenSlideShowPlayers[1];
 
             if (slidePlayer1.ruleNo < slidePlayer2.ruleNo)
             {
-                if (isSocket)
-                {
-                    ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                    ChangePlayerTurn(slidePlayer2.playerNo);
-                }
-                //pack slideplayer2
+                PackPlayer(slidePlayer2);
             }
             else if (slidePlayer2.ruleNo < slidePlayer1.ruleNo)
             {
-                //pack slideplayer1
-                if (isSocket)
-                {
-                    ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                    ChangePlayerTurn(slidePlayer1.playerNo);
-                }
+                PackPlayer(slidePlayer1);
             }
-            else if (slidePlayer2.ruleNo == slidePlayer1.ruleNo)
+            else
             {
-                if (slidePlayer1.ruleNo == 1)
-                {
-                    if (slidePlayer1.card1.cardNo > slidePlayer2.card1.cardNo)
-                    {
-                        //pack slide player 2
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                            ChangePlayerTurn(slidePlayer2.playerNo);
-                        }
-                    }
-                    else if (slidePlayer2.card1.cardNo > slidePlayer1.card1.cardNo)
-                    {
-                        //pack slide player 1
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                            ChangePlayerTurn(slidePlayer1.playerNo);
-                        }
-                    }
-                    else if (slidePlayer1.card1.cardNo == slidePlayer2.card1.cardNo)
-                    {
-                        //pack slide player 1
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                            ChangePlayerTurn(slidePlayer2.playerNo);
-                        }
-                    }
-                }
-                else if (slidePlayer1.ruleNo == 5)
-                {
-                    if (slidePlayer1.card1.cardNo > slidePlayer2.card1.cardNo)
-                    {
-                        //pack slide player 2
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                            ChangePlayerTurn(slidePlayer2.playerNo);
-                        }
-                    }
-                    else if (slidePlayer2.card1.cardNo > slidePlayer1.card1.cardNo)
-                    {
-                        //pack slide player 1
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                            ChangePlayerTurn(slidePlayer1.playerNo);
-                        }
-                    }
-                    else if (slidePlayer1.card1.cardNo == slidePlayer2.card1.cardNo)
-                    {
-
-                        if (slidePlayer1.card3.cardNo > slidePlayer2.card3.cardNo)
-                        {
-                            //pack slide player 2
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                ChangePlayerTurn(slidePlayer2.playerNo);
-                            }
-                        }
-                        else if (slidePlayer2.card3.cardNo > slidePlayer1.card3.cardNo)
-                        {
-                            //pack slide player 1
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                            }
-                        }
-                        else if (slidePlayer1.card3.cardNo == slidePlayer2.card3.cardNo)
-                        {
-                            //pack slide player 1
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    int highestNo1 = 0;
-                    if (slidePlayer1.card1.cardNo > slidePlayer2.card1.cardNo)
-                    {
-                        //pack slide player 2
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                            ChangePlayerTurn(slidePlayer2.playerNo);
-                        }
-                    }
-                    else if (slidePlayer1.card1.cardNo < slidePlayer2.card1.cardNo)
-                    {
-                        //pack slide player 1
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                            ChangePlayerTurn(slidePlayer1.playerNo);
-                        }
-                    }
-                    else
-                    {
-                        if (slidePlayer1.card2.cardNo > slidePlayer2.card2.cardNo)
-                        {
-                            //pack slide player 2
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                ChangePlayerTurn(slidePlayer2.playerNo);
-                            }
-                        }
-                        else if (slidePlayer1.card2.cardNo < slidePlayer2.card2.cardNo)
-                        {
-                            //pack slide player 1
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                            }
-                        }
-                        else
-                        {
-                            if (slidePlayer1.card3.cardNo > slidePlayer2.card3.cardNo)
-                            {
-                                //pack slide player 2
-                                if (isSocket)
-                                {
-                                    ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                    ChangePlayerTurn(slidePlayer2.playerNo);
-                                }
-                            }
-                            else if (slidePlayer1.card3.cardNo < slidePlayer2.card3.cardNo)
-                            {
-                                //pack slide player 1
-                                if (isSocket)
-                                {
-                                    ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                    ChangePlayerTurn(slidePlayer1.playerNo);
-                                }
-                            }
-                            else if (slidePlayer1.card3.cardNo == slidePlayer2.card3.cardNo)
-                            {
-                                //pack slide player 1
-                                if (isSocket)
-                                {
-                                    ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                    ChangePlayerTurn(slidePlayer1.playerNo);
-                                }
-                            }
-                        }
-                    }
-
-                }
-
+                CompareAndPackPlayers(slidePlayer1, slidePlayer2);
             }
-        }*/
 
+
+        }
+    }
+    void CompareAndPackPlayers(JokerPlayer player1, JokerPlayer player2)
+    {
+        if (player1.ruleNo == 1 || player1.ruleNo == 5)
+        {
+            if (CompareCards(player1, player2, 1)) return;
+
+            if (player1.ruleNo == 5 && player1.card1.cardNo == player2.card1.cardNo)
+            {
+                CompareCards(player1, player2, 3);
+            }
+        }
+        else if (player1.ruleNo == 6)
+        {
+            // Handle "High Card" rule: Compare all cards from highest to lowest
+            if (CompareCards(player1, player2, 1)) return; // Compare first card
+            if (CompareCards(player1, player2, 2)) return; // Compare second card
+            CompareCards(player1, player2, 3); // Compare third card
+        }
+        else
+        {
+            if (CompareCards(player1, player2, 1)) return;
+            if (player1.card1.cardNo == player2.card1.cardNo)
+            {
+                if (CompareCards(player1, player2, 2)) return;
+                CompareCards(player1, player2, 3);
+            }
+        }
+    }
+    bool CompareCards(JokerPlayer player1, JokerPlayer player2, int cardPosition)
+    {
+        var player1CardNo = GetCardNumber(player1, cardPosition);
+        var player2CardNo = GetCardNumber(player2, cardPosition);
+
+        if (player1CardNo > player2CardNo)
+        {
+            PackPlayer(player2);
+            return true;
+        }
+        else if (player1CardNo < player2CardNo)
+        {
+            PackPlayer(player1);
+            return true;
+        }
+        return false;
     }
 
+    int GetCardNumber(JokerPlayer player, int cardPosition)
+    {
+        return cardPosition switch
+        {
+            1 => player.card1.cardNo,
+            2 => player.card2.cardNo,
+            3 => player.card3.cardNo,
+            _ => 0
+        };
+    }
+
+    void PackPlayer(JokerPlayer player)
+    {
+        // Pack the player and update the turn
+        Debug.Log("<color=cyan>=============================================================================================</color>");
+
+        Debug.Log("PACK PLAYER =>  " + player.playerNo);
+        Debug.Log("PACK PLAYER =>  " + player.name);
+        Debug.Log("senderID  " + senderID);
+        if (player1.playerId == senderID)
+        {
+
+            Debug.Log("<color=cyan>=============================================================================================</color>");
+            ChangeCardStatus("PACK", player.playerNo, true);
+
+            Debug.Log("ChangePlayerTurn   =>  " + playerNo);
+            ChangePlayerTurn(playerNo);
+
+
+
+        }
+    }
 
     public void ShowCardToAllUser()
     {
         winMaintain.Clear();
+        winnerPlayer.Clear();
+        foreach (var t in teenPattiPlayers.Where(t => t.gameObject.activeSelf && !t.isPack))
+        {
+            t.isSeen = true;
+            t.isBlind = false;// Set isSeen to true for each player who is active and not packed
+            Debug.Log("T NAME  = " + t.name);
+        }
         foreach (var t in teenPattiPlayers.Where(t => t.gameObject.activeSelf == true && (t.isSeen || t.isBlind) && t.isPack == false))
         {
+            Debug.Log("T NAME  = " + t.name);
+            winnerPlayer.Add(t);
             t.CardDisplay();
+
         }
         //CheckFinalWinner(type);
+        Debug.Log("winnerPlayer  Count => " + winnerPlayer.Count + "  iSPot  => " + isPotlimitCross);
+        if (winnerPlayer.Count <= 2 && !isPotlimitCross)
+            WinnerDataSet();
         bottomBox.SetActive(false);
     }
+    public void WinnerDataSet()
+    {
+        if (winnerPlayer.Count <= 1) return;
 
+        profileImgP1.sprite = winnerPlayer[0].avatarImg.sprite;
+        profileImgP2.sprite = winnerPlayer[1].avatarImg.sprite;
+
+        usernameP1.text = winnerPlayer[0].playerNameTxt.text;
+        usernameP2.text = winnerPlayer[1].playerNameTxt.text;
+
+        P1card1.sprite = winnerPlayer[0].cardImg1.sprite;
+        P1card2.sprite = winnerPlayer[0].cardImg2.sprite;
+        P1card3.sprite = winnerPlayer[0].cardImg3.sprite;
+
+        P2card1.sprite = winnerPlayer[1].cardImg1.sprite;
+        P2card2.sprite = winnerPlayer[1].cardImg2.sprite;
+        P2card3.sprite = winnerPlayer[1].cardImg3.sprite;
+
+
+    }
     public string CheckFinalWinner(string type)
     {
         List<JokerPlayer> teenPattiWinner = new List<JokerPlayer>();
@@ -4289,7 +4631,7 @@ public class JokerManager : MonoBehaviour
 
         foreach (var player in teenPattiPlayers)
         {
-            player.SumOfPlayerCards();
+            // player.SumOfPlayerCards();
         }
 
         List<JokerPlayer> sortedNumbersDescending = teenPattiPlayers.OrderByDescending(n => n.sumOfCards).ToList();
@@ -4350,7 +4692,7 @@ public class JokerManager : MonoBehaviour
                 }//print("Add");
             }
         }*/
-        ShowWinPlayer(type, teenPattiWinner);
+        //ShowWinPlayer(type, teenPattiWinner);
 
         CreditWinnerAmount(teenPattiWinner[0].playerId);
         SetTeenPattiWon(teenPattiWinner[0].playerId);
@@ -4359,11 +4701,15 @@ public class JokerManager : MonoBehaviour
 
     public void HandelTeenPattiWinData(string winnerPlayerId)
     {
-        List<JokerPlayer> winnerPlayer = teenPattiPlayers.Where(p => p.playerId == winnerPlayerId).ToList();
+        List<JokerPlayer> winnerPlayer = teenPattiPlayers
+      .Where(p => p.playerId == winnerPlayerId && p.gameObject.activeInHierarchy)
+      .ToList();
+
 
         if (winnerPlayer.Count > 0)
         {
             ShowCardToAllUser();
+            CreditWinnerAmount(winnerPlayerId);
             ShowWinPlayer("Show", winnerPlayer);
         }
     }
@@ -4371,6 +4717,8 @@ public class JokerManager : MonoBehaviour
     public void ShowWinPlayer(string type, List<JokerPlayer> teenPattiWinner)
     {
         isBotActivate = false;
+        Debug.Log("teenPattiWinner Count =>  " + teenPattiWinner.Count);
+        Debug.Log("teenPattiWinner Count =>  " + teenPattiWinner[0].name);
         if (teenPattiWinner.Count == 1)
         {
             int rule = teenPattiWinner[0].ruleNo;
@@ -4392,251 +4740,12 @@ public class JokerManager : MonoBehaviour
                 t.SetActive(true);
             }
             SoundManager.Instance.CasinoWinSound();
-
-            StartCoroutine(RestartGamePlay());
-        }
-        else if (teenPattiWinner.Count > 1)
-        {
-            /*int rule = teenPattiWinner[0].ruleNo;
-
-            //print("Rule 2 : " + rule);
-            switch (rule)
+            if (isGameStarted)
             {
-                case 1:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
+                Debug.Log("------ RestartGamePlay ---- ");
+                StartCoroutine(RestartGamePlay());
+            }
 
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            if (playerList1[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue); // with player id // Moved in click
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-
-                    break;
-                }
-                case 5:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
-
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            SetTeenPattiWon(winValue);
-                            Debug.LogWarning("------------------won is called-------------------------------------");
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-                    else
-                    {
-                        int highestNo3 = teenPattiWinner[0].card3.cardNo;
-                        highestNo3 = teenPattiWinner.Select(t => t.card3.cardNo).Prepend(highestNo3).Max();
-
-                        List<TeenPattiPlayer> playerList3 =
-                            teenPattiWinner.Where(t => highestNo3 == t.card3.cardNo).ToList();
-
-                        if (playerList3.Count == 1)
-                        {
-                            //win
-                            string winValue = ",";
-                            winValue += playerList3[0].playerNo + ",";
-                            if (playerList3[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue);
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-
-                            foreach (var t in playerList3[0].playerWinObj)
-                            {
-                                t.SetActive(true);
-                            }
-
-                            StartCoroutine(RestartGamePlay());
-                        }
-                        else
-                        {
-                            //win
-                            if (type == "Show")
-                            {
-                                ChangeCardStatus("PACK", player1.playerNo);
-                                //ChangePlayerTurn(player1.playerNo);
-                            }
-                            else
-                            {
-                                string winValue = ",";
-                                winValue += playerList1[0].playerNo + ",";
-                                foreach (var t in playerList3)
-                                {
-                                    winValue += t.playerNo + ",";
-                                    foreach (var t1 in t.playerWinObj)
-                                    {
-                                        t1.SetActive(true);
-                                    }
-                                }
-
-                                StartCoroutine(RestartGamePlay());
-                                if (playerList3[0].playerNo == playerNo)
-                                {
-                                    SetTeenPattiWon(winValue);
-                                    Debug.LogWarning(
-                                        "------------------won is called-------------------------------------");
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                }
-                default:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
-
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            SetTeenPattiWon(winValue);
-                            Debug.LogWarning("------------------won is called-------------------------------------");
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-                    else
-                    {
-                        int highestNo2 = teenPattiWinner[0].card2.cardNo;
-                        highestNo2 = teenPattiWinner.Select(t => t.card2.cardNo).Prepend(highestNo2).Max();
-
-                        List<TeenPattiPlayer> playerList2 =
-                            teenPattiWinner.Where(t => highestNo2 == t.card2.cardNo).ToList();
-
-                        if (playerList2.Count == 1)
-                        {
-                            //win
-                            string winValue = ",";
-                            winValue += playerList2[0].playerNo + ",";
-                            if (playerList2[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue);
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-
-                            foreach (var t in playerList2[0].playerWinObj)
-                            {
-                                t.SetActive(true);
-                            }
-
-                            StartCoroutine(RestartGamePlay());
-                        }
-                        else
-                        {
-                            int highestNo3 = teenPattiWinner[0].card3.cardNo;
-                            highestNo3 = teenPattiWinner.Select(t => t.card3.cardNo).Prepend(highestNo3).Max();
-
-                            List<TeenPattiPlayer> playerList3 =
-                                teenPattiWinner.Where(t => highestNo3 == t.card3.cardNo).ToList();
-
-                            if (playerList3.Count == 1)
-                            {
-                                //win
-                                string winValue = ",";
-                                winValue += playerList3[0].playerNo + ",";
-                                if (playerList3[0].playerNo == playerNo)
-                                {
-                                    SetTeenPattiWon(winValue);
-                                    Debug.LogWarning(
-                                        "------------------won is called-------------------------------------");
-                                }
-
-                                foreach (var t in playerList3[0].playerWinObj)
-                                {
-                                    t.SetActive(true);
-                                }
-
-                                StartCoroutine(RestartGamePlay());
-                            }
-                            else
-                            {
-                                //win
-                                if (type == "Show")
-                                {
-                                    ChangeCardStatus("PACK", player1.playerNo);
-                                    //ChangePlayerTurn(player1.playerNo);
-                                }
-                                else
-                                {
-                                    string winValue = ",";
-                                    foreach (var t in playerList3)
-                                    {
-                                        winValue += t.playerNo + ",";
-                                        foreach (var t1 in t.playerWinObj)
-                                        {
-                                            t1.SetActive(true);
-                                        }
-                                    }
-
-                                    StartCoroutine(RestartGamePlay());
-                                    if (playerList3[0].playerNo == playerNo)
-                                    {
-                                        SetTeenPattiWon(winValue);
-                                        Debug.LogWarning(
-                                            "------------------won is called-------------------------------------");
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            }*/
         }
     }
 
@@ -4701,5 +4810,11 @@ public class JokerManager : MonoBehaviour
 
 
     #endregion
-
+    public void TableInfoDataSet()
+    {
+        bootAmountText.text = "Boot Amount = " + MainMenuManager.Instance.selectedValue;
+        maxBlindsText.text = "Max Blinds = " + 4;
+        chaalLimitText.text = "Chaal Limit = " + MainMenuManager.Instance.challLimit;
+        potLimitText.text = "Pot Limit = " + MainMenuManager.Instance.potLimitValue;
+    }
 }

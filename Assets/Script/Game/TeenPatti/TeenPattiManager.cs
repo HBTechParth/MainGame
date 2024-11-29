@@ -850,7 +850,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         Debug.Log(" ==================================  totalRoundComplate  => " + totalRoundComplate + " round  => " + round);
 
-        if (totalRoundComplate == round)
+        if (1 == round)
         {
 
             // Temporary list to hold all bot players

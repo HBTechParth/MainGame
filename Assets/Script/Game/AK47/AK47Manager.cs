@@ -583,47 +583,11 @@ public class AK47Manager : MonoBehaviour
         player1.CardDisplay();
         DisplayRules();
 
-        //currentPriceValue = minLimitValue * 2;
-        /*if (currentPriceValue < 10)
-        {
-            currentPriceValue = doubleLimitValue;
-            currentPriceIndex = 1;
-        }*/
-        /* if (currentPlayer == player1.playerNo && !player1.isSeen)//if seen bet is also minimumValue, then the value will not increase
-         {
-
-             Debug.Log("currentSeenValue => " + currentSeenValue + "  currentPriceValue  =>  " + currentPriceValue);
-             *//*  if (currentSeenValue > currentPriceValue)
-               {
-                   currentPriceValue = currentSeenValue - 3;
-                   for (int i = 0; i < numbers.Length; i++)
-                   {
-                       if (currentPriceValue <= numbers[i])
-                       {
-                           currentPriceValue = numbers[i];
-                           currentPriceIndex = i;
-                           runningPriceIndex = i;
-                           break;
-                       }
-                   }
-               }*//*
-             //currentPriceIndex += 1;
-             Debug.Log("Number of index   =>  " + numbers[currentPriceIndex]);
-             Debug.Log("currentPriceValue   =>  " + currentPriceValue);
-             //   currentPriceValue = numbers[currentPriceIndex];
-             priceBtnTxt.text = player1.isSeen ? "Chaal : " + currentPriceValue : "Blind : " + currentPriceValue;
-             priceBtnTxtDouble.text = player1.isSeen ? "Chaal : " + currentPriceValue * 2 : "Blind : " + currentPriceValue * 2;
-         }*/
+       
         player1.isSeen = true;
         player1.isBlind = false;
         player1.isPack = false;
-        //currentPriceIndex = 1;
-        //blindx2button.SetActive(false);
-        //plusBtn.gameObject.SetActive(true);
-        //minusBtn.gameObject.SetActive(true);
-        //priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
-        //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = true;
-        // if (player1.isTurn)
+       
         {
 
             Debug.Log("currentPriceValue  ;;;;;;;;;;;;;;;;    => " + currentPriceValue);
@@ -715,7 +679,7 @@ public class AK47Manager : MonoBehaviour
                 }
             }
         }
-        //  Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
+        Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
         SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
         CheckNewPlayers();
         if (isAdmin)
@@ -788,7 +752,7 @@ public class AK47Manager : MonoBehaviour
     {
         Debug.Log(" ==================================  totalRoundComplate  => " + totalRoundComplate + " round  => " + round);
 
-        if (totalRoundComplate == round)
+        if (1 == round)
         {
 
             // Temporary list to hold all bot players
@@ -797,7 +761,7 @@ public class AK47Manager : MonoBehaviour
             // Filter out all bot players from playerSquList
             for (int i = 0; i < playerSquList.Count; i++)
             {
-                if (playerSquList[i].isBot)
+                if (playerSquList[i].isBot && playerSquList[i].gameObject.activeInHierarchy)
                 {
                     teenpatti.Add(playerSquList[i]);
                 }
@@ -2329,95 +2293,7 @@ public class AK47Manager : MonoBehaviour
         DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 2);
         playerBetAmount += currentPriceValue;
     }
-    public void StartBetTORealPlayer(AK47Player player)
-    {
-        if (CheckMoney(currentPriceValue, player1) == false)
-        {
-            SoundManager.Instance.ButtonClick();
-            Debug.Log("OpenErrorScreen");
-
-            OpenErrorScreenONBET();
-            return;
-        }
-        SoundManager.Instance.ThreeBetSound();
-        string id = player.playerId;
-        BetAnim(player, currentPriceValue, currentPriceIndex);
-        DataManager.Instance.DebitAmount((currentPriceValue).ToString(), id, "TeenPatti-Bet-" + id, "game", 2);
-        playerBetAmount += currentPriceValue;
-    }
-    /*  public void BetButtonClick()
-      {
-          if (!isGameStop)
-          {
-              if (CheckMoney(currentPriceValue) == false)
-              {
-                  SoundManager.Instance.ThreeBetSound();
-                  OpenErrorScreen();
-                  return;
-              }
-              if (player1.isBlind)
-              {
-                  currentBlindValue = currentPriceValue;
-                  //currentPriceValue = currentBlindValue;
-                  //for (int i = 0; i < numbers.Length; i++)
-                  //{
-                  //    if (currentPriceValue == numbers[i])
-                  //    {
-                  //        currentPriceIndex = i;
-                  //        runningPriceIndex = i;
-                  //        break;
-                  //    }
-                  //}
-              }
-              SoundManager.Instance.ThreeBetSound();
-              BetAnim(player1, currentPriceValue, currentPriceIndex);
-              DataManager.Instance.DebitAmount((currentPriceValue).ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
-              playerBetAmount += currentPriceValue;
-              //priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;
-              // bonusUseValue
-              // User Maintain
-              runningPriceIndex = currentPriceIndex;
-              SendTeenPattiBet(player1.playerNo, currentPriceValue, player1.isBlind ? "Blind" : "Bet", "", "",false);
-              ChangePlayerTurn(player1.playerNo);
-          }
-      }
-
-      public void DoubleBetButtonClick()
-      {
-          if (!isGameStop)
-          {
-              currentPriceValue = doubleLimitValue;
-              currentPriceIndex = 1;
-
-              if (CheckMoney(currentPriceValue) == false)
-              {
-                  SoundManager.Instance.ThreeBetSound();
-                  OpenErrorScreen();
-                  return;
-              }
-              SoundManager.Instance.ThreeBetSound();
-              BetAnim(player1, currentPriceValue, currentPriceIndex);
-              DataManager.Instance.DebitAmount(currentPriceValue.ToString(), DataManager.Instance.gameId, "AK47-Bet-" + DataManager.Instance.gameId, "game", 3);
-              playerBetAmount += currentPriceValue;
-              // bonusUseValue
-              // User Maintain
-              *//*if (currentPriceValue < 10)
-                  currentPriceValue = 10;
-              if (runningPriceIndex < 1)
-              {
-                  runningPriceIndex = 1;
-                  currentPriceIndex = 1;
-              }*//*
-              runningPriceIndex = currentPriceIndex;
-              SendTeenPattiBet(player1.playerNo, currentPriceValue, "Bet", "", "",false);
-              ChangePlayerTurn(player1.playerNo);
-              blindx2button.SetActive(false);
-              plusBtn.gameObject.SetActive(true);
-              minusBtn.gameObject.SetActive(true);
-              priceBtnTxt.gameObject.transform.parent.transform.localPosition = new Vector3(490.00f, 90.81f, 0.00f);
-              priceBtnTxt.text = "Chaal : " + currentPriceValue;
-          }
-      }*/
+   
 
     public void BetButtonClick()
     {
@@ -4214,94 +4090,7 @@ public class AK47Manager : MonoBehaviour
 
     }
 
-    /*public void GetBet(int playerNo, float amount, string type, string playerSlideShowSendId, string playerIdSlideShowId)
-    {
-
-        if (type == "Show")
-        {
-            //ShowCardToAllUser("Show", true);
-        }
-        else if (type == "SideShow")
-        {
-            //print("Enter The First Slide Show");
-            if (playerSlideShowSendId.Equals(player1.playerId) && !playerIdSlideShowId.Equals(player1.playerId))
-            {
-                print("Enter The Second Side Show");
-
-                slideShowPanel.SetActive(true);
-                AK47SideShow.Instance.sendId = playerSlideShowSendId;
-                AK47SideShow.Instance.currentId = playerIdSlideShowId;
-            }
-        }
-        int playerIndex = 0;
-        for (int i = 0; i < teenPattiPlayers.Count; i++)
-        {
-            if (teenPattiPlayers[i].playerNo == playerNo)
-            {
-                playerIndex = i;
-            }
-        }
-
-        bool isB = false;
-        bool isS = false;
-        if (type != "SideShow")
-        {
-            BetAnim(teenPattiPlayers[playerIndex], amount, currentPriceIndex);
-        }
-        if (teenPattiPlayers[playerIndex].isBlind)
-        {
-            isB = true;
-        }
-        else if (teenPattiPlayers[playerIndex].isSeen)
-        {
-            isS = true;
-        }
-        //currentPriceValue = amount;
-        if (!player1.isPack && player1.isBlind)
-        {
-            if (isS)
-            {
-                //currentPriceValue /= 2;
-                //currentPriceValue = minLimitValue;
-                currentPriceValue = currentPriceValue;
-            }
-            else if (isB)
-            {
-                currentPriceValue = currentPriceValue;
-                /*currentPriceValue = amount;
-                minLimitValue = amount;
-                if (minLimitValue > 5)
-                    priceBtnTxt.transform.parent.gameObject.GetComponent<Button>().interactable = false;#1#
-            }
-            priceBtnTxt.text = "Blind\n" + currentPriceValue;
-        }
-        else if (!player1.isPack && player1.isSeen)
-        {
-            if (isS)
-            {
-                /*currentPriceValue = amount;
-                for (int i = 0; i < numbers.Length; i++)
-                {
-                    if (currentPriceValue == numbers[i])
-                    {
-                        currentPriceIndex = i;
-                        runningPriceIndex = i;
-                        break;
-                    }
-                }#1#
-                currentPriceValue = currentPriceValue;
-            }
-            else if (isB)
-            {
-                /*if (amount == 5)
-                    currentPriceValue = amount * 2;
-                else if (amount == 10)
-                    currentPriceValue = 50;#1#
-                currentPriceValue = currentPriceValue * 2;
-            }
-            priceBtnTxt.text = "Chaal\n" + currentPriceValue;
-        }
-    }*/
+    
 
     const float epsilon = 0.0001f;
 
@@ -4776,119 +4565,7 @@ public class AK47Manager : MonoBehaviour
             playerBetAmount += currentPriceValue;
         }*/
         yield return new WaitForSeconds(0.75f);
-        /*  TeenPattiPlayer slidePlayer1;
-          TeenPattiPlayer slidePlayer2;
-          for (int i = 0; i < playerSquList.Count; i++)
-          {
-              if (playerSquList[i].playerId == playerId1)
-              {
-                  slidePlayer1 = playerSquList[i];
-              }
-              if(playerSquList[i].playerId == playerId2)
-              {
-                  slidePlayer2 = playerSquList[i];
-              }
-          }*/
-        /*
-                if (teenSlideShowPlayers.Count == 2)
-                {
-                    TeenPattiPlayer slidePlayer1 = teenPattiPlayers[0];
-                    TeenPattiPlayer slidePlayer2 = teenPattiPlayers[1];
-
-                    Debug.Log("slidePlayer1 => " + slidePlayer1);
-                    Debug.Log("slidePlayer2 => " + slidePlayer2);
-                    // Log the initial details of the players
-                    Debug.Log($"Player 1: Rule No - {slidePlayer1.ruleNo}, Player No - {slidePlayer1.playerNo}, Cards: {slidePlayer1.card1.cardNo}, {slidePlayer1.card2.cardNo}, {slidePlayer1.card3.cardNo}");
-                    Debug.Log($"Player 2: Rule No - {slidePlayer2.ruleNo}, Player No - {slidePlayer2.playerNo}, Cards: {slidePlayer2.card1.cardNo}, {slidePlayer2.card2.cardNo}, {slidePlayer2.card3.cardNo}");
-
-                    // Determine which player has a higher rule number
-                    if (slidePlayer1.ruleNo > slidePlayer2.ruleNo)
-                    {
-                        Debug.Log($"Player 1 has a higher rule number ({slidePlayer1.ruleNo} > {slidePlayer2.ruleNo}). Packing Player 1.");
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                            ChangePlayerTurn(slidePlayer2.playerNo);
-                            Debug.Log($"Player {slidePlayer1.playerNo} packed. Turn changed to Player {slidePlayer2.playerNo}.");
-                        }
-                    }
-                    else if (slidePlayer2.ruleNo > slidePlayer1.ruleNo)
-                    {
-                        Debug.Log($"Player 2 has a higher rule number ({slidePlayer2.ruleNo} > {slidePlayer1.ruleNo}). Packing Player 2.");
-                        if (isSocket)
-                        {
-                            ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                            ChangePlayerTurn(slidePlayer1.playerNo);
-                            Debug.Log($"Player {slidePlayer2.playerNo} packed. Turn changed to Player {slidePlayer1.playerNo}.");
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log($"Both players have the same rule number ({slidePlayer1.ruleNo}). Checking cards to determine the winner.");
-
-                        // Tie-breaker logic based on card values
-                        if (slidePlayer1.card1.cardNo > slidePlayer2.card1.cardNo)
-                        {
-                            Debug.Log($"Player 1 has a higher Card 1 value ({slidePlayer1.card1.cardNo} > {slidePlayer2.card1.cardNo}). Packing Player 2.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                                Debug.Log($"Player {slidePlayer2.playerNo} packed. Turn changed to Player {slidePlayer1.playerNo}.");
-                            }
-                        }
-                        else if (slidePlayer2.card1.cardNo > slidePlayer1.card1.cardNo)
-                        {
-                            Debug.Log($"Player 2 has a higher Card 1 value ({slidePlayer2.card1.cardNo} > {slidePlayer1.card1.cardNo}). Packing Player 1.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer2.playerNo);
-                                Debug.Log($"Player {slidePlayer1.playerNo} packed. Turn changed to Player {slidePlayer2.playerNo}.");
-                            }
-                        }
-                        else if (slidePlayer1.card2.cardNo > slidePlayer2.card2.cardNo)
-                        {
-                            Debug.Log($"Player 1 has a higher Card 2 value ({slidePlayer1.card2.cardNo} > {slidePlayer2.card2.cardNo}). Packing Player 2.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                                Debug.Log($"Player {slidePlayer2.playerNo} packed. Turn changed to Player {slidePlayer1.playerNo}.");
-                            }
-                        }
-                        else if (slidePlayer2.card2.cardNo > slidePlayer1.card2.cardNo)
-                        {
-                            Debug.Log($"Player 2 has a higher Card 2 value ({slidePlayer2.card2.cardNo} > {slidePlayer1.card2.cardNo}). Packing Player 1.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer2.playerNo);
-                                Debug.Log($"Player {slidePlayer1.playerNo} packed. Turn changed to Player {slidePlayer2.playerNo}.");
-                            }
-                        }
-                        else if (slidePlayer1.card3.cardNo > slidePlayer2.card3.cardNo)
-                        {
-                            Debug.Log($"Player 1 has a higher Card 3 value ({slidePlayer1.card3.cardNo} > {slidePlayer2.card3.cardNo}). Packing Player 2.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer2.playerNo);
-                                ChangePlayerTurn(slidePlayer1.playerNo);
-                                Debug.Log($"Player {slidePlayer2.playerNo} packed. Turn changed to Player {slidePlayer1.playerNo}.");
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log($"All card values are equal. Defaulting to pack Player 1 and change turn to Player 2.");
-                            if (isSocket)
-                            {
-                                ChangeCardStatus("PACK", slidePlayer1.playerNo);
-                                ChangePlayerTurn(slidePlayer2.playerNo);
-                                Debug.Log($"Player {slidePlayer1.playerNo} packed. Turn changed to Player {slidePlayer2.playerNo}.");
-                            }
-                        }
-                    }
-                }*/
+     
         if (teenSlideShowPlayers.Count == 2)
         {
             AK47Player slidePlayer1 = teenSlideShowPlayers[0];
@@ -5182,246 +4859,7 @@ public class AK47Manager : MonoBehaviour
         }
         else if (teenPattiWinner.Count > 1)
         {
-            /*int rule = teenPattiWinner[0].ruleNo;
-
-            //print("Rule 2 : " + rule);
-            switch (rule)
-            {
-                case 1:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
-
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            if (playerList1[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue); // with player id // Moved in click
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-
-                    break;
-                }
-                case 5:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
-
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            SetTeenPattiWon(winValue);
-                            Debug.LogWarning("------------------won is called-------------------------------------");
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-                    else
-                    {
-                        int highestNo3 = teenPattiWinner[0].card3.cardNo;
-                        highestNo3 = teenPattiWinner.Select(t => t.card3.cardNo).Prepend(highestNo3).Max();
-
-                        List<TeenPattiPlayer> playerList3 =
-                            teenPattiWinner.Where(t => highestNo3 == t.card3.cardNo).ToList();
-
-                        if (playerList3.Count == 1)
-                        {
-                            //win
-                            string winValue = ",";
-                            winValue += playerList3[0].playerNo + ",";
-                            if (playerList3[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue);
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-
-                            foreach (var t in playerList3[0].playerWinObj)
-                            {
-                                t.SetActive(true);
-                            }
-
-                            StartCoroutine(RestartGamePlay());
-                        }
-                        else
-                        {
-                            //win
-                            if (type == "Show")
-                            {
-                                ChangeCardStatus("PACK", player1.playerNo);
-                                //ChangePlayerTurn(player1.playerNo);
-                            }
-                            else
-                            {
-                                string winValue = ",";
-                                winValue += playerList1[0].playerNo + ",";
-                                foreach (var t in playerList3)
-                                {
-                                    winValue += t.playerNo + ",";
-                                    foreach (var t1 in t.playerWinObj)
-                                    {
-                                        t1.SetActive(true);
-                                    }
-                                }
-
-                                StartCoroutine(RestartGamePlay());
-                                if (playerList3[0].playerNo == playerNo)
-                                {
-                                    SetTeenPattiWon(winValue);
-                                    Debug.LogWarning(
-                                        "------------------won is called-------------------------------------");
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                }
-                default:
-                {
-                    int highestNo1 = teenPattiWinner[0].card1.cardNo;
-                    highestNo1 = teenPattiWinner.Select(t => t.card1.cardNo).Prepend(highestNo1).Max();
-
-                    List<TeenPattiPlayer> playerList1 =
-                        teenPattiWinner.Where(t => highestNo1 == t.card1.cardNo).ToList();
-
-                    if (playerList1.Count == 1)
-                    {
-                        //win
-                        string winValue = ",";
-                        winValue += playerList1[0].playerNo + ",";
-                        if (playerList1[0].playerNo == playerNo)
-                        {
-                            SetTeenPattiWon(winValue);
-                            Debug.LogWarning("------------------won is called-------------------------------------");
-                        }
-
-                        foreach (var t in playerList1[0].playerWinObj)
-                        {
-                            t.SetActive(true);
-                        }
-
-                        StartCoroutine(RestartGamePlay());
-                    }
-                    else
-                    {
-                        int highestNo2 = teenPattiWinner[0].card2.cardNo;
-                        highestNo2 = teenPattiWinner.Select(t => t.card2.cardNo).Prepend(highestNo2).Max();
-
-                        List<TeenPattiPlayer> playerList2 =
-                            teenPattiWinner.Where(t => highestNo2 == t.card2.cardNo).ToList();
-
-                        if (playerList2.Count == 1)
-                        {
-                            //win
-                            string winValue = ",";
-                            winValue += playerList2[0].playerNo + ",";
-                            if (playerList2[0].playerNo == playerNo)
-                            {
-                                SetTeenPattiWon(winValue);
-                                Debug.LogWarning(
-                                    "------------------won is called-------------------------------------");
-                            }
-
-                            foreach (var t in playerList2[0].playerWinObj)
-                            {
-                                t.SetActive(true);
-                            }
-
-                            StartCoroutine(RestartGamePlay());
-                        }
-                        else
-                        {
-                            int highestNo3 = teenPattiWinner[0].card3.cardNo;
-                            highestNo3 = teenPattiWinner.Select(t => t.card3.cardNo).Prepend(highestNo3).Max();
-
-                            List<TeenPattiPlayer> playerList3 =
-                                teenPattiWinner.Where(t => highestNo3 == t.card3.cardNo).ToList();
-
-                            if (playerList3.Count == 1)
-                            {
-                                //win
-                                string winValue = ",";
-                                winValue += playerList3[0].playerNo + ",";
-                                if (playerList3[0].playerNo == playerNo)
-                                {
-                                    SetTeenPattiWon(winValue);
-                                    Debug.LogWarning(
-                                        "------------------won is called-------------------------------------");
-                                }
-
-                                foreach (var t in playerList3[0].playerWinObj)
-                                {
-                                    t.SetActive(true);
-                                }
-
-                                StartCoroutine(RestartGamePlay());
-                            }
-                            else
-                            {
-                                //win
-                                if (type == "Show")
-                                {
-                                    ChangeCardStatus("PACK", player1.playerNo);
-                                    //ChangePlayerTurn(player1.playerNo);
-                                }
-                                else
-                                {
-                                    string winValue = ",";
-                                    foreach (var t in playerList3)
-                                    {
-                                        winValue += t.playerNo + ",";
-                                        foreach (var t1 in t.playerWinObj)
-                                        {
-                                            t1.SetActive(true);
-                                        }
-                                    }
-
-                                    StartCoroutine(RestartGamePlay());
-                                    if (playerList3[0].playerNo == playerNo)
-                                    {
-                                        SetTeenPattiWon(winValue);
-                                        Debug.LogWarning(
-                                            "------------------won is called-------------------------------------");
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            }*/
+          
         }
     }
 

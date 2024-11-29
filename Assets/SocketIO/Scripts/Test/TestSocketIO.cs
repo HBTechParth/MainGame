@@ -2076,13 +2076,14 @@ public class TestSocketIO : MonoBehaviour
             int currentPrice = data["currentPrice"];
             string playerSlideShowSendId = data["playerSlideShowSendId"];
             string playerIdSlideShowId = data["playerIdSlideShowId"];
-
+            bool firstBet = data["FIRSTBET"];
             if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID /*&& playerID == DataManager.Instance.playerData._id*/)
             {
                 //print("Teen Patti playerNo : " + playerNo);
 
-                JokerManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice);
+                JokerManager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice, firstBet);
             }
+            JokerManager.Instance.ShowStatus(playerID, betType);
         }
         else if (SceneManager.GetActiveScene().name == "AK47")
         {
@@ -2307,12 +2308,12 @@ public class TestSocketIO : MonoBehaviour
             string tourId = data["TournamentID"];
             int playerNo = data["PlayerNo"];
             string sRoomId = data["RoomId"];
-
+            bool isSlidShow = data["Method"];
             string cardStatus = data["CardStatus"];
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
-                print("joker playerNo : " + playerNo);
-                JokerManager.Instance.GetCardStatus(cardStatus, playerNo);
+                print("AK47 playerNo : " + playerNo);
+                JokerManager.Instance.GetCardStatus(cardStatus, playerNo, isSlidShow);
             }
         }
         else if (SceneManager.GetActiveScene().name == "AK47")

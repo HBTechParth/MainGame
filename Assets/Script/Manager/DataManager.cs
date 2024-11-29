@@ -652,9 +652,16 @@ public class DataManager : MonoBehaviour
         joinPlayer.lobbyId = lobbyId;
         joinPlayer.avtar = avtar;
 
+        for (int i = 0; i < joinPlayerDatas.Count; i++)
+        {
+            Debug.Log("Player Id : " + joinPlayerDatas[i].userId);
+
+        }
+
         int check = 0;
         for (int i = 0; i < joinPlayerDatas.Count; i++)
         {
+            Debug.Log("Player Id : " + joinPlayerDatas[i].userId+ "   joinPlayer.userId =  "+ joinPlayer.userId);
             if (joinPlayerDatas[i].userId == joinPlayer.userId)
             {
                 Debug.Log("Player check : " + joinPlayer.userName);
