@@ -33,6 +33,14 @@ public class JokerManager : MonoBehaviour
         public CardColorType color;//1234-1-fulli,2-red cerkat,3-black,4-red heart, 5 = JOKER
         public Sprite cardSprite;
     }
+
+    [System.Serializable]
+    public class dublicateCardSuffle1
+    {
+        public int cardNo;
+        public CardColorType color;//1234-1-fulli,2-red cerkat,3-black,4-red heart
+        public Sprite cardSprite;
+    }
     [System.Serializable]
     public class ListStoreData
     {
@@ -52,6 +60,9 @@ public class JokerManager : MonoBehaviour
     public int gameDealerNo;
     public bool isWin = false;
     public List<CardSuffle> cardSuffles = new List<CardSuffle>();
+
+    public List<dublicateCardSuffle1> abc = new List<dublicateCardSuffle1>();
+
     public List<ListStoreData> listStoreDatas = new List<ListStoreData>();
     public List<int> mainList = new List<int>();
     public List<CardSuffle> cardSufflesGen = new List<CardSuffle>();
@@ -355,320 +366,366 @@ public class JokerManager : MonoBehaviour
 
     #region GamePlay Manager
 
+    public JokerWinMaintain FindJoker(CardSuffle card1, CardSuffle card2, CardSuffle card3)
+    {
+        Debug.Log("Finding the best combination using Joker logic (always 1 Joker card).");
+
+        Debug.Log("CARD 1 =>  " + card1.cardNo);
+        Debug.Log("CARD 2=>  " + card2.cardNo);
+        Debug.Log("CARD 3=>  " + card3.cardNo);
+        // Create objects
+        JokerWinMaintain ak47WinMaintain = new JokerWinMaintain();
+        var cards = new List<CardSuffle> { card1, card2, card3 };
+
+        
+        Debug.Log("CARD 1 =>  " + card1.color);
+        Debug.Log("CARD 2=>  " + card2.color);
+        Debug.Log("CARD 3=>  " + card3.color);
+
+        // Identify the Joker card
+        var jokerCard = cards.FirstOrDefault(card => card.cardNo == 0 && card.color == CardColorType.JOKER);
+        if (jokerCard == null)
+        {
+            Debug.LogError("No Joker card found in the given cards!");
+            return null; // Or handle the case as needed
+        }
+
+        // Identify non-Joker cards
+        var nonJokerCards = cards.Where(card => card.color != CardColorType.JOKER).ToList();
+        Debug.Log("NON Joker Count  =  " + nonJokerCards.Count);
+        if (nonJokerCards.Count != 2)
+        {
+            Debug.LogError("Invalid input: There must be exactly two non-Joker cards.");
+            return ak47WinMaintain;
+        }
+
+        // Extract non-Joker card numbers and sort them
+        int first = nonJokerCards[0].cardNo;
+        int second = nonJokerCards[1].cardNo;
+        var color1 = nonJokerCards[0].color;
+        var color2 = nonJokerCards[1].color;
+
+
+        if (first > second)
+        {
+            int temp = first;
+            first = second;
+            second = temp;
+        }
+
+        Debug.Log($"Non-Joker Cards: {first} ({color1}), {second} ({color2})");
+
+        // Determine the best combination
+        Debug.Log("FIrst Crad = " + first);
+        Debug.Log("second Crad = " + second);
+
+        if (first == second)
+        {
+            // Trio: All cards have the same number
+            jokerCard.cardNo = first;
+            jokerCard.color = nonJokerCards[0].color;
+            Debug.Log($"Trio formed: {first}, {first}, {first}");
+        }
+        else if ((second - first == 1 || second - first == 2 || IsQKASequence(first, second)) && nonJokerCards[0].color == nonJokerCards[1].color)
+        {
+            jokerCard.cardNo = IsQKASequence(first, second) ? 1 : (second - first == 1 ? second + 1 : first + 1); // Handle QKA or sequential gaps
+            jokerCard.color = nonJokerCards[0].color; // Ensure all cards have the same suit
+
+            Debug.Log($"Pure Straight formed: {first}, {nonJokerCards[1].cardNo}, {jokerCard.cardNo} (All {jokerCard.color})");
+            ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+            return ak47WinMaintain;
+        }
+        else if ((second - first == 1 || second - first == 2 || IsQKASequence(first, second)))
+        {
+            jokerCard.cardNo = IsQKASequence(first, second) ? 1 : (second - first == 1 ? second + 1 : first + 1); // Handle QKA or sequential gaps
+            jokerCard.color = nonJokerCards[0].color; // Ensure all cards have the same suit
+
+            Debug.Log($"Pure Straight formed: {first}, {nonJokerCards[1].cardNo}, {jokerCard.cardNo} (All {jokerCard.color})");
+            ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+            return ak47WinMaintain;
+        }
+        else if (color1 == color2)
+        {
+            // Flush: All cards have the same suit
+            jokerCard.cardNo = Math.Max(first, second);
+            jokerCard.color = color1;
+            Debug.Log($"Flush formed: All cards are {jokerCard.color} with Joker as {jokerCard.cardNo}");
+        }
+        else
+        {
+            // High Card: Joker takes the highest value
+            jokerCard.cardNo = Math.Max(first, second);
+            Debug.Log($"High Card logic: Joker takes the highest value: {jokerCard.cardNo}");
+        }
+
+        // Return the best combination
+        ak47WinMaintain.winList = new List<CardSuffle> { nonJokerCards[0], nonJokerCards[1], jokerCard };
+        return ak47WinMaintain;
+    }
+
+    private bool IsQKASequence(int first, int second)
+    {
+        // Check if the sequence is Q, K, A
+        return (first == 12 && second == 13); // Assuming Q=12, K=13, A=1
+    }
+
+
+
+
+    public void AssignDublicateToCardSuffle()
+    {
+        foreach (var dublicateCard in abc)
+        {
+            Debug.Log("dublicateCard.cardSprite   =>  " + dublicateCard.cardSprite);
+        }
+
+        cardSuffles.Clear(); // Clear the existing list to avoid duplicates
+        foreach (var dublicateCard in abc)
+        {
+            // Create a new CardSuffle object and assign values
+            CardSuffle newCard = new CardSuffle
+            {
+                cardNo = dublicateCard.cardNo,
+                color = dublicateCard.color,
+                cardSprite = dublicateCard.cardSprite
+            };
+            Debug.Log("dublicateCard.cardSprite   =>  " + dublicateCard.cardSprite);
+            cardSuffles.Add(newCard); // Add the new object to the cardSuffles list
+        }
+    }
     public JokerWinMaintain MatchResult(CardSuffle card1, CardSuffle card2, CardSuffle card3)
     {
         JokerWinMaintain teenPattiWinMaintain = new JokerWinMaintain();
+        List<CardSuffle> newData = new List<CardSuffle> { card1, card2, card3 };
+        newData = NewSort(newData);
 
-        List<CardSuffle> newData = new List<CardSuffle>();
-        newData.Add(card1);
-        newData.Add(card2);
-        //newData.Add(card3);//card3 = JOKER
-
-        newCardSS = newData;
-
-
-        newCardSS1 = NewSort(newData);
-        newCardSS1.Add(card3);
-
-        bool isColor = IsColorMatch(newCardSS1);
-        List<CardSuffle> threeCards = GetThreeCard(newCardSS1);
-        List<CardSuffle> twoCards = GetTwoCard(newCardSS1);
-        List<CardSuffle> ronCards = RonValue(newCardSS1);//sequence
-        List<CardSuffle> highCards = HighCard(newCardSS1);
-
-
-
-        //ronCard
+        bool isColor = IsColorMatch(newData);
+        List<CardSuffle> threeCards = GetThreeCard(newData);
+        List<CardSuffle> twoCards = GetTwoCard(newData);
+        List<CardSuffle> ronCards = RonValue(newData);
+        List<CardSuffle> highCards = HighCard(newData);
 
         if (threeCards.Count == 3)
         {
-            //Three List
-            teenPattiWinMaintain.ruleNo = 1;
+            teenPattiWinMaintain.ruleNo = 1; // Trio
             teenPattiWinMaintain.winList = threeCards;
         }
         else if (isColor && ronCards.Count == 3)
         {
-            teenPattiWinMaintain.ruleNo = 2;
+            teenPattiWinMaintain.ruleNo = 2; // Color + Sequence
             teenPattiWinMaintain.winList = ronCards;
         }
         else if (ronCards.Count == 3)
         {
-            //ron List
-            teenPattiWinMaintain.ruleNo = 3;
+            teenPattiWinMaintain.ruleNo = 3; // Sequence
             teenPattiWinMaintain.winList = ronCards;
         }
         else if (isColor)
         {
-            //High Card
-            teenPattiWinMaintain.ruleNo = 4;
+            teenPattiWinMaintain.ruleNo = 4; // Color
             teenPattiWinMaintain.winList = highCards;
         }
-        else if (twoCards.Count == 3)
+        else if (twoCards.Count == 2) // Fix: Exactly 2 cards for a pair
         {
-            //Two Cards
-            teenPattiWinMaintain.ruleNo = 5;
+            teenPattiWinMaintain.ruleNo = 5; // Pair
             teenPattiWinMaintain.winList = twoCards;
         }
         else if (highCards.Count == 3)
         {
-            //High Cards
-            teenPattiWinMaintain.ruleNo = 6;
-            teenPattiWinMaintain.winList[0].cardNo = 14;
+            teenPattiWinMaintain.ruleNo = 6; // High Card
             teenPattiWinMaintain.winList = highCards;
         }
 
-
         return teenPattiWinMaintain;
-        //GetTwoCard(newCardSS1);
     }
 
-    List<CardSuffle> GetTwoCard(List<CardSuffle> cards)
+    private List<CardSuffle> NewSort(List<CardSuffle> cards)
     {
-        List<CardSuffle> twoCardSuffle = new List<CardSuffle>();
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int startNo = cards[0].cardNo;
-        int endNo = cards[1].cardNo;
-        print("Card Satrt No : " + cards.Count);
-        print("Card End No : " + endNo);
-        for (int i = 0; i < cards.Count; i++)
-        {
-
-
-            if (cards[i].cardNo == startNo && cards[i].cardNo > endNo)
-            {
-                cnt1++;
-            }
-            else if (cards[i].cardNo == endNo && cards[i].cardNo > startNo)
-            {
-                cnt2++;
-            }
-            if (cards[i].color == CardColorType.JOKER)
-            {
-                cnt1++;
-                cnt2++;
-            }
-        }
-        print("card cnt 1 : " + cnt1);
-        print("card cnt 2 : " + cnt2);
-        if (cnt1 == 2)
-        {
-            int noEnter = -1;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                print("Card No : " + cards[i].cardNo);
-                if (cards[i].cardNo == startNo)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else if (cards[i].color == CardColorType.JOKER)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else
-                {
-                    noEnter = i;
-                }
-            }
-            //print("No Enter : " + noEnter);
-
-            twoCardSuffle.Add(cards[noEnter]);
-
-        }
-        else if (cnt2 == 2)
-        {
-            int noEnter = -1;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards[i].cardNo == endNo)
-                {
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else if (cards[i].color == CardColorType.JOKER)
-                {
-                    print("Enter Card");
-                    twoCardSuffle.Add(cards[i]);
-                }
-                else
-                {
-                    noEnter = i;
-                }
-            }
-            twoCardSuffle.Add(cards[noEnter]);
-        }
-
-
-        print("Enter twoCard Suffle Count : " + twoCardSuffle.Count);
-        return twoCardSuffle;
-
+        return cards.OrderBy(card => card.cardNo).ToList();
     }
 
-    bool IsColorMatch(List<CardSuffle> cards)
+    private bool IsColorMatch(List<CardSuffle> cards)
     {
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int cnt3 = 0;
-        int cnt4 = 0;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].color == CardColorType.Clubs)
-            {
-                cnt1++;
-            }
-            else if (cards[i].color == CardColorType.Diamonds)
-            {
-                cnt2++;
-            }
-            else if (cards[i].color == CardColorType.Spades)
-            {
-                cnt3++;
-            }
-            else if (cards[i].color == CardColorType.Hearts)
-            {
-                cnt4++;
-            }
-            else if (cards[i].color == CardColorType.JOKER)
-            {
-                cnt1++;
-                cnt2++;
-                cnt3++;
-                cnt4++;
-            }
-        }
-
-        if (cnt1 >= 3 || cnt2 >= 3 || cnt3 >= 3 || cnt4 >= 3)
-        {
-            return true;
-        }
-
-        return false;
+        return cards.GroupBy(card => card.color).Any(group => group.Count() >= 3);
     }
 
-    List<CardSuffle> RonValue(List<CardSuffle> cards)//sequence
+    private List<CardSuffle> RonValue(List<CardSuffle> cards)
     {
-
-
-        List<CardSuffle> ronvalue = new List<CardSuffle>();
-        bool isRon = false;
-        //These are Joker rules
-        if (cards[1].cardNo == cards[0].cardNo + 1 || cards[1].cardNo == cards[0].cardNo + 2)
+        if (cards[1].cardNo == cards[0].cardNo + 1 && cards[2].cardNo == cards[0].cardNo + 2)
         {
-            isRon = true;
+            return cards;
         }
-        else if (cards[0].cardNo == 2 && cards[1].cardNo == 3)
-        {
-            isRon = true;
-        }
-        else if (cards[0].cardNo == 3 && cards[1].cardNo == 14)
-        {
-            isRon = true;
-        }
-
-        //These are teenpatti rules
-        //if (cards[1].cardNo == cards[0].cardNo + 1 && cards[2].cardNo == cards[0].cardNo + 2)
-        //{
-        //    isRon = true;
-        //}
-        //else if (cards[0].cardNo == 2 && cards[1].cardNo == 3 && cards[2].cardNo == 14)
-        //{
-        //    isRon = true;
-        //}
-
-        if (isRon)
-        {
-            ronvalue = cards;
-        }
-
-
-
-        print("is Ron : " + isRon);
-        return ronvalue;
+        return new List<CardSuffle>();
     }
 
-    List<CardSuffle> GetThreeCard(List<CardSuffle> cards)
+    private List<CardSuffle> GetThreeCard(List<CardSuffle> cards)
     {
-        List<CardSuffle> threeCardSuffle = new List<CardSuffle>();
-        int cnt = 0;
-        int startNo = cards[0].cardNo;
-
-        for (int i = 0; i < cards.Count; i++)
+        if (cards.All(card => card.cardNo == cards[0].cardNo))
         {
-            if (cards[i].cardNo == startNo)
-            {
-                cnt++;
-            }
-            if (cards[i].color == CardColorType.JOKER)
-                cnt++;
+            return cards;
         }
-
-        if (cnt >= 3)
-        {
-            threeCardSuffle = cards;
-        }
-
-        for (int i = 0; i < threeCardSuffle.Count; i++)
-        {
-            print(i + "-" + threeCardSuffle[i].cardNo);
-        }
-
-        return threeCardSuffle;
-
+        return new List<CardSuffle>();
     }
 
-    List<CardSuffle> HighCard(List<CardSuffle> cards)
+    private List<CardSuffle> GetTwoCard(List<CardSuffle> cards)
     {
-        print("high cards count : " + cards.Count);
-        List<CardSuffle> highCards = new List<CardSuffle>();
-        for (int i = cards.Count - 1; i >= 0; i--)
-        {
-            highCards.Add(cards[i]);
-        }
+        // Group cards by their cardNo and find pairs
+        var pairs = cards
+            .GroupBy(card => card.cardNo)
+            .Where(group => group.Count() == 2) // Exactly 2 cards form a pair
+            .SelectMany(group => group) // Flatten groups into a single list
+            .ToList();
 
-        return highCards;
+        return pairs;
     }
 
-    List<CardSuffle> NewSort(List<CardSuffle> cards)
+
+    private List<CardSuffle> HighCard(List<CardSuffle> cards)
     {
-        List<CardSuffle> newCards = new List<CardSuffle>();
-        //newCards = cards;
-        for (int i = 0; i < cardSufflesSort.Count; i++)
-        {
-            for (int j = 0; j < cards.Count; j++)
-            {
-                if (cardSufflesSort[i].cardNo == cards[j].cardNo && cardSufflesSort[i].color == cards[j].color)
-                {
-                    CardSuffle c = new CardSuffle();
-                    c.cardNo = cardSufflesSort[i].cardNo;
-                    c.color = cardSufflesSort[i].color;
-                    c.cardSprite = cardSufflesSort[i].cardSprite;
-                    //newCards.Add(cardSufflesSort[i]);
-                    newCards.Add(c);
-                    break;
-                }
-            }
-        }
-        print("new cards Count : " + newCards.Count);
-        for (int i = 0; i < newCards.Count; i++)
-        {
-            if (newCards[i].cardNo == 1)
-            {
-                newCards[i].cardNo = 14;
-            }
-            else if (newCards[i].cardNo == 11)
-            {
-                newCards[i].cardNo = 13;
-            }
-            else if (newCards[i].cardNo == 13)
-            {
-                newCards[i].cardNo = 11;
-
-            }
-        }
-
-        return newCards;
+        return cards.OrderByDescending(card => card.cardNo).ToList();
     }
+
+
+    /*  public JokerWinMaintain MatchResult(CardSuffle card1, CardSuffle card2, CardSuffle card3)
+      {
+          JokerWinMaintain teenPattiWinMaintain = new JokerWinMaintain();
+
+          List<CardSuffle> newData = new List<CardSuffle> { card1, card2, card3 }; // Combine all cards
+          newData = NewSort(newData); // Sort the cards
+
+          bool isColor = IsColorMatch(newData);
+          List<CardSuffle> threeCards = GetThreeCard(newData);
+          List<CardSuffle> sequenceCards = RonValue(newData);
+          List<CardSuffle> highCards = HighCard(newData);
+          List<CardSuffle> twoCards = GetTwoCard(newData);
+
+          // Priority-based logic for determining winning rule
+          if (threeCards.Count == 3)
+          {
+              teenPattiWinMaintain.ruleNo = 1; // Three of a Kind
+              teenPattiWinMaintain.winList = threeCards;
+          }
+          else if (isColor && sequenceCards.Count == 3)
+          {
+              teenPattiWinMaintain.ruleNo = 2; // Pure Sequence (Same Color)
+              teenPattiWinMaintain.winList = sequenceCards;
+          }
+          else if (sequenceCards.Count == 3)
+          {
+              teenPattiWinMaintain.ruleNo = 3; // Sequence
+              teenPattiWinMaintain.winList = sequenceCards;
+          }
+          else if (isColor)
+          {
+              teenPattiWinMaintain.ruleNo = 4; // Color
+              teenPattiWinMaintain.winList = highCards;
+          }
+          else if (twoCards.Count == 3)
+          {
+              teenPattiWinMaintain.ruleNo = 5; // Pair with Joker
+              teenPattiWinMaintain.winList = twoCards;
+          }
+          else
+          {
+              teenPattiWinMaintain.ruleNo = 6; // High Card
+              highCards[0].cardNo = 14; // Ace is the highest card
+              teenPattiWinMaintain.winList = highCards;
+          }
+
+          return teenPattiWinMaintain;
+      }*/
+
+    // Check for same color among the cards
+    /*  bool IsColorMatch(List<CardSuffle> cards)
+      {
+          var colorCounts = new Dictionary<CardColorType, int>();
+
+          foreach (var card in cards)
+          {
+              if (card.color == CardColorType.JOKER)
+              {
+                  // JOKER counts towards all colors
+                  foreach (CardColorType color in Enum.GetValues(typeof(CardColorType)))
+                  {
+                      if (color != CardColorType.JOKER)
+                          colorCounts[color] = colorCounts.GetValueOrDefault(color) + 1;
+                  }
+              }
+              else
+              {
+                  colorCounts[card.color] = colorCounts.GetValueOrDefault(card.color) + 1;
+              }
+          }
+
+          return colorCounts.Values.Any(count => count >= 3); // At least 3 cards of the same color
+      }*/
+
+    // Check for three of a kind
+    /* List<CardSuffle> GetThreeCard(List<CardSuffle> cards)
+     {
+         var groupedByNumber = cards.GroupBy(card => card.cardNo)
+                                    .Where(group => group.Count() >= 3 || group.Any(card => card.color == CardColorType.JOKER))
+                                    .SelectMany(group => group).Take(3).ToList();
+
+         return groupedByNumber.Count == 3 ? groupedByNumber : new List<CardSuffle>();
+     }
+
+     // Check for sequence
+     List<CardSuffle> RonValue(List<CardSuffle> cards)
+     {
+         List<CardSuffle> sortedCards = cards.OrderBy(c => c.cardNo).ToList();
+         List<CardSuffle> sequence = new List<CardSuffle>();
+
+         for (int i = 0; i < sortedCards.Count - 2; i++)
+         {
+             // Check for sequence or Joker adjustments
+             if ((sortedCards[i + 1].cardNo == sortedCards[i].cardNo + 1 || sortedCards[i + 1].color == CardColorType.JOKER) &&
+                 (sortedCards[i + 2].cardNo == sortedCards[i + 1].cardNo + 1 || sortedCards[i + 2].color == CardColorType.JOKER))
+             {
+                 sequence.Add(sortedCards[i]);
+                 sequence.Add(sortedCards[i + 1]);
+                 sequence.Add(sortedCards[i + 2]);
+                 break;
+             }
+         }
+
+         // Special case: A, 2, 3 or A, K, Q with Joker
+         if (sortedCards[0].cardNo == 1 && sortedCards[1].cardNo == 2 && sortedCards[2].cardNo == 3 ||
+             sortedCards[0].cardNo == 12 && sortedCards[1].cardNo == 13 && sortedCards[2].cardNo == 1)
+         {
+             return sortedCards;
+         }
+
+         return sequence;
+     }
+
+     // Get high cards
+     List<CardSuffle> HighCard(List<CardSuffle> cards)
+     {
+         return cards.OrderByDescending(card => card.cardNo).Take(3).ToList(); // Top 3 high cards
+     }
+
+     // Get pairs (including Joker)
+     List<CardSuffle> GetTwoCard(List<CardSuffle> cards)
+     {
+         var pairedCards = cards.GroupBy(card => card.cardNo)
+                                .Where(group => group.Count() >= 2 || group.Any(card => card.color == CardColorType.JOKER))
+                                .SelectMany(group => group).Take(3).ToList();
+
+         return pairedCards.Count == 3 ? pairedCards : new List<CardSuffle>();
+     }
+
+     // Sort cards by predefined rules
+     List<CardSuffle> NewSort(List<CardSuffle> cards)
+     {
+         List<CardSuffle> sortedCards = cards.OrderBy(card => card.cardNo).ToList();
+         foreach (var card in sortedCards)
+         {
+             if (card.cardNo == 1) card.cardNo = 14; // Ace is high
+         }
+         return sortedCards.OrderByDescending(card => card.cardNo).ToList();
+     }
+ */
 
     #endregion
 
@@ -757,14 +814,14 @@ public class JokerManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         ResetWinLossAnimation();
         yield return new WaitForSeconds(1f);
-         CheckAllPlayerIsValidOrNot();
+        CheckAllPlayerIsValidOrNot();
         totalBetAmount = 0;
         isPotlimitCross = false;
         winnerPlayer.Clear();
         crossChalLimitLastChallSave = -1f;
         doubleBUtton.SetActive(true);
 
-            isWinningRun = false;
+        isWinningRun = false;
         for (int j = 0; j < playerSquList.Count; j++)
         {
             playerSquList[j].cardImg1.GetComponent<Image>().DOFade(1f, 0.5f);
@@ -790,8 +847,8 @@ public class JokerManager : MonoBehaviour
                 }
             }
         }
-             Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
-           SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
+        Debug.Log("==================================resetNUMForBot  => " + resetNUMForBot + " RoundresetNUMForBot  => " + RoundresetNUMForBot);
+        SetBotRandomReset1(resetNUMForBot, RoundresetNUMForBot);
         CheckNewPlayers();
         if (isAdmin)
         {
@@ -1975,6 +2032,7 @@ public class JokerManager : MonoBehaviour
         isGameStop = false;
 
         isBotActivate = true;
+        Debug.Log("CardGenerate CALL  ");
         for (int i = 0; i < playerSquList.Count; i++)
         {
             if (playerSquList[i].gameObject.activeSelf == true)
@@ -3407,6 +3465,7 @@ public class JokerManager : MonoBehaviour
         gameDealerNo = dealerNo;
         currentPlayer = dealerNo;
         // changing card sprite to default
+
         foreach (var t in teenPattiPlayers)
         {
             t.CardGenerate();
@@ -3443,6 +3502,8 @@ public class JokerManager : MonoBehaviour
 
     public void SlideShowSendSocket(string slideShowCancelPlayerID, string slideShowPlayerID, string type)
     {
+
+        Debug.Log("slideShowPlayerID  =>  " + slideShowPlayerID);
 
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -3490,7 +3551,7 @@ public class JokerManager : MonoBehaviour
         obj.AddField("Action", "WinData");
         obj.AddField("isLimitCross", isPotlimitCross);
         TestSocketIO.Instace.Senddata("TeenPattiWinnerData", obj);
-          isWinningRun = true;
+        isWinningRun = true;
     }
 
     public void ChangeCardStatus(string value, int pno, bool isSlidShowSend)
@@ -3651,7 +3712,7 @@ public class JokerManager : MonoBehaviour
             }
         }
     }
-  
+
     public void ShowStatus(string id, string type)
     {
         for (int i = 0; i < teenPattiPlayers.Count; i++)
@@ -4010,8 +4071,8 @@ public class JokerManager : MonoBehaviour
                 print("Enter The Second Side Show");
 
                 slideShowPanel.SetActive(true);
-                AK47SideShow.Instance.sendId = playerSlideShowSendId;
-                AK47SideShow.Instance.currentId = playerIdSlideShowId;
+                JokerSideShow.Instance.sendId = playerSlideShowSendId;
+                JokerSideShow.Instance.currentId = playerIdSlideShowId;
                 foreach (var item in DataManager.Instance.joinPlayerDatas)
                 {
                     if (playerIdSlideShowId == item.userId)

@@ -2157,6 +2157,8 @@ public class TestSocketIO : MonoBehaviour
             string SlideShowPlayerId = data["SlideShowPlayerId"];
             string SlideShowType = data["SlideShowType"];
 
+            JokerManager.Instance.senderID = SlideShowPlayerId;
+
             if (DataManager.Instance.playerData._id.Equals(SlideShowPlayerId) && tourId == DataManager.Instance.tournamentID && playerID != DataManager.Instance.playerData._id)
             {
                 //print("Teen Patti playerNo : " + playerNo);

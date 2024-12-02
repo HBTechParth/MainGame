@@ -429,26 +429,8 @@ public class AK47Manager : MonoBehaviour
         Debug.Log("IsQKASequence  =>  " + (first == 12 && second == 13));
         return (first == 12 && second == 13); // Q = 12, K = 13, Joker = A (1)
     }
-    private IEnumerator ExecuteWithDelay()
-    {
-        AssignDublicateToCardSuffle();
-
-        // Add a delay
-        yield return new WaitForSeconds(2f); // Wait for 2 seconds
-
-        Debug.Log("FindAk47");
-    }
-
-    public void AssignCardSuffleToDublicate()
-    {
-        dublicateCardSuffle = cardSuffles.Select(card => new dublicateCardSuffle
-        {
-            cardNo = card.cardNo,
-            color = card.color,
-            cardSprite = card.cardSprite
-        }).ToList();
-    }
-
+   
+   
     public void AssignDublicateToCardSuffle()
     {
         cardSuffles.Clear(); // Clear the existing list to avoid duplicates
@@ -1872,7 +1854,7 @@ public class AK47Manager : MonoBehaviour
         isBotActivate = true;
         for (int i = 0; i < playerSquList.Count; i++)
         {
-            if (playerSquList[i].gameObject.activeSelf == true)
+            if (playerSquList[i].gameObject.activeInHierarchy )
             {
                 playerSquList[i].CardGenerate();
             }
@@ -3513,7 +3495,8 @@ public class AK47Manager : MonoBehaviour
         // changing card sprite to default
         foreach (var t in teenPattiPlayers)
         {
-            t.CardGenerate();
+            t
+                .CardGenerate();
         }
 
         if (isAdmin) return;

@@ -586,6 +586,9 @@ public class JokerPlayer : MonoBehaviour
 
     public void CardGenerate()
     {
+        jokerCard.cardNo = 0;
+        jokerCard.color = JokerManager.CardColorType.JOKER;
+
         cardImg1.sprite = JokerManager.Instance.simpleCardSprite;
         cardImg2.sprite = JokerManager.Instance.simpleCardSprite;
         cardImg3.sprite = JokerManager.Instance.simpleCardSprite;
@@ -607,14 +610,15 @@ public class JokerPlayer : MonoBehaviour
             print("This is card1 no  -> " + (JokerManager.Instance.mainList[startIndex] - 1));
             print("This is card2 no  -> " + (JokerManager.Instance.mainList[startIndex + 1] - 1));
             print("This is card3 no  -> " + (JokerManager.Instance.mainList[startIndex + 2] - 1));
+            JokerWinMaintain winMaintain = JokerManager.Instance.FindJoker(card1, card2, card3);
 
-            JokerWinMaintain winMaintain = JokerManager.Instance.MatchResult(card1, card2, card3);
-            ruleNo = winMaintain.ruleNo;
-            if (winMaintain.winList != null && winMaintain.winList.Count == 3)
+            JokerWinMaintain winMaintain1 = JokerManager.Instance.MatchResult(card1, card2, card3);
+            ruleNo = winMaintain1.ruleNo;
+            if (winMaintain1.winList != null && winMaintain1.winList.Count == 3)
             {
-                card1 = winMaintain.winList[0];
-                card2 = winMaintain.winList[1];
-                card3 = winMaintain.winList[2];
+                card1 = winMaintain1.winList[0];
+                card2 = winMaintain1.winList[1];
+                card3 = winMaintain1.winList[2];
             }
         }
         Debug.Log("1 Card : " + card1.cardSprite);
