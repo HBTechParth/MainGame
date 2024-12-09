@@ -462,11 +462,9 @@ public class CarRouletteScript : MonoBehaviour
 
             if (_isTimesUp)
             {
-                Debug.Log("IS TIME => " + _isTimeSet);
                 //After time is up then it will select the index number from activeSelector list.
                 if (activeSelectors.Select(selectorObject => selectorObject.GetComponent<SymbolScript>()).Any(symbolScript => symbolScript != null && symbolScript.carPosition == winNumber))
                 {
-                    Debug.Log("DELEAY  = >  " + delay);
                     yield return new WaitForSeconds(delay);
                     ResetRoulette();
                     StopSelection();

@@ -526,17 +526,23 @@ public class AndarBaharManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    public GameObject bottomButton;
     private void FixedUpdate()
     {
+        if (timerValue > 0)
+        {
+            bottomButton.SetActive(true);
+        }
+
+        // Check for timer reaching zero and handle game state
         if (timerValue == 0 && isGamePlayContinue == false && waitNextRoundScreenObj.activeSelf == false && playerFindScreenObj.activeSelf == false)
         {
             isGamePlayContinue = true;
             stopBettingScreenObj.gameObject.SetActive(true);
+            bottomButton.SetActive(false); // Disable the button when timer is zero
             Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
             StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
             Invoke(nameof(StopBettingObjOff), 2.5f);
-            //StartCoroutine(StopBettingOff());
-
         }
         else if (!timerTxt.text.Equals("0"))
         {

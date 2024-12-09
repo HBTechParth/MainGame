@@ -25974,10 +25974,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Car roulette is similar to the Roulette game. \nHere you need to select
-    your favorite or on which you need to put bet.\nwhen time is up the spinner will
-    rotate and you will get the result and if you have choosen the same then you
-    will get your reward."
+  m_Text: 
 --- !u!222 &1554351336
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37451,7 +37448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.6, y: -13.3}
+  m_AnchoredPosition: {x: -12.600006, y: -13.300003}
   m_SizeDelta: {x: 34.63, y: 37.66}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &5129000914058738167

@@ -21720,8 +21720,8 @@ MonoBehaviour:
   player3: {fileID: 1445337012}
   player4: {fileID: 343946687}
   player5: {fileID: 1438653740}
-  packCardSprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
-  simpleCardSprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
+  packCardSprite: {fileID: 21300000, guid: 949a4db5e53f18f4aa2167efadb28896, type: 3}
+  simpleCardSprite: {fileID: 21300000, guid: 949a4db5e53f18f4aa2167efadb28896, type: 3}
   chipPrice:
   - 5
   - 10

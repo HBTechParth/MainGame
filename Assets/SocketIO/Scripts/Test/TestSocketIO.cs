@@ -2105,7 +2105,7 @@ public class TestSocketIO : MonoBehaviour
             {
                 //print("Teen Patti playerNo : " + playerNo);
 
-                AK47Manager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice,firstBet);
+                AK47Manager.Instance.GetBet(playerNo, betAmount, betType, playerSlideShowSendId, playerIdSlideShowId, currentIndex, currentPrice, firstBet);
             }
             AK47Manager.Instance.ShowStatus(playerID, betType);
         }
@@ -2332,7 +2332,7 @@ public class TestSocketIO : MonoBehaviour
             if (tourId == DataManager.Instance.tournamentID && /*playerId == DataManager.Instance.playerData._id*/ sRoomId == DataManager.Instance.gameId)
             {
                 print("AK47 playerNo : " + playerNo);
-                AK47Manager.Instance.GetCardStatus(cardStatus, playerNo,isSlidShow);
+                AK47Manager.Instance.GetCardStatus(cardStatus, playerNo, isSlidShow);
             }
         }
         else if (SceneManager.GetActiveScene().name == "PointRummy")
@@ -3203,7 +3203,7 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetBetDragonTiger(string values)
     {
-        Debug.Log("SetBetDragonTiger IN");
+        Debug.Log("SetBetDragonTiger IN"+ SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "DragonTiger")
         {
             Debug.Log("SetBetDragonTiger IN");
@@ -3234,11 +3234,40 @@ public class TestSocketIO : MonoBehaviour
             int boxNo = data["boxNo"];
             int chipNo = data["chipNo"];
 
-            if (!playerID.Equals(DataManager.Instance.playerData._id) && tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
+            Debug.Log("TournamentID =>  "+tourId);
+            Debug.Log("Player ID does not match: " + playerID + " != " + DataManager.Instance.playerData._id);
+            if (!playerID.Equals(DataManager.Instance.playerData._id))
             {
-                Debug.Log("SpinAndWin IN");
-                SpinAndWinManager.Instance.GetDragonTigerBet(boxNo, chipNo);
+                Debug.Log("Player ID does not match: " + playerID + " != " + DataManager.Instance.playerData._id);
+
+
+                Debug.Log("Tournament ID matches: " + tourId + " DataManager.Instance.tournamentID =>  " + DataManager.Instance.tournamentID);
+                if (tourId == DataManager.Instance.tournamentID)
+                {
+
+                    Debug.Log("Room ID matches: " + sRoomId);
+                    Debug.Log("Room ID matches: " + roomid);
+                    if (sRoomId == roomid)
+                    {
+
+                        Debug.Log("SpinAndWin IN");
+                        SpinAndWinManager.Instance.GetDragonTigerBet(boxNo, chipNo);
+                    }
+                    else
+                    {
+                        Debug.Log("Room ID does not match: " + sRoomId + " != " + roomid);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Tournament ID does not match: " + tourId + " != " + DataManager.Instance.tournamentID);
+                }
             }
+            else
+            {
+                Debug.Log("Player ID matches: " + playerID);
+            }
+
         }
 
     }

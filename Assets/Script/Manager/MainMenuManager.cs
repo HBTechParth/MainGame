@@ -242,7 +242,22 @@ public class MainMenuManager : MonoBehaviour
 
     public void GameButtonClick(int no)
     {
+
         SoundManager.Instance.ButtonClick();
+        Debug.Log("TryParse   =>  " + DataManager.Instance.playerData.balance);
+        Debug.Log("TryParse   =>  " + minBuyINValue);
+        if (float.TryParse(DataManager.Instance.playerData.balance, out float playerBalance))
+        {
+            if (no != 5 && no != 6 && no != 10 && no != 11)
+            {
+                if (playerBalance < 10)
+                {
+                    GenerateLowBalanceError();
+                    return;
+                    // Handle the condition here
+                }
+            }
+        }
         switch (no)
         {
             case 1:
@@ -350,7 +365,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
 
@@ -394,7 +409,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Poker, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Poker, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
 
@@ -490,7 +505,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Joker, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Joker, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
                     //if (!string.IsNullOrEmpty(getTournamentID))
@@ -524,7 +539,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
 
@@ -561,7 +576,7 @@ public class MainMenuManager : MonoBehaviour
 
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
 
@@ -596,7 +611,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues, potValue, minBuy, chalLimit);
                     else
                         GenerateTournamentError();
                     //string getTournamentID = IsAvaliableSingleTournament(GameType.Pool_Rummy);
@@ -631,7 +646,7 @@ public class MainMenuManager : MonoBehaviour
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues, potValue,minBuy,chalLimit);
+                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues, potValue, minBuy, chalLimit);
 
                     else
                         GenerateTournamentError();
@@ -749,8 +764,8 @@ public class MainMenuManager : MonoBehaviour
             GenerateTournamentError();*/
 
         Debug.Log(" selectedValue  => " + selectedValue);
-        SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);
 
+        SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);    
         if (string.IsNullOrEmpty(DataManager.Instance.tournamentID))
         {
             GenerateTournamentError();
@@ -766,13 +781,16 @@ public class MainMenuManager : MonoBehaviour
             ClearTableLimitAndData();
             return;
         }
-
+        Debug.Log("BALENCE  = >  " + DataManager.Instance.playerData.balance);
+        Debug.Log("BALENCE  = >  " + playerBalance);
+        Debug.Log("BALENCE  = >  " + minBuyINValue);
         if (playerBalance < minBuyINValue)
         {
             GenerateLowBalanceError();
             ClearTableLimitAndData();
             return;
         }
+
 
         timerObject.SetActive(true);
         rummyjoinButtonClicked = true;
@@ -901,7 +919,7 @@ public class MainMenuManager : MonoBehaviour
             g.bootValue = minimumBetOrEntryFeesOrPointValue[i];
 
             g.potLimitText.text = potValues[i].ToString();
-            g.potValue = potValues[i]; 
+            g.potValue = potValues[i];
 
             g.minBuyText.text = minBuyList[i].ToString();
             g.minBuyIn = minBuyList[i];
@@ -1091,7 +1109,7 @@ public class MainMenuManager : MonoBehaviour
             }
         }
         if (minBetValues.Count > 0)
-            SelectValueOfTournament(GameType.Ludo, minBetValues, potValue,minBuy,chalLimit);
+            SelectValueOfTournament(GameType.Ludo, minBetValues, potValue, minBuy, chalLimit);
         else
             GenerateTournamentError();
     }

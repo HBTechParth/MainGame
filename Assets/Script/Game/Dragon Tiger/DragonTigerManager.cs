@@ -220,7 +220,7 @@ public class DragonTigerManager : MonoBehaviour
 
         //StartCoroutine(StartBet());
         ChipAnimMaintain(1);
-        HistoryLoader(DataManager.Instance.listString);
+       // HistoryLoader(DataManager.Instance.listString);
         CheckSound();
     }
 
@@ -349,8 +349,9 @@ public class DragonTigerManager : MonoBehaviour
         }
     }
 
-    public void HistoryLoader(string data)
+   /* public void HistoryLoader(string data)
     {
+        Debug.Log("Data WIn LIST = >  " + data);
         if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
@@ -360,7 +361,7 @@ public class DragonTigerManager : MonoBehaviour
         {
             HistoryTacker(t);
         }
-    }
+    }*/
 
 
     #region Cards Maintain
@@ -1220,7 +1221,7 @@ public class DragonTigerManager : MonoBehaviour
                     DragonTigerPlayerList[0].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
                     //DragonTigerPlayerList[0].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     DragonTigerPlayerList[0].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                    DragonTigerPlayerList[0].GetPlayerImage();
+                   // DragonTigerPlayerList[0].GetPlayerImage();
                 }
                 else
                 {
@@ -1229,7 +1230,7 @@ public class DragonTigerManager : MonoBehaviour
                     DragonTigerPlayerList[cnt].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
                     DragonTigerPlayerList[cnt].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     DragonTigerPlayerList[cnt].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                    DragonTigerPlayerList[cnt].GetPlayerImage();
+                   // DragonTigerPlayerList[cnt].GetPlayerImage();
 
                     cnt++;
                 }

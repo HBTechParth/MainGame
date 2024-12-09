@@ -35,6 +35,8 @@ public class AviatorGameManager : MonoBehaviour
     public GameObject menuScreenObj;
     public GameObject ruleScreenObj;
     public GameObject errorScreenObj;
+    public GameObject errorScreenObjONBET;
+
     public GameObject waitNextRoundScreenObj;
 
     [Header("--- Canvas Objects ---")]
@@ -599,7 +601,10 @@ public class AviatorGameManager : MonoBehaviour
     {
         errorScreenObj.SetActive(true);
     }
-
+    public void OpenErrorScreenONBET()
+    {
+        errorScreenObjONBET.SetActive(true);
+    }
     public void Error_Ok_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();

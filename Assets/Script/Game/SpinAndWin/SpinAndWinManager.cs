@@ -268,7 +268,7 @@ public class SpinAndWinManager : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (timerValue == 0 && isEnterBetStop == false && waitNextRoundScreenObj.activeSelf == false)
+        if (timerValue == 0 && isEnterBetStop == false && !waitNextRoundScreenObj.activeInHierarchy)
         {
             isEnterBetStop = true;
 
@@ -443,7 +443,7 @@ public class SpinAndWinManager : MonoBehaviour
         StartCoroutine(AnimationOpen(winNo));
         StartCoroutine(SpinAndWinAIManager.Instance.CoinDestroy(winNo));
 
-       
+
     }
     //a
 
@@ -846,7 +846,7 @@ public class SpinAndWinManager : MonoBehaviour
         {
             case 1:
                 {
-                    Debug.Log("DragonCoin"); 
+                    Debug.Log("DragonCoin");
                     var chip = Instantiate(TieCoin, CoinsCarrier.transform);
                     historyChips.Add(chip);
                     DestroyHistoryChip();
@@ -863,7 +863,7 @@ public class SpinAndWinManager : MonoBehaviour
                 }
             case 3:
                 {
-                    Debug.Log("TieCoin"); 
+                    Debug.Log("TieCoin");
                     var chip = Instantiate(TigerCoin, CoinsCarrier.transform);
                     historyChips.Add(chip);
                     DestroyHistoryChip();
@@ -1156,7 +1156,7 @@ public class SpinAndWinManager : MonoBehaviour
 
 
         isEnterBetStop = true;
-      //  yield return new WaitForSeconds(0.2f);
+        //  yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
@@ -1280,7 +1280,7 @@ public class SpinAndWinManager : MonoBehaviour
         GetLargestBet();
 
         isEnterBetStop = true;
-       // yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
@@ -1444,8 +1444,8 @@ public class SpinAndWinManager : MonoBehaviour
     public void OpenErrorScreen()
     {
         errorScreenObj.SetActive(true);
-    } 
-   
+    }
+
 
     public void Error_Ok_ButtonClick()
     {
@@ -1485,6 +1485,13 @@ public class SpinAndWinManager : MonoBehaviour
     public void GameThreeButton(int no)
     {
         if (!_isClickAvailable) return;
+       /* bool hasMoney = CheckMoney(chipValue[selectChipNo]);
+        if (hasMoney == false)
+        {
+            SoundManager.Instance.ButtonClick();
+            OpenErrorScreen();
+            return;
+        }*/
         switch (no)
         {
             case 1:
@@ -1498,8 +1505,9 @@ public class SpinAndWinManager : MonoBehaviour
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("_____________________________");
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 2);
+                        "SpinAndWin-Bet-" + DataManager.Instance.gameId, "game", 0);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
                          Random.Range(minDragonY, maxDragonY)); */
@@ -1522,18 +1530,19 @@ public class SpinAndWinManager : MonoBehaviour
                 }
             case 2:
                 {
+
                     bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
                     if (isMoneyAv == false)
                     {
                         SoundManager.Instance.ButtonClick();
-
                         OpenErrorScreen();
                         return;
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("_____________________________");
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 3);
+                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 0);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
                          Random.Range(minTigerY, maxTigerY));*/
@@ -1566,8 +1575,10 @@ public class SpinAndWinManager : MonoBehaviour
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("_____________________________" + (float)(chipPrice[selectChipNo]));
+                    Debug.Log("_____________________________" + balanceTxt.text);
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
-                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 1);
+                        "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 0);
 
                     /* Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
                          Random.Range(minTieY, maxTieY));*/
@@ -1593,6 +1604,7 @@ public class SpinAndWinManager : MonoBehaviour
         SpinAndWinAIManager.Instance.UpdateTiePrice();
         SendDargonTigerBet(no, selectChipNo);
         UpdateBoardPrice();
+        UpdateBalance();
     }
 
     public void ChipButtonClick(int no)
@@ -1658,7 +1670,7 @@ public class SpinAndWinManager : MonoBehaviour
         {
             /* Vector3 rPos = new Vector3(UnityEngine.Random.Range(minDragonX, maxDragonX),
                  UnityEngine.Random.Range(minDragonY, maxDragonY));*/
-            Vector3 rPos=  SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
+            Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
             GameObject chipGen = Instantiate(chipObj, dragonParent.transform);
             chipGen.transform.GetComponent<Image>().sprite = chipsSprite[chipNo];
             chipGen.transform.position = otherProfile.transform.position;
@@ -1695,8 +1707,12 @@ public class SpinAndWinManager : MonoBehaviour
         }
 
         UpdateBoardPrice();
-    }
 
+    }
+    public void UpdateBalance()
+    {
+        balanceTxt.text = DataManager.Instance.playerData.balance.ToString();
+    }
     #endregion
 
 
@@ -1960,22 +1976,28 @@ public class SpinAndWinManager : MonoBehaviour
 
     private void CheckSound()
     {
+        // Log the current sound and music values
+
+        // Update the sound and music icons
         soundImg.sprite = DataManager.Instance.GetSound() == 0 ? soundonSprite : soundoffSprite;
         musicImg.sprite = DataManager.Instance.GetMusic() == 0 ? musiconSprite : musicoffSprite;
+
+
     }
+
 
     public void SoundButtonClick()
     {
         Debug.Log("IN");
         if (soundImg.sprite == soundonSprite)
         {
-        Debug.Log("IN 1");
+            Debug.Log("IN 1");
             DataManager.Instance.SetSound(1);
             soundImg.sprite = soundoffSprite;
         }
         else if (soundImg.sprite == soundoffSprite)
         {
-        Debug.Log("IN 2");
+            Debug.Log("IN 2");
             DataManager.Instance.SetSound(0);
             soundImg.sprite = soundonSprite;
         }

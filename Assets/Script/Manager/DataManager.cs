@@ -847,12 +847,7 @@ public class DataManager : MonoBehaviour
 
     public void DebitAmount(string amount, string roomId, string note, string logType, int betNo)
     {
-        print("DebitAmount    - - - - - - - -     amount :  " + amount);
-        print("DebitAmount    - - - - - - - -     amount :  " + roomId);
-        print("DebitAmount    - - - - - - - -     amount :  " + note);
-        print("DebitAmount    - - - - - - - -     amount :  " + logType);
-        print("DebitAmount    - - - - - - - -     amount :  " + betNo);
-        print("DebitAmount    - - - - - - - -     amount :  " + tournamentID);
+       
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
         form.AddField("gameId", roomId);
@@ -871,6 +866,9 @@ public class DataManager : MonoBehaviour
 
     IEnumerator Debit_Amount_Ienum(WWWForm form)
     {
+
+
+        Debug.Log("Debit_Amount_Ienum");
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/debit", form);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
         yield return request.SendWebRequest();

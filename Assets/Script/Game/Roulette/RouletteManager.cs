@@ -907,8 +907,10 @@ public class RouletteManager : MonoBehaviour
                 GameObject chipObj = rouleteeBets[i].chipObj;
                 chipObj.transform.DOMove(chipAnimParent.transform.position, 0.2f).OnComplete(() =>
                 {
-
-
+                    if (chipObj != null)
+                    {
+                        Destroy(chipObj);
+                    }
                 });
 
                 rouleteeBets.Remove(rouleteeBets[i]);

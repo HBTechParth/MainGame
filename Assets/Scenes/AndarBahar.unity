@@ -12034,7 +12034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 949a4db5e53f18f4aa2167efadb28896, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -20875,7 +20875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 949a4db5e53f18f4aa2167efadb28896, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -22113,19 +22113,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1348013823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1612544700}
-        m_TargetAssemblyTypeName: AndarBaharManager, Assembly-CSharp
-        m_MethodName: MenuSubButtonClick
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1016195685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38782,7 +38770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6a4d398cc77a7cc4aa2a6354b5855ab1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 949a4db5e53f18f4aa2167efadb28896, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -40199,7 +40187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14, y: -33.6}
+  m_AnchoredPosition: {x: -14, y: -33.600006}
   m_SizeDelta: {x: 91.59, y: 91.59}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1352400911
@@ -47638,6 +47626,7 @@ MonoBehaviour:
   vibrationoffSprite: {fileID: 21300000, guid: aa3f9cc7a0fc4bf48916821db161f9df, type: 3}
   musiconSprite: {fileID: 21300000, guid: c51f67d68ca5d1f43a54b1e103f6d29b, type: 3}
   musicoffSprite: {fileID: 21300000, guid: b4a364d15ddc7a144ab72bbc6ea9abb3, type: 3}
+  bottomButton: {fileID: 1500326623}
   objects:
   - {fileID: 5879170941150185687}
   - {fileID: 5879170939755665365}
