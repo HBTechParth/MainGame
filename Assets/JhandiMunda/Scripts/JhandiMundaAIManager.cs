@@ -35,7 +35,7 @@ public class JhandiMundaAIManager : MonoBehaviour
         _weightDictionary.Add(5, 5); // Number 5 has a weight of 5
     }
 
-    float interval = 0.25f;
+    float interval = 0.30f;
     float nextTime = 0;
 
     private void Update()

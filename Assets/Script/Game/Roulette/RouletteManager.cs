@@ -191,6 +191,8 @@ public class RouletteManager : MonoBehaviour
 
     public float wheelSpeed;
     public GameObject fakeWheel;
+  
+
     public void ReGenerateBoard()
     {
         Debug.Log("ReGenBoard");
@@ -212,6 +214,7 @@ public class RouletteManager : MonoBehaviour
         findTriggerObj = triggerObj[findNo];
         wheelRoulette.transform.rotation = Quaternion.Euler(Vector3.zero);
         //ballRoulette.transform.position = ballStartPos.transform.position;
+        SoundManager.Instance.RollDice_Start_Sound();
         wheelRoulette.UpdateWheel();
         wheelRoulette.speed = 13;
         wheelRoulette.collider.radius = 308.7f;
@@ -450,6 +453,16 @@ public class RouletteManager : MonoBehaviour
         betAnimationONOff(false);
         ReGenerateBoard();
         rouletteBoardObj.SetActive(true);
+    }
+    public void ReGenerateBoardWithDelay()
+    {
+        StartCoroutine(ReGenerateBoardDelayed());
+    }
+
+    private IEnumerator ReGenerateBoardDelayed()
+    {
+        yield return new WaitForSeconds(1f); // 1 second delay
+        ReGenerateBoard();
     }
 
     public void ClearAllChips()

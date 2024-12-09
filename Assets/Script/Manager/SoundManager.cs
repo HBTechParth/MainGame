@@ -83,7 +83,11 @@ public class SoundManager : MonoBehaviour
     
     [Header("CarStop")]
     public AudioSource carStopAudio;
-    public AudioClip carStopClip;
+    public AudioClip carStopClip;  
+    
+    [Header("Card Flip")]
+    public AudioSource cardFlipAudio;
+    public AudioClip cardFlipClip;
     
     [Header("Show Scratch Card")]
     public AudioSource cardPopAudio;
@@ -194,6 +198,12 @@ public class SoundManager : MonoBehaviour
         if (DataManager.Instance.GetSound() != 0) return;
         carStopAudio.clip = carStopClip;
         carStopAudio.Play();
+    }
+     public void CardFlipSound()
+    {
+        if (DataManager.Instance.GetSound() != 0) return;
+        cardFlipAudio.clip = cardFlipClip;
+        cardFlipAudio.Play();
     }
     
     public void CarWinStopSound()

@@ -636,7 +636,7 @@ public class TeenPattiManager : MonoBehaviour
     {
         Debug.Log("EnableSeeCards   - ");
 
-        SoundManager.Instance.ButtonClick();
+        SoundManager.Instance.CardFlipSound();
         for (int i = 0; i < player1.seeObj.Length; i++)
         {
             player1.seeObj[i].SetActive(false);

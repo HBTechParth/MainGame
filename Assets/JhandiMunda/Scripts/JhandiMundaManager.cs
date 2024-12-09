@@ -235,12 +235,12 @@ public class JhandiMundaManager : MonoBehaviour
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), playerAvatar));
         DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), playerAvatar);
         playerName.text = DataManager.Instance.playerData.firstName;
+        CheckSound();
         ChipButtonClick(0);
         UpdateBalance();
         GetSetBotPlayer();
         HistoryLoader(DataManager.Instance.sevenUpDownWinHistory, DataManager.Instance.sevenUpDownDiceHistory);
         InitialiseScene();
-        CheckSound();
     }
 
 
