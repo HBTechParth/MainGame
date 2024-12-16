@@ -41,7 +41,16 @@ public class SoundManager : MonoBehaviour
 
     [Header("Token Kill")]
     public AudioSource tokenKillAudio;
-    public AudioClip tokenKillClip;
+    public AudioClip tokenKillClip; 
+    
+    [Header("Place Bet")]
+    public AudioSource placeBetAudio;
+    public AudioClip placeBetClip;
+    
+    [Header("Stop Betting")]
+    public AudioSource stopBettingAudio;
+    public AudioClip stopBettingClip;
+
 
     [Header("User Turn")]
     public AudioSource userTurnAudio;
@@ -61,7 +70,11 @@ public class SoundManager : MonoBehaviour
 
     [Header("Casino Win")]
     public AudioSource casinoWinAudio;
-    public AudioClip casinoWinClip;
+    public AudioClip casinoWinClip; 
+    
+    [Header("Alert Timer")]
+    public AudioSource alertAudio;
+    public AudioClip alertClip;
 
     [Header("Casino Turn")]
     public AudioSource casinoTurnAudio;
@@ -167,6 +180,20 @@ public class SoundManager : MonoBehaviour
         if (DataManager.Instance.GetSound() != 0) return;
         btnAudio.clip = btnClip;
         btnAudio.Play();
+    }
+    
+    public void PlaceYourBetSound()
+    {
+        if (DataManager.Instance.GetSound() != 0) return;
+        placeBetAudio.clip = placeBetClip;
+        placeBetAudio.Play();
+    } 
+    
+    public void StopBettingSound()
+    {
+        if (DataManager.Instance.GetSound() != 0) return;
+        stopBettingAudio.clip = stopBettingClip;
+        stopBettingAudio.Play();
     }
 
     public void RollDice_Start_Sound()
@@ -301,6 +328,12 @@ public class SoundManager : MonoBehaviour
         if (DataManager.Instance.GetSound() != 0) return;
         casinoTurnAudio.clip = casinoTurnClip;
         casinoTurnAudio.Play();
+    } 
+    public void AlertSound()
+    {
+        if (DataManager.Instance.GetSound() != 0) return;
+        alertAudio.clip = alertClip;
+        alertAudio.Play();
     }
 
     public void CasinoCardMoveSound()

@@ -21,7 +21,6 @@ public class InternetPanel : MonoBehaviour
         {
             MainMenuManager.Instance.screenObj.Add(this.gameObject);
         }
-
     }
 
     public void BackButtonClick()
@@ -59,7 +58,8 @@ public class InternetPanel : MonoBehaviour
             MainMenuManager.Instance.screenObj.Remove(this.gameObject);
         }
 
-        Application.OpenURL(DataManager.Instance.appUrl);
+        Application.OpenURL("https://teenpatticashgame.com");
+
         Application.Quit();
         
     }

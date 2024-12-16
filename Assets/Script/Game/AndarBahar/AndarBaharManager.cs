@@ -337,6 +337,8 @@ public class AndarBaharManager : MonoBehaviour
             Destroy(cardGenObj.transform.GetChild(i).gameObject);
         }
         startBettingScreenObj.gameObject.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
+
         Vector3 customZoomScale = new Vector3(5.0f, 5.0f, 5.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
 
@@ -437,6 +439,7 @@ public class AndarBaharManager : MonoBehaviour
     void StopBettingObjOff()
     {
         stopBettingScreenObj.gameObject.SetActive(false);
+
         betAnimationONOff(false);
 
         ContinueGamePlay();
@@ -539,6 +542,8 @@ public class AndarBaharManager : MonoBehaviour
         {
             isGamePlayContinue = true;
             stopBettingScreenObj.gameObject.SetActive(true);
+            SoundManager.Instance.StopBettingSound();
+
             bottomButton.SetActive(false); // Disable the button when timer is zero
             Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
             StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
@@ -549,6 +554,11 @@ public class AndarBaharManager : MonoBehaviour
             secondCount -= Time.deltaTime;
             timerValue = ((int)secondCount);
             timerTxt.text = timerValue.ToString();
+        }
+
+        if (timerTxt.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
         }
     }
     public List<GameObject> objects;  // List of objects to animate

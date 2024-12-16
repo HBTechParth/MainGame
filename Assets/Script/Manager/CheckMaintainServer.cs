@@ -13,6 +13,9 @@ public class CheckMaintainServer : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         GetMaintanance();
+        Screen.orientation = ScreenOrientation.AutoRotation;
+
+
     }
 
     public void GetMaintanance()
@@ -34,6 +37,10 @@ public class CheckMaintainServer : MonoBehaviour
             JSONNode commission = JSON.Parse(value["data"]["adminCommision"].ToString());
             DataManager.Instance.adminPercentage = commission;
 
+            Debug.Log("VERSION  =  " + JSON.Parse(value["data"]["latestGameVersion"].ToString()));
+            DataManager.Instance.versionBUild = JSON.Parse(value["data"]["latestGameVersion"].ToString());
+            Debug.Log("VERSION  =  " + DataManager.Instance.versionBUild);
+           // InternetManager.Instance.CheckUpdate();
             BotManager.Instance.botUser_Profile_URL.Clear();
             for (int i = 0; i < botPr.Count; i++)
             {

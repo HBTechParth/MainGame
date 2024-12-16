@@ -150,7 +150,10 @@ public class CarRouletteScript : MonoBehaviour
             timerValue = ((int)secondCount);
             timerTxt.text = timerValue.ToString();
         }
-
+        if (timerTxt.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
+        }
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    ReGenerateBoard();
@@ -1165,6 +1168,8 @@ public class CarRouletteScript : MonoBehaviour
 
     public void HistoryLoader(string data)
     {
+        if (winList.Count == 0) return;
+
         if (data != "")
         {
             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
@@ -1516,6 +1521,7 @@ public class CarRouletteScript : MonoBehaviour
             }
         }*/
         startBettingObj.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(5.0f, 5.0f, 5.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
@@ -1557,6 +1563,8 @@ public class CarRouletteScript : MonoBehaviour
             TestSocketIO.Instace.GetCarBetData();
         }
         stopBettingObj.SetActive(true);
+        SoundManager.Instance.StopBettingSound();
+
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);

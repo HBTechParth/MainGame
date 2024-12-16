@@ -158,6 +158,8 @@ public class DragonTigerManager : MonoBehaviour
     public bool isWin = true;
     public int winNo = 0;
 
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
 
     bool isAdmin = false;
     public int maxWinList = 16;
@@ -220,7 +222,7 @@ public class DragonTigerManager : MonoBehaviour
 
         //StartCoroutine(StartBet());
         ChipAnimMaintain(1);
-       // HistoryLoader(DataManager.Instance.listString);
+        // HistoryLoader(DataManager.Instance.listString);
         CheckSound();
     }
 
@@ -278,6 +280,10 @@ public class DragonTigerManager : MonoBehaviour
             secondCount -= Time.deltaTime;
             timerValue = ((int)secondCount);
             timerTxt.text = timerValue.ToString();
+        }
+        if (timerTxt.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
         }
 
         //if (Input.GetKeyDown(KeyCode.Space))
@@ -349,19 +355,19 @@ public class DragonTigerManager : MonoBehaviour
         }
     }
 
-   /* public void HistoryLoader(string data)
-    {
-        Debug.Log("Data WIn LIST = >  " + data);
-        if (data != "")
-        {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
-        }
+    /* public void HistoryLoader(string data)
+     {
+         Debug.Log("Data WIn LIST = >  " + data);
+         if (data != "")
+         {
+             winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+         }
 
-        foreach (var t in winList)
-        {
-            HistoryTacker(t);
-        }
-    }*/
+         foreach (var t in winList)
+         {
+             HistoryTacker(t);
+         }
+     }*/
 
 
     #region Cards Maintain
@@ -1132,8 +1138,9 @@ public class DragonTigerManager : MonoBehaviour
 
 
         isEnterBetStop = true;
-       // yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         _isClickAvailable = true;
@@ -1221,7 +1228,7 @@ public class DragonTigerManager : MonoBehaviour
                     DragonTigerPlayerList[0].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
                     //DragonTigerPlayerList[0].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     DragonTigerPlayerList[0].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                   // DragonTigerPlayerList[0].GetPlayerImage();
+                    // DragonTigerPlayerList[0].GetPlayerImage();
                 }
                 else
                 {
@@ -1230,7 +1237,7 @@ public class DragonTigerManager : MonoBehaviour
                     DragonTigerPlayerList[cnt].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[i].userName;
                     DragonTigerPlayerList[cnt].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[i].balance;
                     DragonTigerPlayerList[cnt].avatar = DataManager.Instance.joinPlayerDatas[i].avtar;
-                   // DragonTigerPlayerList[cnt].GetPlayerImage();
+                    // DragonTigerPlayerList[cnt].GetPlayerImage();
 
                     cnt++;
                 }
@@ -1255,8 +1262,9 @@ public class DragonTigerManager : MonoBehaviour
         GetLargestBet();
 
         isEnterBetStop = true;
-       // yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
+        SoundManager.Instance.StopBettingSound();
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         DragonTigerAIManager.Instance.isActive = false;
@@ -1471,8 +1479,11 @@ public class DragonTigerManager : MonoBehaviour
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("DebitAmount");
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 2);
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
 
                     Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
                         Random.Range(minDragonY, maxDragonY));
@@ -1504,8 +1515,12 @@ public class DragonTigerManager : MonoBehaviour
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("DebitAmount");
+
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 3);
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
 
                     Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
                         Random.Range(minTigerY, maxTigerY));
@@ -1537,9 +1552,12 @@ public class DragonTigerManager : MonoBehaviour
                     }
 
                     SoundManager.Instance.ThreeBetSound();
+                    Debug.Log("DebitAmount");
+
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Dragon_Tiger-Bet-" + DataManager.Instance.gameId, "game", 1);
-
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
                     Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
                         Random.Range(minTieY, maxTieY));
                     GameObject chipGen = Instantiate(chipObj, tieParent.transform);
@@ -1561,8 +1579,15 @@ public class DragonTigerManager : MonoBehaviour
                 }
         }
         DragonTigerAIManager.Instance.UpdateTiePrice();
+        DataManager.Instance.UserTurnVibrate();
         SendDargonTigerBet(no, selectChipNo);
         UpdateBoardPrice();
+    }
+    public void RoundAni()
+    {
+        roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
     }
 
     public void ChipButtonClick(int no)
@@ -1955,13 +1980,11 @@ public class DragonTigerManager : MonoBehaviour
         {
             DataManager.Instance.SetMusic(1);
             musicImg.sprite = musicoffSprite;
-            SoundManager.Instance.StartBackgroundMusic();
         }
         else if (musicImg.sprite == musicoffSprite)
         {
             DataManager.Instance.SetMusic(0);
             musicImg.sprite = musiconSprite;
-            SoundManager.Instance.StartBackgroundMusic();
             SoundManager.Instance.ButtonClick();
         }
     }

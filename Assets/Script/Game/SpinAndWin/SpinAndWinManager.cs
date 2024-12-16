@@ -159,6 +159,8 @@ public class SpinAndWinManager : MonoBehaviour
     public bool isWin = true;
     public int winNo = 0;
 
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
 
     public bool isAdmin = false;
     public int maxWinList = 8;
@@ -294,7 +296,10 @@ public class SpinAndWinManager : MonoBehaviour
                     .OnComplete(() => timerTxt.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.2f));
             }
         }
-
+        if (timerTxt.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
+        }
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -1158,6 +1163,7 @@ public class SpinAndWinManager : MonoBehaviour
         isEnterBetStop = true;
         //  yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         _isClickAvailable = true;
@@ -1282,6 +1288,8 @@ public class SpinAndWinManager : MonoBehaviour
         isEnterBetStop = true;
         // yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
+        SoundManager.Instance.StopBettingSound();
+
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         SpinAndWinAIManager.Instance.isActive = false;
@@ -1508,7 +1516,8 @@ public class SpinAndWinManager : MonoBehaviour
                     Debug.Log("_____________________________");
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "SpinAndWin-Bet-" + DataManager.Instance.gameId, "game", 0);
-
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
                     /* Vector3 rPos = new Vector3(Random.Range(minDragonX, maxDragonX),
                          Random.Range(minDragonY, maxDragonY)); */
                     Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(dragonParent.transform);
@@ -1543,7 +1552,8 @@ public class SpinAndWinManager : MonoBehaviour
                     Debug.Log("_____________________________");
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 0);
-
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
                     /* Vector3 rPos = new Vector3(Random.Range(minTigerX, maxTigerX),
                          Random.Range(minTigerY, maxTigerY));*/
                     Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tigerParent.transform);
@@ -1579,7 +1589,8 @@ public class SpinAndWinManager : MonoBehaviour
                     Debug.Log("_____________________________" + balanceTxt.text);
                     DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId,
                         "Spin And Win-Bet-" + DataManager.Instance.gameId, "game", 0);
-
+                    delayObjectForNextBet.SetActive(true);
+                    RoundAni();
                     /* Vector3 rPos = new Vector3(Random.Range(minTieX, maxTieX),
                          Random.Range(minTieY, maxTieY));*/
                     Vector3 rPos = SpinAndWinAIManager.Instance.GetRandomPositionWithinTransform(tieParent.transform);
@@ -1606,7 +1617,12 @@ public class SpinAndWinManager : MonoBehaviour
         UpdateBoardPrice();
         UpdateBalance();
     }
-
+    public void RoundAni()
+    {
+        roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
+    }
     public void ChipButtonClick(int no)
     {
         SoundManager.Instance.ButtonClick();

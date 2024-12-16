@@ -2084,7 +2084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.32, y: 69.51}
+  m_AnchoredPosition: {x: -0.32, y: 69.51001}
   m_SizeDelta: {x: 574.88, y: 357.71}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &185045317
@@ -4202,7 +4202,6 @@ GameObject:
   m_Component:
   - component: {fileID: 384028353}
   - component: {fileID: 384028356}
-  - component: {fileID: 384028354}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -4225,128 +4224,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &384028354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384028352}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9529a5b4e2ccd2c42b600d8a8dadc4e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dealer: {fileID: 69147363}
-  playerAvatar: {fileID: 2131867285}
-  playerName: {fileID: 380533122}
-  playerBalanceText: {fileID: 1577645599}
-  winParticleParent: {fileID: 0}
-  winAnimationTxt: {fileID: 2119034381}
-  DownRatio: 2
-  UpRatio: 2
-  OnRatio: 5
-  Chips:
-  - {fileID: 162475096}
-  - {fileID: 924240323}
-  - {fileID: 1104051547}
-  - {fileID: 256862866}
-  - {fileID: 2031820320}
-  errorScreenObject: {fileID: 1238376522}
-  downBetValue: 0
-  upBetValue: 0
-  onBetValue: 0
-  totalBet: 0
-  downChips: []
-  upChips: []
-  onChips: []
-  playerList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  totalBetText: {fileID: 1220415063}
-  diceNumbers:
-  - {fileID: 2062609537, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: -193410901, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 1508607707, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 817926327, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: -764221936, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  - {fileID: 754098173, guid: 488bb470251934b258a09be7fbf60b53, type: 3}
-  diceRollObject: {fileID: 945112189}
-  dice1: {fileID: 1275548503}
-  dice2: {fileID: 347111629}
-  dice1Result: 0
-  dice2Result: 0
-  startBetObj: {fileID: 464492686528667566}
-  stopBetObj: {fileID: 8338389009946522211}
-  playerProfile: {fileID: 1977797590}
-  otherProfile: {fileID: 0}
-  chipPrefab: {fileID: 6315592935832530029, guid: d3d67b85aa21f714ba3917a573a4fe11, type: 3}
-  chipSprite:
-  - {fileID: 21300000, guid: 8261b2681c23a6d408b3f45e92de7cd4, type: 3}
-  - {fileID: 21300000, guid: 1eda7ac16f38f704ebeafd0acaf4cbf2, type: 3}
-  - {fileID: 21300000, guid: 247adcf3a2eba964e95db5e4c1510aed, type: 3}
-  - {fileID: 21300000, guid: a1a9236e045ec254cbec6635d6b2668d, type: 3}
-  - {fileID: 21300000, guid: 95fbd794ea55be540b9c84771a5a51bf, type: 3}
-  chipValue:
-  - 10
-  - 50
-  - 100
-  - 500
-  - 1000
-  downArea: {fileID: 1946677372}
-  upArea: {fileID: 564033473}
-  onArea: {fileID: 1695211508}
-  selectedChipNo: 0
-  fixTimerValue: 15
-  timerValue: 0
-  secondsCount: 0
-  timerText: {fileID: 1662963205}
-  min7Downx: 50
-  max7Downx: 600
-  min7Downy: -215
-  max7Downy: 245
-  min7Onx: -485
-  max7Onx: 485
-  min7Ony: -90
-  max7Ony: 90
-  min7Upx: -550
-  max7Upx: -100
-  min7Upy: -215
-  max7Upy: 245
-  upValue: 260
-  downValue: 191.5
-  waitNextRoundScreenObject: {fileID: 1186432361}
-  down7Win: {fileID: 1701141611}
-  up7Win: {fileID: 917111410}
-  on7Win: {fileID: 1517565257}
-  historyHolder: {fileID: 2000353148}
-  resultPrefab: {fileID: 8689858814065364827, guid: 0cd6cb8a818299d4d880171e71ca2118, type: 3}
-  winList: 
-  diceResultList: 
-  maxWinListCount: 10
-  chipsHistory: []
-  soundImg: {fileID: 1056488220}
-  vibrationImg: {fileID: 1544734664}
-  musicImg: {fileID: 1080210482}
-  soundonSprite: {fileID: 21300000, guid: d2fcda2a690fb5b40af18ced8fc030e9, type: 3}
-  soundoffSprite: {fileID: 21300000, guid: 469c6901aed3ee2488d467fa267c379e, type: 3}
-  vibrationonSprite: {fileID: 21300000, guid: 568cc923ace8b2f44b9a93688b2f3f66, type: 3}
-  vibrationoffSprite: {fileID: 21300000, guid: aa3f9cc7a0fc4bf48916821db161f9df, type: 3}
-  musiconSprite: {fileID: 21300000, guid: c51f67d68ca5d1f43a54b1e103f6d29b, type: 3}
-  musicoffSprite: {fileID: 21300000, guid: b4a364d15ddc7a144ab72bbc6ea9abb3, type: 3}
-  isAdmin: 0
-  TestBV: 000000000100000002000000030000000400000005000000
-  objects:
-  - {fileID: 464492687819215599}
-  - {fileID: 464492686151962093}
-  - {fileID: 464492686526560271}
-  stopObjects:
-  - {fileID: 8338389009972184134}
-  - {fileID: 8338389009769102892}
 --- !u!114 &384028356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6552,7 +6429,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384028354}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SevenUpDownManager, Assembly-CSharp
         m_MethodName: PlaceBetButton
         m_Mode: 3
@@ -23242,7 +23119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384028354}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SevenUpDownManager, Assembly-CSharp
         m_MethodName: PlaceBetButton
         m_Mode: 3

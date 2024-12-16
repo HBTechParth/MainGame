@@ -91,6 +91,7 @@ public class DataManager : MonoBehaviour
     public bool isAvaliable;
     public float betPrice;
     public bool IsOneTimeOpen = false;
+    public string versionBUild;
 
     [Header("---Daily Spin---")]
     public int thisMonthDays;
@@ -661,7 +662,7 @@ public class DataManager : MonoBehaviour
         int check = 0;
         for (int i = 0; i < joinPlayerDatas.Count; i++)
         {
-            Debug.Log("Player Id : " + joinPlayerDatas[i].userId+ "   joinPlayer.userId =  "+ joinPlayer.userId);
+            Debug.Log("Player Id : " + joinPlayerDatas[i].userId + "   joinPlayer.userId =  " + joinPlayer.userId);
             if (joinPlayerDatas[i].userId == joinPlayer.userId)
             {
                 Debug.Log("Player check : " + joinPlayer.userName);
@@ -847,13 +848,13 @@ public class DataManager : MonoBehaviour
 
     public void DebitAmount(string amount, string roomId, string note, string logType, int betNo)
     {
-       
+
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
         form.AddField("gameId", roomId);
         form.AddField("note", note);
         form.AddField("logType", logType);
-        form.AddField("betNo", betNo);
+        // form.AddField("betNo", betNo);
         form.AddField("tournamentId", tournamentID);
         Debug.Log($"DebitAmount called with data: amount = {amount}, roomId = {roomId}, note = {note}, logType = {logType}, betNo = {betNo}, tournamentID = {tournamentID}");
         DebitAmount_Send(form);
@@ -886,6 +887,8 @@ public class DataManager : MonoBehaviour
         print("<color=blue> Debit Value : </color>" + request.downloadHandler.text);
         Debug.Log("Debit Value data =>    " + data.ToString());
         Setplayerdata(data);
+        DataManager.Instance.UserTurnVibrate();
+
         //Balance_Txt.text = data["balance"].ToString().Trim('"');
         //playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
         //playerData.deposit = data[nameof(DataManager.Instance.playerData.deposit)];
@@ -1020,7 +1023,8 @@ public class DataManager : MonoBehaviour
     public void Setplayerdata(JSONNode data)
     {
         Debug.Log("User Data===:::" + data.ToString());
-
+        
+       
         if (data[nameof(playerData.balance)] == "")
         {
             data[nameof(playerData.balance)] = "";
@@ -1115,6 +1119,9 @@ public class DataManager : MonoBehaviour
         if (DragonTigerManager.Instance != null)
         {
             DragonTigerManager.Instance.UpdateNameBalance();
+            
+            if (DragonTigerManager.Instance.delayObjectForNextBet.activeInHierarchy)
+                DragonTigerManager.Instance.delayObjectForNextBet.SetActive(false);
         }
         if (AndarBaharManager.Instance != null)
         {
@@ -1143,6 +1150,8 @@ public class DataManager : MonoBehaviour
         if (SpinAndWinManager.Instance != null)
         {
             SpinAndWinManager.Instance.UpdateNameBalance();
+            if (SpinAndWinManager.Instance.delayObjectForNextBet.activeInHierarchy)
+                SpinAndWinManager.Instance.delayObjectForNextBet.SetActive(false);
         }
     }
 

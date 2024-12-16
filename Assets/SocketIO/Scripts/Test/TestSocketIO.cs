@@ -235,6 +235,7 @@ public class TestSocketIO : MonoBehaviour
             // Dragon Tiger
 
             case "SendDragonTigerBet":
+                Debug.Log("SetBetDragonTiger IN");
                 SetBetDragonTiger(values.ToString());
                 break;
             case "SendDeckBet":
@@ -245,6 +246,7 @@ public class TestSocketIO : MonoBehaviour
                 break;
             // Spin And Win
             case "SendSpinAndWinBet":
+                Debug.Log("SendSpinAndWinBet IN");
                 SetBetDragonTiger(values.ToString());
                 break;
             case "SendSAWDeckBet":

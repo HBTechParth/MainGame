@@ -393,6 +393,10 @@ public class AviatorGameManager : MonoBehaviour
             int seconds = Mathf.FloorToInt(remainingTime % 60);
             timerTxt.text = seconds.ToString("D2");
             yield return null;
+            if (timerTxt.text.Equals("05"))
+            {
+                SoundManager.Instance.AlertSound();
+            }
         }
         isBettingSceneActive = false;
         bettingScene.gameObject.SetActive(false);

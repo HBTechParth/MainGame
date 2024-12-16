@@ -347,6 +347,7 @@ public class RouletteManager : MonoBehaviour
             }
         }
         startBettingObj.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
@@ -441,6 +442,8 @@ public class RouletteManager : MonoBehaviour
             TestSocketIO.Instace.GetBetData();
         }
         stopBettingObj.SetActive(true);
+        SoundManager.Instance.StopBettingSound();
+
         yield return new WaitForSeconds(0.5f);
         Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
@@ -522,7 +525,10 @@ public class RouletteManager : MonoBehaviour
             timerValue = ((int)secondCount);
             timerTxt.text = timerValue.ToString();
         }
-
+        if (timerTxt.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
+        }
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    ReGenerateBoard();

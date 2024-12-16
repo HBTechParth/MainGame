@@ -283,6 +283,10 @@ public class JhandiMundaManager : MonoBehaviour
             timerValue = ((int)secondsCount);
             timerText.text = timerValue.ToString();
         }
+        if (timerText.text.Equals("5"))
+        {
+            SoundManager.Instance.AlertSound();
+        }
     }
 
 
@@ -987,6 +991,8 @@ public class JhandiMundaManager : MonoBehaviour
         }
       //  yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
+        SoundManager.Instance.PlaceYourBetSound();
+
         Vector3 customZoomScale = new Vector3(4.0f, 4.0f, 4.0f);
         StartAnimationPlay(objects, customZoomScale, 0.1f, 0.009f);
         yield return new WaitForSeconds(1.35f);
@@ -1003,6 +1009,8 @@ public class JhandiMundaManager : MonoBehaviour
         isEnterBetStop = true;
      //   yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
+        SoundManager.Instance.StopBettingSound();
+
         Vector3 customZoomScale = new Vector3(3.0f, 3.0f, 3.0f);
         StartAnimationPlay(stopObjects, customZoomScale, 0.1f, 0.1f);
         JhandiMundaAIManager.Instance.isActive = false;

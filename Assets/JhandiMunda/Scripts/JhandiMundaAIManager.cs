@@ -47,6 +47,7 @@ public class JhandiMundaAIManager : MonoBehaviour
                 GetChipLocation();
                 nextTime += interval;
             }
+           
         }
     }
 

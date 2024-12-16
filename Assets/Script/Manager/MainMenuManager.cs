@@ -128,7 +128,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
+      //  Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1;
         if (Instance == null)
         {

@@ -11,6 +11,7 @@ public class InternetManager : MonoBehaviour
 
     public bool isCheckUpdate;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,12 +29,13 @@ public class InternetManager : MonoBehaviour
             FirstCheckInterenet();
         else
             InvokeRepeating(nameof(CheckInterenet), 0, 3);
-        CheckUpdate();
+         CheckUpdate();
     }
 
     public void CheckUpdate()
     {
-        if (Application.version == DataManager.Instance.appVersion) return;
+       
+        if (Application.version == DataManager.Instance.versionBUild) return;
         print("New Version available");
         if (updateObj != null)
         {

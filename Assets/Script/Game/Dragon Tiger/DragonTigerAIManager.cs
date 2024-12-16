@@ -350,10 +350,7 @@ public class DragonTigerAIManager : MonoBehaviour
                         genChipList_Tiger.Add(genChipList_Tie[no]);
                         genChipList_Tie[no].transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), animSpeed).OnComplete(() =>
                         {
-
                             UpdateList(tNum, genChipList_Tiger, genChipList_Tie, winNo);
-
-
                         });
                     });
                 }
