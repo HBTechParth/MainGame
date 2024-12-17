@@ -1574,13 +1574,11 @@ public class PokerGameManager : MonoBehaviour
         {
             DataManager.Instance.SetMusic(1);
             musicImg.sprite = musicoffSprite;
-            SoundManager.Instance.StartBackgroundMusic();
         }
         else if (musicImg.sprite == musicoffSprite)
         {
             DataManager.Instance.SetMusic(0);
             musicImg.sprite = musiconSprite;
-            SoundManager.Instance.StartBackgroundMusic();
             SoundManager.Instance.ButtonClick();
         }
     }
