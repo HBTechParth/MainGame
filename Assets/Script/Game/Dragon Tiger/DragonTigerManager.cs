@@ -342,7 +342,8 @@ public class DragonTigerManager : MonoBehaviour
         if (isAdmin) return;
         if (data != "")
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
         else
         {

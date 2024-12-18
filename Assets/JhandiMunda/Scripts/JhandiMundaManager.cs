@@ -1322,9 +1322,14 @@ public class JhandiMundaManager : MonoBehaviour
         if (diceData != "")
             diceResultList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         if (data != "")
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+        {
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+        }
         else
+        {
             return;
+        }
 
         for (int i = 0; i < winList.Count; i++)
         {

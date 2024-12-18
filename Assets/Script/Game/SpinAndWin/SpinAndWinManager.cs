@@ -357,7 +357,8 @@ public class SpinAndWinManager : MonoBehaviour
         if (isAdmin) return;
         if (data != "")
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
         else
         {
@@ -374,7 +375,8 @@ public class SpinAndWinManager : MonoBehaviour
     {
         if (data != "")
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
         foreach (var t in winList)
@@ -1493,13 +1495,13 @@ public class SpinAndWinManager : MonoBehaviour
     public void GameThreeButton(int no)
     {
         if (!_isClickAvailable) return;
-       /* bool hasMoney = CheckMoney(chipValue[selectChipNo]);
-        if (hasMoney == false)
-        {
-            SoundManager.Instance.ButtonClick();
-            OpenErrorScreen();
-            return;
-        }*/
+        /* bool hasMoney = CheckMoney(chipValue[selectChipNo]);
+         if (hasMoney == false)
+         {
+             SoundManager.Instance.ButtonClick();
+             OpenErrorScreen();
+             return;
+         }*/
         switch (no)
         {
             case 1:

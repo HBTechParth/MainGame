@@ -191,7 +191,7 @@ public class RouletteManager : MonoBehaviour
 
     public float wheelSpeed;
     public GameObject fakeWheel;
-  
+
 
     public void ReGenerateBoard()
     {
@@ -254,8 +254,8 @@ public class RouletteManager : MonoBehaviour
     {
         //print(findTriggerObj.gameObject.name);
         findTriggerObj.transform.GetChild(0).gameObject.SetActive(true);
-       
-      //  BallRoulette.instance.body.velocity = new Vector2(0.5f, 0.5f);
+
+        //  BallRoulette.instance.body.velocity = new Vector2(0.5f, 0.5f);
 
     }
 
@@ -1213,7 +1213,8 @@ public class RouletteManager : MonoBehaviour
     {
         if (data != "")
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
         int childCount = PounCarrier.transform.childCount;

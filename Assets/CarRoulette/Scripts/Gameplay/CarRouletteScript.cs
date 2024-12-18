@@ -1172,7 +1172,8 @@ public class CarRouletteScript : MonoBehaviour
 
         if (data != "")
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
         int childCount = PounCarrier.transform.childCount;

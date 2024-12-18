@@ -259,7 +259,8 @@ public class AndarBaharManager : MonoBehaviour
         if (!string.IsNullOrEmpty(data))
         {
             Debug.Log("data == " + data);
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
 
@@ -989,7 +990,8 @@ public class AndarBaharManager : MonoBehaviour
         if (isAdmin) return;
         if (!string.IsNullOrEmpty(data))
         {
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            if (winList.Count != 0)
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
         foreach (var t in winList)
