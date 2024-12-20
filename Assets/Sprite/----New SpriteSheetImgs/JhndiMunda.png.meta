@@ -1,0 +1,906 @@
+fileFormatVersion: 2
+guid: d3346ed28803e424a8b06a91906ed9d2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: JhndiMunda_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20396d6accce3d44f92a1fe8827c20fc
+      internalID: 1795552485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_1
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14bf14eac3c98948b7d7a10ab5aff67
+      internalID: 1031948761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_2
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93aec9db88952a0428cf15fb6a5adf4e
+      internalID: 1776039593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_3
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a242b250af6791b4fb12dc8185888f3d
+      internalID: 1226529347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_4
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9602bdd737caab7408b00ccbc3b368a1
+      internalID: 23062058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_5
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 2130
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 940f35d30671fb84c88487ec69292d25
+      internalID: 1313970095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d3306c6ad51531429b7a64352729cb0
+      internalID: 1844982150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_7
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d644a6464c3db40ba829efe4388e96
+      internalID: -1403327535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_8
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70a0c912ebe1db34990572761925065b
+      internalID: 1736697417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_9
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f786d432424fa44b64ade506e02b49
+      internalID: -1569985660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_10
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6918ff457c7e196408159c90a2c667a1
+      internalID: 1857241963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_11
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 1704
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f18b7a7af0031ed4bb9700a35303c876
+      internalID: 1431490398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b2ed72ccfeb1b24f9a28e43c221dc7b
+      internalID: -1035546542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_13
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2ffa5524cab91c47ad7cb0a353afc36
+      internalID: 1447221887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_14
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51bb6a3500f06194894ed50c4251ab3e
+      internalID: 810465829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_15
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b421634452caa14fa513be31fa37d9a
+      internalID: -440441639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_16
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b64d0ca0fced249b56d176b43a28d2
+      internalID: -1142127022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_17
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 1278
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e28f3d1dcfb7e844978ad0c5049cd97
+      internalID: 483991484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42c54fe85d1b7884ea7a6794a4f79dc6
+      internalID: 1753099533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_19
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c78f13c2bcb67d54abf4372ac90b514a
+      internalID: 1085990769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_20
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28e6cefcf5734ce4da0a0c6c937e2e7a
+      internalID: 1581723141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_21
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9136718a3ba743848806e0f9935e48a3
+      internalID: 387016391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_22
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e228812b7f50904f8da90a68a39ca6d
+      internalID: -769326956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_23
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 852
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83ee453628ee144e97107ef9677d4e6
+      internalID: -1131801941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b15369875417446b6c3b65006c4256
+      internalID: -736708450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_25
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bf949f725d6c114aaa23b2c9026ab65
+      internalID: 207224164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_26
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b12d5fd65082ed244ba7192c2a300c53
+      internalID: -612338740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_27
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d140d3ebced024eaec864b90856db6
+      internalID: -917046069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_28
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 472fdb1ba73614040b6d7fd5c3a7072a
+      internalID: 1645713666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_29
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 426
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da9fc9b0509cbaf40962f64cb9638907
+      internalID: -1643310521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff0414c8e7729244492c81325b3a4262
+      internalID: -37196628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_31
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 0
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e7eefacff5667c4ba58c5450604c78f
+      internalID: 1109833182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_32
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 0
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50be1e4639d7ccd49a4663f3eae423ab
+      internalID: -1151474807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_33
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 0
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d68294632d032ce499c6336c97bd1ade
+      internalID: -1373471177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JhndiMunda_34
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 0
+        width: 426
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a78371743e5698d439f2d6588fb2f098
+      internalID: 409850062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5a38035b990532b43847a658b7efb216
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      JhndiMunda_0: 1795552485
+      JhndiMunda_1: 1031948761
+      JhndiMunda_10: 1857241963
+      JhndiMunda_11: 1431490398
+      JhndiMunda_12: -1035546542
+      JhndiMunda_13: 1447221887
+      JhndiMunda_14: 810465829
+      JhndiMunda_15: -440441639
+      JhndiMunda_16: -1142127022
+      JhndiMunda_17: 483991484
+      JhndiMunda_18: 1753099533
+      JhndiMunda_19: 1085990769
+      JhndiMunda_2: 1776039593
+      JhndiMunda_20: 1581723141
+      JhndiMunda_21: 387016391
+      JhndiMunda_22: -769326956
+      JhndiMunda_23: -1131801941
+      JhndiMunda_24: -736708450
+      JhndiMunda_25: 207224164
+      JhndiMunda_26: -612338740
+      JhndiMunda_27: -917046069
+      JhndiMunda_28: 1645713666
+      JhndiMunda_29: -1643310521
+      JhndiMunda_3: 1226529347
+      JhndiMunda_30: -37196628
+      JhndiMunda_31: 1109833182
+      JhndiMunda_32: -1151474807
+      JhndiMunda_33: -1373471177
+      JhndiMunda_34: 409850062
+      JhndiMunda_35: 1044276523
+      JhndiMunda_4: 23062058
+      JhndiMunda_5: 1313970095
+      JhndiMunda_6: 1844982150
+      JhndiMunda_7: -1403327535
+      JhndiMunda_8: 1736697417
+      JhndiMunda_9: -1569985660
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

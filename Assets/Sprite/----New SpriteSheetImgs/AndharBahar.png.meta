@@ -1,0 +1,1169 @@
+fileFormatVersion: 2
+guid: d33f341aad5ad504d94fc4dd7e428937
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AndharBahar_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5dbe2b1db3775a42aa6323d49fb8189
+      internalID: 511244682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_1
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a48ae31394d7d664a8ff0d0eaaf2edf9
+      internalID: 1913184107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_2
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daf53f67af6855a428faf0735ced4adb
+      internalID: 516853588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_3
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ce306770432b84f8c6ce18cfbefdef
+      internalID: -1761479511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_4
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e1031a724b97254b82e8c3cef09d81a
+      internalID: -974084952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_5
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 2284
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244489247644ac24bb7ef05973ee0861
+      internalID: 1547351437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e099d71a069dbe4ba6f72910ef02ed8
+      internalID: -782707287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_7
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b47c8c21eca256443b14d6e459318d8b
+      internalID: -1152549581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_8
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3977da91ccc4f344ab8136cb7dc94474
+      internalID: 186304086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_9
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75f2877e19bb7fc4b8c2c9a780eede14
+      internalID: -1621064723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_10
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a10e2769b78ec8d45877ce582d80e3d6
+      internalID: -233740286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_11
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1960
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a635c31f256217d4d91634af71b0cfe4
+      internalID: 1756152478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c899677a351a844898f69e042fc26be
+      internalID: -130261933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_13
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 971d84b59a4c1d74d86795aec1ba4a69
+      internalID: -115267263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_14
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc0b79e0961204f4fbd080d0d5f5d2cf
+      internalID: -1980398229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_15
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8663f32d4e73cfe4aa3baead2ccfad17
+      internalID: -1565068324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_16
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0556222463778074dadfac7af2b85909
+      internalID: 1538940872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_17
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1636
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac840d4264993a646a06811af7e5054c
+      internalID: -1453779435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc2e0e871b42f014fad9c080f0f14abd
+      internalID: -177344786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_19
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214255668ba6cae4d9ad0ba15ae49ca0
+      internalID: -178642066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_20
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43409052d119c5544ba8f7abf7ba9e15
+      internalID: 1344894434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_21
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb8307f54d8acd54fb03a8f39cfa6f9b
+      internalID: -1556777800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_22
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 511af11d1662d9541bc1f0c3b5e13ae6
+      internalID: 992879958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_23
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1312
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72650bed5458a7a46929bc8a2091a92d
+      internalID: -1540365070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 212bbf84c0532644ca25f4744fcc49eb
+      internalID: 1619197422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_25
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37272cec086ab9648929a1bc0b35b6cc
+      internalID: 1171206759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_26
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9acb6f495b462e4ea5ef092596adbc5
+      internalID: -843438202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_27
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8756a346c4b965f4c8af476ba1061c56
+      internalID: 427617842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_28
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcec0205cce749f4ab0a4f1ba004465d
+      internalID: -1529250061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_29
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 988
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea35d30255e365b4ba0abed829a8ac12
+      internalID: -684975986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa733278b464b9b43b772dd6b2800ad8
+      internalID: -2061053228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_31
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5494c5b8f27e63469368a22218bc2f7
+      internalID: -2078184457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_32
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27cbeecb131f28c4197082cc96c1d88b
+      internalID: 73137855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_33
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b086655fcf76d524fa8fe85a4bb901cc
+      internalID: -549489748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_34
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c741a53723620c049b2982172961e511
+      internalID: 1718266433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_35
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 664
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6faad7615b226459e94d7d300e82a5
+      internalID: -1186146840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b527b2e93ab2184baad795f402714d7
+      internalID: 1061431426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_37
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4799630ea7db0e545935d2a6aa4d76a6
+      internalID: 1615597661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_38
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6306258555aaf242a7067bd44a0bd28
+      internalID: -372527128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_39
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 407662e6155864941a298022bbf2ddf6
+      internalID: 102479291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_40
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d7a34280b02ed498d0fbf3d018a797
+      internalID: -1805034154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_41
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 340
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48cc8333a734a69428c466b299e1f25f
+      internalID: -901092611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 902f69ce9691b61479229a6562d8b1a6
+      internalID: -366234983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_43
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 16
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c133efb6c9151854ea7afdfbdb708ad2
+      internalID: -230172997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_44
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 16
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2025ca777d83a8458cd0553d163fe3c
+      internalID: 853544853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_45
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 16
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78330033d2351942a744970ca0e947e
+      internalID: 190291931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AndharBahar_46
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 16
+        width: 424
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0b9919d6b618340aae6e404773b977
+      internalID: 1406915925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      AndharBahar_0: 511244682
+      AndharBahar_1: 1913184107
+      AndharBahar_10: -233740286
+      AndharBahar_11: 1756152478
+      AndharBahar_12: -130261933
+      AndharBahar_13: -115267263
+      AndharBahar_14: -1980398229
+      AndharBahar_15: -1565068324
+      AndharBahar_16: 1538940872
+      AndharBahar_17: -1453779435
+      AndharBahar_18: -177344786
+      AndharBahar_19: -178642066
+      AndharBahar_2: 516853588
+      AndharBahar_20: 1344894434
+      AndharBahar_21: -1556777800
+      AndharBahar_22: 992879958
+      AndharBahar_23: -1540365070
+      AndharBahar_24: 1619197422
+      AndharBahar_25: 1171206759
+      AndharBahar_26: -843438202
+      AndharBahar_27: 427617842
+      AndharBahar_28: -1529250061
+      AndharBahar_29: -684975986
+      AndharBahar_3: -1761479511
+      AndharBahar_30: -2061053228
+      AndharBahar_31: -2078184457
+      AndharBahar_32: 73137855
+      AndharBahar_33: -549489748
+      AndharBahar_34: 1718266433
+      AndharBahar_35: -1186146840
+      AndharBahar_36: 1061431426
+      AndharBahar_37: 1615597661
+      AndharBahar_38: -372527128
+      AndharBahar_39: 102479291
+      AndharBahar_4: -974084952
+      AndharBahar_40: -1805034154
+      AndharBahar_41: -901092611
+      AndharBahar_42: -366234983
+      AndharBahar_43: -230172997
+      AndharBahar_44: 853544853
+      AndharBahar_45: 190291931
+      AndharBahar_46: 1406915925
+      AndharBahar_5: 1547351437
+      AndharBahar_6: -782707287
+      AndharBahar_7: -1152549581
+      AndharBahar_8: 186304086
+      AndharBahar_9: -1621064723
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

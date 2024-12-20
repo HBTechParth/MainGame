@@ -58,7 +58,7 @@ public class InternetPanel : MonoBehaviour
             MainMenuManager.Instance.screenObj.Remove(this.gameObject);
         }
 
-        Application.OpenURL("https://teenpatticashgame.com");
+        Application.OpenURL("https://blackteenpatti.com");
 
         Application.Quit();
         

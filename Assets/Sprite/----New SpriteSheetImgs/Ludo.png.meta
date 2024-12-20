@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: ea208cb0955abd14d94810ff80024533
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ludo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4314ecae052192499a5befb5c72802d
+      internalID: -1796985788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_1
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbe8f6b9c70f8846b0bc5e71d583ae4
+      internalID: -1324363361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_2
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4a4d3fc14450448b6cb4a9223a4c46
+      internalID: -2111247980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_3
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 157dca2ea65debf4cac75363001fa3c9
+      internalID: -166139909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_4
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14449eb481fea6742a8f2027761e102f
+      internalID: 1776509104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_5
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbcd893693221bb4b9e6fdc2afb4d403
+      internalID: 1564996843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_6
+      rect:
+        serializedVersion: 2
+        x: 2892
+        y: 2412
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac9a1f51ac1011c4bb83a91f90b37a55
+      internalID: -1683967298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5c42aa8b1a10043baa531204e06541
+      internalID: -113295759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_8
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caa04722b1424d44fb8b2ac5c8e0c071
+      internalID: 2099576312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_9
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6d8b1b4b498ec7438e4cd0b0cd060c8
+      internalID: -586182075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_10
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 537724f64b37c904484d0bde4211f538
+      internalID: 1179512997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_11
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b73c41b4ebf4304a8f4369acb59e1f6
+      internalID: -854517366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_12
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f99621a9b0708dc4f9e119298b351ee7
+      internalID: -1090776381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_13
+      rect:
+        serializedVersion: 2
+        x: 2892
+        y: 2010
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 881887c7507f23c4d91471303db95420
+      internalID: -1132706089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9002402562e57934c99802c935588be2
+      internalID: 935833980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_15
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f35943c63e406347ae79f25adeffbd3
+      internalID: -69149110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_16
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeabc9f8a95502f4782d78e2e99691be
+      internalID: -1034476019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_17
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4387644a549d7fb4baba54f87bc716e8
+      internalID: -684111303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_18
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9bd155a637bc9d4c9e531965b4c0e5e
+      internalID: -749398141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_19
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc46c453329abf34fa718316595e56a7
+      internalID: -771533278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_20
+      rect:
+        serializedVersion: 2
+        x: 2892
+        y: 1608
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef941d0d4cff01f4cb0bbf70c2a3f092
+      internalID: 112639074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff421d37be538044f8b1119474644d8e
+      internalID: 291763468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_22
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bacb1350bc0ff0d4db956e21b71e313b
+      internalID: -1687896082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_23
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f21947bffedf849a3d6b85229d4d42
+      internalID: -1190396929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_24
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df8fd8616c07c984aaf0df4ba265b62a
+      internalID: 550771535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_25
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd0711b1623ba7441bb4965bbc0bf4ae
+      internalID: -860855925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_26
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fae1f57ac437a34293958e3aa2386fc
+      internalID: 1784378634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_27
+      rect:
+        serializedVersion: 2
+        x: 2892
+        y: 1206
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53318ef7c50a17f45914457533f23c10
+      internalID: 1400540127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60fa9269eedc51b408a35210758fb3d5
+      internalID: -1139117193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_29
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dc95cb64dce37e4d91372b4d7997f2b
+      internalID: -1877190034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_30
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32561f681ba73ed47ad6230d10cbdb5e
+      internalID: 1674494852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_31
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a64b3eac48e9094a9d6fc457784ed20
+      internalID: -1711282970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_32
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffac095f19fe4ac4a8cfd6dd5abbbfb8
+      internalID: -592727147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_33
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d411d63f7dfe0254688063835d987dc7
+      internalID: -2048199819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_34
+      rect:
+        serializedVersion: 2
+        x: 2892
+        y: 804
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 762b99fac5b776e448a2b792746af77e
+      internalID: -1140409228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd69166d05d54024ebff1fbfff81f588
+      internalID: 396830694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_36
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079add45a5869c84b805f5755037c101
+      internalID: -249872944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_37
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8790b3ec6d53bae4cbf85acda0d83da1
+      internalID: -1285115320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_38
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ad26fe066c48e042b7abbcc3d793909
+      internalID: -1958481697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_39
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d75f3dbafd94d9479e283a935861ca8
+      internalID: 599791610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_40
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 402
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb19ba781238fc546a3c893dfc619b27
+      internalID: 2068702358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31541f9d5616ea744b8cdba7cdfe09b9
+      internalID: -1390841830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_42
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6de94f311ed1669419af9f19e2939b53
+      internalID: -1656031596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_43
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f89d5e12834ab44a70455fa44c3eac
+      internalID: 2110962415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_44
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00218221faf5a9549bf2626928025cfd
+      internalID: 699323792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_45
+      rect:
+        serializedVersion: 2
+        x: 1928
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1a09ebfe3950b7418abf63469f71145
+      internalID: 1031297598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ludo_46
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 0
+        width: 482
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80df869adbec8254da4b30127b66e932
+      internalID: -9303685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e37f9429b7394b642b3e40689ecdaa57
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ludo_0: -1796985788
+      Ludo_1: -1324363361
+      Ludo_10: 1179512997
+      Ludo_11: -854517366
+      Ludo_12: -1090776381
+      Ludo_13: -1132706089
+      Ludo_14: 935833980
+      Ludo_15: -69149110
+      Ludo_16: -1034476019
+      Ludo_17: -684111303
+      Ludo_18: -749398141
+      Ludo_19: -771533278
+      Ludo_2: -2111247980
+      Ludo_20: 112639074
+      Ludo_21: 291763468
+      Ludo_22: -1687896082
+      Ludo_23: -1190396929
+      Ludo_24: 550771535
+      Ludo_25: -860855925
+      Ludo_26: 1784378634
+      Ludo_27: 1400540127
+      Ludo_28: -1139117193
+      Ludo_29: -1877190034
+      Ludo_3: -166139909
+      Ludo_30: 1674494852
+      Ludo_31: -1711282970
+      Ludo_32: -592727147
+      Ludo_33: -2048199819
+      Ludo_34: -1140409228
+      Ludo_35: 396830694
+      Ludo_36: -249872944
+      Ludo_37: -1285115320
+      Ludo_38: -1958481697
+      Ludo_39: 599791610
+      Ludo_4: 1776509104
+      Ludo_40: 2068702358
+      Ludo_41: -1390841830
+      Ludo_42: -1656031596
+      Ludo_43: 2110962415
+      Ludo_44: 699323792
+      Ludo_45: 1031297598
+      Ludo_46: -9303685
+      Ludo_47: -1656247190
+      Ludo_5: 1564996843
+      Ludo_6: -1683967298
+      Ludo_7: -113295759
+      Ludo_8: 2099576312
+      Ludo_9: -586182075
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

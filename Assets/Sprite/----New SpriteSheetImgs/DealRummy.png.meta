@@ -1,0 +1,1875 @@
+fileFormatVersion: 2
+guid: b5cb2eaeb58ad254a8a602999e94fb9e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DealRummy_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f7680204f2358744b61bf83e9e4635e
+      internalID: -85211170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_1
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa57516c5d39af45bd9529b57d78f9b
+      internalID: 438627400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_2
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69d4c03d705057845b5614036a36aefc
+      internalID: 1558895510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_3
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10dd4884ef80bf9478f940d7c6c93d05
+      internalID: -564455940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_4
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 867d78da0e649a74b965392ddc4abd84
+      internalID: -1964717638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_5
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb76184d3c3bada4082aa048dc05328d
+      internalID: -1645362223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_6
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20188787b59e6a94eb749dec0cfd111d
+      internalID: 249886615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_7
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4ddb62cd960d56478155aafdcd9639f
+      internalID: 1638869568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_8
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 2016
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ab950ab8eec7e944ac6b6ae4bcc1295
+      internalID: 209556950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a11914e6028f1d4cb68054d7edb35f2
+      internalID: -534194153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_10
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53316864f33ac6a40a7b5e3006a33106
+      internalID: 2087245950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_11
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66f5b295234d6e342a4c14a94f99e3df
+      internalID: -1695383934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_12
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e40615085c880c45b43c0cb74564a4a
+      internalID: -743794773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_13
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1ae8e95462fa7143879a20516ee20f3
+      internalID: -1683213523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_14
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4616b4ecfe0a85844b775c79d6cc467b
+      internalID: -1762146846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_15
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac8f39953802e1448b3ec1d562a172d0
+      internalID: 676171991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_16
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62fe67c6d7749c64b9e9bb78095cfb3b
+      internalID: -237399060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_17
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 1764
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ff1e7f77fca584388372b0cc3780b2
+      internalID: -1552349618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 188b7e74cb2c8a24d81c4f81e35e95a4
+      internalID: 18429966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_19
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9de5ed4c8f2c15479d21ef220c0b946
+      internalID: 1374272812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_20
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d7bb051b0ab714a8fb89a928ab313b
+      internalID: -1183906591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_21
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a1b564c0859d174492c5a1f8daf5eff
+      internalID: -1038301577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_22
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2602830b87431934ca3aaeb8f31408f0
+      internalID: 1342032769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_23
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b7b08c72a4b294db20f42b807dd7b8
+      internalID: 284192192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_24
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79199b1853de5a44ba7b62f3676339bb
+      internalID: 66041535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_25
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a6dd86f1613c94b91fd09a1d4b15bd
+      internalID: -730205557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_26
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 1512
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcdd3bd7f08fd2146aeb099c96f10b82
+      internalID: 1160043675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a7767a243374ff44902b45b0e2cdced
+      internalID: -27523835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_28
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78ca69821598dcd4b897f0a6fb819f35
+      internalID: -636229814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_29
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33081fb09fc451449bf0099d36110941
+      internalID: 856500992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_30
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf09597a70d25444090e8783dfa5d06a
+      internalID: 1251639982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_31
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33fa32f99c5971f4bb515f427604d7b0
+      internalID: 769316414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_32
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7a214bcfbbae041988a91f5f56d76d
+      internalID: 762243161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_33
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e0ff4029d366342af3f7536a795b83
+      internalID: -1441497845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_34
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77ce18ef876b9354f82667798846aef7
+      internalID: 1838603504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_35
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 1260
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed65e847f897e2b4181ac92b1152070a
+      internalID: -1424979275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc89e9c67566d5e4a9de4342c35c9dad
+      internalID: 662375302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_37
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07dfe814b6e420d448997cd0d773b23b
+      internalID: 832902306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_38
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fced5085e79f99c4abc938fe870af065
+      internalID: -1754973953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_39
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a454224d84a7f1041a91b7c9d6c4df73
+      internalID: -1325864278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_40
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a69979bb598c884eac9a42de77ab4f2
+      internalID: -1622559497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_41
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c5faecaa43a8f2438a5990b3477afed
+      internalID: -543134348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_42
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c559d9c3b71b8ba4faa4928df31e69e0
+      internalID: 1470719435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_43
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f5a37cd106420246b8dcd0b6810c8f6
+      internalID: 1384493090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_44
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 1008
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97af0af6ff16e504186ccb5e64c58419
+      internalID: 1850365489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be494ec2e4ea9a6498d32cc7e24523d9
+      internalID: 1786816122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_46
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a2866aa3751af4dbcc0389242ba7f4
+      internalID: -1446096689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_47
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fd3b608a55decf4a8d97b66a6a54344
+      internalID: -1492545513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_48
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5191cd18a93f9145bc2b9eb8affa36c
+      internalID: -1877911858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_49
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a566e87ffb99964da6f32b4caefada2
+      internalID: 1114421788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_50
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cbba656860975941a9474c2cfc94d09
+      internalID: -1068885743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_51
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d928cc01aadd73418cc8e35af6a4e78
+      internalID: 216176218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_52
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56207b7ac642d9848a59a6de96391822
+      internalID: 888962468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_53
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 756
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aadde87ae643014b951dad094cfa321
+      internalID: -2021668912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c5e6e3ac3be8634f9a495e60a8bdef1
+      internalID: 480163694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_55
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2c253ff6ddcb7d44bbf5410c2556db8
+      internalID: -2140319891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_56
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9220cd3058ea941a91b30e25a8b1a8
+      internalID: 1220797240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_57
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7320f918ff03b41abae4ca5488165a
+      internalID: -823400334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_58
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296ca8dca32154b41931b8e61edc5bf2
+      internalID: -267311892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_59
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c353f6f4b9618428dcffb0357ccc34
+      internalID: -722101872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_60
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db054a5c42023a64a835730ce9f2a677
+      internalID: -541686039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_61
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6073e00519ca2eb488fa8c21368a3b6a
+      internalID: 984349564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_62
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 504
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec28641937b0b174da98f9a25c0eb3c3
+      internalID: 1372954553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a18d762772df864e8d5040bb4bd000c
+      internalID: -954122719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_64
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05ac8a80e5563564593ebb513081d49a
+      internalID: -847846012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_65
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a8acd0f5457bb448c331e26272ed4f
+      internalID: 292010922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_66
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617d0800635cfb64f98084a38a53c221
+      internalID: 1988310403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_67
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d179c7de5cefcb42b9430e069a8d4b4
+      internalID: -464385359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_68
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fba2f646cebf65b4681ba34f087dadb3
+      internalID: -206902959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_69
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993094955ab9d444eb2f224ed2a16070
+      internalID: 833867371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_70
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 252
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 626b967303c643c43b0486f0ce8736ea
+      internalID: 1240768285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb74b527d67557449b693d249a79df78
+      internalID: 2110846366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_73
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af383516da6e1e49a5da9bef8936d0e
+      internalID: 735402468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_74
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b5c73bda99a02d43a3eeec3074a9275
+      internalID: 792006258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_75
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce43f1c9479661e4e83796f50f79078b
+      internalID: -311069474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_76
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 253738bb1511aae4990ad94627978fd8
+      internalID: 1327965852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_77
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d47c7c9256d3df448159fa4d222392d
+      internalID: 98975082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_78
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee70641f7165d64e946a7ceece39bb2
+      internalID: 1110382209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DealRummy_79
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 0
+        width: 302
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b93c6e2ebb82fd148aa2508efa5ed0ce
+      internalID: -1125570909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: fa2748025c5ceff4db62122a1913fd3e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      DealRummy_0: -85211170
+      DealRummy_1: 438627400
+      DealRummy_10: 2087245950
+      DealRummy_11: -1695383934
+      DealRummy_12: -743794773
+      DealRummy_13: -1683213523
+      DealRummy_14: -1762146846
+      DealRummy_15: 676171991
+      DealRummy_16: -237399060
+      DealRummy_17: -1552349618
+      DealRummy_18: 18429966
+      DealRummy_19: 1374272812
+      DealRummy_2: 1558895510
+      DealRummy_20: -1183906591
+      DealRummy_21: -1038301577
+      DealRummy_22: 1342032769
+      DealRummy_23: 284192192
+      DealRummy_24: 66041535
+      DealRummy_25: -730205557
+      DealRummy_26: 1160043675
+      DealRummy_27: -27523835
+      DealRummy_28: -636229814
+      DealRummy_29: 856500992
+      DealRummy_3: -564455940
+      DealRummy_30: 1251639982
+      DealRummy_31: 769316414
+      DealRummy_32: 762243161
+      DealRummy_33: -1441497845
+      DealRummy_34: 1838603504
+      DealRummy_35: -1424979275
+      DealRummy_36: 662375302
+      DealRummy_37: 832902306
+      DealRummy_38: -1754973953
+      DealRummy_39: -1325864278
+      DealRummy_4: -1964717638
+      DealRummy_40: -1622559497
+      DealRummy_41: -543134348
+      DealRummy_42: 1470719435
+      DealRummy_43: 1384493090
+      DealRummy_44: 1850365489
+      DealRummy_45: 1786816122
+      DealRummy_46: -1446096689
+      DealRummy_47: -1492545513
+      DealRummy_48: -1877911858
+      DealRummy_49: 1114421788
+      DealRummy_5: -1645362223
+      DealRummy_50: -1068885743
+      DealRummy_51: 216176218
+      DealRummy_52: 888962468
+      DealRummy_53: -2021668912
+      DealRummy_54: 480163694
+      DealRummy_55: -2140319891
+      DealRummy_56: 1220797240
+      DealRummy_57: -823400334
+      DealRummy_58: -267311892
+      DealRummy_59: -722101872
+      DealRummy_6: 249886615
+      DealRummy_60: -541686039
+      DealRummy_61: 984349564
+      DealRummy_62: 1372954553
+      DealRummy_63: -954122719
+      DealRummy_64: -847846012
+      DealRummy_65: 292010922
+      DealRummy_66: 1988310403
+      DealRummy_67: -464385359
+      DealRummy_68: -206902959
+      DealRummy_69: 833867371
+      DealRummy_7: 1638869568
+      DealRummy_70: 1240768285
+      DealRummy_71: -985098133
+      DealRummy_72: 2110846366
+      DealRummy_73: 735402468
+      DealRummy_74: 792006258
+      DealRummy_75: -311069474
+      DealRummy_76: 1327965852
+      DealRummy_77: 98975082
+      DealRummy_78: 1110382209
+      DealRummy_79: -1125570909
+      DealRummy_8: 209556950
+      DealRummy_80: 118438691
+      DealRummy_9: -534194153
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

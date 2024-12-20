@@ -1,0 +1,1500 @@
+fileFormatVersion: 2
+guid: 973705c7d17fc8a4082abf395f17b118
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: roulate_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 945b5846cfed13746897e39e678ac678
+      internalID: -593614495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_1
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64a9c3cd783b05b4b80de17dd6b34810
+      internalID: 986565131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_2
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fcc46ad16500eb45814912014de4c5c
+      internalID: -812684447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_3
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5de497ba1a7d92740854712908949c0d
+      internalID: 288385904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_4
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26265aec6b5ed3745b9abbef1f39538c
+      internalID: -497139420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_5
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d29545d9d13a6144981df0c7091d0b86
+      internalID: 1959756537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_6
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07e3afc057edcd547955c298198dc9be
+      internalID: 864992655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_7
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 395b04e38d13e754fb7465f28ad0a400
+      internalID: 1765681412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_8
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 3756
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d96fc1f5aa050d40a87f0a575e97a81
+      internalID: -1583911600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 551eb7cddf01f664b80e827735c734d1
+      internalID: 1701213080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_10
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 060a967e5eac57f4a89bc344983c9489
+      internalID: -393348154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_11
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a9f038121d574e468b5a32e04691f5c
+      internalID: 312463737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_12
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f84e93be62c594f880add59894ac39
+      internalID: -1090498813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_13
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51df090d5b6f7d74abb66add091b8cf8
+      internalID: -110676474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_14
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8c1dc72dbacd9546a71b6c341ad56e6
+      internalID: 2048071685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_15
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e687a31ddef68ff4aaf4d8ccc79b005e
+      internalID: 1704686061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_16
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de888651b0b109749ae89176bb4b5746
+      internalID: -1918612820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_17
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 3130
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04593420c004ed744942b54a87bc9b7e
+      internalID: 69780432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7afd5e99eb7b5849803dfc9f4556a91
+      internalID: 1729136721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_19
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd94603ce71697e4baf66fe95776b2fe
+      internalID: 350794360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_20
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e178a218d0c46e40a412cdde6fe9af2
+      internalID: -1803274603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_21
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae47a37f1024cd249900bd8c8923b097
+      internalID: -1250430050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_22
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af79728426f55214f9cb600b1fed7c50
+      internalID: -1287577422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_23
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a96429d7ef7502243b1aa7164f57bf25
+      internalID: -2077199817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_24
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 147f54b21d33b094c8d32bfe86178929
+      internalID: 190270472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_25
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2d588d406114924392f625c38e8e52b
+      internalID: 1346560679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_26
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 2504
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e1cf72a5df6ad448beb0213775524a
+      internalID: 172390502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beda75ff24216394395e10e7d7c504d4
+      internalID: -1655164689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_28
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7e0b8ce84891b4891cd73f87c95f89
+      internalID: 266265740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_29
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 224ff236c5c984d4b80001ade4ff3a44
+      internalID: -177205713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_30
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da8f6897c6da27043a02ea051bb156e6
+      internalID: -2073101973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_31
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa4124cbf333184982512dadac04025
+      internalID: -327105253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_32
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe74d180733e0424f839df715157b363
+      internalID: 375827482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_33
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28fb884503edf0f41943c69898c105d3
+      internalID: -1644143458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_34
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8b9176538a4a4e40be1108e42a54eeb
+      internalID: -548348392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_35
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 1878
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40e6b3c5ac95dd9408af6d5de62ae2fd
+      internalID: 7302208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa93957ce43dba146b6be495447e77a0
+      internalID: -595089993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_37
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142b0e79439788846be33ca21b191bc6
+      internalID: 2014956358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_38
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b1e30d22d42f3749b5504b5d6e89d08
+      internalID: -287729504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_39
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e18dc64c06fc9c642862f533752af373
+      internalID: -2102758037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_40
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed56e461ab5a644d9b5f7eb200f40d7
+      internalID: 705634925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_41
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bcbd71a6e4006645ad0934340980c9d
+      internalID: 1246084472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_42
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c36682409b4bef4594fd699bc8224d4
+      internalID: -1780524740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_43
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61221effd94c0404cad506cf92812c23
+      internalID: -106199642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_44
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 1252
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5cf3940ccaffe94caede1acbe1d93b3
+      internalID: -1773369512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9968098069d13b44869577c0106633f
+      internalID: 1553956264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_46
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 593cfb9bad84b0644b37ae10b5f3db5f
+      internalID: 1460388580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_47
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d93e3a910e1699e4292f3f151b39a2ca
+      internalID: 85024986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_48
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e52fbbd61f261449c20e0108a9fc5f
+      internalID: -648260258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_49
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc88bf61c9d5f1f42aeddaebb43fae06
+      internalID: -189428554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_50
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3fbd7ee8a9ac745b1427cf41cbb7d6
+      internalID: -1340339492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_51
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c2fb8a75d28049418a906b6b12617c8
+      internalID: 586109387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_52
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 916fe2bd2255c62479a6506baa7f6df5
+      internalID: -1006385130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_53
+      rect:
+        serializedVersion: 2
+        x: 4016
+        y: 626
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 339ef507351ac644c8361b42faa419a2
+      internalID: 1150746423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f31fdfe2934313a4f8375b606b23cd7e
+      internalID: -1147249889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_55
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cc8c63f09dec7f48a4eff35011d4fc2
+      internalID: 700991776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_56
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7150167fcb4ee0f4e843364dee1134d5
+      internalID: 92534159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_57
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e16ddfee8da5c5d4dafcf120631aa5e7
+      internalID: 280618201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_58
+      rect:
+        serializedVersion: 2
+        x: 2008
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 097fb013d8f493d4894c45856e0051e0
+      internalID: 1294207691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_59
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29101b7194ffaff4796fc0edbaa3fb97
+      internalID: -1504327621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_60
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bafa88f79cc392048b0b42068f27ed3b
+      internalID: 1107846374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roulate_61
+      rect:
+        serializedVersion: 2
+        x: 3514
+        y: 0
+        width: 502
+        height: 626
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7aa50e68574e44696c49bd8387eb46
+      internalID: -569881465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0ca9b7f72dec1a54987a7c96e8c7229d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      roulate_0: -593614495
+      roulate_1: 986565131
+      roulate_10: -393348154
+      roulate_11: 312463737
+      roulate_12: -1090498813
+      roulate_13: -110676474
+      roulate_14: 2048071685
+      roulate_15: 1704686061
+      roulate_16: -1918612820
+      roulate_17: 69780432
+      roulate_18: 1729136721
+      roulate_19: 350794360
+      roulate_2: -812684447
+      roulate_20: -1803274603
+      roulate_21: -1250430050
+      roulate_22: -1287577422
+      roulate_23: -2077199817
+      roulate_24: 190270472
+      roulate_25: 1346560679
+      roulate_26: 172390502
+      roulate_27: -1655164689
+      roulate_28: 266265740
+      roulate_29: -177205713
+      roulate_3: 288385904
+      roulate_30: -2073101973
+      roulate_31: -327105253
+      roulate_32: 375827482
+      roulate_33: -1644143458
+      roulate_34: -548348392
+      roulate_35: 7302208
+      roulate_36: -595089993
+      roulate_37: 2014956358
+      roulate_38: -287729504
+      roulate_39: -2102758037
+      roulate_4: -497139420
+      roulate_40: 705634925
+      roulate_41: 1246084472
+      roulate_42: -1780524740
+      roulate_43: -106199642
+      roulate_44: -1773369512
+      roulate_45: 1553956264
+      roulate_46: 1460388580
+      roulate_47: 85024986
+      roulate_48: -648260258
+      roulate_49: -189428554
+      roulate_5: 1959756537
+      roulate_50: -1340339492
+      roulate_51: 586109387
+      roulate_52: -1006385130
+      roulate_53: 1150746423
+      roulate_54: -1147249889
+      roulate_55: 700991776
+      roulate_56: 92534159
+      roulate_57: 280618201
+      roulate_58: 1294207691
+      roulate_59: -1504327621
+      roulate_6: 864992655
+      roulate_60: 1107846374
+      roulate_61: -569881465
+      roulate_62: -2061860733
+      roulate_7: 1765681412
+      roulate_8: -1583911600
+      roulate_9: 1701213080
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
