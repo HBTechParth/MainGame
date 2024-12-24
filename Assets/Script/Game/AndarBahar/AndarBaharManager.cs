@@ -155,6 +155,9 @@ public class AndarBaharManager : MonoBehaviour
     private int _tempAndarNum;
     private int _tempBaharNum;
 
+    public Image countdownTimmer;
+    public List<Sprite> countdownSprites;
+    public GameObject timerPanel;
 
     private void Awake()
     {
@@ -531,6 +534,7 @@ public class AndarBaharManager : MonoBehaviour
 
     // Update is called once per frame
     public GameObject bottomButton;
+    private int previousTimerValue = -1;
     private void FixedUpdate()
     {
         if (timerValue > 0)
@@ -556,7 +560,31 @@ public class AndarBaharManager : MonoBehaviour
             timerValue = ((int)secondCount);
             timerTxt.text = timerValue.ToString();
         }
+        if (int.TryParse(timerTxt.text, out int currentTimerValue)) // Safely parse the text to an integer
+        {
+            if ((currentTimerValue == 3 || currentTimerValue == 2 || currentTimerValue == 1 || currentTimerValue == 0)
+                && currentTimerValue != previousTimerValue) // Ensure value has changed
+            {
+                Debug.Log("timerPanel");
+                timerPanel.SetActive(true);
+                previousTimerValue = currentTimerValue; // Update the previous value
 
+                if (currentTimerValue >= 0 && currentTimerValue < countdownSprites.Count) // Ensure index is valid
+                {
+                    countdownTimmer.sprite = countdownSprites[currentTimerValue]; // Assign the corresponding sprite
+                }
+
+                // Scale animation
+                countdownTimmer.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).SetEase(Ease.OutQuad)
+                    .OnComplete(() => countdownTimmer.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.2f));
+
+
+            }
+        }
+        if (timerTxt.text.Equals("0"))
+        {
+            timerPanel.SetActive(false);
+        }
         if (timerTxt.text.Equals("5"))
         {
             SoundManager.Instance.AlertSound();

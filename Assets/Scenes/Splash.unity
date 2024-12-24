@@ -2918,7 +2918,7 @@ MonoBehaviour:
   chaalLimit: 0
   potLimit: 0
   listString: 3,3,3,2,2,2,2,2,1,3,3,1,3,2,2,3
-  historyPoints: 0.5X,20X,5X,15X,2.2X,6X,5.63X,6.66X,5.5X,5X
+  historyPoints: 0.5X,20X,5X,15X,2.2X,6X,5.63X
   winList: 2,1,1,2,2,2,1,1,2,1,1,2,2,1,2,2,1
   rouletteGameStatus: 0
   winRecord: 1,0,6,23,13,8,20,2,5,0

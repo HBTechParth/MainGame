@@ -328,7 +328,7 @@ public class AviatorGameManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(historyData))
         {
-            historyData = "0.5X,20X,5X,15X,2.2X,6X,5.63X,6.66X,5.5X,5X";
+            historyData = "0.5X,20X,5X,15X,2.2X,6X,5.63X";
         }
 
         string[] historyArray = historyData.Split(',');
