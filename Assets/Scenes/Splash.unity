@@ -2642,7 +2642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -21.160034}
+  m_AnchoredPosition: {x: 0, y: -21.160065}
   m_SizeDelta: {x: 873.34, y: 895.52}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &698123589
@@ -2930,6 +2930,11 @@ MonoBehaviour:
   isShopRequest: 0
   PanSavedKey: PanSaved
   OtpVerifiedKey: OtpVerified
+  countdownSprites:
+  - {fileID: 21300000, guid: 227981096f530d24082d630d3f4bedef, type: 3}
+  - {fileID: 21300000, guid: f47e2e3e793e3bf44b8fabe445d33c7e, type: 3}
+  - {fileID: 21300000, guid: 5ee9fabaf6ac7af44b84d8979ed53dfe, type: 3}
+  - {fileID: 21300000, guid: 0567b98a3de61a142b7a1b44310ed82d, type: 3}
 --- !u!1 &712532876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5606,7 +5611,7 @@ MonoBehaviour:
   casinoWinAudio: {fileID: 999058117}
   casinoWinClip: {fileID: 8300000, guid: 09eb1e940de8fa945b3af54edece0d4b, type: 3}
   alertAudio: {fileID: 971638473}
-  alertClip: {fileID: 8300000, guid: 042cc2c31271af14eb81787e00ad965c, type: 3}
+  alertClip: {fileID: 8300000, guid: 414afe2ea88db0b4190bcb14db3d0f46, type: 3}
   casinoTurnAudio: {fileID: 1714682779}
   casinoTurnClip: {fileID: 8300000, guid: 0d6636bb92911f942a96460b8a5bcc83, type: 3}
   casinoCardMoveAudio: {fileID: 2015336219}
@@ -8476,7 +8481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V-0.11
+  m_text: V-0.12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

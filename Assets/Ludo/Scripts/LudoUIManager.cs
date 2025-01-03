@@ -205,6 +205,7 @@ public class LudoUIManager : MonoBehaviour
     public void HomeButtonClick()
     {
         //SoundManager.Instance.ButtonClick();
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         OpenLeaveScreen();
     }
 

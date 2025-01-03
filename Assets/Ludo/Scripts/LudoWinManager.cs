@@ -918,8 +918,11 @@ public class LudoWinManager : MonoBehaviour
         TestSocketIO.Instace.MatchEnded();
         SoundManager.Instance.ButtonClick();
         DataReset();
+        Screen.orientation = ScreenOrientation.LandscapeLeft; // Updated line to use LandscapeLeft
         SceneManager.LoadScene("Main");
     }
+
+
 
     public void PayAgainButtonClick()
     {

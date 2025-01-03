@@ -140,6 +140,7 @@ public class DataManager : MonoBehaviour
     private string avatarFolderPath = "Avatar";
 
 
+    public List<Sprite> countdownSprites;
 
 
 

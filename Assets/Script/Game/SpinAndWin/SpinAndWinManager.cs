@@ -268,6 +268,10 @@ public class SpinAndWinManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    public Image countdownTimmer;
+    private int previousTimerValue = -1;
+
+
     private void FixedUpdate()
     {
         if (timerValue == 0 && isEnterBetStop == false && !waitNextRoundScreenObj.activeInHierarchy)
@@ -299,6 +303,31 @@ public class SpinAndWinManager : MonoBehaviour
         if (timerTxt.text.Equals("5"))
         {
             SoundManager.Instance.AlertSound();
+        }
+        if (int.TryParse(timerTxt.text, out int currentTimerValue)) // Safely parse the text to an integer
+        {
+            if ((currentTimerValue == 3 || currentTimerValue == 2 || currentTimerValue == 1 || currentTimerValue == 0)
+                && currentTimerValue != previousTimerValue) // Ensure value has changed
+            {
+                Debug.Log("timerPanel");
+                countdownTimmer.gameObject.SetActive(true);
+                previousTimerValue = currentTimerValue; // Update the previous value
+
+                if (currentTimerValue >= 0 && currentTimerValue < DataManager.Instance.countdownSprites.Count) // Ensure index is valid
+                {
+                    countdownTimmer.sprite = DataManager.Instance.countdownSprites[currentTimerValue]; // Assign the corresponding sprite
+                }
+
+                // Scale animation
+                countdownTimmer.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).SetEase(Ease.OutQuad)
+                    .OnComplete(() => countdownTimmer.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.2f));
+
+
+            }
+        }
+        if (timerTxt.text.Equals("0"))
+        {
+            countdownTimmer.gameObject.SetActive(false);
         }
 
         //if (Input.GetKeyDown(KeyCode.Space))

@@ -27,6 +27,8 @@ public class BotManager : MonoBehaviour
 
     public bool isConnectBot;
 
+
+
     public string botNameCheck;
     private void Awake()
     {

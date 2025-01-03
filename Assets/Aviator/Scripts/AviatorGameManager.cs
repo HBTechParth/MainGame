@@ -383,21 +383,48 @@ public class AviatorGameManager : MonoBehaviour
     #endregion
 
     #region Timer
-
+    private int previousTimerValue = -1;
+    public Image countdownTimmer;
     private IEnumerator BettingTimer()
     {
         float remainingTime = fixTimerValue;
+        previousTimerValue = -1; // Initialize to an invalid value to ensure the first comparison works
+
         while (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
             int seconds = Mathf.FloorToInt(remainingTime % 60);
-            timerTxt.text = seconds.ToString("D2");
-            yield return null;
-            if (timerTxt.text.Equals("05"))
+            timerTxt.text = seconds.ToString();
+
+            if (seconds == 5) // Trigger sound safely
             {
                 SoundManager.Instance.AlertSound();
             }
+
+            if (seconds <= 3 && seconds >= 0 && seconds != previousTimerValue) // Trigger animations for countdown
+            {
+                countdownTimmer.gameObject.SetActive(true);
+                previousTimerValue = seconds; // Update the previous value
+
+                if (seconds < DataManager.Instance.countdownSprites.Count) // Ensure valid sprite index
+                {
+                    countdownTimmer.sprite = DataManager.Instance.countdownSprites[seconds];
+                }
+
+                // Scale animation
+                countdownTimmer.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f)
+                    .SetEase(Ease.OutQuad)
+                    .OnComplete(() => countdownTimmer.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.2f));
+            }
+
+            yield return null;
         }
+
+        // Ensure timer reaches zero
+        timerTxt.text = "00";
+        countdownTimmer.gameObject.SetActive(false);
+
+        // End betting phase
         isBettingSceneActive = false;
         bettingScene.gameObject.SetActive(false);
         botPlayersList.gameObject.SetActive(false);
@@ -405,6 +432,7 @@ public class AviatorGameManager : MonoBehaviour
         GenerateRandomCrashTime();
         StartGame();
     }
+
 
     #endregion
 

@@ -156,7 +156,6 @@ public class AndarBaharManager : MonoBehaviour
     private int _tempBaharNum;
 
     public Image countdownTimmer;
-    public List<Sprite> countdownSprites;
     public GameObject timerPanel;
 
     private void Awake()
@@ -569,9 +568,9 @@ public class AndarBaharManager : MonoBehaviour
                 timerPanel.SetActive(true);
                 previousTimerValue = currentTimerValue; // Update the previous value
 
-                if (currentTimerValue >= 0 && currentTimerValue < countdownSprites.Count) // Ensure index is valid
+                if (currentTimerValue >= 0 && currentTimerValue < DataManager.Instance.countdownSprites.Count) // Ensure index is valid
                 {
-                    countdownTimmer.sprite = countdownSprites[currentTimerValue]; // Assign the corresponding sprite
+                    countdownTimmer.sprite = DataManager.Instance.countdownSprites[currentTimerValue]; // Assign the corresponding sprite
                 }
 
                 // Scale animation

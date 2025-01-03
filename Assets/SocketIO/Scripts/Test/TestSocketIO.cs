@@ -1679,7 +1679,7 @@ public class TestSocketIO : MonoBehaviour
 
             if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
-                //LudoManager.Instance.StopDiceLine();
+               // LudoManager.Instance.StopDiceLine();
             }
         }
     }
