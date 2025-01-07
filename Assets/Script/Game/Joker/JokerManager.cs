@@ -377,7 +377,7 @@ public class JokerManager : MonoBehaviour
         JokerWinMaintain ak47WinMaintain = new JokerWinMaintain();
         var cards = new List<CardSuffle> { card1, card2, card3 };
 
-        
+
         Debug.Log("CARD 1 =>  " + card1.color);
         Debug.Log("CARD 2=>  " + card2.color);
         Debug.Log("CARD 3=>  " + card3.color);
@@ -2909,18 +2909,28 @@ public class JokerManager : MonoBehaviour
 
     public bool CheckMoney(float money, JokerPlayer player)
     {
-
-        float currentBalance = float.Parse(player.playerBalence.text);
-        Debug.Log("currentBalance  => " + currentBalance);
-        if ((currentBalance - money) < 0)
+        Debug.Log("player Name  => " + player.name);
+        Debug.Log("player playerBalence Text  => " + player.playerBalence.text);
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            if (player.playerId == DataManager.Instance.joinPlayerDatas[i].userId)
+            {
+                float currentBalance = float.Parse(DataManager.Instance.joinPlayerDatas[i].balance);
+                if ((currentBalance - money) < 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                Debug.Log("currentBalance  => " + currentBalance);
+            }
         }
         return false;
+
+
+
     }
 
     #endregion
@@ -4203,8 +4213,20 @@ public class JokerManager : MonoBehaviour
 
     }
 
-    public void SlideShow_Cancel_Socket()
+    public void SlideShow_Cancel_Socket(string id)
     {
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            if (id == DataManager.Instance.joinPlayerDatas[i].userId)
+            {
+                if (JokerManager.Instance.isPotlimitCross) return;
+                if (sideShowPopupImage.gameObject.activeInHierarchy) return;
+                Debug.Log("Slid Show OPEN");
+                isPopupOpen = true;
+                sideShowPopupImage.gameObject.SetActive(true);
+                sideShowPopupImageText.text = "<color=yellow>[ " + slideShowPlayer.playerNameTxt.text + "]</color>" + " Denied SideShow Request";
+            }
+        }
         ChangePlayerTurn(player1.playerNo);
     }
 

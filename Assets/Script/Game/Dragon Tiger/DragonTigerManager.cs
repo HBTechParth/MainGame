@@ -267,6 +267,7 @@ public class DragonTigerManager : MonoBehaviour
     }
     public Image countdownTimmer;
     private int previousTimerValue = -1;
+    public GameObject timerBg;
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -292,8 +293,7 @@ public class DragonTigerManager : MonoBehaviour
             if ((currentTimerValue == 3 || currentTimerValue == 2 || currentTimerValue == 1 || currentTimerValue == 0)
                 && currentTimerValue != previousTimerValue) // Ensure value has changed
             {
-                Debug.Log("timerPanel");
-                countdownTimmer.gameObject.SetActive(true);
+                timerBg.SetActive(true);
                 previousTimerValue = currentTimerValue; // Update the previous value
 
                 if (currentTimerValue >= 0 && currentTimerValue < DataManager.Instance.countdownSprites.Count) // Ensure index is valid
@@ -310,7 +310,7 @@ public class DragonTigerManager : MonoBehaviour
         }
         if (timerTxt.text.Equals("0"))
         {
-            countdownTimmer.gameObject.SetActive(false);
+            timerBg.SetActive(false);
         }
         //if (Input.GetKeyDown(KeyCode.Space))
         //{

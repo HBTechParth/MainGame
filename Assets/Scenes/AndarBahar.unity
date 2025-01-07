@@ -47781,11 +47781,6 @@ MonoBehaviour:
   musiconSprite: {fileID: 21300000, guid: c51f67d68ca5d1f43a54b1e103f6d29b, type: 3}
   musicoffSprite: {fileID: 21300000, guid: b4a364d15ddc7a144ab72bbc6ea9abb3, type: 3}
   countdownTimmer: {fileID: 1302134181}
-  countdownSprites:
-  - {fileID: 21300000, guid: 227981096f530d24082d630d3f4bedef, type: 3}
-  - {fileID: 21300000, guid: f47e2e3e793e3bf44b8fabe445d33c7e, type: 3}
-  - {fileID: 21300000, guid: 5ee9fabaf6ac7af44b84d8979ed53dfe, type: 3}
-  - {fileID: 21300000, guid: 0567b98a3de61a142b7a1b44310ed82d, type: 3}
   timerPanel: {fileID: 454012572}
   bottomButton: {fileID: 1500326623}
   objects:

@@ -687,10 +687,13 @@ public class TestSocketIO : MonoBehaviour
             //print("teen Pattoi : " + );
             if (SceneManager.GetActiveScene().name == "Main")
             {
-                for (int i = 0; i < obj.Count; i++)
+                Debug.Log("OBJ COUNT = ?> " + obj["users"].Count);
+                for (int i = 0; i < obj["users"].Count; i++)
                 {
+                    Debug.Log("i  " + i);
                     if (values["data"]["users"][i]["name"] != null && values["data"]["users"][i]["userId"] != null && values["data"]["users"][i]["lobbyId"] != null && obj["users"].Count < 6)
                     {
+                        Debug.Log("i  " + i);
                         DataManager.Instance.AddRoomUser(values["data"]["users"][i]["userId"], values["data"]["users"][i]["name"], values["data"]["users"][i]["lobbyId"], values["data"]["users"][i]["balance"], i, values["data"]["users"][i]["avtar"]);
                     }
                 }
@@ -1679,7 +1682,7 @@ public class TestSocketIO : MonoBehaviour
 
             if (tourId == DataManager.Instance.tournamentID && sRoomId == roomid)
             {
-               // LudoManager.Instance.StopDiceLine();
+                // LudoManager.Instance.StopDiceLine();
             }
         }
     }
@@ -2142,7 +2145,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 else if (SlideShowType == "Cancel")
                 {
-                    TeenPattiManager.Instance.SlideShow_Cancel_Socket();
+                    TeenPattiManager.Instance.SlideShow_Cancel_Socket(SlideShowCancelPlayerId);
                 }
             }
         }
@@ -2170,7 +2173,7 @@ public class TestSocketIO : MonoBehaviour
                 }
                 else if (SlideShowType == "Cancel")
                 {
-                    JokerManager.Instance.SlideShow_Cancel_Socket();
+                    JokerManager.Instance.SlideShow_Cancel_Socket(SlideShowCancelPlayerId);
                 }
             }
         }
@@ -2198,13 +2201,15 @@ public class TestSocketIO : MonoBehaviour
                 }
                 else if (SlideShowType == "Cancel")
                 {
-                    AK47Manager.Instance.SlideShow_Cancel_Socket();
+                    AK47Manager.Instance.SlideShow_Cancel_Socket(SlideShowCancelPlayerId);
                 }
             }
         }
 
 
     }
+
+
     public void HandelWinTeenPatti(string values)
     {
 
@@ -3205,7 +3210,7 @@ public class TestSocketIO : MonoBehaviour
 
     public void SetBetDragonTiger(string values)
     {
-        Debug.Log("SetBetDragonTiger IN"+ SceneManager.GetActiveScene().name);
+        Debug.Log("SetBetDragonTiger IN" + SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "DragonTiger")
         {
             Debug.Log("SetBetDragonTiger IN");
@@ -3236,7 +3241,7 @@ public class TestSocketIO : MonoBehaviour
             int boxNo = data["boxNo"];
             int chipNo = data["chipNo"];
 
-            Debug.Log("TournamentID =>  "+tourId);
+            Debug.Log("TournamentID =>  " + tourId);
             Debug.Log("Player ID does not match: " + playerID + " != " + DataManager.Instance.playerData._id);
             if (!playerID.Equals(DataManager.Instance.playerData._id))
             {

@@ -23,6 +23,7 @@ public class TournamentErrorPanel : MonoBehaviour
         MainMenuManager.Instance.screenObj.Remove(this.gameObject);
         Destroy(this.gameObject);
         TestSocketIO.Instace.LeaveRoom();
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         SceneManager.LoadScene("Main");
     }
 

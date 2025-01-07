@@ -2936,15 +2936,23 @@ public class AK47Manager : MonoBehaviour
     public bool CheckMoney(float money, AK47Player player)
     {
 
-        float currentBalance = float.Parse(player.playerBalence.text);
-        Debug.Log("currentBalance  => " + currentBalance);
-        if ((currentBalance - money) < 0)
+        Debug.Log("player Name  => " + player.name);
+        Debug.Log("player playerBalence Text  => " + player.playerBalence.text);
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            if (player.playerId == DataManager.Instance.joinPlayerDatas[i].userId)
+            {
+                float currentBalance = float.Parse(DataManager.Instance.joinPlayerDatas[i].balance);
+                if ((currentBalance - money) < 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                Debug.Log("currentBalance  => " + currentBalance);
+            }
         }
         return false;
     }
@@ -4226,8 +4234,20 @@ public class AK47Manager : MonoBehaviour
 
     }
 
-    public void SlideShow_Cancel_Socket()
+    public void SlideShow_Cancel_Socket(string id)
     {
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            if (id == DataManager.Instance.joinPlayerDatas[i].userId)
+            {
+                if (TeenPattiManager.Instance.isPotlimitCross) return;
+                if (sideShowPopupImage.gameObject.activeInHierarchy) return;
+                Debug.Log("Slid Show OPEN");
+                isPopupOpen = true;
+                sideShowPopupImage.gameObject.SetActive(true);
+                sideShowPopupImageText.text = "<color=yellow>[ " + slideShowPlayer.playerNameTxt.text + "]</color>" + " Denied SideShow Request";
+            }
+        }
         ChangePlayerTurn(player1.playerNo);
     }
     public bool isSLidShow1;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Networking;
+using SimpleJSON;
+
 public class Shop : MonoBehaviour
 {
     public InputField field;
@@ -43,9 +46,13 @@ public class Shop : MonoBehaviour
         if (amount >= 100)
         {
             SoundManager.Instance.ButtonClick();
+
+            StartCoroutine(CallDebitAmountApi(amount.ToString()));
+
+
             /*if(amount >= 50)
                 StartCoroutine(CashFreeManage.Instance.getToken((int)(amount), CashFreeManage.Instance.couponId));*/
-            paymentMode.gameObject.SetActive(true);
+            //  paymentMode.gameObject.SetActive(true);
         }
         else
         {
@@ -53,6 +60,100 @@ public class Shop : MonoBehaviour
         }
 
     }
+
+    IEnumerator CallDebitAmountApi(string amount)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("amount", amount.ToString());
+        form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
+
+        print("Send OTP Amount : " + amount.ToString());
+
+        UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/create", form);
+
+        yield return request.SendWebRequest();
+
+        /* if (request.error == null && !request.isNetworkError)
+         {
+             // Log the full response for debugging
+             string responseText = request.downloadHandler.text;
+             Debug.Log("Response: " + responseText);
+
+             // Parse the JSON response
+             JSONNode values = JSON.Parse(responseText);
+
+             // Check if the `success` key exists and is true
+             if (values["success"] != null && values["success"].AsBool)
+             {
+                 // Extract the `result` node
+                 JSONNode result = values["data"]["result"];
+
+                 if (result != null && result["payment_url"] != null)
+                 {
+                     // Extract and log the `payment_url`
+                     string url = result["payment_url"];
+                     Debug.Log("Payment URL: " + url);
+
+                     // Open the payment URL
+                     Application.OpenURL(url);
+                 }
+                 else
+                 {
+                     Debug.LogError("Error: 'payment_url' not found in the result.");
+                 }
+             }
+             else
+             {
+                 Debug.LogError("Error: 'success' is false or missing in the response.");
+             }
+         }
+         else
+         {
+             // Log the network error
+             Debug.LogError("Network Error: " + request.error);
+         }*/
+        if (request.error == null && !request.isNetworkError)
+        {
+            // Log the full response for debugging
+            string responseText = request.downloadHandler.text;
+            Debug.Log("Response: " + responseText);
+
+            // Parse the JSON response
+            JSONNode values = JSON.Parse(responseText);
+
+            // Check if the `success` key exists and is true
+            if (values["success"] != null && values["success"].AsBool)
+            {
+                // Extract the `paymentUrl` directly from the response
+                if (values["paymentUrl"] != null)
+                {
+                    string url = values["paymentUrl"];
+                    Debug.Log("Payment URL: " + url);
+
+                    // Open the payment URL
+                    Application.OpenURL(url);
+                }
+                else
+                {
+                    Debug.LogError("Error: 'paymentUrl' not found in the response.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Error: 'success' is false or missing in the response.");
+            }
+        }
+        else
+        {
+            // Log the network error
+            Debug.LogError("Network Error: " + request.error);
+        }
+
+
+
+    }
+
+
 
     public void ClosePaymentMode()
     {

@@ -459,29 +459,32 @@ public class Withdraw : MonoBehaviour
             {
                 case 0:
                     float amount = (float)(float.Parse(upiamount.text));
+                    Debug.Log("amount  =>  " + amount);
                     form.AddField("amount", amount.ToString());
+                    form.AddField("playerId", DataManager.Instance.playerData._id);
                     form.AddField("note", "UPI withdraw");
                     form.AddField("to", "upi");
-                    form.AddField("upi", address.text);
+                    form.AddField("upiId", address.text);
                     print("Upi Withdreaw : " + address.text);
                     break;
                 case 1:
                     float amount1 = (float)(float.Parse(walletamount.text));
                     form.AddField("amount", amount1.ToString());
+                    form.AddField("playerId", DataManager.Instance.playerData._id);
                     form.AddField("note", "wallet withdraw");
                     form.AddField("to", "wallet");
                     break;
                 case 2:
                     float amount2 = (float)(float.Parse(bankamount.text));
                     form.AddField("amount", amount2.ToString());
+                    form.AddField("playerId", DataManager.Instance.playerData._id);
                     form.AddField("note", "Bank withdraw request");
                     form.AddField("to", "bank");
                     break;
             }
 
-            //WaitPanelManager.Instance.OpenPanel();
-
-            UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/withdraw/request", form);
+        //WaitPanelManager.Instance.OpenPanel();
+            UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/upipayout", form);
             request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
             yield return request.SendWebRequest();
             if (request.error == null && !request.isNetworkError)
@@ -517,6 +520,7 @@ public class Withdraw : MonoBehaviour
                             Destroy(this.gameObject);
                             if (MainMenuManager.Instance.withdrawPrefabForDestroy != null)
                                 Destroy(MainMenuManager.Instance.withdrawPrefabForDestroy);
+
                             break;
                         case 2:
                             Bankmsg.text = "Request send successfull";
