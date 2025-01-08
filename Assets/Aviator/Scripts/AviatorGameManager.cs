@@ -68,7 +68,7 @@ public class AviatorGameManager : MonoBehaviour
     [Header("--- GamePlay ---")]
     public GameObject multiplayerObj;
     public Text multiplierText;
-    public float multiplierSpeed = 1f;
+    public float multiplierSpeed = 2f;
     public Text totalBetText;
     public Text myBetText;
     public Text rightCashOutText;
@@ -76,7 +76,7 @@ public class AviatorGameManager : MonoBehaviour
     public float playerWinAmount;
 
     [Header("--- Fake Bot ---")]
-    public float botBettingDuration = 5f;
+    public float botBettingDuration;
     public GameObject botBettingStartPoint;
     public bool shouldBotBet = true;
     public GameObject botPlayersList;
@@ -179,9 +179,9 @@ public class AviatorGameManager : MonoBehaviour
         lineCanvas.SetActive(true);
         rocketCanvas.SetActive(true);
         rightCashOutButton.interactable = true;
-        leftCashOutButton.interactable = true;
+        // leftCashOutButton.interactable = true;
         rightCashOutButton.gameObject.SetActive(true);
-        leftCashOutButton.gameObject.SetActive(true);
+        //     leftCashOutButton.gameObject.SetActive(true);
         multiplayerObj.gameObject.SetActive(true);
 
         while (isGameRunning)
@@ -216,7 +216,7 @@ public class AviatorGameManager : MonoBehaviour
 
     private IEnumerator UpdateMultiplierText()
     {
-        float elapsedTime = 0f;
+        float elapsedTime = 1f;
 
         while (isGameRunning)
         {
@@ -479,7 +479,7 @@ public class AviatorGameManager : MonoBehaviour
         totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
         myBetText.text = "PLACE BET : " + betAmount.ToString("F2");
 
-        Vector3 rPos = GetRandomPositionWithinBettingArea();
+        Vector3 rPos = GetRandomPositionWithinTransform(bettingArea.transform);
         GameObject chipGen = Instantiate(chipObj, bettingArea.transform);
         chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
         chipGen.transform.position = avatarImg.transform.position;
@@ -487,7 +487,23 @@ public class AviatorGameManager : MonoBehaviour
         ChipGenerate(chipGen, rPos);
 
     }
+    public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
+    {
+        RectTransform rectTransform = targetTransform.GetComponent<RectTransform>();
 
+        // Calculate the local bounds
+        Vector2 size = rectTransform.rect.size;
+        Vector3 localRandomPos = new Vector3(
+            UnityEngine.Random.Range(-size.x / 2, size.x / 2),
+            UnityEngine.Random.Range(-size.y / 2, size.y / 2),
+            0
+        );
+
+        // Convert local position to world position
+        Vector3 worldRandomPos = targetTransform.TransformPoint(localRandomPos);
+
+        return worldRandomPos;
+    }
     private void ChipGenerate(GameObject chip, Vector3 endPos)
     {
         chip.transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 0.2f);
@@ -715,8 +731,20 @@ public class AviatorGameManager : MonoBehaviour
                 totalBetAmount += chipPrice[randomChipIndex];
                 totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
             }
-
+            botBettingDuration = UnityEngine.Random.Range(0.1f, 0.3f);
             yield return new WaitForSeconds(botBettingDuration);
+        }
+    }
+
+    public void CancelBEt()
+    {
+
+        if (!isGameRunning)
+        {
+            DataManager.Instance.ReverseAmount(betAmount, DataManager.Instance.gameId, "Aviator-return-" + DataManager.Instance.gameId, "reverse", 1);
+            betAmount = 0;
+            myBetText.text = "PLACE BET : " + betAmount.ToString("F2");
+
         }
     }
 
