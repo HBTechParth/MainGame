@@ -70,7 +70,7 @@ public class RouletteeBoardDataManage : MonoBehaviour
         }
         winAmountTxt.text = "₹" + playerWinAmount.ToString("F2");
         winNoTxt.text = RouletteManager.Instance.noGen.ToString();
-        print(winNoTxt);
+        print(winNoTxt.text);
 
         print("Admin Commsion : " + adminCommssion);
         

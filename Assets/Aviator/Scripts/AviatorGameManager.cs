@@ -738,8 +738,8 @@ public class AviatorGameManager : MonoBehaviour
 
     public void CancelBEt()
     {
-
-        if (!isGameRunning)
+        Debug.Log("---  CancelBEt CALL ");
+        if (!isGameRunning && betAmount > 0)
         {
             DataManager.Instance.ReverseAmount(betAmount, DataManager.Instance.gameId, "Aviator-return-" + DataManager.Instance.gameId, "reverse", 1);
             betAmount = 0;
