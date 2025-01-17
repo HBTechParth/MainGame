@@ -474,7 +474,7 @@ public class TestSocketIO : MonoBehaviour
             userdata.AddField("name", DataManager.Instance.playerData.firstName.ToString().Trim('"'));
         }
         userdata.AddField("balance", DataManager.Instance.playerData.balance);
-        userdata.AddField("lobbyId", DataManager.Instance.tournamentID);
+        userdata.AddField("lobbyId", DataManager.Instance.tournamentID /*+ UnityEngine.Random.Range(0, 10)*/);
         userdata.AddField("maxp", 99999);
         userdata.AddField("avtar", PlayerPrefs.GetString("ProfileURL"));
 
@@ -3663,7 +3663,7 @@ public class TestSocketIO : MonoBehaviour
         JSONNode value = JSON.Parse(values);
         JSONNode data = JSON.Parse(value["data"].ToString());
         RouletteManager.Instance.noGen = data["betWin"];
-        print("This is recevied data ->____________________> " + values);
+        print("This is recevied data ->____________________> " + RouletteManager.Instance.noGen);
         //Show betwin key as a winner 
 
     }

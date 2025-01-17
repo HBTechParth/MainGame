@@ -48,6 +48,7 @@ public class RouletteButtonData : MonoBehaviour
 
         GameObject chipGenObj = Instantiate(RouletteManager.Instance.chipPrefab, btnParent.transform);
         SendRouletteBet(chipNo);
+        Debug.Log("BEtBtn Call");
         SendBetNo(chipNo, RouletteManager.Instance.GetPrice(passBetClass.betImgNo).ToString());
         
         //RouletteManager.Instance.totalBetPrice += RouletteManager.Instance.GetPrice(passBetClass.betImgNo);
@@ -107,7 +108,7 @@ public class RouletteButtonData : MonoBehaviour
 
     public void ButtonClick()
     {
-
+        Debug.Log("ButtonClick");
         if (RouletteManager.Instance.isStopBet)
         {
             return;
@@ -150,6 +151,7 @@ public class RouletteButtonData : MonoBehaviour
             SoundManager.Instance.ThreeBetSound();
             GameObject chipGenObj = Instantiate(RouletteManager.Instance.chipPrefab, btnParent.transform);
             SendRouletteBet(chipNo);
+            Debug.Log("BEtBtn Call"+ RouletteManager.Instance.betChipNo);
             SendBetNo(chipNo, RouletteManager.Instance.GetPrice(RouletteManager.Instance.betChipNo).ToString());
 
             RouletteManager.Instance.totalCurrentInvest += RouletteManager.Instance.GetPrice(RouletteManager.Instance.betChipNo);
@@ -255,6 +257,7 @@ public class RouletteButtonData : MonoBehaviour
 
     public void SendRouletteBet(int chipNo)
     {
+        Debug.Log("RouletteSendBetData");
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
@@ -265,6 +268,11 @@ public class RouletteButtonData : MonoBehaviour
     
     public void SendBetNo(int chipNo, string betAmount)
     {
+        if (betAmount == "1")
+        {
+            betAmount = "10";
+        }
+        Debug.Log("BET  =>  " + betAmount);
         string manyBetString = "[" + string.Join(",", btnAvaliableNo) + "]";
         TestSocketIO.Instace.SetBetData(chipNo, betAmount, manyBetString, "bet");
     }

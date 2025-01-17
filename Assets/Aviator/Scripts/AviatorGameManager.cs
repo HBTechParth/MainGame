@@ -68,7 +68,7 @@ public class AviatorGameManager : MonoBehaviour
     [Header("--- GamePlay ---")]
     public GameObject multiplayerObj;
     public Text multiplierText;
-    public float multiplierSpeed = 2f;
+    public float multiplierSpeed = 0.2f;
     public Text totalBetText;
     public Text myBetText;
     public Text rightCashOutText;
@@ -135,7 +135,7 @@ public class AviatorGameManager : MonoBehaviour
         isGameRunning = false;
         multiplier = 1f;
         CheckSound();
-        BottomChipAnim(1);
+        BottomChipAnimDOWN();
         SetChipBtnInteractable(false);
         StartGamePlay();
         //ResetScripts();
@@ -172,16 +172,67 @@ public class AviatorGameManager : MonoBehaviour
         betChipList.Clear();
     }
 
+    /*  private IEnumerator GameLoop()
+      {
+          float elapsedTime = 0f;
+          // Making line and rocket visible 
+          lineCanvas.SetActive(true);
+          rocketCanvas.SetActive(true);
+          rightCashOutButton.interactable = true;
+          // leftCashOutButton.interactable = true;
+          rightCashOutButton.gameObject.SetActive(true);
+          //     leftCashOutButton.gameObject.SetActive(true);
+          multiplayerObj.gameObject.SetActive(true);
+
+          while (isGameRunning)
+          {
+              elapsedTime += Time.deltaTime;
+
+              if (elapsedTime >= crashTime)
+              {
+                  isGameRunning = false;
+                  OnGameCrash?.Invoke();
+                  StartCoroutine(BlinkMultiplier()); // Blink 3 times with a duration of 0.2 seconds
+                  rightCashOutButton.gameObject.SetActive(false);
+                  leftCashOutButton.gameObject.SetActive(false);
+                  // Update history data
+                  string newHistory = multiplier.ToString("F2") + "X";
+                  if (historyList.Count >= 10)
+                  {
+                      historyList.RemoveAt(0);
+                  }
+                  historyList.Add(newHistory);
+                  UpdateHistoryPrefabs();
+                  // Update DataManager.Instance.historyPoints
+                  DataManager.Instance.historyPoints = string.Join(",", historyList);
+                  SetWinData(DataManager.Instance.historyPoints);
+
+                  Invoke(nameof(RestartGame), gameRestartDelay); // Delay to reset the game
+              }
+
+              yield return null;
+          }
+      }*/
+
+    private List<bool> last10Results = new List<bool>(); // Stores the last 10 results (true = win, false = loss)
+
+    private List<bool> lastResults = new List<bool>(); // Stores the last few bet results (true = win, false = loss)
+
+
+
     private IEnumerator GameLoop()
     {
         float elapsedTime = 0f;
-        // Making line and rocket visible 
+
+        // Calculate crashTime based on total bet amount and recent streak
+        float totalBet = betAmount; // Assuming you have a way to get the total bet amount
+        crashTime = CalculateCrashTime(totalBet);
+
+        // Making line and rocket visible
         lineCanvas.SetActive(true);
         rocketCanvas.SetActive(true);
         rightCashOutButton.interactable = true;
-        // leftCashOutButton.interactable = true;
         rightCashOutButton.gameObject.SetActive(true);
-        //     leftCashOutButton.gameObject.SetActive(true);
         multiplayerObj.gameObject.SetActive(true);
 
         while (isGameRunning)
@@ -195,6 +246,7 @@ public class AviatorGameManager : MonoBehaviour
                 StartCoroutine(BlinkMultiplier()); // Blink 3 times with a duration of 0.2 seconds
                 rightCashOutButton.gameObject.SetActive(false);
                 leftCashOutButton.gameObject.SetActive(false);
+
                 // Update history data
                 string newHistory = multiplier.ToString("F2") + "X";
                 if (historyList.Count >= 10)
@@ -203,6 +255,15 @@ public class AviatorGameManager : MonoBehaviour
                 }
                 historyList.Add(newHistory);
                 UpdateHistoryPrefabs();
+
+                // Record the result of this round
+                if (betAmount != 0)
+                {
+                    bool isWin = betAmount < playerWinAmount; // Assume anything above 2x is a win
+                    Debug.Log("betAmount => " + betAmount + "       playerWinAmount=> " + playerWinAmount);
+                    RecordResult(isWin);
+                }
+
                 // Update DataManager.Instance.historyPoints
                 DataManager.Instance.historyPoints = string.Join(",", historyList);
                 SetWinData(DataManager.Instance.historyPoints);
@@ -214,6 +275,122 @@ public class AviatorGameManager : MonoBehaviour
         }
     }
 
+    // Method to calculate crash time based on bet amount and streak
+    private float CalculateCrashTime(float totalBet)
+    {
+        // Streak ke hisaab se agar 1x force crash ho, toh direct 1x hi return karo
+        if (ShouldForceCrashBasedOnStreak())
+        {
+            Debug.Log("Forced crash at 1x due to streak conditions.");
+            return 1f;  // Yaha par 1x return karenge agar streak condition match kar gayi
+        }
+
+        // Agar streak force nahi karta, tab niche ka code chalega
+        float minCrashTime = 1f; // Minimum crash time (loss)
+        float maxCrashTime = 20f; // Maximum crash time (profit)
+
+        // Bet range ke hisaab se loss probability decide karo
+        float lossProbability;
+        if (totalBet >= 10 && totalBet <= 100)
+        {
+            lossProbability = 0.2f; // 40% loss chance
+        }
+        else if (totalBet > 100 && totalBet <= 500)
+        {
+            lossProbability = 0.5f; // 50% loss chance
+        }
+        else
+        {
+            lossProbability = 0.6f; // 60% loss chance
+        }
+
+        // Yaha par decide karo ki loss ya profit hoga
+        bool isLoss = UnityEngine.Random.value < lossProbability;
+
+        // Agar loss hai, toh crash time ko 1x se 2x ke beech rakhna
+        if (isLoss)
+        {
+            return UnityEngine.Random.Range(minCrashTime, 3f); // Loss (1x–2x)
+        }
+        else
+        {
+            return UnityEngine.Random.Range(3f, maxCrashTime); // Profit (2x–6x)
+        }
+    }
+
+
+
+    // Method to check if a crash should be forced at 1x based on streak
+    private bool ShouldForceCrashBasedOnStreak()
+    {
+        if (lastResults.Count < 1)
+        {
+            return false; // Not enough data to analyze
+        }
+
+        // Calculate consecutive wins
+        int consecutiveWins = 0;
+        for (int i = lastResults.Count - 1; i >= 0; i--)
+        {
+            if (lastResults[i])
+            {
+                consecutiveWins++;
+            }
+            else
+            {
+                break; // Stop counting if we find a loss
+            }
+        }
+        Debug.Log("consecutiveWins => " + consecutiveWins);
+
+        // Streak ke basis pe force crash karna hai
+        if (consecutiveWins >= 4)
+        {
+            ClearData();
+            return true; // 100% chance to crash at 1x
+        }
+        else if (consecutiveWins == 3)
+        {
+            return UnityEngine.Random.value < 0.7f; // 80% chance
+        }
+        else if (consecutiveWins == 2)
+        {
+            return UnityEngine.Random.value < 0.6f; // 70% chance
+        }
+        else if (consecutiveWins == 1)
+        {
+            return UnityEngine.Random.value < 0.3f; // 70% chance
+        }
+
+
+        // Agar streak force nahi karta, toh normal crash logic chalega
+        float crashChance = 0f; // Default crash chance
+
+        return UnityEngine.Random.value < crashChance;
+    }
+
+    private void ClearData()
+    {
+        lastResults.Clear();
+        Debug.Log("Cleared lastResults data after a forced crash.");
+    }
+
+    // Method to record the result of a bet
+    private void RecordResult(bool isWin)
+    {
+        // Ensure only the last 10 results are stored
+        if (lastResults.Count >= 10)
+        {
+            lastResults.RemoveAt(0); // Remove the oldest result
+        }
+
+        lastResults.Add(isWin); // Add the latest result
+        Debug.Log("Updated Last Results: " + string.Join(", ", lastResults));
+    }
+
+
+
+
     private IEnumerator UpdateMultiplierText()
     {
         float elapsedTime = 1f;
@@ -221,17 +398,23 @@ public class AviatorGameManager : MonoBehaviour
         while (isGameRunning)
         {
             elapsedTime += Time.deltaTime * multiplierSpeed;
+
+            // Ensure elapsedTime doesn't exceed crashTime
+            if (elapsedTime >= crashTime)
+            {
+                elapsedTime = crashTime;  // Stop at crashTime
+                multiplier = crashTime;   // Set multiplier to crashTime value
+                                          //  isGameRunning = false;    // End the game or stop multiplier update
+            }
+
             multiplier = elapsedTime;
             multiplierText.text = multiplier.ToString("F2") + "X";
             UpdateCashOutText();
+
             yield return null;
         }
     }
 
-    private IEnumerator BlinkMultiplier()
-    {
-        yield return multiplierText.DOFade(0f, 0.2f).SetLoops(6, LoopType.Yoyo).WaitForCompletion();
-    }
 
     private void UpdateCashOutText()
     {
@@ -247,6 +430,11 @@ public class AviatorGameManager : MonoBehaviour
             leftCashOutText.text = "0.00";
         }
     }
+    private IEnumerator BlinkMultiplier()
+    {
+        yield return multiplierText.DOFade(0f, 0.2f).SetLoops(6, LoopType.Yoyo).WaitForCompletion();
+    }
+
 
     private void RestartGame()
     {
@@ -291,7 +479,7 @@ public class AviatorGameManager : MonoBehaviour
 
     private void GenerateRandomCrashTime()
     {
-        crashTime = UnityEngine.Random.Range(minCrashTime, maxCrashTime);
+        //  crashTime = UnityEngine.Random.Range(minCrashTime, maxCrashTime);
         /*if (isAdmin)
         {
             crashTime = UnityEngine.Random.Range(minCrashTime, maxCrashTime);
@@ -452,6 +640,15 @@ public class AviatorGameManager : MonoBehaviour
             chipBtn[i].transform.DOMoveY(i == no ? upValue : downValue, 0.05f);
         }
     }
+    void BottomChipAnimDOWN()
+    {
+
+        for (int i = 0; i < chipBtn.Length; i++)
+        {
+            chipBtn[i].transform.DOMoveY(downValue, 0.05f);
+        }
+        chipBtn[0].transform.DOMoveY(upValue, 0.05f);
+    }
 
     private void CalculateBetAreaBounds()
     {
@@ -460,7 +657,7 @@ public class AviatorGameManager : MonoBehaviour
         betAreaSize = new Vector3(betAreaWidth, betAreaHeight, 1f);
         betAreaCenter = new Vector3((minBetAreaX + maxBetAreaX) / 2f, (minBetAreaY + maxBetAreaY) / 2f, 0f);
     }
-
+    public Text limitOutText;
     public void BetButtonClick()
     {
         bool isMoneyAv = CheckMoney(chipPrice[selectChipNo]);
@@ -471,20 +668,32 @@ public class AviatorGameManager : MonoBehaviour
             return;
         }
 
-        SoundManager.Instance.ThreeBetSound();
-        DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId, "Aviator-Bet-" + DataManager.Instance.gameId, "game", 2);
+        //if (betAmount + chipPrice[selectChipNo] <= 600)
+        {
+            SoundManager.Instance.ThreeBetSound();
+            DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId, "Aviator-Bet-" + DataManager.Instance.gameId, "game", 2);
 
-        betAmount += chipPrice[selectChipNo];
-        totalBetAmount += chipPrice[selectChipNo];
-        totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
-        myBetText.text = "PLACE BET : " + betAmount.ToString("F2");
+            betAmount += chipPrice[selectChipNo];
+            totalBetAmount += chipPrice[selectChipNo];
+            totalBetText.text = "Total Bet : " + totalBetAmount.ToString("F2");
+            myBetText.text = "PLACE BET : " + betAmount.ToString("F2");
 
-        Vector3 rPos = GetRandomPositionWithinTransform(bettingArea.transform);
-        GameObject chipGen = Instantiate(chipObj, bettingArea.transform);
-        chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
-        chipGen.transform.position = avatarImg.transform.position;
-        betChipList.Add(chipGen);
-        ChipGenerate(chipGen, rPos);
+            Vector3 rPos = GetRandomPositionWithinTransform(bettingArea.transform);
+            GameObject chipGen = Instantiate(chipObj, bettingArea.transform);
+            chipGen.transform.GetComponent<Image>().sprite = chipsSprite[selectChipNo];
+            chipGen.transform.position = avatarImg.transform.position;
+            betChipList.Add(chipGen);
+            ChipGenerate(chipGen, rPos);
+        }
+       /* else
+        {
+            limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+            limitOutText.text = "Maximum Bet Limit Under 600 INR";
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+            });
+        }*/
 
     }
     public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)

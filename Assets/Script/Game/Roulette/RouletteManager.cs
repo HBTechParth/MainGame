@@ -213,6 +213,7 @@ public class RouletteManager : MonoBehaviour
         }
         findTriggerObj = triggerObj[findNo];
         wheelRoulette.transform.rotation = Quaternion.Euler(Vector3.zero);
+        ballRoulette.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         //ballRoulette.transform.position = ballStartPos.transform.position;
         SoundManager.Instance.RollDice_Start_Sound();
         wheelRoulette.UpdateWheel();
@@ -254,6 +255,7 @@ public class RouletteManager : MonoBehaviour
     {
         //print(findTriggerObj.gameObject.name);
         findTriggerObj.transform.GetChild(0).gameObject.SetActive(true);
+        ballRoulette.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
 
         //  BallRoulette.instance.body.velocity = new Vector2(0.5f, 0.5f);
 
@@ -791,10 +793,14 @@ public class RouletteManager : MonoBehaviour
 
     void ChipAnimMaintain(int no)
     {
+
+        Debug.Log("betchi" + betChipNo);
+        Debug.Log("No" + no);
         betChipNo = no;
         for (int i = 0; i < chipBtn.Length; i++)
         {
-            chipBtn[i].transform.DOMoveY(i == no ? upValue : downValue, 0.05f);
+            Debug.Log("ch => " + chipBtn[i]);
+            chipBtn[i].transform.DOMoveY((i == no) ? upValue : downValue, 0.05f);
         }
         //chipImg.sprite = chipSprite[betChipNo];
     }
@@ -830,7 +836,7 @@ public class RouletteManager : MonoBehaviour
         int spawnLocation = Random.Range(0, spawnLocations.Count);
         Vector3 endChip = spawnLocations[spawnLocation].transform.position;
         //chipGen.transform.position = spawnLocations[spawnLocation].transform.position;
-        Objects.Add(chipGen);
+        // Objects.Add(chipGen);
         ChipGenerate(chipGen, endChip);
         Destroy(chipGen, 1f);
     }
@@ -924,7 +930,7 @@ public class RouletteManager : MonoBehaviour
             betAmount += rouleteeBets[i].betTotalAmount;
             chipObj.transform.DOMove(chipAnimParent.transform.position, 0.2f).OnComplete(() =>
             {
-
+                Destroy(chipObj);
             });
         }
         print("This is the bet amount -> " + betAmount);
@@ -946,10 +952,11 @@ public class RouletteManager : MonoBehaviour
         {
             if (rouleteeBets[i].placeNo == no)
             {
-                for (int j = 0; j < rouleteeBets[i].blackPanelList.Count; j++)
-                {
-                    rouleteeBets[i].blackPanelList[j].SetActive(false);
-                }
+                /*  for (int j = 0; j < rouleteeBets[i].blackPanelList.Count; j++)
+                  {
+                      rouleteeBets[i].blackPanelList[j].SetActive(false);
+                  }*/
+                Debug.Log("No   " + no);
                 GameObject chipObj = rouleteeBets[i].chipObj;
                 chipObj.transform.DOMove(chipAnimParent.transform.position, 0.2f).OnComplete(() =>
                 {
@@ -1062,19 +1069,19 @@ public class RouletteManager : MonoBehaviour
         if (sNo >= 71 && sNo <= 127)
         {
             winRuleNo = 2;
-            mulValue = 17;
+            mulValue = 18;
         }
         if (sNo >= 130 && sNo <= 141)
         {
             winRuleNo = 3;
-            mulValue = 11;
+            mulValue = 12;
         }
         if (sNo >= 49 && sNo <= 70)
         {
             winRuleNo = 4;
-            mulValue = 8;
+            mulValue = 9;
         }
-        if (sNo == 128 || sNo == 129)
+        if (sNo == 128 || sNo == 129 || (sNo >= 142 && sNo <= 150))
         {
             winRuleNo = 5;
             mulValue = 5;
@@ -1098,14 +1105,14 @@ public class RouletteManager : MonoBehaviour
         if (sNo == 40 || sNo == 41 || sNo == 42)
         {
             winRuleNo = 9;
-            mulValue = 4;
+            mulValue = 3;
         }
         if (sNo == 37 || sNo == 38 || sNo == 39)
         {
             winRuleNo = 9;
             mulValue = 3;
         }
-
+        Debug.Log("mulValue  =     " + mulValue);
         return mulValue;
     }
 
@@ -1116,9 +1123,11 @@ public class RouletteManager : MonoBehaviour
         {
             if (rouleteeBets[i].rouletteButtonData.btnAvaliableNo.Contains(noGen))
             {
+                Debug.Log("rouleteeBets[i].betTotalAmount =  " + rouleteeBets[i].betTotalAmount);
                 winvalue += (rouleteeBets[i].betTotalAmount * WinRuleNo(rouleteeBets[i].rouletteButtonData.chipNo));
             }
         }
+        Debug.Log("winvalue  = >  " + winvalue);
         return winvalue;
     }
 
@@ -1240,6 +1249,7 @@ public class RouletteManager : MonoBehaviour
     {
         if (data != "")
         {
+            Debug.Log("winList => " + winList.Count);
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
@@ -1337,39 +1347,39 @@ public class RouletteManager : MonoBehaviour
     }
 
 
-    void CenterToAddUser()
-    {
-        isStopBet = true;
-        totalCurrentInvest = 0;
-        for (int i = 0; i < blackPanelObj.Count; i++)
-        {
-            blackPanelObj[i].SetActive(false);
-        }
-        for (int i = 0; i < btnParentPanelObj.Count; i++)
-        {
-            for (int j = 0; j < btnParentPanelObj[i].transform.childCount; j++)
-            {
-                Destroy(btnParentPanelObj[i].transform.GetChild(j).transform.gameObject);
-            }
-        }
+    /* void CenterToAddUser()
+     {
+         isStopBet = true;
+         totalCurrentInvest = 0;
+         for (int i = 0; i < blackPanelObj.Count; i++)
+         {
+             blackPanelObj[i].SetActive(false);
+         }
+         for (int i = 0; i < btnParentPanelObj.Count; i++)
+         {
+             for (int j = 0; j < btnParentPanelObj[i].transform.childCount; j++)
+             {
+                 Destroy(btnParentPanelObj[i].transform.GetChild(j).transform.gameObject);
+             }
+         }
 
-        rouleteeBetsBefore.Clear();
-        for (int i = 0; i < rouleteeBets.Count; i++)
-        {
-            RouleteeBetClass rouleteeBet = rouleteeBets[i];
-            rouleteeBetsBefore.Add(rouleteeBet);
-        }
-        rouleteeBets.Clear();
+         rouleteeBetsBefore.Clear();
+         for (int i = 0; i < rouleteeBets.Count; i++)
+         {
+             RouleteeBetClass rouleteeBet = rouleteeBets[i];
+             rouleteeBetsBefore.Add(rouleteeBet);
+         }
+         rouleteeBets.Clear();
 
 
 
-        isStopBet = false;
-        isEnterTheRoulette = false;
-        //timerValue = ((int)fixTimeSet);
-        timerTxt.text = timerValue.ToString();
-        //secondCount = fixTimeSet;
-    }
-
+         isStopBet = false;
+         isEnterTheRoulette = false;
+         //timerValue = ((int)fixTimeSet);
+         timerTxt.text = timerValue.ToString();
+         //secondCount = fixTimeSet;
+     }
+ */
     #endregion
 
     #region Sounds

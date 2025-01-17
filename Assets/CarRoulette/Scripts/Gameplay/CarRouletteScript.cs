@@ -899,14 +899,27 @@ public class CarRouletteScript : MonoBehaviour
         SoundManager.Instance.CarWinSound();
         float winAmount = 0;
 
-        if (car == CarNames.Lamborghini || car == CarNames.Bmw || car == CarNames.Benz || car == CarNames.Jaguar)
+        if (car == CarNames.Lamborghini)
+        {
+            winAmount = betPriceValue[(int)car] * 4;
+        }
+        else if (car == CarNames.Bmw)
+        {
+            winAmount = betPriceValue[(int)car] * 6;
+        }
+        else if (car == CarNames.Benz)
+        {
+            winAmount = betPriceValue[(int)car] * 10;
+        }
+        else if (car == CarNames.Jaguar)
         {
             winAmount = betPriceValue[(int)car] * 20;
         }
         else
         {
-            winAmount = betPriceValue[(int)car] * 5;
+            winAmount = betPriceValue[(int)car] * 2;
         }
+
 
         // Use the car and winAmount variables as needed
         print("Car Name: " + car + ", Win Amount: " + winAmount);
@@ -1201,7 +1214,7 @@ public class CarRouletteScript : MonoBehaviour
         {
             if (winList.Count != 0)
                 Debug.Log("winList  =  " + winList.Count);
-                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
         }
 
         int childCount = PounCarrier.transform.childCount;

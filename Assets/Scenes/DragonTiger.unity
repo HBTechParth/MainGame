@@ -67105,14 +67105,14 @@ MonoBehaviour:
   - {fileID: 1470103132}
   chipObj: {fileID: 6045801307772696808, guid: 2c5aad2a6acf64958b43b7373d7b02ae, type: 3}
   chipPrice:
-  - 1
+  - 10
   - 10
   - 50
   - 100
   - 500
   - 1000
   chipsSprite:
-  - {fileID: 21300000, guid: 9c1ff2fb360c54836873e91fbf315b85, type: 3}
+  - {fileID: 21300000, guid: bc62e10ff7cbc4e0a920a632355d5445, type: 3}
   - {fileID: 21300000, guid: bc62e10ff7cbc4e0a920a632355d5445, type: 3}
   - {fileID: 21300000, guid: 1c54de5f6d6054d279d66e3cb2d3fdad, type: 3}
   - {fileID: 21300000, guid: d30112cbf4bec4ddcb75459d87fd669b, type: 3}

@@ -1290,4 +1290,5 @@ public class JoinPlayerData
     public int playerNo;
     public string avtar;
     public string pPicture;
+
 }
