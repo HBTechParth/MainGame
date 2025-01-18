@@ -1934,16 +1934,37 @@ public class DragonTigerManager : MonoBehaviour
         // Default largest bet logic
         else
         {
-            if (dragonPrice >= tigerPrice)
+            /* if (dragonPrice >= tigerPrice)
+             {
+                 gameNum = dragonPrice >= tiePrice ? 2 : 3; // Largest bet on Dragon or Tie.
+                 Debug.Log($"Default logic: Largest bet on Dragon or Tie: gameNum = {gameNum}");
+             }
+             else
+             {
+                 gameNum = tigerPrice >= tiePrice ? 1 : 3; // Largest bet on Tiger or Tie.
+                 Debug.Log($"Default logic: Largest bet on Tiger or Tie: gameNum = {gameNum}");
+             }*/
+            float randomValue1 = UnityEngine.Random.Range(0f, 10f);
+
+            if (randomValue1 >= 0f && randomValue1 < 2f)
             {
-                gameNum = dragonPrice >= tiePrice ? 2 : 3; // Largest bet on Dragon or Tie.
-                Debug.Log($"Default logic: Largest bet on Dragon or Tie: gameNum = {gameNum}");
+                // Tie (0-2)
+                gameNum = 3;
+                Debug.Log("Result: Tie");
             }
-            else
+            else if (randomValue1 >= 2f && randomValue1 < 6f)
             {
-                gameNum = tigerPrice >= tiePrice ? 1 : 3; // Largest bet on Tiger or Tie.
-                Debug.Log($"Default logic: Largest bet on Tiger or Tie: gameNum = {gameNum}");
+                // Dragon (2-6)
+                gameNum = 2;
+                Debug.Log("Result: Dragon");
             }
+            else if (randomValue1 >= 6f && randomValue1 <= 10f)
+            {
+                // Tiger (6-10)
+                gameNum = 1;
+                Debug.Log("Result: Tiger");
+            }
+
         }
 
 
@@ -1982,7 +2003,7 @@ public class DragonTigerManager : MonoBehaviour
         int card1Value = 0;
         int card2Value = 0;
 
-        if (num == 1) // Dragon win
+        if (num == 2) // Dragon win
         {
             // Pick cards that satisfy Dragon win condition (card1Value is at least 2 smaller than card2Value)
             do
@@ -1994,7 +2015,7 @@ public class DragonTigerManager : MonoBehaviour
                 PickCardSet();
                 card2 = set;
                 card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card1Value >= card2Value - 2);
+            } while (card1Value <= card2Value);
             // Ensure card1 is at least 2 smaller than card2
 
             cardNo1 = card1;
@@ -2002,7 +2023,7 @@ public class DragonTigerManager : MonoBehaviour
 
             Debug.Log("Dragon Win: card1 = " + card1Value + ", card2 = " + card2Value);
         }
-        else if (num == 2) // Tiger win
+        else if (num == 1) // Tiger win
         {
             // Pick cards that satisfy Tiger win condition (card2Value is at least 2 greater than card1Value)
             do

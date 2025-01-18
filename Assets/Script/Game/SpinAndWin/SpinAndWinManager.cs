@@ -711,7 +711,8 @@ public class SpinAndWinManager : MonoBehaviour
         }
 
 
-        float adminPercentage = DataManager.Instance.adminPercentage;
+        float adminPercentage = 0;
+     //   float adminPercentage = DataManager.Instance.adminPercentage;
 
 
 
@@ -1895,17 +1896,122 @@ public class SpinAndWinManager : MonoBehaviour
     public void GetLargestBet()
     {
         if (!isAdmin) return;
-        int gameNum = 0;
-        // 1 for dragon, 2 for tiger, 3 for tie.
-        // if Dragon is more
-        if (dragonTotalPrice >= tigerTotalPrice)
+
+        int gameNum = 0; // 1 for Dragon, 2 for Tiger, 3 for Tie.
+        float randomValue = UnityEngine.Random.Range(0f, 1f); // Random value between 0 and 1.
+        Debug.Log($"Random Value: {randomValue}");
+
+
+        if (dragonPrice > 0 && tigerPrice == 0 && tiePrice == 0)
         {
-            gameNum = dragonTotalPrice >= tieTotalPrice ? 1 : 3;
+            // Dragon single bet
+            if (dragonPrice >= 10 && dragonPrice <= 100)
+            {
+                gameNum = randomValue <= 0.4f ? 2 : 1; // 40% Dragon, 60% Tiger.
+                Debug.Log($"Single bet on Dragon (10-100): gameNum = {gameNum}");
+            }
+            else if (dragonPrice > 100 && dragonPrice <= 500)
+            {
+                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
+                Debug.Log($"Single bet on Dragon (100-500): gameNum = {gameNum}");
+            }
+            else
+            {
+                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
+                Debug.Log($"Single bet on Dragon (>500): gameNum = {gameNum}");
+            }
         }
+        else if (tigerPrice > 0 && dragonPrice == 0 && tiePrice == 0)
+        {
+            // Tiger single bet
+            if (tigerPrice >= 10 && tigerPrice <= 100)
+            {
+                gameNum = randomValue <= 0.4f ? 1 : 2; // 40% Tiger, 60% Dragon.
+                Debug.Log($"Single bet on Tiger (10-100): gameNum = {gameNum}");
+            }
+            else if (tigerPrice > 100 && tigerPrice <= 500)
+            {
+                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
+                Debug.Log($"Single bet on Tiger (100-500): gameNum = {gameNum}");
+            }
+            else
+            {
+                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
+                Debug.Log($"Single bet on Tiger (>500): gameNum = {gameNum}");
+            }
+        }
+        // Bet on both Dragon and Tiger
+        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice == 0)
+        {
+            if (randomValue <= 0.2f)
+            {
+                gameNum = 3; // 20% Tie.
+                Debug.Log("Bet on both Dragon and Tiger: gameNum = 3 (Tie)");
+            }
+            else
+            {
+                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
+                Debug.Log($"Bet on both Dragon and Tiger: gameNum = {gameNum}");
+            }
+        }
+        // Bet on all three (Dragon, Tiger, Tie)
+        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice > 0)
+        {
+            if (randomValue <= 0.2f)
+            {
+                gameNum = 3; // 20% Tie.
+                Debug.Log("Bet on all three (Dragon, Tiger, Tie): gameNum = 3 (Tie)");
+            }
+            else
+            {
+                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
+                Debug.Log($"Bet on all three (Dragon, Tiger, Tie): gameNum = {gameNum}");
+            }
+        }
+        // Bet only on Tie
+        else if (tiePrice > 0 && dragonPrice == 0 && tigerPrice == 0)
+        {
+            gameNum = randomValue <= 0.1f ? 3 : (randomValue <= 0.55f ? 2 : 1); // 10% Tie, 45% Dragon, 45% Tiger.
+            Debug.Log($"Bet only on Tie: gameNum = {gameNum}");
+        }
+        // Default largest bet logic
         else
         {
-            gameNum = tigerTotalPrice >= tieTotalPrice ? 2 : 3;
+            /* if (dragonPrice >= tigerPrice)
+             {
+                 gameNum = dragonPrice >= tiePrice ? 2 : 3; // Largest bet on Dragon or Tie.
+                 Debug.Log($"Default logic: Largest bet on Dragon or Tie: gameNum = {gameNum}");
+             }
+             else
+             {
+                 gameNum = tigerPrice >= tiePrice ? 1 : 3; // Largest bet on Tiger or Tie.
+                 Debug.Log($"Default logic: Largest bet on Tiger or Tie: gameNum = {gameNum}");
+             }*/
+            float randomValue1 = UnityEngine.Random.Range(0f, 10f);
+
+            if (randomValue1 >= 0f && randomValue1 < 2f)
+            {
+                // Tie (0-2)
+                gameNum = 3;
+                Debug.Log("Result: Tie");
+            }
+            else if (randomValue1 >= 2f && randomValue1 < 6f)
+            {
+                // Dragon (2-6)
+                gameNum = 2;
+                Debug.Log("Result: Dragon");
+            }
+            else if (randomValue1 >= 6f && randomValue1 <= 10f)
+            {
+                // Tiger (6-10)
+                gameNum = 1;
+                Debug.Log("Result: Tiger");
+            }
+
         }
+
+
+        Debug.Log("Game number => " + gameNum);
 
         GenerateNumber(gameNum);
     }
@@ -1935,70 +2041,69 @@ public class SpinAndWinManager : MonoBehaviour
     {
         int card1 = 0;
         int card2 = 0;
-        int newNum = 0;
-        if (num == 1)
+        int card1Value = 0;
+        int card2Value = 0;
+
+        if (num == 2) // Dragon win
         {
-            //Dragon win
-            PickCardSet();
-            card1 = set;
-            PickCardSet();
-            card2 = set;
-            if (cardSuffles[card1].cardNo < cardSuffles[card2].cardNo)
+            // Pick cards that satisfy Dragon win condition (card1Value is at least 2 smaller than card2Value)
+            do
             {
-                newNum = CheckCardValue(card1);
-                cardNo1 = newNum;
-                cardNo2 = card2;
-            }
-            else
-            {
-                cardNo1 = card2;
-                cardNo2 = card1;
-            }
-            //print(card1 + card2);
-            print("Dragon Win");
+                PickCardSet();
+                card1 = set;
+                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
 
+                PickCardSet();
+                card2 = set;
+                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
+            } while (card1Value <= card2Value);
+            // Ensure card1 is at least 2 smaller than card2
+
+            cardNo1 = card1;
+            cardNo2 = card2;
+
+            Debug.Log("Dragon Win: card1 = " + card1Value + ", card2 = " + card2Value);
         }
-        else if (num == 2)
+        else if (num == 1) // Tiger win
         {
-            //tiger win
-            PickCardSet();
-            card1 = set;
-            PickCardSet();
-            card2 = set;
-            if (cardSuffles[card1].cardNo > cardSuffles[card2].cardNo)
+            // Pick cards that satisfy Tiger win condition (card2Value is at least 2 greater than card1Value)
+            do
             {
-                newNum = CheckCardValue(card2);
-                cardNo1 = card1;
-                cardNo2 = newNum;
-            }
-            else
-            {
-                cardNo1 = card2;
-                cardNo2 = card1;
-            }
-            //print(card1 + card2);
-            print("tiger Win");
+                PickCardSet();
+                card1 = set;
+                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
+
+                PickCardSet();
+                card2 = set;
+                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
+            } while (card2Value <= card1Value + 2);
+            // Ensure card2 is at least 2 greater than card1
+
+            cardNo1 = card1;
+            cardNo2 = card2;
+
+            Debug.Log("Tiger Win: card1 = " + card1Value + ", card2 = " + card2Value);
         }
-        else if (num == 3)
+        else if (num == 3) // Tie win
         {
-            //tie win
-            PickCardSet();
-            card1 = set;
-            PickCardSet();
-            card2 = set;
-            if (cardSuffles[card1].cardNo == cardSuffles[card2].cardNo)
+            // Pick cards that satisfy Tie win condition (card1Value is equal to card2Value)
+            do
             {
-                cardNo2 = card2 - 1;
-            }
-            else
-            {
+                PickCardSet();
+                card1 = set;
+                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
 
-            }
-            //print(card1 + card2);
-            print("Tie Win");
+                PickCardSet();
+                card2 = set;
+                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
+            } while (card1Value != card2Value);
+            // Ensure both cards are equal
+
+            cardNo1 = card1;
+            cardNo2 = card2;
+
+            Debug.Log("Tie Win: card1 = " + card1Value + ", card2 = " + card2Value);
         }
-
-
     }
 
     private int CheckCardValue(int num)

@@ -138,6 +138,8 @@ public class AviatorGameManager : MonoBehaviour
         BottomChipAnimDOWN();
         SetChipBtnInteractable(false);
         StartGamePlay();
+        UpdateToggleSprite();
+        UpdateInputFieldInteractivity();
         //ResetScripts();
     }
 
@@ -164,7 +166,6 @@ public class AviatorGameManager : MonoBehaviour
         OnGameStart?.Invoke();
         StartCoroutine(GameLoop());
         StartCoroutine(UpdateMultiplierText());
-
         foreach (GameObject chip in betChipList)
         {
             Destroy(chip);
@@ -397,6 +398,7 @@ public class AviatorGameManager : MonoBehaviour
 
         while (isGameRunning)
         {
+
             elapsedTime += Time.deltaTime * multiplierSpeed;
 
             // Ensure elapsedTime doesn't exceed crashTime
@@ -404,11 +406,37 @@ public class AviatorGameManager : MonoBehaviour
             {
                 elapsedTime = crashTime;  // Stop at crashTime
                 multiplier = crashTime;   // Set multiplier to crashTime value
-                                          //  isGameRunning = false;    // End the game or stop multiplier update
             }
-
             multiplier = elapsedTime;
             multiplierText.text = multiplier.ToString("F2") + "X";
+
+            if (isOn && betAmount > 0)
+            {
+                float inputValue;
+                if (float.TryParse(autoCashOutinputField.text, out inputValue))
+                {
+                    if (inputValue < 1.1f)
+                    {
+                        inputValue = 1.1f;
+                        autoCashOutinputField.text = inputValue.ToString("F2"); // Update the InputField to 1.1
+                        Debug.Log("Value was below 1.1. Set to 1.1 by default.");
+                    }
+                    if (Mathf.Abs(multiplier - inputValue) < 0.01f) // Using a small tolerance value
+                    {
+                        Debug.Log("Match found! Auto cash-out triggered.");
+                        CashOutButtonClick();
+                        // Your auto cash-out logic here
+                    }
+                    else
+                    {
+                        //  Debug.Log($"No match: multiplier = {multiplier:F2}, inputValue = {inputValue:F2}");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Invalid input in the auto cash-out InputField.");
+                }
+            }
             UpdateCashOutText();
 
             yield return null;
@@ -423,11 +451,13 @@ public class AviatorGameManager : MonoBehaviour
             float cashOutAmount = betAmount * multiplier;
             rightCashOutText.text = cashOutAmount.ToString("F2");
             leftCashOutText.text = cashOutAmount.ToString("F2");
+
         }
         else
         {
             rightCashOutText.text = "0.00";
             leftCashOutText.text = "0.00";
+
         }
     }
     private IEnumerator BlinkMultiplier()
@@ -685,15 +715,15 @@ public class AviatorGameManager : MonoBehaviour
             betChipList.Add(chipGen);
             ChipGenerate(chipGen, rPos);
         }
-       /* else
-        {
-            limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-            limitOutText.text = "Maximum Bet Limit Under 600 INR";
-            DOVirtual.DelayedCall(1f, () =>
-            {
-                limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
-            });
-        }*/
+        /* else
+         {
+             limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+             limitOutText.text = "Maximum Bet Limit Under 600 INR";
+             DOVirtual.DelayedCall(1f, () =>
+             {
+                 limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+             });
+         }*/
 
     }
     public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
@@ -761,7 +791,7 @@ public class AviatorGameManager : MonoBehaviour
         {
             float investPrice = betAmount * multiplier;
             float winReward = investPrice - betAmount;
-           // float adminCommission = DataManager.Instance.adminPercentage / 100f;
+            // float adminCommission = DataManager.Instance.adminPercentage / 100f;
             float adminCommission = 0;
             float winAmount = winReward - (winReward * adminCommission);
             playerWinAmount = betAmount + winAmount;
@@ -785,13 +815,61 @@ public class AviatorGameManager : MonoBehaviour
             float randomValue = UnityEngine.Random.Range(0f, 1f); // Random value between 0 and 1.
             if (randomValue <= 0.4f) // 30% chance to increase crash time
             {
-                float multiplierFactor = UnityEngine.Random.Range(1.5f, 3f); // Increase crash time by a factor of 1.5 to 3
+                float multiplierFactor = UnityEngine.Random.Range(0f, 2f); // Increase crash time by a factor of 1.5 to 3
                 crashTime = crashTime * multiplierFactor;
                 Debug.Log("Crash time increased by factor: " + multiplierFactor + ", New Crash Time: " + crashTime);
             }
         }
     }
+    public Image toggleImage; // Reference to the Image component of the button
+    public Sprite onSprite;  // Sprite for the "On" state
+    public Sprite offSprite; // Sprite for the "Off" state
 
+    private bool isOn = false; // Track the toggle state
+    public InputField autoCashOutinputField;
+
+
+    // Call this method when the button is clicked
+    public void OnAUTOCASHButtonClick()
+    {
+        Debug.Log("OnAUTOCASHButtonClick= " + isOn);
+
+        isOn = !isOn; // Toggle the state
+        UpdateToggleSprite();
+        UpdateInputFieldInteractivity();
+        Debug.Log("Auto Cash Out is " + (isOn ? "On" : "Off"));
+    }
+    private void UpdateInputFieldInteractivity()
+    {
+        autoCashOutinputField.interactable = isOn;
+    }
+    public void ValidateInputField()
+    {
+        string inputValue = autoCashOutinputField.text; // Get the current value from the InputField
+
+        if (float.TryParse(inputValue, out float enteredValue)) // Try to parse the input to a float
+        {
+            if (enteredValue < 1.1f) // Check if the value is less than 1.1
+            {
+                autoCashOutinputField.text = "1.01"; // Set to 1.01 if the condition is met
+                Debug.Log("Input value was less than 1.1. Automatically set to 1.01.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid input. Please enter a valid number.");
+        }
+    }
+    // Update the button sprite based on the state
+    private void UpdateToggleSprite()
+    {
+        toggleImage.sprite = isOn ? onSprite : offSprite;
+    }
+    // Optional: Add a getter for external scripts to check the state
+    public bool IsToggleOn()
+    {
+        return isOn;
+    }
 
     #endregion
 
