@@ -971,7 +971,7 @@ public class CarRouletteScript : MonoBehaviour
             winAnimationTxt.text = "+" + playerWinAmount;
             Invoke(nameof(WinAmountTextOff), 1.5f);
 
-            DataManager.Instance.AddAmount((float)(playerWinAmount), TestSocketIO.Instace.roomid, "CarRoulette-Win-" + TestSocketIO.Instace.roomid, "won", (float)(adminCommssion), noGen);
+            DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "CarRoulette-Win-" + TestSocketIO.Instace.roomid, "won", (float)(adminCommssion), noGen);
         }
         UpdateHistoryRecord(winNumber);
         Invoke(nameof(WinAnimationOff), 5.5f);

@@ -98,7 +98,7 @@ public class RouletteeBoardDataManage : MonoBehaviour
             winAnimationTxt.text = "+" + playerWinAmount;
             Invoke(nameof(WinAmountTextOff), 0.52f);
             DataManager.Instance.AddAmount((float)(playerWinAmount),
-                TestSocketIO.Instace.roomid,
+                DataManager.Instance.gameId,
                 "Roulette-Win-" + TestSocketIO.Instace.roomid,
                 "won",
                 0f, // Admin Commission Removed

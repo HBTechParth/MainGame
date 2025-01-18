@@ -761,7 +761,8 @@ public class AviatorGameManager : MonoBehaviour
         {
             float investPrice = betAmount * multiplier;
             float winReward = investPrice - betAmount;
-            float adminCommission = DataManager.Instance.adminPercentage / 100f;
+           // float adminCommission = DataManager.Instance.adminPercentage / 100f;
+            float adminCommission = 0;
             float winAmount = winReward - (winReward * adminCommission);
             playerWinAmount = betAmount + winAmount;
 
@@ -779,6 +780,14 @@ public class AviatorGameManager : MonoBehaviour
                     winTxt.rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack);
                 });
                 DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "aviator-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommission), 1);
+            }
+
+            float randomValue = UnityEngine.Random.Range(0f, 1f); // Random value between 0 and 1.
+            if (randomValue <= 0.4f) // 30% chance to increase crash time
+            {
+                float multiplierFactor = UnityEngine.Random.Range(1.5f, 3f); // Increase crash time by a factor of 1.5 to 3
+                crashTime = crashTime * multiplierFactor;
+                Debug.Log("Crash time increased by factor: " + multiplierFactor + ", New Crash Time: " + crashTime);
             }
         }
     }

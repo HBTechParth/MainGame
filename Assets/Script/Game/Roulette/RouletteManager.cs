@@ -1408,13 +1408,16 @@ public class RouletteManager : MonoBehaviour
     public void MusicButtonClick()
     {
         SoundManager.Instance.ButtonClick();
+        Debug.Log("musicImg =  " + musicImg.sprite.name);
         if (musicImg.sprite == musiconSprite)
         {
+        Debug.Log("musicImg =  " + musicImg.sprite.name);
             DataManager.Instance.SetMusic(1);
             musicImg.sprite = musicoffSprite;
         }
         else if (musicImg.sprite == musicoffSprite)
         {
+        Debug.Log("musicImg =  " + musicImg.sprite.name);
             DataManager.Instance.SetMusic(0);
             musicImg.sprite = musiconSprite;
             SoundManager.Instance.ButtonClick();
