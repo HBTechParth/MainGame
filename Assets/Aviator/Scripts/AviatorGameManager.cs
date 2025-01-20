@@ -352,14 +352,20 @@ public class AviatorGameManager : MonoBehaviour
         }
         else if (consecutiveWins == 3)
         {
+            ClearData();
+
             return UnityEngine.Random.value < 0.7f; // 80% chance
         }
         else if (consecutiveWins == 2)
         {
+            ClearData();
+
             return UnityEngine.Random.value < 0.6f; // 70% chance
         }
         else if (consecutiveWins == 1)
         {
+            ClearData();
+
             return UnityEngine.Random.value < 0.3f; // 70% chance
         }
 

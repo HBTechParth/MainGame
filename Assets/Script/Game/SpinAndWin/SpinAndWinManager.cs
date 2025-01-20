@@ -462,7 +462,7 @@ public class SpinAndWinManager : MonoBehaviour
         winNo = 0;
         if (cardSuffle1.cardNo == cardSuffle2.cardNo)
         {
-            winNo = 1; // tie
+            winNo = 3; // tie
         }
         else if (cardSuffle1.cardNo > cardSuffle2.cardNo)
         {
@@ -470,7 +470,7 @@ public class SpinAndWinManager : MonoBehaviour
         }
         else if (cardSuffle1.cardNo < cardSuffle2.cardNo)
         {
-            winNo = 3; // tiger
+            winNo = 1; // tiger
         }
 
         print("Win No : " + winNo);
