@@ -77,7 +77,7 @@ public class SevenUpDownManager : MonoBehaviour
     public Text timerText;
     bool isEnterBetStop;
     private bool _isClickAvailable;
-
+    public float sevenUpDownAdminCommission;
 
 
     [Header("--- Chip Generate Position ---")]
@@ -156,6 +156,8 @@ public class SevenUpDownManager : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        sevenUpDownAdminCommission = TestSocketIO.Instace.adminCommission;
         SoundManager.Instance.StopBackgroundMusic();
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), playerAvatar));
         DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), playerAvatar);
@@ -502,10 +504,13 @@ public class SevenUpDownManager : MonoBehaviour
             investPrice = betPrice * 5;
         }
 
-        float adminPercentage = DataManager.Instance.adminPercentage;
+        float adminPercentage = sevenUpDownAdminCommission;
+        Debug.Log("adminPercentage =>  " + sevenUpDownAdminCommission);
+      //  float adminPercentage = DataManager.Instance.adminPercentage;
         if (betPrice != 0)
         {
             float winReward = investPrice - betPrice;
+        Debug.Log("winReward =>  " + winReward);
             float adminCommission = adminPercentage / 100;
             float winAmount = winReward - (winReward * adminCommission);
             float playerWinAmount = betPrice + winAmount;

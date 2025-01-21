@@ -17770,7 +17770,7 @@ MonoBehaviour:
   betChipList: []
   multiplayerObj: {fileID: 883030330}
   multiplierText: {fileID: 1362323151}
-  multiplierSpeed: 0.4
+  multiplierSpeed: 0.3
   totalBetText: {fileID: 1637020125}
   myBetText: {fileID: 773643278}
   rightCashOutText: {fileID: 58186854}

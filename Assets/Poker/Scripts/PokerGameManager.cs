@@ -173,8 +173,8 @@ public class PokerGameManager : MonoBehaviour
 
     public bool isGameStarted;
 
-
-
+    public float pokerAdminCommission;
+ 
     bool isCheck_Off = false;
     bool isFold_Off = false;
     bool isCall_Off = false;
@@ -276,6 +276,8 @@ public class PokerGameManager : MonoBehaviour
     void Start()
     {
         SoundManager.Instance.StopBackgroundMusic();
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        pokerAdminCommission = TestSocketIO.Instace.adminCommission;
         //OpenOffScreen();
         potTxt.text = "0";
         lastPrice = 5f;
@@ -3324,7 +3326,7 @@ public class PokerGameManager : MonoBehaviour
                     {
                         //Add to  winnner Amount
 
-                        float adminPercentage = DataManager.Instance.adminPercentage;
+                        float adminPercentage = pokerAdminCommission;
 
                         float winAmount = winnerAmount;
                         float adminCommssion = (adminPercentage / 100);

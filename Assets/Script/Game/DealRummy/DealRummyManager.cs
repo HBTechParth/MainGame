@@ -257,6 +257,8 @@ public class DealRummyManager : MonoBehaviour
     public Sprite vibrationoffSprite;
     public Sprite musiconSprite;
     public Sprite musicoffSprite;
+
+    public float dealRummyAdminCommission;
     private void Awake()
     {
         if (Instance == null)
@@ -278,7 +280,8 @@ public class DealRummyManager : MonoBehaviour
         roundCounter = 0;
         boxDisplayCount = 0;
         winAmount = DataManager.Instance.betPrice * DataManager.Instance.joinPlayerDatas.Count;
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        dealRummyAdminCommission = TestSocketIO.Instace.adminCommission;
         //closedDeck = cardShuffles;
 
         for (int i = 0; i < teenPattiPlayers.Count; i++)
@@ -4504,7 +4507,8 @@ public class DealRummyManager : MonoBehaviour
             resultDialog.SetActive(true);
             if (DataManager.Instance.joinPlayerDatas.Count == 1)
             {
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = dealRummyAdminCommission;
+                //float adminPercentage = DataManager.Instance.adminPercentage;
                 winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                 DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "PoolRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                 winText.text = " Congratulations! You Won ₹" + winAmount;
@@ -4533,7 +4537,7 @@ public class DealRummyManager : MonoBehaviour
                     {
                         if(player1.playerNo == tempD.First().Key || player1.playerNo == tempD.ElementAt(1).Key)
                         {
-                            float adminPercentage = DataManager.Instance.adminPercentage;
+                            float adminPercentage = dealRummyAdminCommission;
                             winAmount = (winAmount - ((winAmount * adminPercentage) / 100)) / 2;
                             DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "DealRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                             winText.text = "Congratulations! You Won ₹" + winAmount;
@@ -4554,7 +4558,7 @@ public class DealRummyManager : MonoBehaviour
                 }
                 else if(winnerPlayerNo == player1.playerNo)
                 {
-                    float adminPercentage = DataManager.Instance.adminPercentage;
+                    float adminPercentage = dealRummyAdminCommission;
                     winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                     DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "DealRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                     winText.text = "Congratulations! You Won ₹" + winAmount;
@@ -4584,7 +4588,7 @@ public class DealRummyManager : MonoBehaviour
 
                 if (winnerPlayerNo == player1.playerNo)
                 {
-                    float adminPercentage = DataManager.Instance.adminPercentage;
+                    float adminPercentage = dealRummyAdminCommission;
                     winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                     DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "DealRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                     winText.text = "Congratulations! You Won ₹" + winAmount;

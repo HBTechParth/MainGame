@@ -183,7 +183,7 @@ public class SpinAndWinManager : MonoBehaviour
     public Sprite musiconSprite;
     public Sprite musicoffSprite;
 
-
+    public float spinAndWinAdminCommission;
     private void Awake()
     {
         if (Instance == null)
@@ -212,7 +212,8 @@ public class SpinAndWinManager : MonoBehaviour
         {
             SAWPlayerList[i].gameObject.SetActive(false);
         }
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        spinAndWinAdminCommission = TestSocketIO.Instace.adminCommission;
         UpdateNameBalance();
         GetPlayerHistory();
 
@@ -711,7 +712,7 @@ public class SpinAndWinManager : MonoBehaviour
         }
 
 
-        float adminPercentage = 0;
+        float adminPercentage = spinAndWinAdminCommission;
      //   float adminPercentage = DataManager.Instance.adminPercentage;
 
 
@@ -723,6 +724,7 @@ public class SpinAndWinManager : MonoBehaviour
         //float winAmount = investPrice;
         float winReward = investPrice - betPrice;
         float adminCommission = adminPercentage / 100;
+       // float adminCommission = adminPercentage / 100;
         float winAmount = winReward - (winReward * adminCommission);
         float playerWinAmount = betPrice + winAmount;
 

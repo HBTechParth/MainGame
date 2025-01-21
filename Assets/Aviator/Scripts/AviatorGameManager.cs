@@ -68,7 +68,7 @@ public class AviatorGameManager : MonoBehaviour
     [Header("--- GamePlay ---")]
     public GameObject multiplayerObj;
     public Text multiplierText;
-    public float multiplierSpeed = 0.2f;
+    public float multiplierSpeed = 0.3f;
     public Text totalBetText;
     public Text myBetText;
     public Text rightCashOutText;
@@ -104,7 +104,7 @@ public class AviatorGameManager : MonoBehaviour
     private bool isBettingSceneActive = false;
 
     public Text winTxt;
-
+    public float aviatorAdminCommission;
     private void Awake()
     {
         if (Instance == null)
@@ -120,6 +120,8 @@ public class AviatorGameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        aviatorAdminCommission = TestSocketIO.Instace.adminCommission;
         CreateAdmin();
         CalculateBetAreaBounds();
         InitializeSupportingScripts();
@@ -283,6 +285,7 @@ public class AviatorGameManager : MonoBehaviour
         if (ShouldForceCrashBasedOnStreak())
         {
             Debug.Log("Forced crash at 1x due to streak conditions.");
+            rightCashOutButton.gameObject.SetActive(false); 
             return 1f;  // Yaha par 1x return karenge agar streak condition match kar gayi
         }
 
@@ -344,37 +347,47 @@ public class AviatorGameManager : MonoBehaviour
         }
         Debug.Log("consecutiveWins => " + consecutiveWins);
 
-        // Streak ke basis pe force crash karna hai
+        // Force crash based on streak
         if (consecutiveWins >= 4)
         {
-            ClearData();
-            return true; // 100% chance to crash at 1x
+            if (UnityEngine.Random.value < 0.9f) // 90% chance
+            {
+                Debug.Log("Clearing data due to streak condition: consecutiveWins >= 4");
+                ClearData(); // Data clear karenge
+                return true; // Force crash
+            }
         }
         else if (consecutiveWins == 3)
         {
-            ClearData();
-
-            return UnityEngine.Random.value < 0.7f; // 80% chance
+            if (UnityEngine.Random.value < 0.8f) // 80% chance
+            {
+                Debug.Log("Clearing data due to streak condition: consecutiveWins == 3");
+                ClearData(); // Data clear karenge
+                return true; // Force crash
+            }
         }
         else if (consecutiveWins == 2)
         {
-            ClearData();
-
-            return UnityEngine.Random.value < 0.6f; // 70% chance
+            if (UnityEngine.Random.value < 0.6f) // 60% chance
+            {
+                Debug.Log("Clearing data due to streak condition: consecutiveWins == 2");
+                ClearData(); // Data clear karenge
+                return true; // Force crash
+            }
         }
         else if (consecutiveWins == 1)
         {
-            ClearData();
-
-            return UnityEngine.Random.value < 0.3f; // 70% chance
+            if (UnityEngine.Random.value < 0.3f) // 30% chance
+            {
+                Debug.Log("Clearing data due to streak condition: consecutiveWins == 1");
+                ClearData(); // Data clear karenge
+                return true; // Force crash
+            }
         }
-
-
-        // Agar streak force nahi karta, toh normal crash logic chalega
-        float crashChance = 0f; // Default crash chance
-
-        return UnityEngine.Random.value < crashChance;
+        // Default crash logic
+        return false;
     }
+
 
     private void ClearData()
     {
@@ -796,11 +809,26 @@ public class AviatorGameManager : MonoBehaviour
         if (isGameRunning && betAmount > 0)
         {
             float investPrice = betAmount * multiplier;
-            float winReward = investPrice - betAmount;
-            // float adminCommission = DataManager.Instance.adminPercentage / 100f;
-            float adminCommission = 0;
-            float winAmount = winReward - (winReward * adminCommission);
-            playerWinAmount = betAmount + winAmount;
+
+            Debug.Log("investPrice  => " + investPrice);
+
+            // Set admin commission percentage dynamically
+            float adminCommissionPercentage = aviatorAdminCommission; // Set commission percentage (e.g., 10 for 10%, 20 for 20%, etc.)
+            float adminCommission = investPrice * (adminCommissionPercentage / 100f); // Calculate commission
+            Debug.Log("aviatorAdminCommission (" + adminCommissionPercentage + "%) = > " + adminCommission);
+
+            // Deduct commission from investPrice
+            float winAmount = investPrice - adminCommission; // Final winAmount after commission
+            Debug.Log("winAmount (after " + adminCommissionPercentage + "% commission) = > " + winAmount);
+
+            // Calculate player's total win amount
+            playerWinAmount = betAmount + (winAmount - betAmount); // Add profit to the initial bet
+            Debug.Log("playerWinAmount = > " + playerWinAmount);
+
+
+
+
+
 
             rightCashOutButton.interactable = false;
             leftCashOutButton.interactable = false;

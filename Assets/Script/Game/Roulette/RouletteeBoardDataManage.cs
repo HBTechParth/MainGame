@@ -17,6 +17,7 @@ public class RouletteeBoardDataManage : MonoBehaviour
     public Text winNoTxt;
     public GameObject winLastObj;
     public GameObject winFirstObj;
+    public float roulateAdminCommission;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,7 +26,11 @@ public class RouletteeBoardDataManage : MonoBehaviour
             Instance = this;
         }
     }
-
+    private void Start()
+    {
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        roulateAdminCommission = TestSocketIO.Instace.adminCommission;
+    }
     private void OnEnable()
     {
         winScreenObj.transform.DOMove(winFirstObj.transform.position, 0f);
@@ -40,7 +45,7 @@ public class RouletteeBoardDataManage : MonoBehaviour
 
     #region Win Screen
 
-    /*public void OpenWinBox()
+    public void OpenWinBox()
     {
         winScreenObj.transform.DOMove(winFirstObj.transform.position, 0f);
         winScreenObj.transform.localScale = Vector3.zero;
@@ -49,7 +54,8 @@ public class RouletteeBoardDataManage : MonoBehaviour
 
         //Greejesh Count Admin Commision
 
-        float adminPercentage = DataManager.Instance.adminPercentage;
+        float adminPercentage = roulateAdminCommission;
+       // float adminPercentage = DataManager.Instance.adminPercentage;
 
         float winAmount = RouletteManager.Instance.WinManager();
         float adminCommssion = (adminPercentage / 100);
@@ -73,59 +79,59 @@ public class RouletteeBoardDataManage : MonoBehaviour
         print(winNoTxt.text);
 
         print("Admin Commsion : " + adminCommssion);
-        
-        RouletteManager.Instance.PounRecorder();
-
-        winScreenObj.transform.DOMove(winLastObj.transform.position, 0.35f);
-        winScreenObj.transform.DOScale(Vector3.one, 0.35f);
-        Invoke(nameof(RouletteBoardOff), 3.5f);
-        
-    }*/
-    public void OpenWinBox()
-    {
-        winScreenObj.transform.DOMove(winFirstObj.transform.position, 0f);
-        winScreenObj.transform.localScale = Vector3.zero;
-        winScreenObj.SetActive(true);
-
-        // Win Amount Calculation (Without Admin Commission)
-        float winAmount = RouletteManager.Instance.WinManager();
-        float playerWinAmount = winAmount; // Admin Commission Removed
-
-        if (playerWinAmount != 0)
-        {
-            SoundManager.Instance.CasinoWinSound();
-            winAnimationTxt.gameObject.SetActive(true);
-            winAnimationTxt.text = "+" + playerWinAmount;
-            Invoke(nameof(WinAmountTextOff), 0.52f);
-            DataManager.Instance.AddAmount((float)(playerWinAmount),
-                DataManager.Instance.gameId,
-                "Roulette-Win-" + TestSocketIO.Instace.roomid,
-                "won",
-                0f, // Admin Commission Removed
-                RouletteManager.Instance.noGen);
-        }
-
-        float otherAmount = RouletteManager.Instance.totalCurrentInvest - playerWinAmount;
-        if (otherAmount != 0)
-        {
-            // WinProfite Logic
-        }
-        RouletteManager.Instance.ballRoulette.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        winAmountTxt.text = "₹" + playerWinAmount.ToString("F2");
-        winNoTxt.text = RouletteManager.Instance.noGen.ToString();
-        print(winNoTxt.text);
-
-        // Removed Admin Commission Debug
-        print("Player Win Amount: " + playerWinAmount);
 
         RouletteManager.Instance.PounRecorder();
 
         winScreenObj.transform.DOMove(winLastObj.transform.position, 0.35f);
         winScreenObj.transform.DOScale(Vector3.one, 0.35f);
         Invoke(nameof(RouletteBoardOff), 3.5f);
+
     }
+    /*  public void OpenWinBox()
+      {
+          winScreenObj.transform.DOMove(winFirstObj.transform.position, 0f);
+          winScreenObj.transform.localScale = Vector3.zero;
+          winScreenObj.SetActive(true);
 
+          // Win Amount Calculation (Without Admin Commission)
+          float winAmount = RouletteManager.Instance.WinManager();
+          float playerWinAmount = winAmount; // Admin Commission Removed
+
+          if (playerWinAmount != 0)
+          {
+              SoundManager.Instance.CasinoWinSound();
+              winAnimationTxt.gameObject.SetActive(true);
+              winAnimationTxt.text = "+" + playerWinAmount;
+              Invoke(nameof(WinAmountTextOff), 0.52f);
+              DataManager.Instance.AddAmount((float)(playerWinAmount),
+                  DataManager.Instance.gameId,
+                  "Roulette-Win-" + TestSocketIO.Instace.roomid,
+                  "won",
+                  10f, // Admin Commission Removed
+                  RouletteManager.Instance.noGen);
+          }
+
+          float otherAmount = RouletteManager.Instance.totalCurrentInvest - playerWinAmount;
+          if (otherAmount != 0)
+          {
+              // WinProfite Logic
+          }
+          RouletteManager.Instance.ballRoulette.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+          winAmountTxt.text = "₹" + playerWinAmount.ToString("F2");
+          winNoTxt.text = RouletteManager.Instance.noGen.ToString();
+          print(winNoTxt.text);
+
+          // Removed Admin Commission Debug
+          print("Player Win Amount: " + playerWinAmount);
+
+          RouletteManager.Instance.PounRecorder();
+
+          winScreenObj.transform.DOMove(winLastObj.transform.position, 0.35f);
+          winScreenObj.transform.DOScale(Vector3.one, 0.35f);
+          Invoke(nameof(RouletteBoardOff), 3.5f);
+      }
+  */
 
     public void WinAmountTextOff()
     {

@@ -30,7 +30,7 @@ public class DragonTigerManager : MonoBehaviour
     public Image avatarImg;
 
     public static DragonTigerManager Instance;
-
+    public float dragonTigerAdminCommission;
 
     public GameObject dragonAnim;
     public GameObject tigerAnim;
@@ -204,7 +204,8 @@ public class DragonTigerManager : MonoBehaviour
     void Start()
     {
         SoundManager.Instance.StopBackgroundMusic();
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        dragonTigerAdminCommission = TestSocketIO.Instace.adminCommission;
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), avatarImg));
 
         for (int i = 0; i < DragonTigerPlayerList.Count; i++)
@@ -695,8 +696,7 @@ public class DragonTigerManager : MonoBehaviour
         }
 
 
-        //   float adminPercentage = DataManager.Instance.adminPercentage;
-        float adminPercentage = 0;
+         float adminPercentage = dragonTigerAdminCommission;
 
 
 

@@ -654,7 +654,7 @@ public class TestSocketIO : MonoBehaviour
             //TestSocketIO.Instace.Senddata("gameStart", obj);
         }
     }
-
+    public float adminCommission;
     public void setroomid(string data)
     {
         print("Room Data recevied : " + data);
@@ -662,6 +662,8 @@ public class TestSocketIO : MonoBehaviour
         JSONNode values = JSON.Parse(data);
         JSONNode obj = JSON.Parse(values["data"].ToString());
         roomid = obj["roomName"].Value.ToString();
+        adminCommission = values["data"]["adminCommission"];
+        Debug.Log("adminCummision  =>  " + values["data"]["adminCommission"]);
 
         //print("Room Name : " + roomid);
         if (SceneManager.GetActiveScene().name == "Main")
@@ -700,6 +702,7 @@ public class TestSocketIO : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().name == "TeenPatti")//obj["users"].Count >= teenPattiRequirePlayer && 
             {
+                Debug.Log("ACTIVE TEEN PATTI");
                 if (TeenPattiManager.Instance != null)
                 {
                     TeenPattiManager.Instance.PlayerFound();
@@ -713,6 +716,8 @@ public class TestSocketIO : MonoBehaviour
             //}
             if (SceneManager.GetActiveScene().name == "Poker")//obj["users"].Count >= pokerRequirePlayer && 
             {
+                Debug.Log("ACTIVE TEEN Poker");
+
                 if (PokerGameManager.Instance != null)
                 {
                     PokerGameManager.Instance.PlayerFound();
@@ -981,6 +986,7 @@ public class TestSocketIO : MonoBehaviour
             if (LudoManager.Instance == null) return;
             LudoManager.Instance.PlayerJoined();
         }
+        Debug.Log("SceneManager.GetActiveScene().name  =>   " + SceneManager.GetActiveScene().name);
 
     }
 

@@ -35,7 +35,7 @@ public class CheckMaintainServer : MonoBehaviour
             print("Maintain  :" + request.downloadHandler.text);
             JSONNode botPr = JSON.Parse(value["data"]["bot_profile"].ToString());
             JSONNode commission = JSON.Parse(value["data"]["adminCommision"].ToString());
-            DataManager.Instance.adminPercentage = commission;
+           // DataManager.Instance.adminPercentage = commission;
 
             Debug.Log("VERSION  =  " + JSON.Parse(value["data"]["latestGameVersion"].ToString()));
             DataManager.Instance.versionBUild = JSON.Parse(value["data"]["latestGameVersion"].ToString());

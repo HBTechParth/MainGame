@@ -697,6 +697,7 @@ public class MainMenuManager : MonoBehaviour
                     Debug.Log("SpinAndWin");
                     DataManager.Instance.gameMode = GameType.SpinAndWin;
                     string getTour = IsAvaliableSingleTournament(GameType.SpinAndWin);
+                    Debug.Log("SpinAndWin =>  "+getTour);
                     if (!string.IsNullOrEmpty(getTour))
                     {
                         DataManager.Instance.tournamentID = getTour;

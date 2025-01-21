@@ -192,6 +192,8 @@ public class AK47Manager : MonoBehaviour
     public Sprite lossSprite;
 
 
+    public float ak47AdminCommission;
+
 
     private void Awake()
     {
@@ -209,7 +211,8 @@ public class AK47Manager : MonoBehaviour
         roundCounter = 0;
         boxDisplayCount = 0;
         rulesTab.SetActive(false);
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        ak47AdminCommission = TestSocketIO.Instace.adminCommission;
         //Invoke(nameof(CheckWin), 15f);
         //StartGamePlay();
         for (int i = 0; i < teenPattiPlayers.Count; i++)
@@ -3930,7 +3933,7 @@ public class AK47Manager : MonoBehaviour
             if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
                 Debug.Log("CreditWinnerAmount  ");
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = ak47AdminCommission;
                 float winAmount = winnerAmount;
                 float adminCommssion = (adminPercentage / 100);
                 float playerWinAmount = winAmount - (winAmount * adminCommssion);

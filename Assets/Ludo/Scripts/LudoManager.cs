@@ -222,6 +222,8 @@ public class LudoManager : MonoBehaviour
 
     //bool botSixManage = false;
 
+    public float ludoAdminCommission;
+
     private void Awake()
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -1073,6 +1075,8 @@ public class LudoManager : MonoBehaviour
         PlayerNameManage();
         timerObject.gameObject.SetActive(true);// setting timer only for timer mode
         ShowStartGamePopup();
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        ludoAdminCommission = TestSocketIO.Instace.adminCommission;
     }
     
     public void AddBetAmount()

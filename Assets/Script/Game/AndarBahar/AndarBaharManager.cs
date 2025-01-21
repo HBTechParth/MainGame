@@ -158,6 +158,7 @@ public class AndarBaharManager : MonoBehaviour
     public Image countdownTimmer;
     public GameObject timerPanel;
 
+    public float anderBaharAdminCommission;
     private void Awake()
     {
         if (Instance == null)
@@ -181,8 +182,11 @@ public class AndarBaharManager : MonoBehaviour
         AndarPopUp.gameObject.SetActive(false);
         BaharPopUp.gameObject.SetActive(false);
 
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        anderBaharAdminCommission = TestSocketIO.Instace.adminCommission;
 
-        incrementNo = tableMaxLimit / tableMinLimit;
+        //incrementNo = tableMaxLimit / tableMinLimit;
+        incrementNo = 10;
 
         andarPriceTxt.text = tableMinLimit.ToString();
         andarPlusButton.interactable = true;
@@ -801,7 +805,8 @@ public class AndarBaharManager : MonoBehaviour
 
 
             float otherPrice = totalInvestAndar + totalInvestBahar;
-            float adminPercentage = DataManager.Instance.adminPercentage;
+            float adminPercentage = anderBaharAdminCommission;
+            //float adminPercentage = DataManager.Instance.adminPercentage;
 
 
 
@@ -1060,10 +1065,22 @@ public class AndarBaharManager : MonoBehaviour
     {
         SoundManager.Instance.ButtonClick();
         float andarPrice = float.Parse(andarPriceTxt.text);
+
+        // Increment amount and clamp to max limit
         if (andarPrice < tableMaxLimit)
         {
             andarPrice += incrementNo;
+
+            // Ensure andarPrice does not exceed the maximum limit
+            if (andarPrice > tableMaxLimit)
+            {
+                andarPrice = tableMaxLimit;
+            }
+
+            // Update the text
             andarPriceTxt.text = andarPrice.ToString();
+
+            // Update button interactability
             if (andarPrice == tableMaxLimit)
             {
                 andarPlusButton.interactable = false;
@@ -1081,15 +1098,60 @@ public class AndarBaharManager : MonoBehaviour
             }
         }
     }
-
+    public void MaxButtonClick(string name)
+    {
+        float andarPrice = tableMaxLimit;
+        if (name == "ANDER")
+        {
+            andarPriceTxt.text = andarPrice.ToString();
+            andarPlusButton.interactable = false;
+            andarMinusButton.interactable = true;
+        }
+        else if (name == "BAHAR")
+        {
+            baharPriceTxt.text = andarPrice.ToString();
+            baharPlusButton.interactable = false;
+            baharMinusButton.interactable = true;
+        }
+       
+    }  
+    public void MINButtonClick(string name)
+    {
+        float andarPrice = tableMinLimit;
+        if (name == "ANDER")
+        {
+            andarPriceTxt.text = andarPrice.ToString();
+            andarPlusButton.interactable = true;
+            andarMinusButton.interactable = false;
+        }
+        else if (name == "BAHAR")
+        {
+            baharPriceTxt.text = andarPrice.ToString();
+            baharPlusButton.interactable = true;
+            baharMinusButton.interactable = false;
+        }
+       
+    }
     public void Andar_Minus_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
         float andarPrice = float.Parse(andarPriceTxt.text);
+
+        // Decrement amount and clamp to min limit
         if (andarPrice > tableMinLimit)
         {
             andarPrice -= incrementNo;
+
+            // Ensure andarPrice does not go below the minimum limit
+            if (andarPrice < tableMinLimit)
+            {
+                andarPrice = tableMinLimit;
+            }
+
+            // Update the text
             andarPriceTxt.text = andarPrice.ToString();
+
+            // Update button interactability
             if (andarPrice == tableMaxLimit)
             {
                 andarPlusButton.interactable = false;
@@ -1154,10 +1216,23 @@ public class AndarBaharManager : MonoBehaviour
     {
         SoundManager.Instance.ButtonClick();
         float baharPrice = float.Parse(baharPriceTxt.text);
+
+        // Increment amount and table limit check
         if (baharPrice < tableMaxLimit)
         {
+            // Increment baharPrice by the increment amount
             baharPrice += incrementNo;
+
+            // Clamp value to ensure it doesn't go above the table maximum
+            if (baharPrice > tableMaxLimit)
+            {
+                baharPrice = tableMaxLimit;
+            }
+
+            // Update the text
             baharPriceTxt.text = baharPrice.ToString();
+
+            // Update button interactability
             if (baharPrice == tableMaxLimit)
             {
                 baharPlusButton.interactable = false;
@@ -1176,14 +1251,28 @@ public class AndarBaharManager : MonoBehaviour
         }
     }
 
+
     public void Bahar_Minus_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
         float baharPrice = float.Parse(baharPriceTxt.text);
+
+        // Increment amount and table limit check
         if (baharPrice > tableMinLimit)
         {
+            // Decrement baharPrice by the increment amount
             baharPrice -= incrementNo;
+
+            // Clamp value to ensure it doesn't go below the table minimum
+            if (baharPrice < tableMinLimit)
+            {
+                baharPrice = tableMinLimit;
+            }
+
+            // Update the text
             baharPriceTxt.text = baharPrice.ToString();
+
+            // Update button interactability
             if (baharPrice == tableMaxLimit)
             {
                 baharPlusButton.interactable = false;

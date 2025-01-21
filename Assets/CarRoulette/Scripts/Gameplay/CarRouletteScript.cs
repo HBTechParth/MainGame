@@ -117,6 +117,8 @@ public class CarRouletteScript : MonoBehaviour
     private int currentIndex;
     private bool _isTimesUp;
 
+    public float carRouletteAdminCommission;
+
     private void Awake()
     {
         if (Instance == null)
@@ -128,6 +130,8 @@ public class CarRouletteScript : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        carRouletteAdminCommission = TestSocketIO.Instace.adminCommission;
         InitializeSelectors();
         GetProfileImage();
         NewPlayerEnter();
@@ -923,7 +927,8 @@ public class CarRouletteScript : MonoBehaviour
 
         // Use the car and winAmount variables as needed
         print("Car Name: " + car + ", Win Amount: " + winAmount);
-        float adminPercentage = DataManager.Instance.adminPercentage;
+        float adminPercentage = carRouletteAdminCommission;
+      //  float adminPercentage = DataManager.Instance.adminPercentage;
 
         float winnningAmount = winAmount;
         float adminCommssion = (adminPercentage / 100);

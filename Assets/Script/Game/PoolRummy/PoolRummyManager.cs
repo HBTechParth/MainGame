@@ -83,6 +83,7 @@ public class PoolRummyManager : MonoBehaviour
     public float minBoardY;
     public float maxBoardY;
 
+    public float poolAdminCommission;
 
     [Header("--- Menu Screen ---")]
     public GameObject menuScreenObj;
@@ -4443,7 +4444,7 @@ public class PoolRummyManager : MonoBehaviour
             }
             if(dqPlayers == DataManager.Instance.joinPlayerDatas.Count - 1 && player1.playerGamePoints < DataManager.Instance.pointLimit)
             {
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = poolAdminCommission;
                 winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                 DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "PoolRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                 winText.text = " Congratulations! You Won ₹" + winAmount;
@@ -4452,7 +4453,7 @@ public class PoolRummyManager : MonoBehaviour
             }
             else if(DataManager.Instance.joinPlayerDatas.Count == 1)//if everyone dropped
             {
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = poolAdminCommission;
                 winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                 DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "PoolRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
                 winText.text = " Congratulations! You Won ₹" + winAmount;

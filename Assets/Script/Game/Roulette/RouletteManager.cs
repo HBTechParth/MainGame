@@ -941,7 +941,6 @@ public class RouletteManager : MonoBehaviour
             userBetTxt.text = totalBetPrice.ToString(CultureInfo.InvariantCulture);
         }
 
-
         rouleteeBets.Clear();
         ActivateButtons();
     }
@@ -1411,13 +1410,13 @@ public class RouletteManager : MonoBehaviour
         Debug.Log("musicImg =  " + musicImg.sprite.name);
         if (musicImg.sprite == musiconSprite)
         {
-        Debug.Log("musicImg =  " + musicImg.sprite.name);
+            Debug.Log("musicImg =  " + musicImg.sprite.name);
             DataManager.Instance.SetMusic(1);
             musicImg.sprite = musicoffSprite;
         }
         else if (musicImg.sprite == musicoffSprite)
         {
-        Debug.Log("musicImg =  " + musicImg.sprite.name);
+            Debug.Log("musicImg =  " + musicImg.sprite.name);
             DataManager.Instance.SetMusic(0);
             musicImg.sprite = musiconSprite;
             SoundManager.Instance.ButtonClick();

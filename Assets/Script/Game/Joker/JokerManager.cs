@@ -232,6 +232,8 @@ public class JokerManager : MonoBehaviour
     public Sprite winSprite;
     public Sprite lossSprite;
 
+    public float jokerAdminCommission;
+
     private void Awake()
     {
         if (Instance == null)
@@ -248,7 +250,8 @@ public class JokerManager : MonoBehaviour
         roundCounter = 0;
         boxDisplayCount = 0;
         rulesTab.SetActive(false);
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        jokerAdminCommission = TestSocketIO.Instace.adminCommission;
         //Invoke(nameof(CheckWin), 15f);
         //StartGamePlay();
         for (int i = 0; i < teenPattiPlayers.Count; i++)
@@ -3910,7 +3913,8 @@ public class JokerManager : MonoBehaviour
             if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
                 Debug.Log("CreditWinnerAmount  ");
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = jokerAdminCommission;
+               // float adminPercentage = DataManager.Instance.adminPercentage;
                 float winAmount = winnerAmount;
                 float adminCommssion = (adminPercentage / 100);
                 float playerWinAmount = winAmount - (winAmount * adminCommssion);

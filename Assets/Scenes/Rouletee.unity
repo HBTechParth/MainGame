@@ -48975,7 +48975,7 @@ MonoBehaviour:
   isGameRouletteStart: 0
   isAveUndo: 0
   findNo: 0
-  fixTimeSet: 15
+  fixTimeSet: 5
   timerValue: 0
   isEnterTheRoulette: 0
   isGameRunning: 0

@@ -232,11 +232,11 @@ public class PointRummyManager : MonoBehaviour
     public bool isTimerComplete = false;
     public List<int> finalCards = new List<int>();//this list is for final submission
 
+    public float pointAdminCommission;
 
-    
 
-    
-    
+
+
 
 
     [Header("Turn Maintain")]
@@ -4373,7 +4373,8 @@ public class PointRummyManager : MonoBehaviour
             }
             if (totalScore == 0)
             {
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = pointAdminCommission;
+             //   float adminPercentage = DataManager.Instance.adminPercentage;
                 winAmount = (DataManager.Instance.pointValue * totalPoints);
                 winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                 DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "PointRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);
@@ -4395,7 +4396,7 @@ public class PointRummyManager : MonoBehaviour
                 {
                     if (resultStatusText[i].text == "Won")
                     {
-                        float adminPercentage = DataManager.Instance.adminPercentage;
+                        float adminPercentage = pointAdminCommission;
                         winAmount = (DataManager.Instance.pointValue * totalPoints);
                         winAmount = winAmount - ((winAmount * adminPercentage) / 100);
                         //DataManager.Instance.AddAmount(winAmount, DataManager.Instance.gameId, "PointRummy-Win-" + DataManager.Instance.gameId, "won", adminPercentage, player1.playerNo);

@@ -542,7 +542,8 @@ public class LudoWinManager : MonoBehaviour
                         //wonTitleMain.text = "YOU WON " + (DataManager.Instance.winAmount / 4).ToString("F2") + " Coin";
                         //rankTxtMain.text = "1";
 
-                        float adminCommision = ((DataManager.Instance.tourEntryMoney) * 4) - DataManager.Instance.winAmount;
+                      //  float adminCommision = ((DataManager.Instance.tourEntryMoney) * 4) - DataManager.Instance.winAmount;
+                        float adminCommision = LudoManager.Instance.ludoAdminCommission;
                         DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 4), TestSocketIO.Instace.roomid, "Win Game " + TestSocketIO.Instace.roomid, "won", adminCommision, 0);
                         DataManager.Instance.SetWonMoneyGame(DataManager.Instance.GetWonMoneyGame() + DataManager.Instance.winAmount);
                     }

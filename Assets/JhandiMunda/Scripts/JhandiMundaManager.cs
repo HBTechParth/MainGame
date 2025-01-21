@@ -197,6 +197,7 @@ public class JhandiMundaManager : MonoBehaviour
     public Sprite vibrationoffSprite;
     public Sprite musiconSprite;
     public Sprite musicoffSprite;
+    public float jhandiMundaAdminCommission;
 
     private string playerPrefsKey = "SevenUpDownHistory";
 
@@ -231,7 +232,8 @@ public class JhandiMundaManager : MonoBehaviour
         SoundManager.Instance.StopBackgroundMusic();
         for (int i = 0; i < initialDicePositions.Length; i++)//storing the dice position for new round
             initialDicePositions[i] = dice[i].transform.position;
-        
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        jhandiMundaAdminCommission = TestSocketIO.Instace.adminCommission;
         //StartCoroutine(DataManager.Instance.GetImages(PlayerPrefs.GetString("ProfileURL"), playerAvatar));
         DataManager.Instance.LoadProfileImage(PlayerPrefs.GetString("ProfileURL"), playerAvatar);
         playerName.text = DataManager.Instance.playerData.firstName;
@@ -688,13 +690,16 @@ public class JhandiMundaManager : MonoBehaviour
 
         
 
-        float adminPercentage = DataManager.Instance.adminPercentage;
+        float adminPercentage = jhandiMundaAdminCommission;
+        Debug.Log("adminPercentage => " + adminPercentage);
+      //  float adminPercentage = DataManager.Instance.adminPercentage;
         if(winAmount > 0)//if player wins anything
         {
             float adminCommission = adminPercentage / 100;
             float winReward = winAmount - (winAmount * adminCommission);
             winAnimationTxt.gameObject.SetActive(true);
-            winAnimationTxt.text = "+" + winAmount;
+            winAnimationTxt.text = "+" + winReward;
+        Debug.Log("winAmount => " + winReward);
             Invoke(nameof(WinAmountTextOff), 1.25f);
             //winning animation and credit amount
             GameObject particleEffect = Instantiate(DataManager.Instance.winParticles, winParticleParent);

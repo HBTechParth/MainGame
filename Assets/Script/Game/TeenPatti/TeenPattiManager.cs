@@ -19,6 +19,9 @@ public class TeenPattiManager : MonoBehaviour
 
     public static TeenPattiManager Instance;
 
+    public float teenPattiAdminCommission;
+
+
     public GameObject waitNextRoundScreenObj;
     public GameObject playerFindScreenObj;
 
@@ -210,7 +213,8 @@ public class TeenPattiManager : MonoBehaviour
         roundCounter = 0;
         boxDisplayCount = 0;
         rulesTab.SetActive(false);
-
+        Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
+        teenPattiAdminCommission = TestSocketIO.Instace.adminCommission;
         //Invoke(nameof(CheckWin), 15f);
         //StartGamePlay();
         for (int i = 0; i < teenPattiPlayers.Count; i++)
@@ -4285,7 +4289,8 @@ public class TeenPattiManager : MonoBehaviour
             if (teenPattiPlayers[j].playerId == playerID && teenPattiPlayers[j].gameObject.activeInHierarchy)
             {
                 Debug.Log("CreditWinnerAmount  ");
-                float adminPercentage = DataManager.Instance.adminPercentage;
+                float adminPercentage = teenPattiAdminCommission;
+                Debug.Log("teenPattiAdminCommission  =>  " + teenPattiAdminCommission);
                 float winAmount = winnerAmount;
                 float adminCommssion = (adminPercentage / 100);
                 float playerWinAmount = winAmount - (winAmount * adminCommssion);
