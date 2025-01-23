@@ -17811,6 +17811,7 @@ MonoBehaviour:
   musiconSprite: {fileID: 21300000, guid: c51f67d68ca5d1f43a54b1e103f6d29b, type: 3}
   musicoffSprite: {fileID: 21300000, guid: b4a364d15ddc7a144ab72bbc6ea9abb3, type: 3}
   winTxt: {fileID: 1794741697}
+  aviatorAdminCommission: 0
   countdownTimmer: {fileID: 1035801553}
   limitOutText: {fileID: 1835838632}
   toggleImage: {fileID: 734971247}
@@ -21148,7 +21149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -63.149963}
+  m_AnchoredPosition: {x: -1078, y: -51.299988}
   m_SizeDelta: {x: 0, y: 63.15}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1835838632

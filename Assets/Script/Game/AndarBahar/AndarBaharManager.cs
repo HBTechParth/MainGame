@@ -272,7 +272,6 @@ public class AndarBaharManager : MonoBehaviour
 
         foreach (var t in winList)
         {
-            Debug.Log("T == " + t);
             HistoryTacker(t);
         }
     }
@@ -448,9 +447,43 @@ public class AndarBaharManager : MonoBehaviour
         stopBettingScreenObj.gameObject.SetActive(false);
 
         betAnimationONOff(false);
+        Debug.Log("ANDER BET =? " + totalInvestAndar);
+        Debug.Log("BAHAR BET =? " + totalInvestBahar);
 
-        ContinueGamePlay();
+        Debug.Log("ANDER BET =? " + totalInvestAndar);
+        Debug.Log("BAHAR BET =? " + totalInvestBahar);
+
+        // Calculate probabilities dynamically based on investments
+        float probabilityTrue;
+        if (totalInvestAndar > totalInvestBahar)
+        {
+            // Andar has higher investment: 40% chance for true, 60% for false
+            probabilityTrue = 40f;
+        }
+        else if (totalInvestAndar < totalInvestBahar)
+        {
+            // Bahar has higher investment: 60% chance for true, 40% for false
+            probabilityTrue = 60f;
+        }
+        else
+        {
+            // Equal investment: 50% chance for true or false
+            probabilityTrue = 50f;
+        }
+
+        // Generate a random value between 0 and 100
+        float randomValue =UnityEngine. Random.Range(0f, 100f);
+        bool result = randomValue < probabilityTrue;
+
+        // Log the result and call the SetWinningCard function
+        Debug.Log($"Winning card result: {result} (Random value: {randomValue}, True Probability: {probabilityTrue}%)");
+
+        WinningLogic.instance.SetWinningCard(cardSufflesGen[0], result);
+
+        WinningLogic.instance.ONCALLWINNING();
+        // ContinueGamePlay();
     }
+
 
     void ContinueGamePlay()
     {
@@ -459,12 +492,15 @@ public class AndarBaharManager : MonoBehaviour
 
         if (isAndarWin == false && isBaharWin == false)
         {
+            print("*******************cardCnt -> " + cardCnt);
             if (cardCnt % 2 == 0)
             {
                 print("******************* This is is bahar active -> " + cardCnt);
                 IncrementBahar();
                 if (_isBaharActive)
                 {
+                    Debug.Log("_tempBaharNum == >  " + _tempBaharNum);
+                    Debug.Log("cardCnt == >  " + cardCnt);
                     cardCnt = _tempBaharNum;
                     print("-------------------This is is bahar active -> " + cardCnt);
                 }
@@ -480,6 +516,8 @@ public class AndarBaharManager : MonoBehaviour
                 IncrementAndar();
                 if (_isAndarActive)
                 {
+                    Debug.Log("_tempBaharNum == >  " + _tempBaharNum);
+                    Debug.Log("cardCnt == >  " + cardCnt);
                     cardCnt = _tempAndarNum;
                     print("-------------------This is is andar active -> " + cardCnt);
                 }
@@ -672,6 +710,32 @@ public class AndarBaharManager : MonoBehaviour
             //obj.transform.DORotate(new Vector3(0, -90, 0), 0.2f).OnComplete(() =>
 
         });
+    }
+
+    public void AFTERWINNING(bool isAnderWin)
+    {
+        Debug.Log("isAnderWin  => " + isAnderWin);
+        if (isAnderWin)
+        {
+            HistoryObjGen(historySprite[1], cardSufflesGen[0].cardSprite.name);
+            print("Andar Win Player");
+            isBaharWin = false;
+            isAndarWin = true;
+            StartCoroutine(WinPopupCoroutine(2f, AndarPopUp));
+            UpdateHistoryCard(1);
+
+        }
+        else
+        {
+            HistoryObjGen(historySprite[0], cardSufflesGen[0].cardSprite.name);
+            Debug.Log("SPrite Name  = >" + cardSufflesGen[0].cardSprite.name);
+            isBaharWin = true;
+            isAndarWin = false;
+            print("Bahar Win Player");
+            StartCoroutine(WinPopupCoroutine(2f, BaharPopUp));
+            UpdateHistoryCard(2);
+        }
+        WinEnter();
     }
 
     public void HistoryObjGen(Sprite objSprite, string num)
@@ -893,7 +957,7 @@ public class AndarBaharManager : MonoBehaviour
 
 
             float otherPrice = totalInvestAndar + totalInvestBahar;
-            float adminPercentage = DataManager.Instance.adminPercentage;
+            float adminPercentage = anderBaharAdminCommission;
 
 
 
@@ -1113,8 +1177,8 @@ public class AndarBaharManager : MonoBehaviour
             baharPlusButton.interactable = false;
             baharMinusButton.interactable = true;
         }
-       
-    }  
+
+    }
     public void MINButtonClick(string name)
     {
         float andarPrice = tableMinLimit;
@@ -1130,7 +1194,7 @@ public class AndarBaharManager : MonoBehaviour
             baharPlusButton.interactable = true;
             baharMinusButton.interactable = false;
         }
-       
+
     }
     public void Andar_Minus_ButtonClick()
     {
@@ -1775,27 +1839,46 @@ public class AndarBaharManager : MonoBehaviour
     public void IncrementAndar()
     {
         //Bahar win
+        Debug.Log("cardSufflesGen  => " + cardSufflesGen[0].cardNo + "cardSufflesGen[cardCnt].cardNo  => " + cardSufflesGen[cardCnt].cardNo);
+        Debug.Log("CNT  =>  " + cardCnt);
         if (cardSufflesGen[0].cardNo == cardSufflesGen[cardCnt].cardNo)
         {
             _tempBaharNum = cardCnt;
             _isBaharActive = true;
+            Debug.Log("totalInvestAndar =>" + totalInvestAndar);
+            Debug.Log("totalInvestBahar =>" + totalInvestBahar);
             if (totalInvestAndar > totalInvestBahar)
             {
+
                 cardCnt += 2;
+                Debug.Log("40% chance succeeded, cardCnt updated to: " + cardCnt);
+
+
             }
+            Debug.Log("cardCnt =>" + cardCnt);
+
         }
     }
     public void IncrementBahar()
     {
         //Andar win
+
+        Debug.Log("cardSufflesGen  => " + cardSufflesGen[0].cardNo + "cardSufflesGen[cardCnt].cardNo  => " + cardSufflesGen[cardCnt].cardNo);
+        Debug.Log("CNT  =>  " + cardCnt);
         if (cardSufflesGen[0].cardNo == cardSufflesGen[cardCnt].cardNo)
         {
             _tempAndarNum = cardCnt;
             _isAndarActive = true;
+            Debug.Log("totalInvestAndar =>" + totalInvestAndar);
+            Debug.Log("totalInvestBahar =>" + totalInvestBahar);
             if (totalInvestAndar < totalInvestBahar)
             {
+
                 cardCnt += 2;
+                Debug.Log("40% chance succeeded, cardCnt updated to: " + cardCnt);
+
             }
+            Debug.Log("cardCnt =>" + cardCnt);
         }
     }
 

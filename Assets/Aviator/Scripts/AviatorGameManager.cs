@@ -230,11 +230,13 @@ public class AviatorGameManager : MonoBehaviour
         // Calculate crashTime based on total bet amount and recent streak
         float totalBet = betAmount; // Assuming you have a way to get the total bet amount
         crashTime = CalculateCrashTime(totalBet);
-
+        Debug.Log("CRASH TIME => " + crashTime);
+       
         // Making line and rocket visible
         lineCanvas.SetActive(true);
         rocketCanvas.SetActive(true);
-        rightCashOutButton.interactable = true;
+        if (crashTime != 1)
+            rightCashOutButton.interactable = true;
         rightCashOutButton.gameObject.SetActive(true);
         multiplayerObj.gameObject.SetActive(true);
 
@@ -285,7 +287,7 @@ public class AviatorGameManager : MonoBehaviour
         if (ShouldForceCrashBasedOnStreak())
         {
             Debug.Log("Forced crash at 1x due to streak conditions.");
-            rightCashOutButton.gameObject.SetActive(false); 
+            rightCashOutButton.gameObject.SetActive(false);
             return 1f;  // Yaha par 1x return karenge agar streak condition match kar gayi
         }
 
@@ -428,7 +430,10 @@ public class AviatorGameManager : MonoBehaviour
             }
             multiplier = elapsedTime;
             multiplierText.text = multiplier.ToString("F2") + "X";
-
+            if (crashTime == 1)
+            {
+                leftCashOutButton.interactable = false;
+            }
             if (isOn && betAmount > 0)
             {
                 float inputValue;
@@ -456,6 +461,7 @@ public class AviatorGameManager : MonoBehaviour
                     Debug.LogError("Invalid input in the auto cash-out InputField.");
                 }
             }
+
             UpdateCashOutText();
 
             yield return null;
@@ -717,7 +723,7 @@ public class AviatorGameManager : MonoBehaviour
             return;
         }
 
-        //if (betAmount + chipPrice[selectChipNo] <= 600)
+        if (betAmount + chipPrice[selectChipNo] <= 600)
         {
             SoundManager.Instance.ThreeBetSound();
             DataManager.Instance.DebitAmount(((float)(chipPrice[selectChipNo])).ToString(), DataManager.Instance.gameId, "Aviator-Bet-" + DataManager.Instance.gameId, "game", 2);
@@ -734,15 +740,15 @@ public class AviatorGameManager : MonoBehaviour
             betChipList.Add(chipGen);
             ChipGenerate(chipGen, rPos);
         }
-        /* else
-         {
-             limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-             limitOutText.text = "Maximum Bet Limit Under 600 INR";
-             DOVirtual.DelayedCall(1f, () =>
-             {
-                 limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
-             });
-         }*/
+        else
+        {
+            limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+            limitOutText.text = "Maximum Bet Limit Under 600 INR";
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+            });
+        }
 
     }
     public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)

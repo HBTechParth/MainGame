@@ -696,7 +696,7 @@ public class DragonTigerManager : MonoBehaviour
         }
 
 
-         float adminPercentage = dragonTigerAdminCommission;
+        float adminPercentage = dragonTigerAdminCommission;
 
 
 
@@ -1227,6 +1227,7 @@ public class DragonTigerManager : MonoBehaviour
     {
         if (isStart)
         {
+            totalBet = 0;
             foreach (GameObject obj in objects)
             {
                 obj.SetActive(false);
@@ -1488,11 +1489,25 @@ public class DragonTigerManager : MonoBehaviour
 
         return false;
     }
-
-
+    public float totalBet;
+    public Text limitOutText;
+    public GameObject limitTextOB;
     public void GameThreeButton(int no)
     {
         if (!_isClickAvailable) return;
+        if (totalBet + chipPrice[selectChipNo] > 600) // Check if bet limit is exceeded
+        {
+            limitTextOB.SetActive(true);
+            limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+            limitOutText.text = "Maximum Bet Limit Under 600 INR";
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+                limitTextOB.SetActive(false);
+
+            });
+            return; // Prevent further execution
+        }
         switch (no)
         {
             case 1:
@@ -1519,6 +1534,7 @@ public class DragonTigerManager : MonoBehaviour
                     chipGen.transform.position = ourProfile.transform.position;
                     dragonTotalPrice += chipPrice[selectChipNo];
                     dragonPrice += chipPrice[selectChipNo];
+                    totalBet += chipPrice[selectChipNo];
                     DragonTigerAIManager.Instance._dMinBalance += chipPrice[selectChipNo];
                     genChipList_Dragon.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
@@ -1556,6 +1572,8 @@ public class DragonTigerManager : MonoBehaviour
                     chipGen.transform.position = ourProfile.transform.position;
                     tigerTotalPrice += chipPrice[selectChipNo];
                     tigerPrice += chipPrice[selectChipNo];
+                    totalBet += chipPrice[selectChipNo];
+
                     DragonTigerAIManager.Instance._tMinBalance += chipPrice[selectChipNo];
                     genChipList_Tiger.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
@@ -1593,6 +1611,8 @@ public class DragonTigerManager : MonoBehaviour
                     chipGen.transform.position = ourProfile.transform.position;
                     tieTotalPrice += chipPrice[selectChipNo];
                     tiePrice += chipPrice[selectChipNo];
+                    totalBet += chipPrice[selectChipNo];
+
                     DragonTigerAIManager.Instance._tiMinBalance += chipPrice[selectChipNo];
                     genChipList_Tie.Add(chipGen);
                     ChipGenerate(chipGen, rPos);
@@ -1605,6 +1625,8 @@ public class DragonTigerManager : MonoBehaviour
                     break;
                 }
         }
+
+        Debug.Log("totalBet  => " + totalBet);
         DragonTigerAIManager.Instance.UpdateTiePrice();
         DataManager.Instance.UserTurnVibrate();
         SendDargonTigerBet(no, selectChipNo);
