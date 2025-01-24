@@ -223,6 +223,7 @@ public class DragonTigerManager : MonoBehaviour
 
         //StartCoroutine(StartBet());
         ChipAnimMaintain(1);
+        InitializeList();
         // HistoryLoader(DataManager.Instance.listString);
         CheckSound();
     }
@@ -1872,126 +1873,65 @@ public class DragonTigerManager : MonoBehaviour
     // To find the largest number among Dragon, Tiger & Tie
 
     // for selecting winner
+    public List<int> numberList = new List<int>();
+    private System.Random random = new System.Random();
+
+  
+    private void InitializeList()
+    {
+        numberList.Clear();
+        for (int i = 0; i <= 30; i++)
+        {
+            numberList.Add(i);
+        }
+        ShuffleList();
+    }
+
+    private void ShuffleList()
+    {
+        // Shuffle using Fisher-Yates algorithm
+        for (int i = numberList.Count - 1; i > 0; i--)
+        {
+            int randomIndex = random.Next(0, i + 1);
+            int temp = numberList[i];
+            numberList[i] = numberList[randomIndex];
+            numberList[randomIndex] = temp;
+        }
+    }
+
     public void GetLargestBet()
     {
-        if (!isAdmin) return;
-
-        int gameNum = 0; // 1 for Dragon, 2 for Tiger, 3 for Tie.
-        float randomValue = UnityEngine.Random.Range(0f, 1f); // Random value between 0 and 1.
-        Debug.Log($"Random Value: {randomValue}");
-
-
-        if (dragonPrice > 0 && tigerPrice == 0 && tiePrice == 0)
+        if (numberList.Count == 0)
         {
-            // Dragon single bet
-            if (dragonPrice >= 10 && dragonPrice <= 100)
-            {
-                gameNum = randomValue <= 0.4f ? 2 : 1; // 40% Dragon, 60% Tiger.
-                Debug.Log($"Single bet on Dragon (10-100): gameNum = {gameNum}");
-            }
-            else if (dragonPrice > 100 && dragonPrice <= 500)
-            {
-                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
-                Debug.Log($"Single bet on Dragon (100-500): gameNum = {gameNum}");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
-                Debug.Log($"Single bet on Dragon (>500): gameNum = {gameNum}");
-            }
-        }
-        else if (tigerPrice > 0 && dragonPrice == 0 && tiePrice == 0)
-        {
-            // Tiger single bet
-            if (tigerPrice >= 10 && tigerPrice <= 100)
-            {
-                gameNum = randomValue <= 0.4f ? 1 : 2; // 40% Tiger, 60% Dragon.
-                Debug.Log($"Single bet on Tiger (10-100): gameNum = {gameNum}");
-            }
-            else if (tigerPrice > 100 && tigerPrice <= 500)
-            {
-                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
-                Debug.Log($"Single bet on Tiger (100-500): gameNum = {gameNum}");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
-                Debug.Log($"Single bet on Tiger (>500): gameNum = {gameNum}");
-            }
-        }
-        // Bet on both Dragon and Tiger
-        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice == 0)
-        {
-            if (randomValue <= 0.2f)
-            {
-                gameNum = 3; // 20% Tie.
-                Debug.Log("Bet on both Dragon and Tiger: gameNum = 3 (Tie)");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
-                Debug.Log($"Bet on both Dragon and Tiger: gameNum = {gameNum}");
-            }
-        }
-        // Bet on all three (Dragon, Tiger, Tie)
-        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice > 0)
-        {
-            if (randomValue <= 0.2f)
-            {
-                gameNum = 3; // 20% Tie.
-                Debug.Log("Bet on all three (Dragon, Tiger, Tie): gameNum = 3 (Tie)");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
-                Debug.Log($"Bet on all three (Dragon, Tiger, Tie): gameNum = {gameNum}");
-            }
-        }
-        // Bet only on Tie
-        else if (tiePrice > 0 && dragonPrice == 0 && tigerPrice == 0)
-        {
-            gameNum = randomValue <= 0.1f ? 3 : (randomValue <= 0.55f ? 2 : 1); // 10% Tie, 45% Dragon, 45% Tiger.
-            Debug.Log($"Bet only on Tie: gameNum = {gameNum}");
-        }
-        // Default largest bet logic
-        else
-        {
-            /* if (dragonPrice >= tigerPrice)
-             {
-                 gameNum = dragonPrice >= tiePrice ? 2 : 3; // Largest bet on Dragon or Tie.
-                 Debug.Log($"Default logic: Largest bet on Dragon or Tie: gameNum = {gameNum}");
-             }
-             else
-             {
-                 gameNum = tigerPrice >= tiePrice ? 1 : 3; // Largest bet on Tiger or Tie.
-                 Debug.Log($"Default logic: Largest bet on Tiger or Tie: gameNum = {gameNum}");
-             }*/
-            float randomValue1 = UnityEngine.Random.Range(0f, 10f);
-
-            if (randomValue1 >= 0f && randomValue1 < 2f)
-            {
-                // Tie (0-2)
-                gameNum = 3;
-                Debug.Log("Result: Tie");
-            }
-            else if (randomValue1 >= 2f && randomValue1 < 6f)
-            {
-                // Dragon (2-6)
-                gameNum = 2;
-                Debug.Log("Result: Dragon");
-            }
-            else if (randomValue1 >= 6f && randomValue1 <= 10f)
-            {
-                // Tiger (6-10)
-                gameNum = 1;
-                Debug.Log("Result: Tiger");
-            }
-
+            Debug.Log("Number list is empty. Reinitializing the list...");
+            InitializeList();
         }
 
+        // Pick the first number in the list
+        int pickedNumber = numberList[0];
+        numberList.RemoveAt(0);
+
+        int gameNum = 0; // 1 for Tiger, 2 for Dragon, 3 for Tie.
+
+        if (pickedNumber >= 0 && pickedNumber <= 5)
+        {
+            gameNum = 3; // Tie
+            Debug.Log($"Picked Number: {pickedNumber} - Result: Tie");
+        }
+        else if (pickedNumber >= 6 && pickedNumber <= 18)
+        {
+            gameNum = 2; // Dragon
+            Debug.Log($"Picked Number: {pickedNumber} - Result: Dragon");
+        }
+        else if (pickedNumber >= 19 && pickedNumber <= 30)
+        {
+            gameNum = 1; // Tiger
+            Debug.Log($"Picked Number: {pickedNumber} - Result: Tiger");
+        }
 
         Debug.Log("Game number => " + gameNum);
 
+        // Call GenerateNumber or any other logic for gameNum
         GenerateNumber(gameNum);
     }
 
@@ -2027,7 +1967,7 @@ public class DragonTigerManager : MonoBehaviour
 
         if (num == 2) // Dragon win
         {
-            // Pick cards that satisfy Dragon win condition (card1Value is at least 2 smaller than card2Value)
+            // Ensure card1 (Dragon) is greater than card2 (Tiger)
             do
             {
                 PickCardSet();
@@ -2037,17 +1977,16 @@ public class DragonTigerManager : MonoBehaviour
                 PickCardSet();
                 card2 = set;
                 card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card1Value <= card2Value);
-            // Ensure card1 is at least 2 smaller than card2
+            } while (card1Value <= card2Value); // Repeat until card1Value > card2Value
 
             cardNo1 = card1;
             cardNo2 = card2;
 
-            Debug.Log("Dragon Win: card1 = " + card1Value + ", card2 = " + card2Value);
+            Debug.Log($"Dragon Win: card1 = {card1Value}, card2 = {card2Value}");
         }
         else if (num == 1) // Tiger win
         {
-            // Pick cards that satisfy Tiger win condition (card2Value is at least 2 greater than card1Value)
+            // Ensure card2 (Tiger) is greater than card1 (Dragon)
             do
             {
                 PickCardSet();
@@ -2057,17 +1996,16 @@ public class DragonTigerManager : MonoBehaviour
                 PickCardSet();
                 card2 = set;
                 card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card2Value <= card1Value + 2);
-            // Ensure card2 is at least 2 greater than card1
+            } while (card2Value <= card1Value); // Repeat until card2Value > card1Value
 
             cardNo1 = card1;
             cardNo2 = card2;
 
-            Debug.Log("Tiger Win: card1 = " + card1Value + ", card2 = " + card2Value);
+            Debug.Log($"Tiger Win: card1 = {card1Value}, card2 = {card2Value}");
         }
         else if (num == 3) // Tie win
         {
-            // Pick cards that satisfy Tie win condition (card1Value is equal to card2Value)
+            // Ensure card1Value and card2Value are equal
             do
             {
                 PickCardSet();
@@ -2077,13 +2015,12 @@ public class DragonTigerManager : MonoBehaviour
                 PickCardSet();
                 card2 = set;
                 card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card1Value != card2Value);
-            // Ensure both cards are equal
+            } while (card1Value != card2Value); // Repeat until card1Value == card2Value
 
             cardNo1 = card1;
             cardNo2 = card2;
 
-            Debug.Log("Tie Win: card1 = " + card1Value + ", card2 = " + card2Value);
+            Debug.Log($"Tie Win: card1 = {card1Value}, card2 = {card2Value}");
         }
     }
 
