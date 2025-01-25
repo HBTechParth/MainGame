@@ -444,43 +444,60 @@ public class AndarBaharManager : MonoBehaviour
     }
     void StopBettingObjOff()
     {
+        // Deactivate the stop betting UI
         stopBettingScreenObj.gameObject.SetActive(false);
 
+        // Turn off bet animations
         betAnimationONOff(false);
-        Debug.Log("ANDER BET =? " + totalInvestAndar);
-        Debug.Log("BAHAR BET =? " + totalInvestBahar);
 
         Debug.Log("ANDER BET =? " + totalInvestAndar);
         Debug.Log("BAHAR BET =? " + totalInvestBahar);
 
-        // Calculate probabilities dynamically based on investments
-        float probabilityTrue;
+        // Variables for probabilities
+        List<int> probabilities = new List<int>();
+
         if (totalInvestAndar > totalInvestBahar)
         {
-            // Andar has higher investment: 40% chance for true, 60% for false
-            probabilityTrue = 40f;
+            // Andar has a higher investment
+            probabilities.AddRange(Enumerable.Repeat(0, 5)); // 40% chance for Andar (5 numbers)
+            probabilities.AddRange(Enumerable.Repeat(1, 7)); // 60% chance for Bahar (7 numbers)
+
+            Debug.Log("Andar has higher investment. Probabilities -> Andar: 40%, Bahar: 60%");
         }
         else if (totalInvestAndar < totalInvestBahar)
         {
-            // Bahar has higher investment: 60% chance for true, 40% for false
-            probabilityTrue = 60f;
+            // Bahar has a higher investment
+            probabilities.AddRange(Enumerable.Repeat(1, 5)); // 40% chance for Bahar (5 numbers)
+            probabilities.AddRange(Enumerable.Repeat(0, 7)); // 60% chance for Andar (7 numbers)
+
+            Debug.Log("Bahar has higher investment. Probabilities -> Andar: 60%, Bahar: 40%");
         }
         else
         {
-            // Equal investment: 50% chance for true or false
-            probabilityTrue = 50f;
+            // Equal investment
+            probabilities.AddRange(Enumerable.Repeat(0, 5)); // 50% chance for Andar
+            probabilities.AddRange(Enumerable.Repeat(1, 5)); // 50% chance for Bahar
+
+            Debug.Log("Equal investment. Probabilities -> Andar: 50%, Bahar: 50%");
         }
 
-        // Generate a random value between 0 and 100
-        float randomValue =UnityEngine. Random.Range(0f, 100f);
-        bool result = randomValue < probabilityTrue;
+        // Shuffle the list of probabilities
+        probabilities = probabilities.OrderBy(x => Guid.NewGuid()).ToList();
 
-        // Log the result and call the SetWinningCard function
-        Debug.Log($"Winning card result: {result} (Random value: {randomValue}, True Probability: {probabilityTrue}%)");
+        // Log the shuffled list of probabilities
+        Debug.Log("Shuffled Probabilities List: " + string.Join(", ", probabilities));
 
-        WinningLogic.instance.SetWinningCard(cardSufflesGen[0], result);
+        // Pick the first item from the shuffled list
+        bool isAndarWinner = probabilities[0] == 0;
 
+        // Log the result
+        Debug.Log($"Picked Winner: {(isAndarWinner ? "Andar" : "Bahar")}");
+
+        // Pass the result to the winning logic
+        WinningLogic.instance.SetWinningCard(cardSufflesGen[0], isAndarWinner);
         WinningLogic.instance.ONCALLWINNING();
+
+        // Optionally, continue gameplay
         // ContinueGamePlay();
     }
 

@@ -223,7 +223,7 @@ public class DragonTigerManager : MonoBehaviour
 
         //StartCoroutine(StartBet());
         ChipAnimMaintain(1);
-        InitializeList();
+       
         // HistoryLoader(DataManager.Instance.listString);
         CheckSound();
     }
@@ -1175,26 +1175,26 @@ public class DragonTigerManager : MonoBehaviour
         _isClickAvailable = true;
         if (isAdmin)
         {
-            cardNo1 = UnityEngine.Random.Range(0, 52);
-            cardNo2 = UnityEngine.Random.Range(0, 52);
+            /* cardNo1 = UnityEngine.Random.Range(0, 52);
+             cardNo2 = UnityEngine.Random.Range(0, 52);
 
-            //cardNo1 = 0;
-            //cardNo2 = 1;
+             //cardNo1 = 0;
+             //cardNo2 = 1;
 
 
-            while (cardNo1 == cardNo2)
-            {
-                cardNo2 = UnityEngine.Random.Range(0, 52);
-            }
+             while (cardNo1 == cardNo2)
+             {
+                 cardNo2 = UnityEngine.Random.Range(0, 52);
+             }*/
 
 
             //cardSuffle1 = cardSuffles[cardNo1];
             //cardSuffle2 = cardSuffles[cardNo2];
             //SetRoomData(cardNo1, cardNo2);
 
-            cardSuffle1 = cardSuffles[cardNo1];
-            cardSuffle2 = cardSuffles[cardNo2];
-            SetRoomData(cardNo1, cardNo2, DataManager.Instance.listString);
+            // cardSuffle1 = cardSuffles[cardNo1];
+            //  cardSuffle2 = cardSuffles[cardNo2];
+            //   SetRoomData(cardNo1, cardNo2, DataManager.Instance.listString);
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
 
@@ -1288,7 +1288,7 @@ public class DragonTigerManager : MonoBehaviour
     public IEnumerator StopBet()
     {
         _isClickAvailable = false;
-        GetLargestBet();
+        GetWinner();
 
         isEnterBetStop = true;
         // yield return new WaitForSeconds(0.2f);
@@ -1299,12 +1299,12 @@ public class DragonTigerManager : MonoBehaviour
         DragonTigerAIManager.Instance.isActive = false;
         if (isAdmin)
         {
-            if (dragonTotalPrice + tigerTotalPrice + tieTotalPrice > 0)
-            {
-                cardSuffle1 = cardSuffles[cardNo1];
-                cardSuffle2 = cardSuffles[cardNo2];
-                SetDeckData(cardNo1, cardNo2);
-            }
+            /* if (dragonTotalPrice + tigerTotalPrice + tieTotalPrice > 0)
+             {
+                 cardSuffle1 = cardSuffles[cardNo1];
+                 cardSuffle2 = cardSuffles[cardNo2];
+                 SetDeckData(cardNo1, cardNo2);
+             }*/
         }
         yield return new WaitForSeconds(1.5f);
         stopBetObj.SetActive(false);
@@ -1316,11 +1316,11 @@ public class DragonTigerManager : MonoBehaviour
     public void GetDeckData(int no1, int no2)
     {
         if (isAdmin) return;
-        cardNo1 = no1;
-        cardNo2 = no2;
+        /* cardNo1 = no1;
+         cardNo2 = no2;
 
-        cardSuffle1 = cardSuffles[cardNo1];
-        cardSuffle2 = cardSuffles[cardNo2];
+         cardSuffle1 = cardSuffles[cardNo1];
+         cardSuffle2 = cardSuffles[cardNo2];*/
     }
 
     public void RestartTimer()
@@ -1496,19 +1496,19 @@ public class DragonTigerManager : MonoBehaviour
     public void GameThreeButton(int no)
     {
         if (!_isClickAvailable) return;
-        if (totalBet + chipPrice[selectChipNo] > 600) // Check if bet limit is exceeded
-        {
-            limitTextOB.SetActive(true);
-            limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-            limitOutText.text = "Maximum Bet Limit Under 600 INR";
-            DOVirtual.DelayedCall(1f, () =>
-            {
-                limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
-                limitTextOB.SetActive(false);
+        /* if (totalBet + chipPrice[selectChipNo] > 600) // Check if bet limit is exceeded
+         {
+             limitTextOB.SetActive(true);
+             limitOutText.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+             limitOutText.text = "Maximum Bet Limit Under 600 INR";
+             DOVirtual.DelayedCall(1f, () =>
+             {
+                 limitOutText.rectTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+                 limitTextOB.SetActive(false);
 
-            });
-            return; // Prevent further execution
-        }
+             });
+             return; // Prevent further execution
+         }*/
         switch (no)
         {
             case 1:
@@ -1789,8 +1789,8 @@ public class DragonTigerManager : MonoBehaviour
         cardNo2 = no2;
 
 
-        cardSuffle1 = cardSuffles[cardNo1];
-        cardSuffle2 = cardSuffles[cardNo2];
+        /* cardSuffle1 = cardSuffles[cardNo1];
+         cardSuffle2 = cardSuffles[cardNo2];*/
 
         if (isAdmin) return;
         //deckNo = no;
@@ -1873,70 +1873,137 @@ public class DragonTigerManager : MonoBehaviour
     // To find the largest number among Dragon, Tiger & Tie
 
     // for selecting winner
-    public List<int> numberList = new List<int>();
-    private System.Random random = new System.Random();
 
-  
-    private void InitializeList()
+
+    public void GetWinner()
     {
-        numberList.Clear();
-        for (int i = 0; i <= 30; i++)
+        // Calculate the total bet amount
+        float totalBet = dragonTotalPrice + tigerTotalPrice + tieTotalPrice;
+
+        Debug.Log($"Total Bets: Dragon = {dragonTotalPrice}, Tiger = {tigerTotalPrice}, Tie = {tieTotalPrice}");
+        Debug.Log($"Total Bet Amount: {totalBet}");
+
+        int gameNum = 0; // 1 for Tiger, 2 for Dragon, 3 for Tie
+
+        if (totalBet == 0)
         {
-            numberList.Add(i);
+            Debug.Log("No bets placed. Defaulting to random result with probabilities: 45% Dragon, 45% Tiger, 10% Tie.");
+            gameNum = GetRandomWeightedResult(45, 45, 10); // Default probabilities when no bets are placed
         }
-        ShuffleList();
+        else
+        {
+            // Assign probabilities dynamically based on bet amounts
+            int dragonChance = 0, tigerChance = 0, tieChance = 0;
+
+            // Check if all three bets are the same or if Dragon and Tiger bets are the same
+            if (dragonTotalPrice == tigerTotalPrice && tigerTotalPrice == tieTotalPrice)
+            {
+                dragonChance = 5; // 50%
+                tigerChance = 5;  // 50%
+                tieChance = 1;    // 10%
+
+                Debug.Log("All bets are equal. Assigning probabilities -> Dragon: 50%, Tiger: 50%, Tie: 10%");
+            }
+            else if (dragonTotalPrice == tigerTotalPrice)
+            {
+                dragonChance = 5; // 50%
+                tigerChance = 5;  // 50%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Dragon and Tiger bets are equal. Assigning probabilities -> Dragon: 50%, Tiger: 50%, Tie: 10%");
+            }
+            else if (dragonTotalPrice >= tigerTotalPrice && dragonTotalPrice >= tieTotalPrice)
+            {
+                dragonChance = 4; // 40%
+                tigerChance = 6;  // 60%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Dragon has the highest bet. Assigning probabilities -> Dragon: 40%, Tiger: 60%, Tie: 10%");
+            }
+            else if (tigerTotalPrice >= dragonTotalPrice && tigerTotalPrice >= tieTotalPrice)
+            {
+                tigerChance = 4;  // 40%
+                dragonChance = 6; // 60%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Tiger has the highest bet. Assigning probabilities -> Dragon: 60%, Tiger: 40%, Tie: 10%");
+            }
+            else if (tieTotalPrice >= dragonTotalPrice && tieTotalPrice >= tigerTotalPrice)
+            {
+                tieChance = 1;    // 10%
+                dragonChance = 4; // 40%
+                tigerChance = 6;  // 60%
+
+                Debug.Log("Tie has the highest bet. Assigning probabilities -> Dragon: 40%, Tiger: 60%, Tie: 10%");
+            }
+
+            // Determine winner using the calculated probabilities
+            Debug.Log("Calculating winner based on assigned probabilities...");
+            gameNum = GetRandomWeightedResult(tigerChance, dragonChance, tieChance);
+        }
+
+        Debug.Log($"Result: {GetResultName(gameNum)}");
+        Debug.Log($"gameNum: {gameNum}");
+        GenerateResult(gameNum);
     }
 
-    private void ShuffleList()
+
+    // This method calculates the winner based on the weighted chances.
+    private int GetRandomWeightedResult(int tigerWeight, int dragonWeight, int tieWeight)
     {
-        // Shuffle using Fisher-Yates algorithm
-        for (int i = numberList.Count - 1; i > 0; i--)
-        {
-            int randomIndex = random.Next(0, i + 1);
-            int temp = numberList[i];
-            numberList[i] = numberList[randomIndex];
-            numberList[randomIndex] = temp;
-        }
+        Debug.Log($"Calculating random weighted result:\nTiger Weight: {tigerWeight}, Dragon Weight: {dragonWeight}, Tie Weight: {tieWeight}");
+
+        List<int> weightedResults = new List<int>();
+
+        // Adjust the weights as per the new rules
+        weightedResults.AddRange(Enumerable.Repeat(1, tigerWeight)); // Tiger
+        weightedResults.AddRange(Enumerable.Repeat(2, dragonWeight)); // Dragon
+        weightedResults.AddRange(Enumerable.Repeat(3, tieWeight));   // Tie
+
+        Debug.Log($"Generated weighted list before shuffle: {string.Join(", ", weightedResults)}");
+
+        // Shuffle and return a random result
+        Shuffle(weightedResults);
+
+        Debug.Log($"Weighted list after shuffle: {string.Join(", ", weightedResults)}");
+
+        int selectedResult = weightedResults[0];
+        Debug.Log($"Selected result from random weighted list: {GetResultName(selectedResult)}");
+
+        return selectedResult;
     }
 
-    public void GetLargestBet()
+    // Shuffle method to randomize the order of items in the list
+    private void Shuffle<T>(List<T> list)
     {
-        if (numberList.Count == 0)
+        Debug.Log($"Shuffling list with {list.Count} elements.");
+
+        // Fisher-Yates Shuffle for randomness
+        int n = list.Count;
+        for (int i = n - 1; i > 0; i--)
         {
-            Debug.Log("Number list is empty. Reinitializing the list...");
-            InitializeList();
+            int j = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
         }
 
-        // Pick the first number in the list
-        int pickedNumber = numberList[0];
-        numberList.RemoveAt(0);
-
-        int gameNum = 0; // 1 for Tiger, 2 for Dragon, 3 for Tie.
-
-        if (pickedNumber >= 0 && pickedNumber <= 5)
-        {
-            gameNum = 3; // Tie
-            Debug.Log($"Picked Number: {pickedNumber} - Result: Tie");
-        }
-        else if (pickedNumber >= 6 && pickedNumber <= 18)
-        {
-            gameNum = 2; // Dragon
-            Debug.Log($"Picked Number: {pickedNumber} - Result: Dragon");
-        }
-        else if (pickedNumber >= 19 && pickedNumber <= 30)
-        {
-            gameNum = 1; // Tiger
-            Debug.Log($"Picked Number: {pickedNumber} - Result: Tiger");
-        }
-
-        Debug.Log("Game number => " + gameNum);
-
-        // Call GenerateNumber or any other logic for gameNum
-        GenerateNumber(gameNum);
+        Debug.Log($"List after shuffling: {string.Join(", ", list)}");
     }
 
+    private string GetResultName(int gameNum)
+    {
+        string resultName = gameNum switch
+        {
+            1 => "Tiger",
+            2 => "Dragon",
+            3 => "Tie",
+            _ => "Unknown",
+        };
 
-
+        Debug.Log($"Mapped result number {gameNum} to name: {resultName}");
+        return resultName;
+    }
 
 
     private int set = 0;
@@ -1957,90 +2024,82 @@ public class DragonTigerManager : MonoBehaviour
         };
     }
 
-
-    public void GenerateNumber(int num)
+    public void GenerateResult(int num)
     {
-        int card1 = 0;
-        int card2 = 0;
-        int card1Value = 0;
-        int card2Value = 0;
+        // Create a copy of the available cards to prevent modification of the original list
+        List<CardSuffle> availableCards = new List<CardSuffle>(cardSuffles);
 
-        if (num == 2) // Dragon win
+        CardSuffle card1 = null;
+        CardSuffle card2 = null;
+
+        do
         {
-            // Ensure card1 (Dragon) is greater than card2 (Tiger)
-            do
+            // Pick the first card
+            int index1 = Random.Range(0, availableCards.Count);
+            card1 = availableCards[index1];
+            availableCards.RemoveAt(index1); // Remove the picked card to avoid duplicates
+
+            // Pick the second card
+            int index2 = Random.Range(0, availableCards.Count);
+            card2 = availableCards[index2];
+            availableCards.RemoveAt(index2); // Remove the picked card to avoid duplicates
+
+            // Validate cards based on the game logic
+            if (num == 2 && CheckCardValue(card1.cardNo) > CheckCardValue(card2.cardNo)) // Dragon win
             {
-                PickCardSet();
-                card1 = set;
-                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
-
-                PickCardSet();
-                card2 = set;
-                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card1Value <= card2Value); // Repeat until card1Value > card2Value
-
-            cardNo1 = card1;
-            cardNo2 = card2;
-
-            Debug.Log($"Dragon Win: card1 = {card1Value}, card2 = {card2Value}");
-        }
-        else if (num == 1) // Tiger win
-        {
-            // Ensure card2 (Tiger) is greater than card1 (Dragon)
-            do
+                break;
+            }
+            else if (num == 1 && CheckCardValue(card1.cardNo) < CheckCardValue(card2.cardNo)) // Tiger win
             {
-                PickCardSet();
-                card1 = set;
-                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
-
-                PickCardSet();
-                card2 = set;
-                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card2Value <= card1Value); // Repeat until card2Value > card1Value
-
-            cardNo1 = card1;
-            cardNo2 = card2;
-
-            Debug.Log($"Tiger Win: card1 = {card1Value}, card2 = {card2Value}");
-        }
-        else if (num == 3) // Tie win
-        {
-            // Ensure card1Value and card2Value are equal
-            do
+                break;
+            }
+            else if (num == 3 && CheckCardValue(card1.cardNo) == CheckCardValue(card2.cardNo)) // Tie
             {
-                PickCardSet();
-                card1 = set;
-                card1Value = CheckCardValue(cardSuffles[card1].cardNo); // Adjust card1 value
+                break;
+            }
 
-                PickCardSet();
-                card2 = set;
-                card2Value = CheckCardValue(cardSuffles[card2].cardNo); // Adjust card2 value
-            } while (card1Value != card2Value); // Repeat until card1Value == card2Value
+            // Add the cards back to the pool if the condition is not met
+            availableCards.Add(card1);
+            availableCards.Add(card2);
+        } while (true);
 
-            cardNo1 = card1;
-            cardNo2 = card2;
+        // Assign cards to global variables
+        cardSuffle1 = card1;
+        cardSuffle2 = card2;
 
-            Debug.Log($"Tie Win: card1 = {card1Value}, card2 = {card2Value}");
-        }
+        //  Debug.Log($"Result: {num == 1 ? "Tiger" : num == 2 ? "Dragon" : "Tie"}");
+        Debug.Log($"Card 1: {CheckCardValue(card1.cardNo)}, Card 2: {CheckCardValue(card2.cardNo)}");
+    }
+
+    // Helper Function: Check card value
+    private int CheckCardValue(int cardNo)
+    {
+        // Converts card number to range 1-13 (Ace high)
+        int value = (cardNo - 1) % 13 + 1;
+        return value == 1 ? 14 : value; // Ace is 14
     }
 
 
 
-    private int CheckCardValue(int num)
-    {
-        // to check if card is = A
-        switch (num)
-        {
-            case 12:
-            case 25:
-            case 38:
-            case 51:
-                return num - 9;
-            default:
-                return num;
-        }
-    }
 
+
+
+
+    /* private int CheckCardValue(int num)
+     {
+         // to check if card is = A
+         switch (num)
+         {
+             case 12:
+             case 25:
+             case 38:
+             case 51:
+                 return num - 9;
+             default:
+                 return num;
+         }
+     }
+ */
 
     #endregion
 
