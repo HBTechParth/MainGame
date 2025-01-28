@@ -537,7 +537,8 @@ public class TestSocketIO : MonoBehaviour
         {
             keys.AddField("manyBet", manyBets);
         }
-        print("This is sending data -> " + keys);
+        print("<color=yellow>Data sent = \n" + keys.ToString() + "</color>");
+        print("<color=blue>Bet KEY  = \n" + manyBets.ToString() + "</color>");
         socket.Emit("setBetData", keys);
     }
 

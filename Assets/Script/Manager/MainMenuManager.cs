@@ -1387,7 +1387,7 @@ public class MainMenuManager : MonoBehaviour
 
                     fullScreenObj.transform.localScale = Vector3.zero;
                     fullScreenObj.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack)
-                        .OnComplete(() => bannerImage.DOFade(0.6f, 0.3f));
+                        .OnComplete(() => bannerImage.DOFade(1f, 0.3f));
                 }
             }
         }

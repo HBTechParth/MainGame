@@ -1052,7 +1052,10 @@ public class JhandiMundaManager : MonoBehaviour
             //if (upBetValue + downBetValue + onBetValue > 0)
             //{
             for (int i = 0; i < diceResults.Length; i++)
+            {
                 diceResults[i] = Random.Range(0, 6);
+                Debug.Log("DICE RESULT = >   " + diceResults[i]);
+            }
             
             SetDiceData(diceResults);
             //}

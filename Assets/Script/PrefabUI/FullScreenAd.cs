@@ -18,7 +18,7 @@ public class FullScreenAd : MonoBehaviour
         fullscreenPopup.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack) // Scale from 1 to 0
             .OnComplete(() =>
             {
-                bannerImage.DOFade(0f, 0.5f);
+               // bannerImage.DOFade(0f, 0.5f);
                 OnBannerClosed?.Invoke(); // Invoke the event when the banner is closed
                 OnBannerClosed = null; // Unsubscribe from the event
                 Destroy(fullscreenPopup, 0.5f);

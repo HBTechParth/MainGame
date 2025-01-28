@@ -48975,7 +48975,7 @@ MonoBehaviour:
   isGameRouletteStart: 0
   isAveUndo: 0
   findNo: 0
-  fixTimeSet: 5
+  fixTimeSet: 15
   timerValue: 0
   isEnterTheRoulette: 0
   isGameRunning: 0
@@ -84696,6 +84696,7 @@ MonoBehaviour:
   winNoTxt: {fileID: 2786259345684178140}
   winLastObj: {fileID: 2786259345971268026}
   winFirstObj: {fileID: 2786259345136147347}
+  roulateAdminCommission: 0
 --- !u!1 &2786259346123259525
 GameObject:
   m_ObjectHideFlags: 0

@@ -364,12 +364,22 @@ public class SevenUpDownManager : MonoBehaviour
 
     public void GenerateDiceNumbers()
     {
-        dice1.GetComponent<Animator>().enabled = false;
-        dice2.GetComponent<Animator>().enabled = false;
-        //SoundManager.Instance.RollDice_Stop_Sound();
-        dice1.GetComponent<Image>().sprite = diceNumbers[dice1Result - 1];
+        dice1Result = Mathf.Clamp(dice1Result, 1, 6); // 1 se 6 tak rakhte hain
+        dice2Result = Mathf.Clamp(dice2Result, 1, 6);
+
+        // **Sprite Assign Karna**
+        dice1.GetComponent<Image>().sprite = diceNumbers[dice1Result - 1]; // -1 kyunki list zero-based hoti hai
         dice2.GetComponent<Image>().sprite = diceNumbers[dice2Result - 1];
 
+        // **Debugging Logs**
+        print($"Dice1 = {dice1Result}, Sprite: {dice1.GetComponent<Image>().sprite.name}");
+        print($"Dice2 = {dice2Result}, Sprite: {dice2.GetComponent<Image>().sprite.name}");
+
+        // **Animation Band Karna**
+        dice1.GetComponent<Animator>().enabled = false;
+        dice2.GetComponent<Animator>().enabled = false;
+
+        // Dusri methods call karni ho to yaha karo
         GetDice();
     }
 
@@ -506,11 +516,11 @@ public class SevenUpDownManager : MonoBehaviour
 
         float adminPercentage = sevenUpDownAdminCommission;
         Debug.Log("adminPercentage =>  " + sevenUpDownAdminCommission);
-      //  float adminPercentage = DataManager.Instance.adminPercentage;
+        //  float adminPercentage = DataManager.Instance.adminPercentage;
         if (betPrice != 0)
         {
             float winReward = investPrice - betPrice;
-        Debug.Log("winReward =>  " + winReward);
+            Debug.Log("winReward =>  " + winReward);
             float adminCommission = adminPercentage / 100;
             float winAmount = winReward - (winReward * adminCommission);
             float playerWinAmount = betPrice + winAmount;
@@ -602,6 +612,8 @@ public class SevenUpDownManager : MonoBehaviour
 
     public void GetRoomData(int dice1, int dice2)
     {
+        Debug.Log("dice1Result =>  " + dice1Result);
+        Debug.Log("dice2Result =>  " + dice2Result);
         dice1Result = dice1;
         dice2Result = dice2;
 
@@ -662,8 +674,8 @@ public class SevenUpDownManager : MonoBehaviour
 
     public void GetDiceData(int dice1, int dice2)
     {
-        if (isAdmin)
-            return;
+        /* if (isAdmin)
+             return;*/
         dice1Result = dice1;
         dice2Result = dice2;
         print("new dice results received from admin");
@@ -753,10 +765,11 @@ public class SevenUpDownManager : MonoBehaviour
         _isClickAvailable = true;
         if (isAdmin)
         {
-            dice1Result = Random.Range(1, 7);
-            dice2Result = Random.Range(1, 7);
-            SetRoomData(dice1Result, dice2Result);
-            //SetDiceData(dice1Result, dice2Result);//testing to see if it works without this function call
+            //dice1Result = Random.Range(1, 7);
+            /* dice2Result = Random.Range(1, 7);
+              SetRoomData(dice1Result, dice2Result);
+            SetDiceData(dice1Result, dice2Result);//testing to see if it works without this function call*/
+            // GetWinner();
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
         //     yield return new WaitForSeconds(0.2f);
@@ -786,15 +799,176 @@ public class SevenUpDownManager : MonoBehaviour
         {
             //if (upBetValue + downBetValue + onBetValue > 0)
             //{
-            dice1Result = Random.Range(1, 7);
-            dice2Result = Random.Range(1, 7);
-            SetDiceData(dice1Result, dice2Result);
-            //}
+            //  dice1Result = Random.Range(1, 7);
+            //dice2Result = Random.Range(1, 7); 
+            GetWinner();
+
+
         }
         yield return new WaitForSeconds(1.5f);
         stopBetObj.SetActive(false);
         betAnimationONOff(false);
         RollDice();
+    }
+
+
+    public void GetWinner()
+    {
+        // Calculate the total bet amount
+        float totalBet = upBetValue + downBetValue + onBetValue;
+
+        Debug.Log($"Total Bets: Up = {upBetValue}, Down = {downBetValue}, On = {onBetValue}");
+        Debug.Log($"Total Bet Amount: {totalBet}");
+
+        int gameNum = 0; // 1 for Down, 2 for Up, 3 for On
+
+        if (totalBet == 0)
+        {
+            Debug.Log("No bets placed. Defaulting to random result with probabilities: 45% Up, 45% Down, 10% On.");
+            gameNum = GetRandomWeightedResult(45, 45, 10); // Default probabilities when no bets are placed
+        }
+        else
+        {
+            // Assign probabilities dynamically based on bet amounts
+            int upChance = 0, downChance = 0, onChance = 0;
+
+            // Check if all three bets are the same or if Up and Down bets are the same
+            if (upBetValue == downBetValue && downBetValue == onBetValue)
+            {
+                upChance = 5;  // 50%
+                downChance = 5; // 50%
+                onChance = 1;   // 10%
+
+                Debug.Log("All bets are equal. Assigning probabilities -> Up: 50%, Down: 50%, On: 10%");
+            }
+            else if (upBetValue == downBetValue)
+            {
+                upChance = 5;  // 50%
+                downChance = 5; // 50%
+                onChance = 1;   // 10%
+
+                Debug.Log("Up and Down bets are equal. Assigning probabilities -> Up: 50%, Down: 50%, On: 10%");
+            }
+            else if (upBetValue >= downBetValue && upBetValue >= onBetValue)
+            {
+                upChance = 4;  // 40%
+                downChance = 6; // 60%
+                onChance = 1;   // 10%
+
+                Debug.Log("Up has the highest bet. Assigning probabilities -> Up: 40%, Down: 60%, On: 10%");
+            }
+            else if (downBetValue >= upBetValue && downBetValue >= onBetValue)
+            {
+                downChance = 4;  // 40%
+                upChance = 6;    // 60%
+                onChance = 1;    // 10%
+
+                Debug.Log("Down has the highest bet. Assigning probabilities -> Up: 60%, Down: 40%, On: 10%");
+            }
+            else if (onBetValue >= upBetValue && onBetValue >= downBetValue)
+            {
+                onChance = 1;    // 10%
+                upChance = 4;    // 40%
+                downChance = 6;  // 60%
+
+                Debug.Log("On has the highest bet. Assigning probabilities -> Up: 40%, Down: 60%, On: 10%");
+            }
+
+            // Determine winner using the calculated probabilities
+            Debug.Log("Calculating winner based on assigned probabilities...");
+            gameNum = GetRandomWeightedResult(downChance, upChance, onChance);
+        }
+
+        Debug.Log($"Result: {GetResultName(gameNum)}");
+        Debug.Log($"gameNum: {gameNum}");
+
+        SetDiceValues(gameNum);
+    }
+
+    private void SetDiceValues(int gameNum)
+    {
+        int dice1Result = 0;
+        int dice2Result = 0;
+
+        switch (gameNum)
+        {
+            case 1: // Down wins (1-8 total)
+                dice1Result = Random.Range(1, 5); // Randomize first dice
+                dice2Result = Random.Range(1, 5); // Randomize second dice
+                break;
+            case 2: // Up wins (8-12 total)
+                dice1Result = Random.Range(4, 7); // Randomize first dice
+                dice2Result = Random.Range(4, 7); // Randomize second dice
+                break;
+            case 3: // On wins (total = 7)
+                dice1Result = Random.Range(1, 7); // Randomize first dice
+                dice2Result = 7 - dice1Result;    // Ensure total equals 7
+                if (dice2Result < 1 || dice2Result > 6)
+                {
+                    dice1Result = 3; // Default values
+                    dice2Result = 4;
+                }
+                break;
+
+        }
+
+        Debug.Log($"Dice Results: Dice 1 = {dice1Result}, Dice 2 = {dice2Result}");
+        SetDiceData(dice1Result, dice2Result);
+    }
+
+    private int GetRandomWeightedResult(int downWeight, int upWeight, int onWeight)
+    {
+        Debug.Log($"Calculating random weighted result:\nDown Weight: {downWeight}, Up Weight: {upWeight}, On Weight: {onWeight}");
+
+        List<int> weightedResults = new List<int>();
+
+        // Adjust the weights as per the new rules
+        weightedResults.AddRange(Enumerable.Repeat(1, downWeight)); // Down
+        weightedResults.AddRange(Enumerable.Repeat(2, upWeight));   // Up
+        weightedResults.AddRange(Enumerable.Repeat(3, onWeight));  // On
+
+        Debug.Log($"Generated weighted list before shuffle: {string.Join(", ", weightedResults)}");
+
+        // Shuffle and return a random result
+        Shuffle(weightedResults);
+
+        Debug.Log($"Weighted list after shuffle: {string.Join(", ", weightedResults)}");
+
+        int selectedResult = weightedResults[0];
+        Debug.Log($"Selected result from random weighted list: {GetResultName(selectedResult)}");
+
+        return selectedResult;
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
+        Debug.Log($"Shuffling list with {list.Count} elements.");
+
+        // Fisher-Yates Shuffle for randomness
+        int n = list.Count;
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
+
+        Debug.Log($"List after shuffling: {string.Join(", ", list)}");
+    }
+
+    private string GetResultName(int gameNum)
+    {
+        string resultName = gameNum switch
+        {
+            1 => "Down",
+            2 => "Up",
+            3 => "On",
+            _ => "Unknown",
+        };
+
+        Debug.Log($"Mapped result number {gameNum} to name: {resultName}");
+        return resultName;
     }
     public List<GameObject> objects;  // List of objects to animate
     public List<GameObject> stopObjects;
