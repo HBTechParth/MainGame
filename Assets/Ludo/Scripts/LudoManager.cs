@@ -3561,7 +3561,7 @@ public class LudoManager : MonoBehaviour
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
         obj.AddField("PlayerRoundChecker", playerRoundChecker);
         Debug.Log("roundChecker = " + playerRoundChecker);
-        print("turn change by bot ");
+        print("turn change by bot "+calledByPlayer);
         if (calledByPlayer == true)
             TestSocketIO.Instace.Senddata("LudoDiceChangeData", obj);
         else

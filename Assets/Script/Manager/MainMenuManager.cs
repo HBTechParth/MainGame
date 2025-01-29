@@ -128,7 +128,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-      //  Screen.orientation = ScreenOrientation.LandscapeLeft;
+        //  Screen.orientation = ScreenOrientation.LandscapeLeft;
         Time.timeScale = 1;
         if (Instance == null)
         {
@@ -186,6 +186,7 @@ public class MainMenuManager : MonoBehaviour
                 TestSocketIO.Instace.RummyLoadScene();
             }
         }
+        // Debug.Log("TurnOnLudoSelector => " + ludoBotPlayersLoaded + " secondsCount  => " + secondsCount + "    DataManager.Instance.gameMode =>  " + DataManager.Instance.gameMode);
 
         if (DataManager.Instance.gameMode == GameType.Ludo && secondsCount <= 3 && !ludoBotPlayersLoaded)
         {
@@ -697,7 +698,7 @@ public class MainMenuManager : MonoBehaviour
                     Debug.Log("SpinAndWin");
                     DataManager.Instance.gameMode = GameType.SpinAndWin;
                     string getTour = IsAvaliableSingleTournament(GameType.SpinAndWin);
-                    Debug.Log("SpinAndWin =>  "+getTour);
+                    Debug.Log("SpinAndWin =>  " + getTour);
                     if (!string.IsNullOrEmpty(getTour))
                     {
                         DataManager.Instance.tournamentID = getTour;
@@ -766,7 +767,7 @@ public class MainMenuManager : MonoBehaviour
 
         Debug.Log(" selectedValue  => " + selectedValue);
 
-        SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);    
+        SetTableLimitAndData(selectedValue, DataManager.Instance.gameMode);
         if (string.IsNullOrEmpty(DataManager.Instance.tournamentID))
         {
             GenerateTournamentError();
@@ -1055,6 +1056,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void TurnOnLudoSelector()
     {
+        Debug.Log("TurnOnLudoSelector => " + ludoBotPlayersLoaded);
         ludoModeSelect.gameObject.SetActive(true);
         ludoBotPlayersLoaded = false;
         DataManager.Instance.isTwoPlayer = false;
@@ -1219,6 +1221,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void GenerateNoPlayersFound()
     {
+        if (DataManager.Instance.joinPlayerDatas.Count > 1) return;
         timerObject.SetActive(false);
         Instantiate(noplayersOnlinePrefab, prefabParent.transform);
     }

@@ -1299,7 +1299,7 @@ public class PokerGameManager : MonoBehaviour
     {
         secondScreenObj.SetActive(true);
     }
-
+    public int prePlayerTurn;
     public void OpenOnScreen()
     {
         downObjectOnObj.SetActive(true);
@@ -1307,13 +1307,18 @@ public class PokerGameManager : MonoBehaviour
         allInOnObj.SetActive(false);
 
         float callPrice = GetCallAmount();
+        Debug.Log("GetCallAmount  " + callPrice);
 
         //callPriceTxt.text = lastPrice.ToString();
         callPriceTxt.text = "Call : " + callPrice.ToString();
         raisePriceTxt.text = "Raise : " + lastPrice.ToString();
         raisePrice = lastPrice;
-
-        if (isFold_Off)
+        Debug.Log("isFold_Off  => " + isFold_Off);
+        Debug.Log("isAllIn  => " + isAllIn);
+        Debug.Log("isCheck_Off  => " + isCheck_Off);
+        Debug.Log("isCall_Off  => " + isCall_Off);
+        Debug.Log("prePlayerTurn  => " + prePlayerTurn);
+        if (isFold_Off&& FindPrevPlayerFOLD())
         {
             //SendPokerPlayerFold(player1.playerId);
             Second_Fold_ButtonClick();
@@ -1324,11 +1329,11 @@ public class PokerGameManager : MonoBehaviour
             raiseBtn.SetActive(false);
             allInBtn.SetActive(true);
         }
-        else if (isCheck_Off)
+        else if (isCheck_Off && FindPrevPlayerCHECK())
         {
             ChangePlayerTurn(player1.playerNo);
         }
-        else if (isCall_Off)
+        else if (isCall_Off&& FindPrevPlayerCALL())
         {
             //SendPokerBet(player1.playerNo, lastPrice, "call");
             Second_Call_ButtonClick();
@@ -1336,6 +1341,46 @@ public class PokerGameManager : MonoBehaviour
 
         ResetChecks();
     }
+    private bool FindPrevPlayerCHECK()
+    {
+        for (int i = 0; i < pokerPlayers.Count; i++)
+        {
+            if (pokerPlayers[i].playerNo == prePlayerTurn)
+            {
+                return pokerPlayers[i].isCheck; // Directly return isCheck value
+            }
+        }
+
+        // If no matching player is found, return false as default
+        return false;
+    } 
+    private bool FindPrevPlayerFOLD()
+    {
+        for (int i = 0; i < pokerPlayers.Count; i++)
+        {
+            if (pokerPlayers[i].playerNo == prePlayerTurn)
+            {
+                return pokerPlayers[i].isFold; // Directly return isCheck value
+            }
+        }
+
+        // If no matching player is found, return false as default
+        return false;
+    }
+    private bool FindPrevPlayerCALL()
+    {
+        for (int i = 0; i < pokerPlayers.Count; i++)
+        {
+            if (pokerPlayers[i].playerNo == prePlayerTurn)
+            {
+                return pokerPlayers[i].isCalled; // Directly return isCheck value
+            }
+        }
+
+        // If no matching player is found, return false as default
+        return false;
+    }
+
 
     private void ResetChecks()
     {
@@ -1467,6 +1512,7 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         //SoundManager.Instance.ThreeBetSound();
         float callAmount = GetCallAmount();
+        Debug.Log("GetCallAmount  " + callAmount);
         if (CheckMoney(callAmount) == false)
         {
             SoundManager.Instance.ButtonClick();
@@ -3714,7 +3760,7 @@ public class PokerGameManager : MonoBehaviour
                 if (pokerPlayers[i].playerNo == nextPlayerNo && pokerPlayers[i] == player1)
                 {
                     //bottomBox.SetActive(true);
-
+                    Debug.Log("OpenOnScreen");
                     OpenOnScreen();
                 }
                 else
@@ -4903,6 +4949,7 @@ public class PokerGameManager : MonoBehaviour
 
             if (nextPlayer.playerId == DataManager.Instance.playerData._id)
             {
+                Debug.Log("OpenOnScreen");
                 OpenOnScreen();
             }
 
@@ -4952,7 +4999,7 @@ public class PokerGameManager : MonoBehaviour
         }
         else
         {
-            print("--Bot Player--");
+            print("--Bot Player--"+amount);
             player.PlaceBotStartingBet(amount);
         }
     }

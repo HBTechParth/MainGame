@@ -351,7 +351,7 @@ public class EditProfileUP : MonoBehaviour
         errorOTPTxt.text = "";
     }
 
-
+    public string requestIdOtpSend;
     IEnumerator sendOTP()
     {
         WWWForm form = new WWWForm();
@@ -376,6 +376,8 @@ public class EditProfileUP : MonoBehaviour
             else
             {
                 print("Otp received Successfully");
+                print("Otp received requestIdOtpSend  => " + values["otpResponse"]["requestId"]);
+                requestIdOtpSend = values["otpResponse"]["requestId"];
                 StartOtpTimer();
                 getOtpButton.gameObject.SetActive(false);
                 verifyButton.gameObject.SetActive(true);
@@ -391,27 +393,34 @@ public class EditProfileUP : MonoBehaviour
         }
 
     }
-    
+
     IEnumerator VerifyOtp()
     {
         WWWForm form = new WWWForm();
-        form.AddField("phone", mobileNumberTxt);
-        form.AddField("code", otpNumber.text);
+        form.AddField("otp", otpNumber.text);
+        form.AddField("requestId", requestIdOtpSend);
+        form.AddField("playerId", DataManager.Instance.playerData._id);
+        form.AddField("phone", phoneNumberInput.text);
+
+        // Logging the data being sent
+        string formDataLog = $"Sent Data: code={otpNumber.text}, requestId={requestIdOtpSend}, playerID={DataManager.Instance.playerData._id}";
+        print(formDataLog);
+        Logger.log.Log("Form Data", formDataLog);
 
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/verify-phone", form);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
-    
+
         yield return request.SendWebRequest();
 
         if (request.error == null && !request.isNetworkError)
         {
             JSONNode values = JSON.Parse(request.downloadHandler.text.ToString());
-            print(request.downloadHandler.text);
-            Logger.log.Log("Save Data", values.ToString());
+            print("Response: " + request.downloadHandler.text);
+            Logger.log.Log("Response Data", values.ToString());
 
             if (values["success"] == false)
             {
-                StartCoroutine(ShowError((values["error"])));
+                StartCoroutine(ShowError(values["error"]));
             }
             else
             {
@@ -425,9 +434,11 @@ public class EditProfileUP : MonoBehaviour
         }
         else
         {
-            Logger.log.Log(request.error.ToString());
+            Logger.log.Log("Request Error: " + request.error);
+            print("Request Error: " + request.error);
         }
     }
+
 
     public void ChangeNumberButtonClick()
     {
@@ -672,7 +683,11 @@ public class EditProfileUP : MonoBehaviour
         PlayerPrefs.SetInt(DataManager.Instance.PanSavedKey, 1);
         PlayerPrefs.Save();
     }
-    
+    public void CallLoadKycData()
+    {
+        StartCoroutine("LoadKYCData");
+    }
+
     IEnumerator LoadKYCData()
     {
         UnityWebRequest request = UnityWebRequest.Get(DataManager.Instance.url + "/api/v1/players/profile");
@@ -687,7 +702,10 @@ public class EditProfileUP : MonoBehaviour
 
             if (values["success"] == true)
             {
+                Debug.Log("values =>   " + values["data"]["phone"]);
+                DataManager.Instance.playerData.phone = values["data"]["phone"];
                 phoneNumberInput.text = values["data"]["phone"];
+                Debug.Log("phoneNumberInput =>   " + phoneNumberInput.text);
                 nameInput.text = values["data"]["firstName"];
                 panNumberInput.text = values["data"]["panNumber"];
                 dobInput.text = values["data"]["dob"];
