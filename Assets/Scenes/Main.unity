@@ -330,6 +330,10 @@ MonoBehaviour:
   divider: 0
   selectTableClone: {fileID: 5985483442518411296, guid: 2aab1df5ca8dd50469bc8dc833f90456, type: 3}
   selectTableClonetrans: {fileID: 315768782}
+  firstTextselectTableClone: {fileID: 862472001}
+  secondTextselectTableClone: {fileID: 989209358}
+  thirdTextselectTableClone: {fileID: 397186367}
+  fourTextselectTableClone: {fileID: 965471929}
 --- !u!1 &37028276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4678,7 +4682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: POT LIMIT
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}
@@ -8773,7 +8777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BOOT
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}
@@ -9957,7 +9961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JOIN
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}
@@ -10324,7 +10328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MIN BUY
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cba08fd52e64d3d42ba2daebffe842cd, type: 2}

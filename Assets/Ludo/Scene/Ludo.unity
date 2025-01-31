@@ -34911,7 +34911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.3051147, y: -23.268982}
+  m_AnchoredPosition: {x: 6.3051147, y: -23.26892}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797251347
@@ -38468,6 +38468,7 @@ MonoBehaviour:
   isSix: 0
   counter: 0
   leftPlayerNames: []
+  ludoAdminCommission: 0
   cntPlayer1: 0
   cntPlayer2: 0
   cntPlayer3: 0

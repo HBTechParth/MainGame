@@ -141,7 +141,7 @@ public class PokerPlayer : MonoBehaviour
         {
             TurnOnFiller();
             UpdateFillLine();
-
+         
             if (fillLine.fillAmount == 0 && !isOneTimeEnter)
             {
                 isOneTimeEnter = true;
@@ -169,14 +169,21 @@ public class PokerPlayer : MonoBehaviour
 
     private void UpdateFillLine()
     {
-        fillLine.fillAmount -= 1.0f / PokerGameManager.Instance.timerSpeed * Time.fixedDeltaTime;
+      
+        float decrement = 1.0f / PokerGameManager.Instance.timerSpeed * Time.fixedDeltaTime;
+        fillLine.fillAmount -= decrement;
+
+       
     }
+
 
     private void TurnOnFiller()
     {
+       
         if (!fillLine.gameObject.activeSelf)
         {
             fillLine.gameObject.SetActive(true);
+            fillLine.fillAmount = 1;
         }
     }
 
@@ -188,12 +195,14 @@ public class PokerPlayer : MonoBehaviour
         /*// Reset isOneTimeEnter
         isOneTimeEnter = false;*/
 
-        if (PokerGameManager.Instance.isAdmin)
-        {
-            admin = true;
-            PokerGameManager.Instance.SendPokerPlayerFold(playerId);
-        }
-
+        /* if (PokerGameManager.Instance.isAdmin)
+         {
+             admin = true;
+             Debug.Log("SendPokerPlayerFold  =>  " + playerId);
+             PokerGameManager.Instance.SendPokerPlayerFold(playerId);
+         }*/
+        PokerGameManager.Instance.SendPokerPlayerFold(playerId);
+        Debug.Log("POKER TURN Player NO  => " + playerNo);
         PokerGameManager.Instance.ChangePlayerTurn(playerNo);
     }
 
@@ -226,16 +235,21 @@ public class PokerPlayer : MonoBehaviour
         int num = Random.Range(1, 4);
         GetBotBetAmount();
         print(num + "This is the Card Number");
-        if (!CheckSufficientFunds())
+        if (!CheckSufficientFunds() || Random.value <= 0.05f) // 10% chance to fold randomly
         {
             isFold = true;
             Debug.Log("Is Fold   => " + playerId);
             Debug.Log("Is Fold   => " + playerNo);
             PokerGameManager.Instance.SendPokerPlayerFold(playerId);
+            Debug.Log("POKER TURN Player NO  => " + playerNo);
+
             PokerGameManager.Instance.ChangePlayerTurn(playerNo);
             return;
         }
+
         UpdateBotBalanceAndText();
+        Debug.Log("BET AMOUNT POKER +>" + currentBotBetAmount);
+
         SendBotBetNo(num, playerNo, currentBotBetAmount);
         switch (num)
         {
@@ -273,7 +287,8 @@ public class PokerPlayer : MonoBehaviour
                     break;
                 }
         }
-        Debug.Log("PLAYER NO =>" + playerNo);
+        Debug.Log("POKER TURN Player NO  => " + playerNo);
+
         PokerGameManager.Instance.prePlayerTurn = playerNo;
         PokerGameManager.Instance.ChangePlayerTurn(playerNo);
         _isFunctionCalled = true;
@@ -290,11 +305,14 @@ public class PokerPlayer : MonoBehaviour
         {
             isFold = true;
             Debug.Log("Is Fold   => " + playerId);
-            Debug.Log("Is Fold   => " + playerNo);
+            Debug.Log("POKER TURN Player NO  => " + playerNo);
+
             PokerGameManager.Instance.SendPokerPlayerFold(playerId);
             PokerGameManager.Instance.ChangePlayerTurn(playerNo);
             return;
         }
+        Debug.Log("BET AMOUNT POKER +>" + amount);
+
         SendBotBetNo(1, playerNo, amount);
         PokerGameManager.Instance.BetAnim(this, amount);
         SoundManager.Instance.ThreeBetSound();
@@ -334,7 +352,7 @@ public class PokerPlayer : MonoBehaviour
 
         if (botBetAmount == 0)
         {
-            botBetAmount = 10f;
+            botBetAmount = PokerGameManager.Instance.bbAmount;
         }
 
         currentBotBetAmount = botBetAmount;

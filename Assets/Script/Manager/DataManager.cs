@@ -653,7 +653,7 @@ public class DataManager : MonoBehaviour
         joinPlayer.playerNo = playerNo;
         joinPlayer.lobbyId = lobbyId;
         joinPlayer.avtar = avtar;
-
+        Debug.Log("playerNo  =>  " + playerNo);
         for (int i = 0; i < joinPlayerDatas.Count; i++)
         {
             Debug.Log("Player Id : " + joinPlayerDatas[i].userId);
@@ -764,6 +764,7 @@ public class DataManager : MonoBehaviour
     //LocalPlayer.Instace.addamount(bid.amount, TestSocketIO.Instace.roomid, "Internal Bid Won", "won", com);
     public void AddAmount(float amount, string roomid, string note, string log, float adminc, int winNo)
     {
+        Debug.Log("WIn Money =  >  " + amount);
         StartCoroutine(SendWonamount(amount, roomid, note, log, adminc, winNo));
     }
 
@@ -868,8 +869,6 @@ public class DataManager : MonoBehaviour
 
     IEnumerator Debit_Amount_Ienum(WWWForm form)
     {
-
-
         Debug.Log("Debit_Amount_Ienum");
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/debit", form);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
@@ -879,23 +878,28 @@ public class DataManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Ludo")
         {
-            if (request.error != "")
+            if (!string.IsNullOrEmpty(request.error)) // Fixed error checking
             {
-                // Debug.Log("DebitError = " + request.error);
-                Invoke(nameof(LudoManager.Instance.AddBetAmount), 1f);
+                Debug.LogError("DebitError = " + request.error);
+
+                // Check if LudoManager.Instance is null before calling method
+                if (LudoManager.Instance != null)
+                {
+                    Invoke(nameof(LudoManager.Instance.AddBetAmount), 1f);
+                }
+                else
+                {
+                    Debug.LogError("LudoManager.Instance is null. Cannot call AddBetAmount.");
+                }
             }
         }
-        print("<color=blue> Debit Value : </color>" + request.downloadHandler.text);
-        Debug.Log("Debit Value data =>    " + data.ToString());
+
+        Debug.Log("<color=blue> Debit Value : </color>" + request.downloadHandler.text);
+        Debug.Log("Debit Value data => " + data.ToString());
         Setplayerdata(data);
         DataManager.Instance.UserTurnVibrate();
-
-        //Balance_Txt.text = data["balance"].ToString().Trim('"');
-        //playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
-        //playerData.deposit = data[nameof(DataManager.Instance.playerData.deposit)];
-        //playerData.winings = data[nameof(DataManager.Instance.playerData.winings)];
-        //playerData.bonus = data[nameof(DataManager.Instance.playerData.bonus)];
     }
+
 
 
 

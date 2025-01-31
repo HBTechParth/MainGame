@@ -67,7 +67,7 @@ public class RouletteeBoardDataManage : MonoBehaviour
             winAnimationTxt.gameObject.SetActive(true);
             winAnimationTxt.text = "+" + playerWinAmount;
             Invoke(nameof(WinAmountTextOff), 0.52f);
-            DataManager.Instance.AddAmount((float)(playerWinAmount), TestSocketIO.Instace.roomid, "Roulette-Win-" + TestSocketIO.Instace.roomid, "won", (float)(adminCommssion), RouletteManager.Instance.noGen);
+            DataManager.Instance.AddAmount((float)(playerWinAmount), DataManager.Instance.gameId, "Roulette-Win-" + DataManager.Instance.gameId, "won", (float)(adminCommssion), RouletteManager.Instance.noGen);
         }
         float otherAmount = RouletteManager.Instance.totalCurrentInvest - playerWinAmount;
         if (otherAmount != 0)

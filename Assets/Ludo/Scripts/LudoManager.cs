@@ -4742,28 +4742,32 @@ public class LudoManager : MonoBehaviour
         List<PasaManage> homeBotPlayer = HomePlayerBot();
         List<PasaManage> safeBotPlayer = SafePlayerBot();
 
-
-
         if (moveBotPlayer.Count > 0)
         {
             if (killBotPlayer.Count > 0)
             {
-                PasaManage pSafeManage1 = killBotPlayer[0];
-                PasaManage pSafeManage2 = killBotPlayer[1];
-                bool isFindEnter = false;
-                for (int i = 1; i < 7; i++)
+                float killChance = UnityEngine.Random.value; // Generates a random number between 0 and 1
+                if (killChance <= 0.6f) // 60% chance to kill
                 {
-                    int checkNo = pSafeManage1.orgNo + i;
-                    if (checkNo == pSafeManage2.orgNo && isFindEnter == false)
+                    PasaManage pSafeManage1 = killBotPlayer[0];
+                    PasaManage pSafeManage2 = killBotPlayer[1];
+                    bool isFindEnter = false;
+                    for (int i = 1; i < 7; i++)
                     {
-                        isFindEnter = true;
-                        botMoveTokeStore.moveNo = i;
-                        botMoveTokeStore.pasaToken = pSafeManage1;
-                        botMoveTokeStore.isKillSend = true;
+                        int checkNo = pSafeManage1.orgNo + i;
+                        if (checkNo == pSafeManage2.orgNo && !isFindEnter)
+                        {
+                            isFindEnter = true;
+                            botMoveTokeStore.moveNo = i;
+                            botMoveTokeStore.pasaToken = pSafeManage1;
+                            botMoveTokeStore.isKillSend = true;
+                        }
                     }
                 }
             }
-            else
+
+            // If no kill or skipped killing (40% chance), proceed with a normal move
+            if (!botMoveTokeStore.isKillSend)
             {
                 if (homeBotPlayer.Count > 0)
                 {
@@ -4772,7 +4776,7 @@ public class LudoManager : MonoBehaviour
                     for (int i = 1; i < 7; i++)
                     {
                         int checkNo = pSafeManage.orgNo + i;
-                        if (checkNo == 57 && isFindEnter == false)
+                        if (checkNo == 57 && !isFindEnter)
                         {
                             isFindEnter = true;
                             botMoveTokeStore.moveNo = i;
@@ -4781,171 +4785,19 @@ public class LudoManager : MonoBehaviour
                         }
                     }
                 }
+                else if (safeBotPlayer.Count > 0)
+                {
+                    PasaManage pSafeManage = safeBotPlayer[0];
+                    botMoveTokeStore.moveNo = Bot_Random_Genrate();
+                    botMoveTokeStore.pasaToken = pSafeManage;
+                    botMoveTokeStore.isMoveSend = true;
+                }
                 else
                 {
-                    if (safeBotPlayer.Count > 0)
-                    {
-
-                        List<PasaManage> movePlayerOrgAv = new List<PasaManage>();
-                        for (int i = 0; i < pasaObjects.Count; i++)
-                        {
-                            PasaManage pManageOrgDv = pasaObjects[i].GetComponent<PasaManage>();
-                            if (currentPlayerPasaList.Contains(pManageOrgDv))
-                            {
-                                movePlayerOrgAv.Add(pManageOrgDv);
-                            }
-                        }
-
-                        List<bool> checkTheMove = new List<bool>();
-
-                        if (movePlayerOrgAv.Count > 0)
-                        {
-                            for (int i = 0; i < safeBotPlayer.Count; i++)
-                            {
-                                PasaManage pSafeManage = safeBotPlayer[i];
-                                bool isUnsafe = false;
-                                for (int j = 0; j < movePlayerOrgAv.Count; j++)
-                                {
-                                    PasaManage pMoveOrgManage = movePlayerOrgAv[i];
-
-                                    for (int k = 1; k < 7; k++)
-                                    {
-                                        if (pSafeManage.orgNo == (pMoveOrgManage.orgNo + k) && isUnsafe == false)
-                                        {
-                                            isUnsafe = true;
-                                        }
-
-                                    }
-
-                                    if (isUnsafe)
-                                    {
-                                        break;
-                                    }
-                                }
-                                checkTheMove.Add(isUnsafe);
-                            }
-
-                            if (checkTheMove.Contains(true))
-                            {
-                                bool isFindEnter = false;
-                                for (int i1 = 0; i1 < checkTheMove.Count; i1++)
-                                {
-                                    bool isGetCheck = checkTheMove[i1];
-                                    if (isGetCheck)
-                                    {
-                                        PasaManage pSafeManage = safeBotPlayer[i1];
-                                        for (int i = 1; i < 7; i++)
-                                        {
-                                            int checkNo = pSafeManage.orgNo + i;
-                                            if ((checkNo == 1 || checkNo == 9 || checkNo == 14 || checkNo == 22 || checkNo == 27 || checkNo == 35 || checkNo == 40 || checkNo == 48) && isFindEnter == false)
-                                            {
-                                                isFindEnter = true;
-                                                botMoveTokeStore.moveNo = i;
-                                                botMoveTokeStore.pasaToken = pSafeManage;
-                                                botMoveTokeStore.isSafeSend = true;
-                                                //generatePasaNo = i;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-
-                                bool isKillAvliable = false;
-                                //int orgFirstNo = 1;
-
-                                //for (int i = 0; i < movePlayerOrgAv.Count; i++)
-                                //{
-                                //    if (movePlayerOrgAv[i].orgNo > 27 && movePlayerOrgAv[i].orgNo < 34)
-                                //    {
-
-                                //    }
-                                //}
-                                for (int i = 0; i < movePlayerOrgAv.Count; i++)
-                                {
-                                    if (movePlayerOrgAv[i].orgNo > 27 && movePlayerOrgAv[i].orgNo < 34)
-                                    {
-                                        isKillAvliable = true;
-                                        break;
-                                    }
-                                }
-
-                                if (isKillAvliable == true)
-                                {
-                                    int cnt = 0;
-                                    bool isExist = false;
-                                    for (int i = 0; i < pasaBotPlayer.Count; i++)
-                                    {
-                                        if (pasaBotPlayer[i].orgNo == 27 && pasaBotPlayer[i].pasaCurrentNo == 1 && isExist == false)
-                                        {
-                                            isExist = true;
-                                        }
-                                        else
-                                        {
-                                            if (pasaBotPlayer[i].orgNo == 0 && pasaBotPlayer[i].pasaCurrentNo == 0)
-                                            {
-                                                cnt++;
-                                            }
-                                        }
-                                    }
-                                    if (cnt > 0 && isExist == false)
-                                    {
-                                        PasaManage pSafeManage = safeBotPlayer[0];
-                                        botMoveTokeStore.moveNo = 6;
-                                        botMoveTokeStore.pasaToken = null;//Greejesh Create a Null
-                                        botMoveTokeStore.isMoveSend = true;
-                                    }
-                                    else
-                                    {
-                                        PasaManage pSafeManage = safeBotPlayer[0];
-                                        botMoveTokeStore.moveNo = Bot_Random_Genrate();
-                                        botMoveTokeStore.pasaToken = pSafeManage;
-                                        botMoveTokeStore.isMoveSend = true;
-                                    }
-                                }
-                                else
-                                {
-                                    PasaManage pSafeManage = safeBotPlayer[0];
-                                    botMoveTokeStore.moveNo = Bot_Random_Genrate();
-                                    botMoveTokeStore.pasaToken = pSafeManage;
-                                    botMoveTokeStore.isMoveSend = true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            PasaManage pSafeManage = safeBotPlayer[0];
-                            botMoveTokeStore.moveNo = Bot_Random_Genrate();
-                            botMoveTokeStore.pasaToken = pSafeManage;
-                            botMoveTokeStore.isMoveSend = true;
-                        }
-
-                        //PasaManage pSafeManage = safeBotPlayer[0];
-                        //bool isFindEnter = false;
-                        //for (int i = 1; i < 7; i++)
-                        //{
-                        //    int checkNo = pSafeManage.orgNo + i;
-                        //    if ((checkNo == 1 || checkNo == 9 || checkNo == 14 || checkNo == 22 || checkNo == 27 || checkNo == 35 || checkNo == 40 || checkNo == 48) && isFindEnter == false)
-                        //    {
-                        //        isFindEnter = true;
-                        //        botMoveTokeStore.moveNo = i;
-                        //        botMoveTokeStore.pasaToken = pSafeManage;
-                        //        botMoveTokeStore.isSafeSend = true;
-
-                        //        //generatePasaNo = i;
-                        //    }
-                        //}
-                    }
-                    else
-                    {
-                        //generatePasaNo = Bot_Random_Genrate();
-                        botMoveTokeStore.moveNo = Bot_Random_Genrate();
-                        int rno = UnityEngine.Random.Range(0, moveBotPlayer.Count);
-                        botMoveTokeStore.pasaToken = moveBotPlayer[rno];
-                        botMoveTokeStore.isMoveSend = true;
-
-                    }
+                    botMoveTokeStore.moveNo = Bot_Random_Genrate();
+                    int rno = UnityEngine.Random.Range(0, moveBotPlayer.Count);
+                    botMoveTokeStore.pasaToken = moveBotPlayer[rno];
+                    botMoveTokeStore.isMoveSend = true;
                 }
             }
         }
@@ -4953,11 +4805,12 @@ public class LudoManager : MonoBehaviour
         {
             botMoveTokeStore.moveNo = Bot_Random_Genrate();
             botMoveTokeStore.pasaToken = null;
-            // generatePasaNo = Bot_Random_Genrate();
         }
 
         return botMoveTokeStore;
     }
+
+
 
     bool isFirstEnter = false;
     bool isSecondBotEnter = false;

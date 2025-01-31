@@ -13,6 +13,7 @@ public class SelectTableManager : MonoBehaviour
     public float potValue;
     public float minBuyIn;
     public float challLimit;
+    public float winAmount;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class SelectTableManager : MonoBehaviour
         MainMenuManager.Instance.potLimitValue = potValue;
         MainMenuManager.Instance.minBuyINValue = minBuyIn;
         MainMenuManager.Instance.challLimit = challLimit;
-        
+        DataManager.Instance.winAmount = winAmount;
 
         MainMenuManager.Instance.JoinButtonClick();
     }

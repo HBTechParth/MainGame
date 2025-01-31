@@ -60,6 +60,7 @@ public class LudoWinManager : MonoBehaviour
     }
 
     #region Ludo Win
+
     void DataSetLudo()
     {
         SoundManager.Instance.TickTimerStop();
@@ -115,12 +116,12 @@ public class LudoWinManager : MonoBehaviour
 
                 if (playerWin == 1)
                 {
-                    //wonTitleMain.text = "YOU WON " + (DataManager.Instance.winAmount / 2).ToString("F2") + " Coin";
+                  //  wonTitleMain.text = "YOU WON " + (DataManager.Instance.winAmount / 2).ToString("F2") + " Coin";
                     //rankTxtMain.text = "1";
 
                     float adminCommision = ((DataManager.Instance.tourEntryMoney ) * 2) - DataManager.Instance.winAmount;
 
-                    DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 2), TestSocketIO.Instace.roomid, "Win Game " + TestSocketIO.Instace.roomid, "won", adminCommision, 0);
+                    DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 2), DataManager.Instance.gameId, "Win Game " + DataManager.Instance.gameId, "won", adminCommision, 0);
 
 
                     DataManager.Instance.SetWonMoneyGame(DataManager.Instance.GetWonMoneyGame() + DataManager.Instance.winAmount);
@@ -132,7 +133,7 @@ public class LudoWinManager : MonoBehaviour
 
                     float adminCommision = ((DataManager.Instance.tourEntryMoney) * 2) - DataManager.Instance.winAmount;
 
-                    DataManager.Instance.AddAmount(DataManager.Instance.winAmount, TestSocketIO.Instace.roomid, "Win Game " + TestSocketIO.Instace.roomid, "won", adminCommision, 0);
+                    DataManager.Instance.AddAmount(DataManager.Instance.winAmount, DataManager.Instance.gameId, "Win Game " + DataManager.Instance.gameId, "won", adminCommision, 0);
 
                     DataManager.Instance.SetWonMoneyGame(DataManager.Instance.GetWonMoneyGame() + DataManager.Instance.winAmount);
                 }
@@ -172,14 +173,16 @@ public class LudoWinManager : MonoBehaviour
                 {
                     getIndex = 1;
                 }
-                //profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
+                //  profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
 
-                //profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
+                //    profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[getIndex].avtar+"   index   =>  "+getIndex);
+                profileImg[0].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[getIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[getIndex].avtar, profileImg[0]);
                 profileNameTxt[0].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[getIndex].userName);
                 //scoreTxt[0].text = LudoManager.Instance.playerScoreCnt1.ToString();
                 winTxt[0].text = DataManager.Instance.winAmount.ToString();
-
+                Debug.Log("DataManager.Instance.winAmount  => "+ DataManager.Instance.winAmount);
                 leaderData1.userId = DataManager.Instance.joinPlayerDatas[getIndex].userId;
                 leaderData1.userName = DataManager.Instance.joinPlayerDatas[getIndex].userName;
                 leaderData1.lobbyId = DataManager.Instance.joinPlayerDatas[getIndex].lobbyId;
@@ -219,6 +222,8 @@ public class LudoWinManager : MonoBehaviour
                 if (LudoManager.Instance.isOtherPlayLeft == false)
                 {
                     //profileImg[1].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[secondIndex].avtar];
+                    Debug.Log("DataManager.Instance.joinPlayerDatas[secondIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[secondIndex].avtar + "   index   =>  " + secondIndex);
+                    profileImg[1].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[secondIndex].userId);
                     DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[secondIndex].avtar, profileImg[1]);
                     profileNameTxt[1].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[secondIndex].userName);
                     leaderData2.userId = DataManager.Instance.joinPlayerDatas[secondIndex].userId;
@@ -258,6 +263,8 @@ public class LudoWinManager : MonoBehaviour
 
                 //profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
                 //profileImg[1].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[getIndex].avtar + "   index   =>  " + getIndex);
+                profileImg[1].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[getIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[getIndex].avtar, profileImg[1]);
                 profileNameTxt[1].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[getIndex].userName);
 
@@ -291,6 +298,8 @@ public class LudoWinManager : MonoBehaviour
                     secondIndex = 0;
                 }
                 //profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[secondIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[secondIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[secondIndex].avtar + "   index   =>  " + secondIndex);
+                profileImg[0].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[secondIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[secondIndex].avtar, profileImg[0]);
                 profileNameTxt[0].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[secondIndex].userName);
 
@@ -461,10 +470,12 @@ public class LudoWinManager : MonoBehaviour
                 //rankTxtMain.text = "1";
 
                 float adminCommision = ((DataManager.Instance.tourEntryMoney) * 4) - DataManager.Instance.winAmount;
-                DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 4), TestSocketIO.Instace.roomid, "Win Game " + TestSocketIO.Instace.roomid, "won", adminCommision, 0);
+                DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 4), DataManager.Instance.gameId, "Win Game " + DataManager.Instance.gameId, "won", adminCommision, 0);
                 DataManager.Instance.SetWonMoneyGame(DataManager.Instance.GetWonMoneyGame() + DataManager.Instance.winAmount);
                 //profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[0].avtar];
                 //profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[0].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[0].avtar );
+                profileImg[0].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[0].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[0].avtar, profileImg[0]);
                 profileNameTxt[0].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[0].userName);
                 //scoreTxt[0].text = LudoManager.Instance.playerScoreCnt1.ToString(); // Display the highest score
@@ -544,7 +555,7 @@ public class LudoWinManager : MonoBehaviour
 
                       //  float adminCommision = ((DataManager.Instance.tourEntryMoney) * 4) - DataManager.Instance.winAmount;
                         float adminCommision = LudoManager.Instance.ludoAdminCommission;
-                        DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 4), TestSocketIO.Instace.roomid, "Win Game " + TestSocketIO.Instace.roomid, "won", adminCommision, 0);
+                        DataManager.Instance.AddAmount(((float)DataManager.Instance.winAmount / 4), DataManager.Instance.gameId, "Win Game " + DataManager.Instance.gameId, "won", adminCommision, 0);
                         DataManager.Instance.SetWonMoneyGame(DataManager.Instance.GetWonMoneyGame() + DataManager.Instance.winAmount);
                     }
                     else
@@ -605,6 +616,8 @@ public class LudoWinManager : MonoBehaviour
 
                 //profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[firstIndex].avtar];
                 //profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[firstIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[0].avtar );
+                profileImg[0].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[firstIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[firstIndex].avtar, profileImg[0]);
                 profileNameTxt[0].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[firstIndex].userName);
                 //scoreTxt[0].text = scores.Last().ToString(); // Display the highest score
@@ -660,6 +673,8 @@ public class LudoWinManager : MonoBehaviour
                 if (count > 1)
                 {
                     //profileImg[1].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[secondIndex].avtar];
+                    Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[secondIndex].avtar + "   index   =>  " + secondIndex);
+                    profileImg[1].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[secondIndex].userId);
                     DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[secondIndex].avtar, profileImg[1]);
                     profileNameTxt[1].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[secondIndex].userName);
                     //scoreTxt[1].text = scores[DataManager.Instance.joinPlayerDatas.Count - 2].ToString(); // Display the second highest score
@@ -713,6 +728,8 @@ public class LudoWinManager : MonoBehaviour
                 if (count > 2)
                 {
                     //profileImg[2].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[thirdIndex].avtar];
+                    Debug.Log("DataManager.Instance.joinPlayerDatas[secondIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[thirdIndex].avtar + "   index   =>  " + thirdIndex);
+                    profileImg[2].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[thirdIndex].userId);
                     DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[thirdIndex].avtar, profileImg[2]);
                     profileNameTxt[2].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[thirdIndex].userName);
                     //scoreTxt[2].text = scores[DataManager.Instance.joinPlayerDatas.Count - 3].ToString(); // Display the third highest score
@@ -768,6 +785,8 @@ public class LudoWinManager : MonoBehaviour
                 if (count > 3)
                 {
                     //profileImg[3].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[fourthIndex].avtar];
+                    Debug.Log("DataManager.Instance.joinPlayerDatas[secondIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[fourthIndex].avtar + "   index   =>  " + fourthIndex);
+                    profileImg[3].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[fourthIndex].userId);
                     DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[fourthIndex].avtar, profileImg[3]);
                     profileNameTxt[3].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[fourthIndex].userName);
                     //scoreTxt[3].text = scores[0].ToString(); // Display the lowest score
@@ -830,6 +849,8 @@ public class LudoWinManager : MonoBehaviour
 
                 //profileImgMain.sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
                 //profileImg[1].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[getIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[getIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[getIndex].avtar + "   index   =>  " + getIndex);
+                profileImg[1].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[getIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[getIndex].avtar, profileImg[1]);
                 profileNameTxt[1].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[getIndex].userName);
 
@@ -863,6 +884,8 @@ public class LudoWinManager : MonoBehaviour
                     secondIndex = 0;
                 }
                 //profileImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[secondIndex].avtar];
+                Debug.Log("DataManager.Instance.joinPlayerDatas[secondIndex].avtar =>  " + DataManager.Instance.joinPlayerDatas[secondIndex].avtar + "   index   =>  " + secondIndex);
+                profileImg[0].sprite = PlayerSpriteFind(DataManager.Instance.joinPlayerDatas[secondIndex].userId);
                 DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[secondIndex].avtar, profileImg[0]);
                 profileNameTxt[0].text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[secondIndex].userName);
 
@@ -933,6 +956,30 @@ public class LudoWinManager : MonoBehaviour
 
 
     }
+
+    public Sprite PlayerSpriteFind(string id)
+    {
+        if (id == LudoManager.Instance.player1Id.text)
+        {
+            return LudoManager.Instance.subPasaParentImg[0].sprite;
+        }
+        else if (id == LudoManager.Instance.player2Id.text)
+        {
+            return LudoManager.Instance.subPasaParentImg[1].sprite;
+        }
+        else if (id == LudoManager.Instance.player3Id.text)
+        {
+            return LudoManager.Instance.subPasaParentImg[2].sprite;
+        }
+        else if (id == LudoManager.Instance.player4Id.text)
+        {
+            return LudoManager.Instance.subPasaParentImg[3].sprite;
+        }
+
+        Debug.LogError("Player ID not found: " + id);
+        return null; // Agar koi match nahi mila to null return karega
+    }
+
 
     void DataReset()
     {

@@ -348,11 +348,12 @@ public class MainMenuManager : MonoBehaviour
                     DataManager.Instance.gameMode = GameType.Teen_Patti;
                     string getTour = IsAvaliableSingleTournament(GameType.Teen_Patti);
                     gameName.text = "";
-
+                    SetSelectTableData("BOOT", "MIN BUY", "POT LIMIT", "JOIN");
                     List<float> minBetValues = new List<float>();
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -361,12 +362,13 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                             //    Debug.Log("Amount   =? " + item.betAmount);
 
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Teen_Patti, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
 
@@ -394,11 +396,13 @@ public class MainMenuManager : MonoBehaviour
                     //SceneManager.LoadScene(DataManager.Instance.GetModeToSceneName(DataManager.Instance.gameMode));
                     string getTour = IsAvaliableSingleTournament(GameType.Poker);
                     gameName.text = "";
+                    SetSelectTableData("SB", "BB", "MIN BUY", "JOIN");
 
                     List<float> minBetValues = new List<float>();
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -407,10 +411,11 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Poker, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Poker, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
 
@@ -490,11 +495,13 @@ public class MainMenuManager : MonoBehaviour
                     //Joker
                     DataManager.Instance.gameMode = GameType.Joker;
                     string getTournamentID = IsAvaliableSingleTournament(GameType.Joker);
+                    SetSelectTableData("BOOT", "MIN BUY", "POT LIMIT", "JOIN");
 
                     List<float> minBetValues = new List<float>();
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -503,10 +510,11 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Joker, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Joker, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
                     //if (!string.IsNullOrEmpty(getTournamentID))
@@ -525,10 +533,13 @@ public class MainMenuManager : MonoBehaviour
                     //AK47
                     DataManager.Instance.gameMode = GameType.Teen_Patti_AK47;
                     string getTournamentID = IsAvaliableSingleTournament(GameType.Teen_Patti_AK47);
+                    SetSelectTableData("BOOT", "MIN BUY", "POT LIMIT", "JOIN");
+
                     List<float> minBetValues = new List<float>();
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -537,10 +548,11 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Teen_Patti_AK47, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
 
@@ -564,6 +576,7 @@ public class MainMenuManager : MonoBehaviour
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -572,12 +585,13 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                         Debug.Log("Point Amount   =? " + item.betAmount);
 
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Point_Rummy, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
 
@@ -601,6 +615,7 @@ public class MainMenuManager : MonoBehaviour
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -609,10 +624,11 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Pool_Rummy, minBetValues, potValue, minBuy, chalLimit, winAmount);
                     else
                         GenerateTournamentError();
                     //string getTournamentID = IsAvaliableSingleTournament(GameType.Pool_Rummy);
@@ -636,6 +652,7 @@ public class MainMenuManager : MonoBehaviour
                     List<float> potValue = new List<float>();
                     List<float> minBuy = new List<float>();
                     List<float> chalLimit = new List<float>();
+                    List<float> winAmount = new List<float>();
                     foreach (var item in DataManager.Instance.tournamentData)
                     {
                         if (item.modeType == DataManager.Instance.gameMode)
@@ -644,10 +661,11 @@ public class MainMenuManager : MonoBehaviour
                             potValue.Add(item.potLimit);
                             minBuy.Add(item.minBuy);
                             chalLimit.Add(item.challLimit);
+                            winAmount.Add(item.totalWinAmount);
                         }
                     }
                     if (minBetValues.Count > 0)
-                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues, potValue, minBuy, chalLimit);
+                        SelectValueOfTournament(GameType.Deal_Rummy, minBetValues, potValue, minBuy, chalLimit, winAmount);
 
                     else
                         GenerateTournamentError();
@@ -785,7 +803,7 @@ public class MainMenuManager : MonoBehaviour
         }
         Debug.Log("BALENCE  = >  " + DataManager.Instance.playerData.balance);
         Debug.Log("BALENCE  = >  " + playerBalance);
-        Debug.Log("BALENCE  = >  " + minBuyINValue);
+        Debug.Log("minBuyINValue  = >  " + minBuyINValue);
         if (playerBalance < minBuyINValue)
         {
             GenerateLowBalanceError();
@@ -902,7 +920,12 @@ public class MainMenuManager : MonoBehaviour
     }*/
     public SelectTableManager selectTableClone;
     public GameObject selectTableClonetrans;
-    private void SelectValueOfTournament(GameType modeType, List<float> minimumBetOrEntryFeesOrPointValue, List<float> potValues, List<float> minBuyList, List<float> chalLimitList)
+    public TextMeshProUGUI firstTextselectTableClone;
+    public TextMeshProUGUI secondTextselectTableClone;
+    public TextMeshProUGUI thirdTextselectTableClone;
+    public TextMeshProUGUI fourTextselectTableClone;
+
+    private void SelectValueOfTournament(GameType modeType, List<float> minimumBetOrEntryFeesOrPointValue, List<float> potValues, List<float> minBuyList, List<float> chalLimitList, List<float> winAmount)
     {
         for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
         {
@@ -915,18 +938,26 @@ public class MainMenuManager : MonoBehaviour
         }
         for (int i = 0; i < minimumBetOrEntryFeesOrPointValue.Count; i++)
         {
-
             SelectTableManager g = Instantiate(selectTableClone, selectTableClonetrans.transform);
             g.bootText.text = "" + minimumBetOrEntryFeesOrPointValue[i];
             g.bootValue = minimumBetOrEntryFeesOrPointValue[i];
 
-            g.potLimitText.text = potValues[i].ToString();
+            // Modify this part to check if modeType is Ludo
+            if (modeType == GameType.Ludo)
+            {
+                g.potLimitText.text = winAmount[i].ToString();
+            }
+            else
+            {
+                g.potLimitText.text = potValues[i].ToString();
+            }
             g.potValue = potValues[i];
 
             g.minBuyText.text = minBuyList[i].ToString();
             g.minBuyIn = minBuyList[i];
 
             g.challLimit = chalLimitList[i];
+            g.winAmount = winAmount[i];
         }
         tableSelectionScreen.SetActive(true);
         ClearEntryValues();
@@ -959,6 +990,20 @@ public class MainMenuManager : MonoBehaviour
             joinButton.interactable = true;
         });
     }
+
+    public void SetSelectTableData(string f, string s, string t, string four)
+    {
+        Debug.Log("F => " + f.ToString());
+        Debug.Log("F => " + s.ToString());
+        Debug.Log("F => " + t.ToString());
+        Debug.Log("F => " + four.ToString());
+
+        firstTextselectTableClone.text = f.ToString();
+        secondTextselectTableClone.text = s.ToString();
+        thirdTextselectTableClone.text = t.ToString();
+        fourTextselectTableClone.text = four.ToString();
+    }
+
 
     private void SetGameName(GameType modeType)
     {
@@ -1011,7 +1056,9 @@ public class MainMenuManager : MonoBehaviour
         DataManager.Instance.tourEntryMoney = 0f;
         DataManager.Instance.tourBonusCut = 0f;
         BotManager.Instance.isBotAvalible = false;
+
         BotManager.Instance.botType = BotType.Hard;
+
     }
 
     float SetBetAmount(GameType modeType)
@@ -1095,24 +1142,51 @@ public class MainMenuManager : MonoBehaviour
         DataManager.Instance.gameMode = GameType.Ludo;
         string getTour = IsAvaliableSingleTournament(GameType.Ludo);
         gameName.text = "";
+        SetSelectTableData("BOOT", "MIN BUY", "WIN", "JOIN");
 
 
         List<float> minBetValues = new List<float>();
         List<float> potValue = new List<float>();
         List<float> minBuy = new List<float>();
         List<float> chalLimit = new List<float>();
+        List<float> winAmount = new List<float>();
+
         foreach (var item in DataManager.Instance.tournamentData)
         {
             if (item.modeType == DataManager.Instance.gameMode)
             {
-                minBetValues.Add(item.betAmount);
-                potValue.Add(item.potLimit);
-                minBuy.Add(item.minBuy);
-                chalLimit.Add(item.challLimit);
+                if (DataManager.Instance.isTwoPlayer)
+                {
+                    Debug.Log("ITEM Player => " + item.players);
+                    if (item.players == 2)
+                    {
+                        minBetValues.Add(item.betAmount);
+                        potValue.Add(item.potLimit);
+                        minBuy.Add(item.minBuy);
+                        chalLimit.Add(item.challLimit);
+                        winAmount.Add(item.totalWinAmount);
+                    }
+
+                }
+                else if (DataManager.Instance.isFourPlayer)
+                {
+                    if (item.players == 4)
+                    {
+                        minBetValues.Add(item.betAmount);
+                        potValue.Add(item.potLimit);
+                        minBuy.Add(item.minBuy);
+                        chalLimit.Add(item.challLimit);
+                        winAmount.Add(item.totalWinAmount);
+                    }
+                }
             }
         }
         if (minBetValues.Count > 0)
-            SelectValueOfTournament(GameType.Ludo, minBetValues, potValue, minBuy, chalLimit);
+        {
+
+            SelectValueOfTournament(GameType.Ludo, minBetValues, potValue, minBuy, chalLimit, winAmount);
+
+        }
         else
             GenerateTournamentError();
     }
@@ -1221,6 +1295,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void GenerateNoPlayersFound()
     {
+        Debug.Log("DataManager.Instance.joinPlayerDatas.Count  => " + DataManager.Instance.joinPlayerDatas.Count);
         if (DataManager.Instance.joinPlayerDatas.Count > 1) return;
         timerObject.SetActive(false);
         Instantiate(noplayersOnlinePrefab, prefabParent.transform);
@@ -1968,36 +2043,34 @@ public class MainMenuManager : MonoBehaviour
     public void LoadLudoBotPlayers()
     {
         print("---------------Load Bot For Ludo-----------------");
+
         if (DataManager.Instance.isTwoPlayer)
         {
             if (DataManager.Instance.joinPlayerDatas.Count == 2)
             {
                 return;
             }
-            else if (DataManager.Instance.joinPlayerDatas.Count == 1 && BotManager.Instance.isBotAvalible)
-            {
-                StartCoroutine(DelayedCheckForBot());
-            }
             else if (DataManager.Instance.joinPlayerDatas.Count == 1)
             {
-                Debug.Log("3");
-
-                GenerateNoPlayersFound();
+                if (BotManager.Instance.isBotAvalible)
+                    StartCoroutine(DelayedCheckForBot());
+                else
+                    GenerateNoPlayersFound();
                 return;
             }
         }
         else if (DataManager.Instance.isFourPlayer)
         {
-            int maxPlayer = 4;
-            int playerRequired = maxPlayer - DataManager.Instance.joinPlayerDatas.Count;
-            print("Data Manager Join Player Count : " + DataManager.Instance.joinPlayerDatas.Count);
+            int maxPlayers = 4;
+            int playersNeeded = maxPlayers - DataManager.Instance.joinPlayerDatas.Count;
+            print("Data Manager Join Player Count: " + DataManager.Instance.joinPlayerDatas.Count);
 
-            if (DataManager.Instance.joinPlayerDatas.Count == 4)
-            {
+            if (DataManager.Instance.joinPlayerDatas.Count == maxPlayers)
                 return;
-            }
-            else if (DataManager.Instance.joinPlayerDatas.Count is 1 or 2 or 3 && BotManager.Instance.isBotAvalible)
+
+            if (playersNeeded > 0 && BotManager.Instance.isBotAvalible)
             {
+                // Assign correct player number to the real player
                 for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
                 {
                     if (DataManager.Instance.playerData._id == DataManager.Instance.joinPlayerDatas[i].userId)
@@ -2006,121 +2079,111 @@ public class MainMenuManager : MonoBehaviour
                         break;
                     }
                 }
-                for (int i = 0; i < playerRequired; i++)
+
+                // Add bots
+                for (int i = 0; i < playersNeeded; i++)
                 {
                     Debug.Log("Adding bot for 4 player game");
-                    int playerNo = i + 2;
+                    int playerNo = DataManager.Instance.joinPlayerDatas.Count + 1;
                     string avatar = BotManager.Instance.botUser_Profile_URL[UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
                     string botUserName = BotManager.Instance.botUserName[UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count)];
-                    string userId = DataManager.Instance.joinPlayerDatas[i].userId.Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "Ludo";
-                    DataManager.Instance.AddRoomUser(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), playerNo, avatar);
-                    TestSocketIO.Instace.BotJoinLudoRoom(userId, botUserName, DataManager.Instance.joinPlayerDatas[i].lobbyId, 10.ToString(), avatar);
+                    string userId = DataManager.Instance.joinPlayerDatas[i % DataManager.Instance.joinPlayerDatas.Count].userId.Substring(0, DataManager.Instance.joinPlayerDatas[i % DataManager.Instance.joinPlayerDatas.Count].userId.Length - 1) + "Ludo";
+
+                    DataManager.Instance.AddRoomUser(userId, botUserName, DataManager.Instance.joinPlayerDatas[i % DataManager.Instance.joinPlayerDatas.Count].lobbyId, "10", playerNo, avatar);
+                    TestSocketIO.Instace.BotJoinLudoRoom(userId, botUserName, DataManager.Instance.joinPlayerDatas[i % DataManager.Instance.joinPlayerDatas.Count].lobbyId, "10", avatar);
                 }
 
                 BotManager.Instance.isConnectBot = true;
-                int rnoInd = 0;
-                if (rnoInd == 0)
-                {
-                    print("This is the assigned player number -> " + DataManager.Instance.playerNo);
-
-                    JoinPlayerData joinplayerData1 = DataManager.Instance.joinPlayerDatas[0];
-                    JoinPlayerData joinplayerData2 = DataManager.Instance.joinPlayerDatas[1];
-                    JoinPlayerData joinplayerData3 = DataManager.Instance.joinPlayerDatas[2];
-                    JoinPlayerData joinplayerData4 = DataManager.Instance.joinPlayerDatas[3];
-
-                    string userId1 = joinplayerData1.userId;
-                    string userName1 = joinplayerData1.userName;
-                    string avtar1 = joinplayerData1.avtar;
-                    DataManager.Instance.joinPlayerDatas[0].userId = userId1;
-                    DataManager.Instance.joinPlayerDatas[0].userName = userName1;
-                    DataManager.Instance.joinPlayerDatas[0].playerNo = 1;
-                    DataManager.Instance.joinPlayerDatas[0].avtar = avtar1;
-
-                    DataManager.Instance.joinPlayerDatas[1].userId = joinplayerData2.userId;
-                    DataManager.Instance.joinPlayerDatas[1].userName = joinplayerData2.userName;
-                    DataManager.Instance.joinPlayerDatas[1].balance = joinplayerData2.balance;
-                    DataManager.Instance.joinPlayerDatas[1].playerNo = 2;
-                    DataManager.Instance.joinPlayerDatas[1].avtar = joinplayerData2.avtar;
-
-                    DataManager.Instance.joinPlayerDatas[2].userId = joinplayerData3.userId;
-                    DataManager.Instance.joinPlayerDatas[2].userName = joinplayerData3.userName;
-                    DataManager.Instance.joinPlayerDatas[2].balance = joinplayerData3.balance;
-                    DataManager.Instance.joinPlayerDatas[2].playerNo = 3;
-                    DataManager.Instance.joinPlayerDatas[2].avtar = joinplayerData3.avtar;
-
-                    DataManager.Instance.joinPlayerDatas[3].userId = joinplayerData4.userId;
-                    DataManager.Instance.joinPlayerDatas[3].userName = joinplayerData4.userName;
-                    DataManager.Instance.joinPlayerDatas[3].balance = joinplayerData4.balance;
-                    DataManager.Instance.joinPlayerDatas[3].playerNo = 4;
-                    DataManager.Instance.joinPlayerDatas[3].avtar = joinplayerData4.avtar;
-                    BotManager.Instance.isConnectBot = true;
-                }
-                else
-                {
-                    BotManager.Instance.isConnectBot = true;
-                }
             }
-            else if (DataManager.Instance.joinPlayerDatas.Count < 4)
+            else if (DataManager.Instance.joinPlayerDatas.Count < maxPlayers)
             {
                 Debug.Log("4");
-
                 GenerateNoPlayersFound();
             }
         }
     }
 
 
+    /* private IEnumerator DelayedCheckForBot()
+     {
+         yield return new WaitForSeconds(1f);
+
+         if (DataManager.Instance.joinPlayerDatas.Count == 1)
+         {
+             var playerNo = 3;
+             var avatar = BotManager.Instance.botUser_Profile_URL[UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
+             var botUserName = BotManager.Instance.botUserName[UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count)];
+             var userId = DataManager.Instance.joinPlayerDatas[0].userId
+                 .Substring(0, DataManager.Instance.joinPlayerDatas[0].userId.Length - 1) + "Ludo";
+             DataManager.Instance.AddRoomUser(userId, botUserName, DataManager.Instance.joinPlayerDatas[0].lobbyId,
+                 10.ToString(), playerNo, avatar);
+
+             BotManager.Instance.isConnectBot = true;
+
+             int rnoInd = UnityEngine.Random.Range(0, 2);
+             print("rnoInd : " + rnoInd);
+
+             if (rnoInd == 0)
+             {
+                 DataManager.Instance.playerNo = 3;
+
+                 var joinplayerData1 = DataManager.Instance.joinPlayerDatas[0];
+                 var joinplayerData2 = DataManager.Instance.joinPlayerDatas[1];
+
+                 var userId1 = joinplayerData1.userId;
+                 var userName1 = joinplayerData1.userName;
+                 var balance1 = joinplayerData1.balance;
+                 var avtar1 = joinplayerData1.avtar;
+
+                 DataManager.Instance.joinPlayerDatas[0].userId = joinplayerData2.userId;
+                 DataManager.Instance.joinPlayerDatas[0].userName = joinplayerData2.userName;
+                 DataManager.Instance.joinPlayerDatas[0].balance = joinplayerData2.balance;
+                 DataManager.Instance.joinPlayerDatas[0].playerNo = 1;
+                 DataManager.Instance.joinPlayerDatas[0].avtar = joinplayerData2.avtar;
+
+                 DataManager.Instance.joinPlayerDatas[1].userId = userId1;
+                 DataManager.Instance.joinPlayerDatas[1].userName = userName1;
+                 DataManager.Instance.joinPlayerDatas[1].balance = balance1;
+                 DataManager.Instance.joinPlayerDatas[1].playerNo = 3;
+                 DataManager.Instance.joinPlayerDatas[1].avtar = avtar1;
+
+                 BotManager.Instance.isConnectBot = true;
+             }
+             else
+             {
+                 BotManager.Instance.isConnectBot = true;
+             }
+         }
+     }
+ */
     private IEnumerator DelayedCheckForBot()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
-        if (DataManager.Instance.joinPlayerDatas.Count == 1)
+        if (DataManager.Instance.joinPlayerDatas.Count == 1) // Sirf ek real player hai
         {
-            var playerNo = 3;
-            var avatar = BotManager.Instance.botUser_Profile_URL[UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
+            // Real player ka data store karna
+            var joinplayerData1 = DataManager.Instance.joinPlayerDatas[0];
+
+            // Bot ke liye random avatar aur naam lena
+            var botAvatar = BotManager.Instance.botUser_Profile_URL[UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count)];
             var botUserName = BotManager.Instance.botUserName[UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count)];
-            var userId = DataManager.Instance.joinPlayerDatas[0].userId
-                .Substring(0, DataManager.Instance.joinPlayerDatas[0].userId.Length - 1) + "Ludo";
-            DataManager.Instance.AddRoomUser(userId, botUserName, DataManager.Instance.joinPlayerDatas[0].lobbyId,
-                10.ToString(), playerNo, avatar);
 
-            BotManager.Instance.isConnectBot = true;
+            // Bot ka unique userId generate karna
+            var botUserId = joinplayerData1.userId.Substring(0, joinplayerData1.userId.Length - 1) + "Bot";
 
-            int rnoInd = UnityEngine.Random.Range(0, 2);
-            print("rnoInd : " + rnoInd);
+            // Player list clear karna aur real player ka data wapas add karna
+            DataManager.Instance.joinPlayerDatas.Clear();
+            DataManager.Instance.joinPlayerDatas.Add(joinplayerData1); // Real Player
+            DataManager.Instance.joinPlayerDatas[0].playerNo = 1; // Real player hamesha no.1 pe rahega
 
-            if (rnoInd == 0)
-            {
-                DataManager.Instance.playerNo = 3;
+            // Ek bot add karna
+            DataManager.Instance.AddRoomUser(botUserId, botUserName, joinplayerData1.lobbyId, "10", 3, botAvatar);
 
-                var joinplayerData1 = DataManager.Instance.joinPlayerDatas[0];
-                var joinplayerData2 = DataManager.Instance.joinPlayerDatas[1];
-
-                var userId1 = joinplayerData1.userId;
-                var userName1 = joinplayerData1.userName;
-                var balance1 = joinplayerData1.balance;
-                var avtar1 = joinplayerData1.avtar;
-
-                DataManager.Instance.joinPlayerDatas[0].userId = joinplayerData2.userId;
-                DataManager.Instance.joinPlayerDatas[0].userName = joinplayerData2.userName;
-                DataManager.Instance.joinPlayerDatas[0].balance = joinplayerData2.balance;
-                DataManager.Instance.joinPlayerDatas[0].playerNo = 1;
-                DataManager.Instance.joinPlayerDatas[0].avtar = joinplayerData2.avtar;
-
-                DataManager.Instance.joinPlayerDatas[1].userId = userId1;
-                DataManager.Instance.joinPlayerDatas[1].userName = userName1;
-                DataManager.Instance.joinPlayerDatas[1].balance = balance1;
-                DataManager.Instance.joinPlayerDatas[1].playerNo = 3;
-                DataManager.Instance.joinPlayerDatas[1].avtar = avtar1;
-
-                BotManager.Instance.isConnectBot = true;
-            }
-            else
-            {
-                BotManager.Instance.isConnectBot = true;
-            }
+            BotManager.Instance.isConnectBot = true; // Bot connected hai
         }
     }
+
 
 
     #endregion

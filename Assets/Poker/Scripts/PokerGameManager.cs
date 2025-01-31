@@ -196,6 +196,7 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
+   
 
     public void PlayerFound()
     {
@@ -278,6 +279,8 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.StopBackgroundMusic();
         Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
         pokerAdminCommission = TestSocketIO.Instace.adminCommission;
+        sbAmount = MainMenuManager.Instance.selectedValue;
+        bbAmount = MainMenuManager.Instance.minBuyINValue;
         //OpenOffScreen();
         potTxt.text = "0";
         lastPrice = 5f;
@@ -1503,6 +1506,7 @@ public class PokerGameManager : MonoBehaviour
     public void Second_Fold_ButtonClick()
     {
         SoundManager.Instance.ButtonClick();
+        Debug.Log("SendPokerPlayerFold  =>  " + player1.playerId);
         SendPokerPlayerFold(player1.playerId);
         ChangePlayerTurn(player1.playerNo);
     }
@@ -1522,6 +1526,8 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ThreeBetSound();
         BetAnim(player1, callAmount);
         DataManager.Instance.DebitAmount((callAmount).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 1);
+        Debug.Log("BET AMOUNT POKER +>" + callAmount);
+
         SendPokerBet(player1.playerNo, callAmount, "call");
         ChangePlayerTurn(player1.playerNo);
         DisplayCurrentBalance();
@@ -1545,6 +1551,8 @@ public class PokerGameManager : MonoBehaviour
             OpenErrorScreen();
             return;
         }
+        Debug.Log("BET AMOUNT POKER +>" + raisePrice);
+
         SendPokerBet(player1.playerNo, raisePrice, "raise");
         SoundManager.Instance.ThreeBetSound();
         lastPrice = raisePrice;
@@ -3522,6 +3530,7 @@ public class PokerGameManager : MonoBehaviour
 
     public void ChangePlayerTurn(int pNo)
     {
+        Debug.Log("PLAYER TURN => " + pNo);
 
         JSONObject obj = new JSONObject();
         obj.AddField("PlayerID", DataManager.Instance.playerData._id);
@@ -4995,6 +5004,7 @@ public class PokerGameManager : MonoBehaviour
             SoundManager.Instance.ThreeBetSound();
             BetAnim(player, amount);
             DataManager.Instance.DebitAmount((amount).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 1);
+            Debug.Log("BET AMOUNT POKER +>" + amount);
             SendPokerBet(player.playerNo, amount, "start");
         }
         else
@@ -5231,7 +5241,9 @@ public class PokerGameManager : MonoBehaviour
                 pokerPlayers[i].foldImg.SetActive(true);
             }
         }
-        ChangePlayerTurn(playerNo);
+        Debug.Log("POKER TURN Player NO  => " + playerNo);
+
+       // ChangePlayerTurn(playerNo);
     }
     #endregion
 
@@ -5277,6 +5289,8 @@ public class PokerGameManager : MonoBehaviour
                 StartCoroutine(WaitGameToCompleteRemovePlayer(CheckLeftPlayer, i));
                 if (pokerPlayers[i].isTurn)
                 {
+                    Debug.Log("POKER TURN Player NO  => " + playerNo);
+
                     ChangePlayerTurn(pokerPlayers[i].playerNo);
                 }
             }

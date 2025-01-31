@@ -726,8 +726,10 @@ public class RouletteManager : MonoBehaviour
     public void RebeatButtonClick()
     {
         SoundManager.Instance.ButtonClick();
+        Debug.Log("rouleteeBetsBefore  => " + rouleteeBetsBefore.Count);
         if (rouleteeBetsBefore.Count > 0)
         {
+            rebetButton.interactable = false;
             OnRebet();
         }
     }
