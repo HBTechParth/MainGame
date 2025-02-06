@@ -1897,128 +1897,127 @@ public class SpinAndWinManager : MonoBehaviour
     // for selecting winner
     public void GetLargestBet()
     {
-        if (!isAdmin) return;
+        // Calculate the total bet amount
+        float totalBet = dragonTotalPrice + tigerTotalPrice + tieTotalPrice;
 
-        int gameNum = 0; // 1 for Dragon, 2 for Tiger, 3 for Tie.
-        float randomValue = UnityEngine.Random.Range(0f, 1f); // Random value between 0 and 1.
-        Debug.Log($"Random Value: {randomValue}");
+        Debug.Log($"Total Bets: Dragon = {dragonTotalPrice}, Tiger = {tigerTotalPrice}, Tie = {tieTotalPrice}");
+        Debug.Log($"Total Bet Amount: {totalBet}");
 
+        int gameNum = 0; // 1 for Tiger, 2 for Dragon, 3 for Tie
 
-        if (dragonPrice > 0 && tigerPrice == 0 && tiePrice == 0)
+        if (totalBet == 0)
         {
-            // Dragon single bet
-            if (dragonPrice >= 10 && dragonPrice <= 100)
-            {
-                gameNum = randomValue <= 0.4f ? 2 : 1; // 40% Dragon, 60% Tiger.
-                Debug.Log($"Single bet on Dragon (10-100): gameNum = {gameNum}");
-            }
-            else if (dragonPrice > 100 && dragonPrice <= 500)
-            {
-                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
-                Debug.Log($"Single bet on Dragon (100-500): gameNum = {gameNum}");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.3f ? 2 : 1; // 30% Dragon, 70% Tiger.
-                Debug.Log($"Single bet on Dragon (>500): gameNum = {gameNum}");
-            }
+            Debug.Log("No bets placed. Defaulting to random result with probabilities: 45% Dragon, 45% Tiger, 10% Tie.");
+            gameNum = GetRandomWeightedResult(45, 45, 10); // Default probabilities when no bets are placed
         }
-        else if (tigerPrice > 0 && dragonPrice == 0 && tiePrice == 0)
-        {
-            // Tiger single bet
-            if (tigerPrice >= 10 && tigerPrice <= 100)
-            {
-                gameNum = randomValue <= 0.4f ? 1 : 2; // 40% Tiger, 60% Dragon.
-                Debug.Log($"Single bet on Tiger (10-100): gameNum = {gameNum}");
-            }
-            else if (tigerPrice > 100 && tigerPrice <= 500)
-            {
-                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
-                Debug.Log($"Single bet on Tiger (100-500): gameNum = {gameNum}");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.3f ? 1 : 2; // 30% Tiger, 70% Dragon.
-                Debug.Log($"Single bet on Tiger (>500): gameNum = {gameNum}");
-            }
-        }
-        // Bet on both Dragon and Tiger
-        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice == 0)
-        {
-            if (randomValue <= 0.2f)
-            {
-                gameNum = 3; // 20% Tie.
-                Debug.Log("Bet on both Dragon and Tiger: gameNum = 3 (Tie)");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
-                Debug.Log($"Bet on both Dragon and Tiger: gameNum = {gameNum}");
-            }
-        }
-        // Bet on all three (Dragon, Tiger, Tie)
-        else if (dragonPrice > 0 && tigerPrice > 0 && tiePrice > 0)
-        {
-            if (randomValue <= 0.2f)
-            {
-                gameNum = 3; // 20% Tie.
-                Debug.Log("Bet on all three (Dragon, Tiger, Tie): gameNum = 3 (Tie)");
-            }
-            else
-            {
-                gameNum = randomValue <= 0.6f ? 2 : 1; // 40% Dragon, 40% Tiger.
-                Debug.Log($"Bet on all three (Dragon, Tiger, Tie): gameNum = {gameNum}");
-            }
-        }
-        // Bet only on Tie
-        else if (tiePrice > 0 && dragonPrice == 0 && tigerPrice == 0)
-        {
-            gameNum = randomValue <= 0.1f ? 3 : (randomValue <= 0.55f ? 2 : 1); // 10% Tie, 45% Dragon, 45% Tiger.
-            Debug.Log($"Bet only on Tie: gameNum = {gameNum}");
-        }
-        // Default largest bet logic
         else
         {
-            /* if (dragonPrice >= tigerPrice)
-             {
-                 gameNum = dragonPrice >= tiePrice ? 2 : 3; // Largest bet on Dragon or Tie.
-                 Debug.Log($"Default logic: Largest bet on Dragon or Tie: gameNum = {gameNum}");
-             }
-             else
-             {
-                 gameNum = tigerPrice >= tiePrice ? 1 : 3; // Largest bet on Tiger or Tie.
-                 Debug.Log($"Default logic: Largest bet on Tiger or Tie: gameNum = {gameNum}");
-             }*/
-            float randomValue1 = UnityEngine.Random.Range(0f, 10f);
+            // Assign probabilities dynamically based on bet amounts
+            int dragonChance = 0, tigerChance = 0, tieChance = 0;
 
-            if (randomValue1 >= 0f && randomValue1 < 2f)
+            // Check if all three bets are the same or if Dragon and Tiger bets are the same
+            if (dragonTotalPrice == tigerTotalPrice && tigerTotalPrice == tieTotalPrice)
             {
-                // Tie (0-2)
-                gameNum = 3;
-                Debug.Log("Result: Tie");
+                dragonChance = 5; // 50%
+                tigerChance = 5;  // 50%
+                tieChance = 1;    // 10%
+
+                Debug.Log("All bets are equal. Assigning probabilities -> Dragon: 50%, Tiger: 50%, Tie: 10%");
             }
-            else if (randomValue1 >= 2f && randomValue1 < 6f)
+            else if (dragonTotalPrice == tigerTotalPrice)
             {
-                // Dragon (2-6)
-                gameNum = 2;
-                Debug.Log("Result: Dragon");
+                dragonChance = 5; // 50%
+                tigerChance = 5;  // 50%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Dragon and Tiger bets are equal. Assigning probabilities -> Dragon: 50%, Tiger: 50%, Tie: 10%");
             }
-            else if (randomValue1 >= 6f && randomValue1 <= 10f)
+            else if (dragonTotalPrice >= tigerTotalPrice && dragonTotalPrice >= tieTotalPrice)
             {
-                // Tiger (6-10)
-                gameNum = 1;
-                Debug.Log("Result: Tiger");
+                dragonChance = 4; // 40%
+                tigerChance = 6;  // 60%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Dragon has the highest bet. Assigning probabilities -> Dragon: 40%, Tiger: 60%, Tie: 10%");
+            }
+            else if (tigerTotalPrice >= dragonTotalPrice && tigerTotalPrice >= tieTotalPrice)
+            {
+                tigerChance = 4;  // 40%
+                dragonChance = 6; // 60%
+                tieChance = 1;    // 10%
+
+                Debug.Log("Tiger has the highest bet. Assigning probabilities -> Dragon: 60%, Tiger: 40%, Tie: 10%");
+            }
+            else if (tieTotalPrice >= dragonTotalPrice && tieTotalPrice >= tigerTotalPrice)
+            {
+                tieChance = 1;    // 10%
+                dragonChance = 4; // 40%
+                tigerChance = 6;  // 60%
+
+                Debug.Log("Tie has the highest bet. Assigning probabilities -> Dragon: 40%, Tiger: 60%, Tie: 10%");
             }
 
+            // Determine winner using the calculated probabilities
+            Debug.Log("Calculating winner based on assigned probabilities...");
+            gameNum = GetRandomWeightedResult(tigerChance, dragonChance, tieChance);
         }
 
-
-        Debug.Log("Game number => " + gameNum);
-
+        Debug.Log($"Result: {GetResultName(gameNum)}");
+        Debug.Log($"gameNum: {gameNum}");
         GenerateNumber(gameNum);
     }
+    private int GetRandomWeightedResult(int tigerWeight, int dragonWeight, int tieWeight)
+    {
+        Debug.Log($"Calculating random weighted result:\nTiger Weight: {tigerWeight}, Dragon Weight: {dragonWeight}, Tie Weight: {tieWeight}");
 
+        List<int> weightedResults = new List<int>();
 
+        // Adjust the weights as per the new rules
+        weightedResults.AddRange(Enumerable.Repeat(1, tigerWeight)); // Tiger
+        weightedResults.AddRange(Enumerable.Repeat(2, dragonWeight)); // Dragon
+        weightedResults.AddRange(Enumerable.Repeat(3, tieWeight));   // Tie
+
+        Debug.Log($"Generated weighted list before shuffle: {string.Join(", ", weightedResults)}");
+
+        // Shuffle and return a random result
+        Shuffle(weightedResults);
+
+        Debug.Log($"Weighted list after shuffle: {string.Join(", ", weightedResults)}");
+
+        int selectedResult = weightedResults[0];
+        Debug.Log($"Selected result from random weighted list: {GetResultName(selectedResult)}");
+
+        return selectedResult;
+    }
+    private string GetResultName(int gameNum)
+    {
+        string resultName = gameNum switch
+        {
+            1 => "Tiger",
+            2 => "Dragon",
+            3 => "Tie",
+            _ => "Unknown",
+        };
+
+        Debug.Log($"Mapped result number {gameNum} to name: {resultName}");
+        return resultName;
+    }
+    private void Shuffle<T>(List<T> list)
+    {
+        Debug.Log($"Shuffling list with {list.Count} elements.");
+
+        // Fisher-Yates Shuffle for randomness
+        int n = list.Count;
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
+
+        Debug.Log($"List after shuffling: {string.Join(", ", list)}");
+    }
 
     private int set = 0;
     private bool _iscardGenPre1NotNull;

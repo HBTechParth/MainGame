@@ -161,6 +161,7 @@ public class DataManager : MonoBehaviour
     {
         GetVersionUpdate();
         GetTournament();
+        StartCoroutine(NewAPKVerify());
         //MainMenuManager.Instance.GetTran();
         LoadProfile();
     }
@@ -494,6 +495,17 @@ public class DataManager : MonoBehaviour
     #endregion
 
     #region Version Update
+
+    IEnumerator NewAPKVerify()
+    {
+        WWWForm form = new WWWForm();
+
+        Debug.Log("Application.version  =>  " + Application.version);
+        form.AddField("version", Application.version);
+        UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
+
+        yield return request.SendWebRequest();
+    }
 
     public void GetVersionUpdate()
     {
@@ -1028,8 +1040,8 @@ public class DataManager : MonoBehaviour
     public void Setplayerdata(JSONNode data)
     {
         Debug.Log("User Data===:::" + data.ToString());
-        
-       
+
+
         if (data[nameof(playerData.balance)] == "")
         {
             data[nameof(playerData.balance)] = "";
@@ -1124,7 +1136,7 @@ public class DataManager : MonoBehaviour
         if (DragonTigerManager.Instance != null)
         {
             DragonTigerManager.Instance.UpdateNameBalance();
-            
+
             if (DragonTigerManager.Instance.delayObjectForNextBet.activeInHierarchy)
                 DragonTigerManager.Instance.delayObjectForNextBet.SetActive(false);
         }

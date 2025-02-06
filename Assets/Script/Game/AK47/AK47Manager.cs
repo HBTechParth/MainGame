@@ -2522,14 +2522,30 @@ public class AK47Manager : MonoBehaviour
     }
     bool ComparePlayersByCards(AK47Player player1, AK47Player player2)
     {
-        if (player1.card1.cardNo > player2.card1.cardNo) return true;
-        if (player1.card1.cardNo < player2.card1.cardNo) return false;
+        int p1Card1 = ConvertAceToHigh(player1.card1.cardNo);
+        int p2Card1 = ConvertAceToHigh(player2.card1.cardNo);
 
-        if (player1.card2.cardNo > player2.card2.cardNo) return true;
-        if (player1.card2.cardNo < player2.card2.cardNo) return false;
+        if (p1Card1 > p2Card1) return true;
+        if (p1Card1 < p2Card1) return false;
 
-        return player1.card3.cardNo > player2.card3.cardNo;
+        int p1Card2 = ConvertAceToHigh(player1.card2.cardNo);
+        int p2Card2 = ConvertAceToHigh(player2.card2.cardNo);
+
+        if (p1Card2 > p2Card2) return true;
+        if (p1Card2 < p2Card2) return false;
+
+        int p1Card3 = ConvertAceToHigh(player1.card3.cardNo);
+        int p2Card3 = ConvertAceToHigh(player2.card3.cardNo);
+
+        return p1Card3 > p2Card3;
     }
+
+    // Function to treat Ace (1) as the highest card (14)
+    int ConvertAceToHigh(int cardNo)
+    {
+        return (cardNo == 1) ? 14 : cardNo;
+    }
+
     public void GetBotBetNo(int num, int botPlayerNo, float currentAmount, int currentIndex)
     {
         //if (isAdmin) return;

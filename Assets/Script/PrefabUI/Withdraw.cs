@@ -203,21 +203,27 @@ public class Withdraw : MonoBehaviour
 
     IEnumerator savebankdetails()
     {
+        Debug.Log("savebankdetails");
         WWWForm form = new WWWForm();
 
         /*if (bankname.text == "")
         {
             Bankmsg.text = "Please Add Bank Name";
         }*/
-        if (ifsc.text == "")
+
+        if (string.IsNullOrEmpty(ifsc.text))
         {
             Bankmsg.text = "Please Add IFSC Code";
         }
-        else if (accoutnumber.text == "")
+        else if (string.IsNullOrEmpty(accoutnumber.text))
         {
             Bankmsg.text = "Please Add Account Number";
         }
-        else if (accountname.text == "")
+        else if (!System.Text.RegularExpressions.Regex.IsMatch(accoutnumber.text, @"^\d{6,18}$"))
+        {
+            Bankmsg.text = "Invalid Account Number (Min 6 digits required)";
+        }
+        else if (string.IsNullOrEmpty(accountname.text))
         {
             Bankmsg.text = "Please Add Account Name";
         }
@@ -225,42 +231,51 @@ public class Withdraw : MonoBehaviour
         {
             Bankmsg.text = "Your Balance is too low";
         }
-        else if (bankamount.text == "" || (int.Parse(bankamount.text.Trim('"')) < 1))
+        else if (string.IsNullOrEmpty(bankamount.text) || !float.TryParse(bankamount.text, out float amount) || amount < 1)
         {
-            Bankmsg.text = "Enter amount";
+            Bankmsg.text = "Enter a valid amount";
         }
-        else if ((float.Parse(bankamount.text.ToString()) < 100) || (float.Parse(bankamount.text.ToString()) > 500))
+        else if (amount < 200 && float.Parse(DataManager.Instance.playerData.winings) >= amount)
         {
-            Bankmsg.text = "Enter amount between 100-500";
+            Bankmsg.text = "Minimum withdrawal amount is 200";
         }
         else
         {
-            form.AddField("bankAddress", " ");
-            form.AddField("bankIfc", ifsc.text);
+            //   form.AddField("bankAddress", " ");
+            Debug.Log("payout_request");
+            form.AddField("ifsc", ifsc.text);
+            form.AddField("amount", bankamount.text);
+            form.AddField("playerId", DataManager.Instance.playerData._id);
             //form.AddField("bankName", bankname.text);
-            form.AddField("bankAccount", accoutnumber.text);
-            form.AddField("bankAccountHolder", accountname.text);
+            form.AddField("accNo", accoutnumber.text);
+            form.AddField("holdername", accountname.text);
             //WaitPanelManager.Instance.OpenPanel();
 
-            UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/bank", form);
+            //UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/players/bank", form);
+            UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/payout_request", form);
+
+
             request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
             yield return request.SendWebRequest();
 
             if (request.error == null && !request.isNetworkError)
             {
                 JSONNode keys = JSON.Parse(request.downloadHandler.text.ToString());
-
+                string responseText = request.downloadHandler.text;
+                Debug.Log("Payout Response: " + responseText);
                 if (keys["success"])
                 {
+
+                    CloseAccountDialog();
                     //WaitPanelManager.Instance.ClosePanel();
 
-                    DataManager.Instance.SetBankValue(1);
-                    StartCoroutine(sendwithrequest(2));
+                    //DataManager.Instance.SetBankValue(1);
+                    //  StartCoroutine(sendwithrequest(2));
 
                 }
                 else
                 {
-                    DataManager.Instance.SetBankValue(0);
+                    // DataManager.Instance.SetBankValue(0);
                 }
             }
             else
@@ -269,7 +284,14 @@ public class Withdraw : MonoBehaviour
             }
         }
     }
-
+    public void CloseAccountDialog()
+    {
+        SoundManager.Instance.ButtonClick();
+        MainMenuManager.Instance.screenObj.Remove(this.gameObject);
+        MainMenuManager.Instance.UpdateAllData();
+        this.gameObject.SetActive(false);
+        Destroy(MainMenuManager.Instance.withdrawPrefabForDestroy);
+    }
     IEnumerator Savewalletdetails()
     {
         if (walletname.text == "")
@@ -483,7 +505,7 @@ public class Withdraw : MonoBehaviour
                     break;
             }
 
-        //WaitPanelManager.Instance.OpenPanel();
+            //WaitPanelManager.Instance.OpenPanel();
             UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/upipayout", form);
             request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
             yield return request.SendWebRequest();

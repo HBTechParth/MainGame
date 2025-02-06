@@ -165,7 +165,7 @@ public class LoginManager : MonoBehaviour
         instance.stateName = PlayerPrefs.GetString("principalSubdivision");
         instance.latitude = PlayerPrefs.GetString("latitude");
         instance.longitude = PlayerPrefs.GetString("longitude");
-
+        instance.version = Application.version;
 
         string create_Json = JsonUtility.ToJson(instance);
         Debug.Log(create_Json);
@@ -1128,6 +1128,7 @@ public class Root_PlayerRegisterEmail
     public string stateName;
     public string latitude;
     public string longitude;
+    public string version;
 }
 [Serializable]
 public class Root_PlayerOTPVerify

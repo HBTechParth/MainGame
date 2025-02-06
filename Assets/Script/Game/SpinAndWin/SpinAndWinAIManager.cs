@@ -297,7 +297,7 @@ public class SpinAndWinAIManager : MonoBehaviour
                             genChipList_Tiger[no].transform.DOMove(rPos, animSpeed);
                             genChipList_Tiger[no].transform.DOScale(Vector3.one, animSpeed);
                             genChipList_Tiger[no].transform.SetParent(SpinAndWinManager.Instance.tieParent.transform);
-                            genChipList_Tiger.Add(genChipList_Dragon[no]);
+                            genChipList_Tiger.Add(genChipList_Tiger[no]);
                             genChipList_Tiger[no].transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), animSpeed).OnComplete(() =>
                             {
                                 genChipList_Tie.RemoveAt(no);

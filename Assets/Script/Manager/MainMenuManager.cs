@@ -219,7 +219,8 @@ public class MainMenuManager : MonoBehaviour
     {
         SoundManager.Instance.ButtonClick();
         //Application.OpenURL("mailto: " + "support@teenpattiblack.com" + " ? subject = " + "subject" + " & body = " + "body");
-        string url = "https://wa.link/hyrndh";
+        string url = "https://wa.link/7uozb0";
+      //  string url = "https://wa.link/hyrndh";
         Application.OpenURL(url);
         //GenerateContactUs();
     }

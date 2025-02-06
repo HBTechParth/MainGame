@@ -141,7 +141,7 @@ public class PokerPlayer : MonoBehaviour
         {
             TurnOnFiller();
             UpdateFillLine();
-         
+
             if (fillLine.fillAmount == 0 && !isOneTimeEnter)
             {
                 isOneTimeEnter = true;
@@ -169,17 +169,17 @@ public class PokerPlayer : MonoBehaviour
 
     private void UpdateFillLine()
     {
-      
+
         float decrement = 1.0f / PokerGameManager.Instance.timerSpeed * Time.fixedDeltaTime;
         fillLine.fillAmount -= decrement;
 
-       
+
     }
 
 
     private void TurnOnFiller()
     {
-       
+
         if (!fillLine.gameObject.activeSelf)
         {
             fillLine.gameObject.SetActive(true);
@@ -232,6 +232,7 @@ public class PokerPlayer : MonoBehaviour
 
     public void BotAutoTurn()
     {
+
         int num = Random.Range(1, 4);
         GetBotBetAmount();
         print(num + "This is the Card Number");
@@ -246,7 +247,22 @@ public class PokerPlayer : MonoBehaviour
             PokerGameManager.Instance.ChangePlayerTurn(playerNo);
             return;
         }
+       /* if (PokerGameManager.Instance.prePlayerTurn == -1)
+        {
 
+            if (Random.value <= 0.5f)
+            {
+                PokerGameManager.Instance.BetAnimForCheck(this, 0);
+                SoundManager.Instance.ThreeBetSound();
+                SendBotBetNo(num, playerNo, 0);
+                isCheck = true;
+                PokerGameManager.Instance.prePlayerTurn = playerNo;
+                PokerGameManager.Instance.ChangePlayerTurn(playerNo);
+                _isFunctionCalled = true;
+
+                return;
+            }
+        }*/
         UpdateBotBalanceAndText();
         Debug.Log("BET AMOUNT POKER +>" + currentBotBetAmount);
 
@@ -342,30 +358,51 @@ public class PokerPlayer : MonoBehaviour
         float botBetAmount = 0f;
 
         // Find the maximum bet amount among all players
-        float maxBetAmount = PokerGameManager.Instance.playerSquList.Select(player => player.betAmount).Prepend(0f).Max();
+        float maxBetAmount = PokerGameManager.Instance.playerSquList
+            .Select(player => player.betAmount)
+            .Prepend(0f)
+            .Max();
+
+        Debug.Log($"[BOT BET] Max Bet Amount Among Players: {maxBetAmount}");
+        Debug.Log($"[BOT BET] Current Bot Bet Amount: {betAmount}");
 
         // Calculate the bot's bet amount based on the maximum bet amount and the bot's current bet amount
         if (maxBetAmount > betAmount)
         {
             botBetAmount = maxBetAmount - betAmount;
+            Debug.Log($"[BOT BET] Bot needs to match max bet. New Bet: {botBetAmount}");
         }
 
         if (botBetAmount == 0)
         {
             botBetAmount = PokerGameManager.Instance.bbAmount;
+            Debug.Log($"[BOT BET] Bot had 0 bet, setting to BB Amount: {botBetAmount}");
         }
 
         currentBotBetAmount = botBetAmount;
+        Debug.Log($"[BOT BET] Final Bot Bet Amount: {botBetAmount}");
+
         return botBetAmount;
     }
+
 
     public void UpdateBotBalanceAndText()
     {
         if (!isFold && isBot)
         {
+            Debug.Log("playerBalanceTxt => " + playerBalanceTxt.text);
+            Debug.Log("playerBalanceTxt => " + currentBotBetAmount);
             float currentBalance = float.Parse(playerBalanceTxt.text);
             float updatedBalance = currentBalance - currentBotBetAmount;
             playerBalanceTxt.text = updatedBalance.ToString();
+
+            for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+            {
+                if (DataManager.Instance.joinPlayerDatas[i].userId == playerId)
+                {
+                    DataManager.Instance.joinPlayerDatas[i].balance = updatedBalance.ToString();
+                }
+            }
         }
     }
 

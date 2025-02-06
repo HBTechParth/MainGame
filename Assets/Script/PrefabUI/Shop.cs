@@ -60,7 +60,7 @@ public class Shop : MonoBehaviour
         }
 
     }
-
+    public TextMeshProUGUI alertMsg;
     IEnumerator CallDebitAmountApi(string amount)
     {
         WWWForm form = new WWWForm();
@@ -120,14 +120,18 @@ public class Shop : MonoBehaviour
 
             // Parse the JSON response
             JSONNode values = JSON.Parse(responseText);
-
+            if (values["success"] == false)
+            {
+                alertMsg.text = values["error"].ToString();
+            }
             // Check if the `success` key exists and is true
             if (values["success"] != null && values["success"].AsBool)
             {
-                // Extract the `paymentUrl` directly from the response
-                if (values["paymentUrl"] != null)
+                // Extract the `payment_url` from the nested structure
+                string url = values["data"]["response"]["result"]["payment_url"];
+
+                if (!string.IsNullOrEmpty(url))
                 {
-                    string url = values["paymentUrl"];
                     Debug.Log("Payment URL: " + url);
 
                     // Open the payment URL
@@ -135,7 +139,7 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("Error: 'paymentUrl' not found in the response.");
+                    Debug.LogError("Error: 'payment_url' not found in the response.");
                 }
             }
             else

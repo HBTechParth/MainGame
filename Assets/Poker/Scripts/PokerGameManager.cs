@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -174,7 +175,7 @@ public class PokerGameManager : MonoBehaviour
     public bool isGameStarted;
 
     public float pokerAdminCommission;
- 
+
     bool isCheck_Off = false;
     bool isFold_Off = false;
     bool isCall_Off = false;
@@ -196,7 +197,7 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
-   
+
 
     public void PlayerFound()
     {
@@ -332,936 +333,174 @@ public class PokerGameManager : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-
+    public GameObject textPrefab;
+    public Transform traTextPrefeb;
     void WinBeforeAllDataManage()
     {
         CancelInvoke(nameof(CheckBetAmount));
-        /*List<PokerWinDataWithPlayer> winData = new List<PokerWinDataWithPlayer>();
-        for (int i = 0; i < pokerPlayers.Count; i++)
-        {
-            if (pokerPlayers[i].isFold == false && pokerPlayers[i].gameObject.activeSelf == true)
-            {
-                PokerWinDataMaintain data = pokerPlayers[i].CardDisplay();
-                PokerWinDataWithPlayer passData = new PokerWinDataWithPlayer();
-                if (data.winList.Count == 5)
-                {
-                    passData.ruleNo = data.ruleNo;
-                    passData.winList = data.winList;
-                    passData.player = pokerPlayers[i];
-                    winData.Add(passData);
-                }
-            }
-        }
-
-
-        if (winData.Count == 1)
-        {
-            //win amount = pot amount
-            string winValue = ",";
-            winValue += winData[0].player + ",";
-            if (winData[0].player.playerNo == playerNo)
-            {
-                if (winData[0].player.playerNo == playerNo)
-                {
-                    SetPokerWon(winValue);
-                }
-            }
-            for (int i = 0; i < winData[0].player.playerWinObj.Length; i++)
-            {
-                winData[0].player.playerWinObj[i].SetActive(true);
-            }
-            
-            StartCoroutine(RestartGamePlay());
-        }
-        else if (winData.Count == 2)
-        {
-            int highestRuleNo = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo < winData[i].ruleNo)
-                {
-                    highestRuleNo = winData[i].ruleNo;
-                }
-            }
-
-            List<PokerWinDataWithPlayer> sortList1 = new List<PokerWinDataWithPlayer>();
-            int highPlayerCnt = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo == winData[i].ruleNo)
-                {
-
-                    sortList1.Add(winData[i]);
-                    highPlayerCnt++;
-                }
-            }
-            if (highPlayerCnt == 1)
-            {
-                string winValue = ",";
-                winValue += winData[0].player + ",";
-                if (winData[0].player.playerNo == playerNo)
-                {
-                    if (winData[0].player.playerNo == playerNo)
-                    {
-                        SetPokerWon(winValue);
-                    }
-                }
-                for (int i = 0; i < winData.Count; i++)
-                {
-                    if (winData[i].ruleNo == highestRuleNo)
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            winData[i].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                }
-                StartCoroutine(RestartGamePlay());
-            }
-            else if (highPlayerCnt == 2)
-            {
-                if (highestRuleNo == 1)
-                {
-
-                }
-                else if (highestRuleNo == 2)
-                {
-                    int mainNo = winData[0].winList[0].cardNo;
-                    //for (int i = 0; i <sortList1.Count;i++)
-                    //{
-                    //    if(sortList1[i].winList[0].cardNo<)
-                    //}
-                }
-                else if (highestRuleNo == 3)
-                {
-
-                }
-                else if (highestRuleNo == 4)
-                {
-
-                }
-                else if (highestRuleNo == 5)
-                {
-
-                }
-                else if (highestRuleNo == 6)
-                {
-
-                }
-                else if (highestRuleNo == 7)
-                {
-
-                }
-                else if (highestRuleNo == 8)
-                {
-
-                }
-                else if (highestRuleNo == 9)
-                {
-
-                }
-            }
-        }
-        else if (winData.Count == 3)
-        {
-             int highestRuleNo = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo < winData[i].ruleNo)
-                {
-                    highestRuleNo = winData[i].ruleNo;
-                }
-            }
-
-            List<PokerWinDataWithPlayer> sortList1 = new List<PokerWinDataWithPlayer>();
-            int highPlayerCnt = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo == winData[i].ruleNo)
-                {
-
-                    sortList1.Add(winData[i]);
-                    highPlayerCnt++;
-                }
-            }
-            if (highPlayerCnt == 1)
-            {
-                for (int i = 0; i < winData.Count; i++)
-                {
-                    if (winData[i].ruleNo == highestRuleNo)
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            winData[i].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                }
-            }
-            else if (highPlayerCnt == 2)
-            {
-                if (highestRuleNo == 1)
-                {
-
-                }
-                else if (highestRuleNo == 2)
-                {
-                    int mainNo = winData[0].winList[0].cardNo;
-                    //for (int i = 0; i <sortList1.Count;i++)
-                    //{
-                    //    if(sortList1[i].winList[0].cardNo<)
-                    //}
-                }
-                else if (highestRuleNo == 3)
-                {
-
-                }
-                else if (highestRuleNo == 4)
-                {
-
-                }
-                else if (highestRuleNo == 5)
-                {
-
-                }
-                else if (highestRuleNo == 6)
-                {
-
-                }
-                else if (highestRuleNo == 7)
-                {
-
-                }
-                else if (highestRuleNo == 8)
-                {
-
-                }
-                else if (highestRuleNo == 9)
-                {
-
-                }
-            }
-
-        }
-        else if (winData.Count == 4)
-        {
-            int highestRuleNo = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo < winData[i].ruleNo)
-                {
-                    highestRuleNo = winData[i].ruleNo;
-                }
-            }
-
-            List<PokerWinDataWithPlayer> sortList1 = new List<PokerWinDataWithPlayer>();
-            int highPlayerCnt = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo == winData[i].ruleNo)
-                {
-
-                    sortList1.Add(winData[i]);
-                    highPlayerCnt++;
-                }
-            }
-            if (highPlayerCnt == 1)
-            {
-                for (int i = 0; i < winData.Count; i++)
-                {
-                    if (winData[i].ruleNo == highestRuleNo)
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            winData[i].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                }
-            }
-            else if (highPlayerCnt == 2)
-            {
-                if (highestRuleNo == 1)
-                {
-
-                }
-                else if (highestRuleNo == 2)
-                {
-                    int mainNo = winData[0].winList[0].cardNo;
-                    //for (int i = 0; i <sortList1.Count;i++)
-                    //{
-                    //    if(sortList1[i].winList[0].cardNo<)
-                    //}
-                }
-                else if (highestRuleNo == 3)
-                {
-
-                }
-                else if (highestRuleNo == 4)
-                {
-
-                }
-                else if (highestRuleNo == 5)
-                {
-
-                }
-                else if (highestRuleNo == 6)
-                {
-
-                }
-                else if (highestRuleNo == 7)
-                {
-
-                }
-                else if (highestRuleNo == 8)
-                {
-
-                }
-                else if (highestRuleNo == 9)
-                {
-
-                }
-            }
-
-        }
-        else if (winData.Count == 5)
-        {
-             int highestRuleNo = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo < winData[i].ruleNo)
-                {
-                    highestRuleNo = winData[i].ruleNo;
-                }
-            }
-
-            List<PokerWinDataWithPlayer> sortList1 = new List<PokerWinDataWithPlayer>();
-            int highPlayerCnt = 0;
-            for (int i = 0; i < winData.Count; i++)
-            {
-                if (highestRuleNo == winData[i].ruleNo)
-                {
-
-                    sortList1.Add(winData[i]);
-                    highPlayerCnt++;
-                }
-            }
-            if (highPlayerCnt == 1)
-            {
-                string winValue = ",";
-                winValue += sortList1[0].player + ",";
-                if (sortList1[0].player.playerNo == playerNo)
-                {
-                    if (sortList1[0].player.playerNo == playerNo)
-                    {
-                        SetPokerWon(winValue);
-                    }
-                }
-                for (int i = 0; i < winData.Count; i++)
-                {
-                    if (winData[i].ruleNo == highestRuleNo)
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            winData[i].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                }
-                StartCoroutine(RestartGamePlay());
-            }
-            else if (highPlayerCnt == 2)
-            {
-                if (highestRuleNo == 1)
-                {
-                    string winValue = ",";
-                    winValue += sortList1[1].player + ",";
-                    if (sortList1[1].player.playerNo == playerNo)
-                    {
-                        if (sortList1[1].player.playerNo == playerNo)
-                        {
-                            SetPokerWon(winValue);
-                        }
-                    }
-                    for (int i = 0; i < winData.Count; i++)
-                    {
-                        if (winData[i].ruleNo == highestRuleNo)
-                        {
-                            for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                            {
-                                winData[i].player.playerWinObj[j].SetActive(true);
-                            }
-                        }
-                    }
-                    StartCoroutine(RestartGamePlay());
-                }
-                else if (highestRuleNo == 2)
-                {
-                    int mainNo = winData[0].winList[0].cardNo;
-                    for (int i = 0; i <sortList1.Count;i++)
-                    {
-                        if (sortList1[i].winList[0].cardNo > mainNo)
-                        {
-                            for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                            {
-                                winData[i].player.playerWinObj[j].SetActive(true);
-                            }
-                        }
-                        else
-                        {
-                            for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                            {
-                                winData[i].player.playerWinObj[j].SetActive(true);
-                            }
-                        }
-                    }
-                    StartCoroutine(RestartGamePlay());
-                }
-                else if (highestRuleNo == 3)
-                {
-                    int firstCard1 = 0;
-                    int firstCard2 = 0;
-                    
-                    int secondCard1 = 0;
-                    int secondCard2 = 0;
-                    
-
-                    int mainCardNum = sortList1[0].winList[0].cardNo;
-                    foreach (var t in sortList1[0].winList)
-                    {
-                        t.cardNo = t.cardNo == mainCardNum ? firstCard1 : firstCard2;
-                    }
-                    int secondMainCardNum = sortList1[1].winList[0].cardNo;
-                    foreach (var t in sortList1[1].winList)
-                    {
-                        t.cardNo = t.cardNo == secondMainCardNum ? secondCard1 : secondCard2;
-                    }
-
-                    if (firstCard1 == secondCard1)
-                    {
-                        if (firstCard2 > secondCard2)
-                        {
-                            for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                            {
-                                sortList1[0].player.playerWinObj[j].SetActive(true);
-                            }
-                        }
-                        else
-                        {
-                            for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                            {
-                                sortList1[1].player.playerWinObj[j].SetActive(true);
-                            }
-                        }
-                    }
-
-                    if (firstCard1 > secondCard1)
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            sortList1[0].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                        {
-                            sortList1[1].player.playerWinObj[j].SetActive(true);
-                        }
-                    }
-                    StartCoroutine(RestartGamePlay());
-                }
-                else if (highestRuleNo == 4)
-                {
-                    StartCoroutine(RestartGamePlay());
-
-                }
-                else if (highestRuleNo == 5)
-                {
-                    StartCoroutine(RestartGamePlay());
-
-                }
-                else if (highestRuleNo == 6)
-                {
-                    StartCoroutine(RestartGamePlay());
-
-                }
-                else if (highestRuleNo == 7)
-                {
-
-                }
-                else if (highestRuleNo == 8)
-                {
-
-                }
-                else if (highestRuleNo == 9)
-                {
-                    StartCoroutine(RestartGamePlay());
-                }
-            }
-            else if (highPlayerCnt == 3)
-            {
-                StartCoroutine(RestartGamePlay());
-            }
-            else if (highPlayerCnt == 4)
-            {
-                StartCoroutine(RestartGamePlay());
-            }
-            else if (highPlayerCnt == 5)
-            {
-                 if (highestRuleNo == 1)
-                 {
-                     for (int i = 0; i < winData.Count; i++)
-                     {
-                         if (winData[i].ruleNo == highestRuleNo)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-                 }
-                 else if (highestRuleNo == 2)
-                 {
-                     int mainNo = winData[0].winList[0].cardNo;
-                     for (int i = 0; i <sortList1.Count;i++)
-                     {
-                         if (sortList1[i].winList[0].cardNo > mainNo)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-                    
-                 }
-                 else if (highestRuleNo == 3)
-                 {
-                     int firstCard1 = 0;
-                     int firstCard2 = 0;
-                    
-                     int secondCard1 = 0;
-                     int secondCard2 = 0;
-                    
-
-                     int mainCardNum = sortList1[0].winList[0].cardNo;
-                     foreach (var t in sortList1[0].winList)
-                     {
-                         t.cardNo = t.cardNo == mainCardNum ? firstCard1 : firstCard2;
-                     }
-                     int secondMainCardNum = sortList1[1].winList[0].cardNo;
-                     foreach (var t in sortList1[1].winList)
-                     {
-                         t.cardNo = t.cardNo == secondMainCardNum ? secondCard1 : secondCard2;
-                     }
-
-                     if (firstCard1 == secondCard1)
-                     {
-                         if (firstCard2 > secondCard2)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[0].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[1].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-
-                     if (firstCard1 > secondCard1)
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[0].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     else
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[1].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-                 }
-                 else if (highestRuleNo == 4)
-                 {
-                     int mainNo = winData[0].winList[0].cardNo;
-                     for (int i = 0; i <sortList1.Count;i++)
-                     {
-                         if (sortList1[i].winList[0].cardNo > mainNo)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-                 else if (highestRuleNo == 5)
-                 {
-                     int firstCard1 = 0;
-                     int firstCard2 = 0;
-                    
-                     int secondCard1 = 0;
-                     int secondCard2 = 0;
-                    
-
-                     int mainCardNum = sortList1[0].winList[0].cardNo;
-                     foreach (var t in sortList1[0].winList)
-                     {
-                         t.cardNo = t.cardNo == mainCardNum ? firstCard1 : firstCard2;
-                     }
-                     int secondMainCardNum = sortList1[1].winList[0].cardNo;
-                     foreach (var t in sortList1[1].winList)
-                     {
-                         t.cardNo = t.cardNo == secondMainCardNum ? secondCard1 : secondCard2;
-                     }
-
-                     if (firstCard1 == secondCard1)
-                     {
-                         if (firstCard2 > secondCard2)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[0].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[1].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-
-                     if (firstCard1 > secondCard1)
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[0].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     else
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[1].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-                 else if (highestRuleNo == 6)
-                 {
-                     int mainNo = winData[0].winList[0].cardNo;
-                     for (int i = 0; i <sortList1.Count;i++)
-                     {
-                         if (sortList1[i].winList[0].cardNo > mainNo)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-                 else if (highestRuleNo == 7)
-                 {
-                     int firstCard1 = 0;
-                     int firstCard2 = 0;
-                    
-                     int secondCard1 = 0;
-                     int secondCard2 = 0;
-                    
-
-                     int mainCardNum = sortList1[0].winList[0].cardNo;
-                     foreach (var t in sortList1[0].winList)
-                     {
-                         t.cardNo = t.cardNo == mainCardNum ? firstCard1 : firstCard2;
-                     }
-                     int secondMainCardNum = sortList1[1].winList[0].cardNo;
-                     foreach (var t in sortList1[1].winList)
-                     {
-                         t.cardNo = t.cardNo == secondMainCardNum ? secondCard1 : secondCard2;
-                     }
-
-                     if (firstCard1 == secondCard1)
-                     {
-                         if (firstCard2 > secondCard2)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[0].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[1].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-
-                     if (firstCard1 > secondCard1)
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[0].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     else
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[1].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-                 else if (highestRuleNo == 8)
-                 {
-                     int mainNo = winData[0].winList[0].cardNo;
-                     for (int i = 0; i <sortList1.Count;i++)
-                     {
-                         if (sortList1[i].winList[0].cardNo > mainNo)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 winData[i].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-                 else if (highestRuleNo == 9)
-                 {
-                     int firstCard1 = 0;
-                     int firstCard2 = 0;
-                    
-                     int secondCard1 = 0;
-                     int secondCard2 = 0;
-                    
-
-                     int mainCardNum = sortList1[0].winList[0].cardNo;
-                     foreach (var t in sortList1[0].winList)
-                     {
-                         t.cardNo = t.cardNo == mainCardNum ? firstCard1 : firstCard2;
-                     }
-                     int secondMainCardNum = sortList1[1].winList[0].cardNo;
-                     foreach (var t in sortList1[1].winList)
-                     {
-                         t.cardNo = t.cardNo == secondMainCardNum ? secondCard1 : secondCard2;
-                     }
-
-                     if (firstCard1 == secondCard1)
-                     {
-                         if (firstCard2 > secondCard2)
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[0].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                         else
-                         {
-                             for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                             {
-                                 sortList1[1].player.playerWinObj[j].SetActive(true);
-                             }
-                         }
-                     }
-
-                     if (firstCard1 > secondCard1)
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[0].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     else
-                     {
-                         for (int j = 0; j < winData[0].player.playerWinObj.Length; j++)
-                         {
-                             sortList1[1].player.playerWinObj[j].SetActive(true);
-                         }
-                     }
-                     StartCoroutine(RestartGamePlay());
-
-                 }
-            }
-            
-        }*/
-
-        /*List<PokerWinDataWithPlayer> winData = new List<PokerWinDataWithPlayer>();
-        
-        // Sort the win data list by rule number
-        winData.Sort((a, b) => a.ruleNo.CompareTo(b.ruleNo));
-
-        // Get the winning player number
-        int winningPlayerNo = winData[0].player.playerNo;
-
-        // Set the win flag for the winning player
-        if (winningPlayerNo == playerNo)
-        {
-            SetPokerWon(winValue);
-        }
-
-        // Show the winning objects for the winning player
-        for (int i = 0; i < winData[0].player.playerWinObj.Length; i++)
-        {
-            winData[0].player.playerWinObj[i].SetActive(true);
-        }
-
-         // Restart the gameplay coroutine
-        StartCoroutine(RestartGamePlay());*/
-
-        // Get win data for active and non-folded players
-        /*List<PokerWinDataWithPlayer> winData = pokerPlayers
-            .Where(p => !p.isFold && p.gameObject.activeSelf)
-            .Select(p => new PokerWinDataWithPlayer
-            {
-                ruleNo = p.CardDisplay().ruleNo,
-                winList = p.CardDisplay().winList,
-                player = p
-            })
-            .Where(data => data.winList.Count < 10)
-            .ToList();
-    
-        // Get the winner with the highest rule number
-        PokerWinDataWithPlayer winner = winData
-            .OrderBy(data => data.ruleNo)
-            .FirstOrDefault();
-
-        if (winner != null)
-        {
-            if (winner.player.playerNo == playerNo)
-            {
-                SetPokerWon(winner.player.playerNo.ToString());
-            }
-        
-            foreach (GameObject obj in winner.player.playerWinObj)
-            {
-                obj.SetActive(true);
-            }
-        
-            StartCoroutine(RestartGamePlay());
-        }*/
 
         List<PokerWinDataWithPlayer> winData = new List<PokerWinDataWithPlayer>();
-        PokerWinDataWithPlayer highestRuleData = null;
-        int highestRuleNo = 0;
+        PokerWinDataWithPlayer bestPlayer = null;
+        int bestRank = int.MaxValue;
 
-        // Iterate over each player and add to winData if they meet the criteria
+        // Iterate over each active, non-folded player
         foreach (PokerPlayer player in playerSquList)
         {
             if (!player.isFold && player.gameObject.activeSelf)
             {
-                PokerWinDataMaintain data = player.CardDisplay();
-                if (data.winList.Count > 0 && data.winList.Count < 9)
-                {
-                    PokerWinDataWithPlayer passData = new PokerWinDataWithPlayer();
-                    passData.ruleNo = data.ruleNo;
-                    passData.winList = data.winList;
-                    passData.player = player;
-                    winData.Add(passData);
+                PokerWinDataMaintain playerData = player.CardDisplay();  // Get player's best hand
 
-                    if (data.ruleNo > highestRuleNo)
+                Debug.Log("Player: " + player.name + " | Rule No: " + playerData.ruleNo);
+
+                if (playerData.winList.Count > 0)
+                {
+                    PokerWinDataWithPlayer entry = new PokerWinDataWithPlayer
                     {
-                        highestRuleNo = data.ruleNo;
-                        highestRuleData = passData;
+                        ruleNo = playerData.ruleNo,
+                        winList = playerData.winList,
+                        player = player
+                    };
+
+                    winData.Add(entry);
+
+                    // Update best hand if a lower ruleNo is found
+                    if (playerData.ruleNo < bestRank)
+                    {
+                        bestRank = playerData.ruleNo;
+                        bestPlayer = entry;
                     }
                 }
             }
         }
 
-        // Get the winner with the highest rule number
-        /*if (highestRuleData != null)
+        if (bestPlayer != null)
         {
-            if (highestRuleData.player.playerNo == playerNo)
-            {
-                SetPokerWon(highestRuleData.player.playerNo.ToString());
-            }
-            foreach (GameObject obj in highestRuleData.player.playerWinObj)
-            {
-                obj.SetActive(true);
-            }
-            StartCoroutine(RestartGamePlay());
-        }*/
+            // Collect all players with the same best rank
+            List<PokerWinDataWithPlayer> bestPlayers = winData.Where(p => p.ruleNo == bestRank).ToList();
 
-        if (highestRuleData != null && isAdmin)
-        {
-            List<PokerWinDataWithPlayer> winners = new List<PokerWinDataWithPlayer>();
-            foreach (PokerWinDataWithPlayer data in winData)
+            // If multiple players have the same best rank, compare high cards
+            PokerWinDataWithPlayer finalWinner = (bestPlayers.Count == 1) ? bestPlayers[0] : CompareByHighCard(bestPlayers);
+
+            // Ensure only one winner is selected by checking personal high card
+            List<PokerWinDataWithPlayer> finalWinners = bestPlayers
+                .Where(player => CompareHighCards(player, finalWinner) == player) // Only select the highest player
+                .ToList();
+
+            if (finalWinners.Count > 1)
             {
-                if (data.ruleNo == highestRuleNo)
+                float splitAmount = totalBetAmount / finalWinners.Count;
+                Debug.Log($"[SPLIT POT] Pot split among {finalWinners.Count} players. Each gets: {splitAmount}");
+
+                foreach (var winner in finalWinners)
                 {
-                    winners.Add(data);
+                    SetPokerWonData(winner.player.playerId);
+                    ShowWinAmount(winner.player.playerId, splitAmount.ToString("F2"));
                 }
-            }
-
-            // Choose a random winner if there are multiple winners
-            PokerWinDataWithPlayer winningData;
-            if (winners.Count > 1)
-            {
-
-                int index = UnityEngine.Random.Range(0, winners.Count);
-                winningData = winners[index];
             }
             else
             {
-                winningData = winners[0];
+                Debug.Log("Final Winner: " + finalWinner.player.name);
+                SetPokerWonData(finalWinner.player.playerId);
+                ShowWinAmount(finalWinner.player.playerId, totalBetAmount.ToString());
             }
-
-            // Set the winning animation for the winner
-            //CallFinalWinner(winningData);
-            SetPokerWonData(winningData.player.playerId);
         }
 
         StartCoroutine(DestroyCards());
     }
+
+    // ShowWinAmount remains the same
+    public void ShowWinAmount(string winnerId, string amount)
+    {
+        PokerPlayer winner = playerSquList.Find(player => player.playerId == winnerId);
+        if (winner == null)
+        {
+            Debug.LogError("Winner not found!");
+            return;
+        }
+
+        GameObject textObj = Instantiate(textPrefab, traTextPrefeb);
+        textObj.GetComponent<Text>().text = $"+{amount}";
+
+        textObj.transform.DOMove(winner.transform.position, 2f).SetEase(Ease.InOutQuad)
+            .OnComplete(() => Destroy(textObj));
+
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            if (DataManager.Instance.joinPlayerDatas[i].userId == winnerId)
+            {
+                float currentBalance = float.Parse(DataManager.Instance.joinPlayerDatas[i].balance);
+                float addAmount = float.Parse(amount);
+
+                // Perform addition
+                currentBalance += addAmount;
+
+                // Update the balance in DataManager
+                DataManager.Instance.joinPlayerDatas[i].balance = currentBalance.ToString(); // Convert back to string
+
+                // Update UI text
+                winner.playerBalanceTxt.text = currentBalance.ToString("G");
+                // Show 2 decimal places
+
+            }
+        }
+    }
+
+    // Compare two players based on their high cards
+    PokerWinDataWithPlayer CompareByHighCard(List<PokerWinDataWithPlayer> tiedPlayers)
+    {
+        PokerWinDataWithPlayer bestPlayer = tiedPlayers[0];
+
+        foreach (var player in tiedPlayers.Skip(1))
+        {
+            bestPlayer = CompareHighCards(bestPlayer, player) ?? bestPlayer;
+        }
+
+        return bestPlayer;
+    }
+
+    // Compare high cards and return the winner. If tie, return null.
+    // Compare high cards and return the winner. If tie, return null.
+    PokerWinDataWithPlayer CompareHighCards(PokerWinDataWithPlayer player1, PokerWinDataWithPlayer player2)
+    {
+        // Access the first card from personalCards (assuming there are two cards per player)
+        int card1Player1 = ConvertAceToHigh(player1.player.card1.cardNo);  // Card 1 of player 1
+        int card2Player1 = ConvertAceToHigh(player1.player.card2.cardNo);  // Card 2 of player 1
+
+        int card1Player2 = ConvertAceToHigh(player2.player.card1.cardNo);  // Card 1 of player 2
+        int card2Player2 = ConvertAceToHigh(player2.player.card2.cardNo);  // Card 2 of player 2
+
+        // Determine the highest card for each player
+        int highestCardPlayer1 = Math.Max(card1Player1, card2Player1);
+        int highestCardPlayer2 = Math.Max(card1Player2, card2Player2);
+
+        // If player 1's highest card is greater, return player 1
+        if (highestCardPlayer1 > highestCardPlayer2)
+            return player1;
+
+        // If player 2's highest card is greater, return player 2
+        else if (highestCardPlayer1 < highestCardPlayer2)
+            return player2;
+
+        // If both players have the same highest card, compare the second highest card (the kicker)
+        int kickerPlayer1 = (card1Player1 == highestCardPlayer1) ? card2Player1 : card1Player1;
+        int kickerPlayer2 = (card1Player2 == highestCardPlayer2) ? card2Player2 : card1Player2;
+
+        // Compare the kickers
+        if (kickerPlayer1 > kickerPlayer2)
+            return player1;
+        else if (kickerPlayer1 < kickerPlayer2)
+            return player2;
+
+        // If both players have the same cards, return null (a tie)
+        return null;
+    }
+
+
+    int ConvertAceToHigh(int cardNo)
+    {
+        return (cardNo == 1) ? 14 : cardNo;
+    }
+
 
     public void CallFinalWinner(string winnerPlayerId)
     {
@@ -1321,7 +560,7 @@ public class PokerGameManager : MonoBehaviour
         Debug.Log("isCheck_Off  => " + isCheck_Off);
         Debug.Log("isCall_Off  => " + isCall_Off);
         Debug.Log("prePlayerTurn  => " + prePlayerTurn);
-        if (isFold_Off&& FindPrevPlayerFOLD())
+        if (isFold_Off && FindPrevPlayerFOLD())
         {
             //SendPokerPlayerFold(player1.playerId);
             Second_Fold_ButtonClick();
@@ -1336,7 +575,7 @@ public class PokerGameManager : MonoBehaviour
         {
             ChangePlayerTurn(player1.playerNo);
         }
-        else if (isCall_Off&& FindPrevPlayerCALL())
+        else if (isCall_Off && FindPrevPlayerCALL())
         {
             //SendPokerBet(player1.playerNo, lastPrice, "call");
             Second_Call_ButtonClick();
@@ -1356,7 +595,7 @@ public class PokerGameManager : MonoBehaviour
 
         // If no matching player is found, return false as default
         return false;
-    } 
+    }
     private bool FindPrevPlayerFOLD()
     {
         for (int i = 0; i < pokerPlayers.Count; i++)
@@ -1428,6 +667,12 @@ public class PokerGameManager : MonoBehaviour
 
     public IEnumerator RestartGamePlay()
     {
+        if (!isGameStarted)
+        {
+            Debug.LogWarning("Game is not started yet!");
+            yield break;  // Fix for CS1622
+        }
+
         isGameStarted = false;
         yield return new WaitForSeconds(6f);
 
@@ -1450,7 +695,8 @@ public class PokerGameManager : MonoBehaviour
         secondSubScreenObj.SetActive(false);
         allInOnObj.SetActive(false);
         secondUpBtnObj.transform.DORotate(new Vector3(0, 0, 0), 0.1f);
-        downObjectOff.SetActive(true);
+        if (!player1.isFold)
+            downObjectOff.SetActive(true);
         /*for (int i = 0; i < tickObj.Length; i++)
         {
             tickObj[i].SetActive(false);
@@ -2022,6 +1268,8 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator FlopCardShow()
     {
         GameObject obj = Instantiate(commonCard, card1Pos.transform);
+        prePlayerTurn = -1;
+
         SoundManager.Instance.CasinoCardMoveSound();
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
@@ -2054,6 +1302,8 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator SecondCardShow()
     {
         GameObject obj = Instantiate(commonCard, card2Pos.transform);
+        prePlayerTurn = -1;
+
         SoundManager.Instance.CasinoCardMoveSound();
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
@@ -2086,6 +1336,8 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator ThirdCardShow()
     {
         GameObject obj = Instantiate(commonCard, card3Pos.transform);
+        prePlayerTurn = -1;
+
         SoundManager.Instance.CasinoCardMoveSound();
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
@@ -2117,6 +1369,8 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator TurnCardShow()
     {
         GameObject obj = Instantiate(commonCard, card4Pos.transform);
+        prePlayerTurn = -1;
+
         SoundManager.Instance.CasinoCardMoveSound();
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
@@ -2148,6 +1402,7 @@ public class PokerGameManager : MonoBehaviour
     public IEnumerator RiverCardShow()
     {
         GameObject obj = Instantiate(commonCard, card5Pos.transform);
+        prePlayerTurn = -1;
         SoundManager.Instance.CasinoCardMoveSound();
         obj.transform.position = startCard.transform.position;
         obj.SetActive(true);
@@ -2195,7 +1450,191 @@ public class PokerGameManager : MonoBehaviour
 
         WinPoker();
     }
-    public PokerWinDataMaintain MatchResult(CardSuffle cards1, CardSuffle cards2, CardSuffle cards3, CardSuffle cards4, CardSuffle cards5, CardSuffle card6, CardSuffle card7)
+
+
+    public PokerWinDataMaintain MatchResult(params CardSuffle[] cards)
+    {
+        PokerWinDataMaintain pokerWinData = new PokerWinDataMaintain();
+        List<CardSuffle> allCards = cards.ToList();
+        allCards = NewSort(allCards);
+
+        Debug.Log("All sorted cards: " + string.Join(", ", allCards.Select(c => c.cardNo + "-" + c.color)));
+
+        // Generate all 5-card combinations (distinct cards)
+        List<List<CardSuffle>> possibleHands = GetAllFiveCardCombinations(allCards);
+        List<CardSuffle> bestHand = null;
+        int bestRank = int.MaxValue;
+        List<List<CardSuffle>> bestHands = new List<List<CardSuffle>>();
+
+        foreach (var hand in possibleHands)
+        {
+            int rank = EvaluateHandRank(hand);
+            if (rank < bestRank)
+            {
+                bestRank = rank;
+                bestHand = hand;
+                bestHands.Clear();
+                bestHands.Add(hand);
+            }
+            else if (rank == bestRank)  // If hand ranks are equal, check high cards
+            {
+                bestHands.Add(hand);
+            }
+        }
+
+        // If there's a tie, determine the winner based on high cards
+        if (bestHands.Count > 1)
+        {
+            bestHand = DetermineWinnerByHighCard(bestHands);
+        }
+
+        pokerWinData.ruleNo = bestRank;
+        pokerWinData.winList = bestHand;
+        Debug.Log("Best hand: " + string.Join(", ", bestHand.Select(c => c.cardNo + "-" + c.color)) + " | Final Rank: " + bestRank);
+
+        return pokerWinData;
+    }
+
+    private List<CardSuffle> DetermineWinnerByHighCard(List<List<CardSuffle>> hands)
+    {
+        List<CardSuffle> bestHand = hands[0];
+        foreach (var hand in hands.Skip(1))
+        {
+            bestHand = CompareHighCards(bestHand, hand);
+        }
+        return bestHand;
+    }
+
+    private List<CardSuffle> CompareHighCards(List<CardSuffle> bestHand, List<CardSuffle> currentHand)
+    {
+        var sortedBestHand = bestHand.OrderByDescending(c => GetCardValue(c.cardNo)).ToList();
+        var sortedCurrentHand = currentHand.OrderByDescending(c => GetCardValue(c.cardNo)).ToList();
+
+        for (int i = 0; i < 5; i++)
+        {
+            int bestCardValue = GetCardValue(sortedBestHand[i].cardNo);
+            int currentCardValue = GetCardValue(sortedCurrentHand[i].cardNo);
+            if (bestCardValue > currentCardValue)
+            {
+                return bestHand;  // Best hand remains the same
+            }
+            else if (bestCardValue < currentCardValue)
+            {
+                return currentHand;  // Current hand is better
+            }
+        }
+
+        return bestHand;  // If all cards are the same, no change
+    }
+
+    // Add the hand rank evaluations (Royal Flush, etc.) as previously described
+
+
+    private List<List<CardSuffle>> GetAllFiveCardCombinations(List<CardSuffle> cards)
+    {
+        var combinations = new List<List<CardSuffle>>();
+
+        // Generate all 5-card combinations without duplicates
+        for (int i = 0; i < cards.Count - 4; i++)
+        {
+            for (int j = i + 1; j < cards.Count - 3; j++)
+            {
+                for (int k = j + 1; k < cards.Count - 2; k++)
+                {
+                    for (int l = k + 1; l < cards.Count - 1; l++)
+                    {
+                        for (int m = l + 1; m < cards.Count; m++)
+                        {
+                            combinations.Add(new List<CardSuffle> { cards[i], cards[j], cards[k], cards[l], cards[m] });
+                        }
+                    }
+                }
+            }
+        }
+
+        return combinations;
+    }
+
+    private int EvaluateHandRank(List<CardSuffle> hand)
+    {
+        if (IsRoyalFlush(hand)) return 1;
+        if (IsStraightFlush(hand)) return 2;
+        if (IsFourOfAKind(hand)) return 3;
+        if (IsFullHouse(hand)) return 4;
+        if (IsFlush(hand)) return 5;
+        if (IsStraight(hand)) return 6;
+        if (IsThreeOfAKind(hand)) return 7;
+        if (IsTwoPair(hand)) return 8;
+        if (IsOnePair(hand)) return 9;
+        return 10; // High Card
+    }
+
+    private bool IsRoyalFlush(List<CardSuffle> hand)
+    {
+        return IsStraightFlush(hand) && hand.Any(c => GetCardValue(c.cardNo) == 14); // Ace is treated as 14
+    }
+
+    private bool IsStraightFlush(List<CardSuffle> hand)
+    {
+        return IsFlush(hand) && IsStraight(hand);
+    }
+
+    private bool IsFourOfAKind(List<CardSuffle> hand)
+    {
+        var grouped = hand.GroupBy(c => GetCardValue(c.cardNo));
+        return grouped.Any(g => g.Count() == 4);
+    }
+
+    private bool IsFullHouse(List<CardSuffle> hand)
+    {
+        var groups = hand.GroupBy(c => GetCardValue(c.cardNo)).Select(g => g.Count()).OrderByDescending(x => x).ToList();
+        return groups.SequenceEqual(new List<int> { 3, 2 });
+    }
+
+    private bool IsFlush(List<CardSuffle> hand)
+    {
+        return hand.All(c => c.color == hand[0].color);
+    }
+
+    private bool IsStraight(List<CardSuffle> hand)
+    {
+        var sorted = hand.Select(c => GetCardValue(c.cardNo)).OrderBy(n => n).ToList();
+        return sorted.SequenceEqual(Enumerable.Range(sorted.First(), 5)) ||
+               sorted.SequenceEqual(new List<int> { 14, 5, 4, 3, 2 }); // Ace-low straight
+    }
+
+    private bool IsThreeOfAKind(List<CardSuffle> hand)
+    {
+        return hand.GroupBy(c => GetCardValue(c.cardNo)).Any(g => g.Count() == 3);
+    }
+
+    private bool IsTwoPair(List<CardSuffle> hand)
+    {
+        return hand.GroupBy(c => GetCardValue(c.cardNo)).Count(g => g.Count() == 2) == 2;
+    }
+
+    private bool IsOnePair(List<CardSuffle> hand)
+    {
+        return hand.GroupBy(c => GetCardValue(c.cardNo)).Any(g => g.Count() == 2);
+    }
+
+    // Function to get card value, treating Ace as 14
+    private int GetCardValue(int cardNo)
+    {
+        return cardNo == 1 ? 14 : cardNo;
+    }
+
+    private List<CardSuffle> NewSort(List<CardSuffle> cards)
+    {
+        return cards.OrderByDescending(c => GetCardValue(c.cardNo)).ToList();
+    }
+
+
+
+
+
+
+    /*public PokerWinDataMaintain MatchResult(CardSuffle cards1, CardSuffle cards2, CardSuffle cards3, CardSuffle cards4, CardSuffle cards5, CardSuffle card6, CardSuffle card7)
     {
         //CardSuffle suffles1 = new CardSuffle();
         //suffles1.cardNo = 10;
@@ -2445,7 +1884,7 @@ public class PokerGameManager : MonoBehaviour
 
     List<CardSuffle> RonColorValue(List<CardSuffle> cards, CardColorType cardColor)
     {
-        print("Card Coolor : " + cardColor);
+        print("    Card Coolor :   " + cardColor);
         //x
         List<CardSuffle> cardUnique = new List<CardSuffle>();
         List<CardSuffle> ronList = new List<CardSuffle>();
@@ -3207,7 +2646,7 @@ public class PokerGameManager : MonoBehaviour
         }
         return highCard;
 
-    }
+    }*/
     #endregion
 
 
@@ -5009,7 +4448,7 @@ public class PokerGameManager : MonoBehaviour
         }
         else
         {
-            print("--Bot Player--"+amount);
+            print("--Bot Player--" + amount);
             player.PlaceBotStartingBet(amount);
         }
     }
@@ -5089,6 +4528,19 @@ public class PokerGameManager : MonoBehaviour
             player.betAmount += amount;
             totalBetAmount += player.betAmount;
             player.betTxt.text = player.betAmount.ToString();
+        });
+    }
+    public void BetAnimForCheck(PokerPlayer player, float amount)
+    {
+        GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
+        genBetObj.transform.GetChild(1).GetComponent<Text>().text = amount.ToString();
+        genBetObj.transform.position = player.avatarImg.transform.position;
+        genBetObj.transform.DOMove(player.betObj.transform.position, 0.3f).OnComplete(() =>
+        {
+            Destroy(genBetObj);
+            player.betAmount += amount;
+            totalBetAmount += player.betAmount;
+            player.betTxt.text = "✓";
         });
     }
 
@@ -5243,7 +4695,7 @@ public class PokerGameManager : MonoBehaviour
         }
         Debug.Log("POKER TURN Player NO  => " + playerNo);
 
-       // ChangePlayerTurn(playerNo);
+        // ChangePlayerTurn(playerNo);
     }
     #endregion
 
