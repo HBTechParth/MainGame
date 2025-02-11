@@ -47,6 +47,8 @@ public class PokerPlayer : MonoBehaviour
     public bool isBot;
     public bool isCalled;
     public bool isCheck;
+    public bool isAllIn;
+
     private bool _isFunctionCalled;
     private bool isBotTurnInProgress = false;
     public bool isSB;
@@ -229,11 +231,12 @@ public class PokerPlayer : MonoBehaviour
         BotAutoTurn();
         //TeenPattiManager.Instance.BetAnim(this, 0.1f);
     }
-
+    int lastPlayer;
     public void BotAutoTurn()
     {
 
         int num = Random.Range(1, 4);
+
         GetBotBetAmount();
         print(num + "This is the Card Number");
         if (!CheckSufficientFunds() || Random.value <= 0.05f) // 10% chance to fold randomly
@@ -247,25 +250,86 @@ public class PokerPlayer : MonoBehaviour
             PokerGameManager.Instance.ChangePlayerTurn(playerNo);
             return;
         }
-       /* if (PokerGameManager.Instance.prePlayerTurn == -1)
-        {
 
-            if (Random.value <= 0.5f)
+        if (PokerGameManager.Instance.prePlayerTurn != -1)
+        {
+            int[] playerOrder = { 5, 4, 3, 2, 1 }; // Default order for player 1
+
+            if (playerNo == 2) playerOrder = new int[] { 1, 5, 4, 3, 2 };
+            else if (playerNo == 3) playerOrder = new int[] { 2, 1, 5, 4, 3 };
+            else if (playerNo == 4) playerOrder = new int[] { 3, 2, 1, 5, 4 };
+            else if (playerNo == 5) playerOrder = new int[] { 4, 3, 2, 1, 5 };
+
+            lastPlayer = playerNo; // Default to itself if all are folded
+
+            foreach (int prevPlayer in playerOrder)
             {
+                var player = PokerGameManager.Instance.GetPlayer(prevPlayer);
+
+                Debug.Log($"Checking Player {prevPlayer}: isFold = {player.isFold}");
+
+                if (!player.isFold)
+                {
+                    lastPlayer = prevPlayer;
+                    break; // Stop once we find the valid last player
+                }
+            }
+
+            Debug.Log($"Final Last Player: {lastPlayer}");
+        }
+
+
+
+        Debug.Log("PokerGameManager.Instance.prePlayerTurn  =>  " + PokerGameManager.Instance.prePlayerTurn);
+
+        if (PokerGameManager.Instance.prePlayerTurn != -1 && PokerGameManager.Instance.playerSquList[lastPlayer - 1].isCheck)
+        {
+            Debug.Log("Random.value  =>  " + Random.value);
+            if (Random.value <= 0.3f)
+            {
+                Debug.Log("Random.value");
                 PokerGameManager.Instance.BetAnimForCheck(this, 0);
                 SoundManager.Instance.ThreeBetSound();
+                UpdateBotBalanceAndText();
+                Debug.Log("BET AMOUNT POKER +>" + 0);
+                //    PokerGameManager.Instance.MatchBet(playerNo, 0);
                 SendBotBetNo(num, playerNo, 0);
                 isCheck = true;
+                PokerGameManager.Instance.lastPlayerdub = playerNo;
+
                 PokerGameManager.Instance.prePlayerTurn = playerNo;
                 PokerGameManager.Instance.ChangePlayerTurn(playerNo);
                 _isFunctionCalled = true;
 
                 return;
             }
-        }*/
+        }
+
+        if (PokerGameManager.Instance.prePlayerTurn == -1)
+        {
+
+            Debug.Log("Random.value  =>  " + Random.value);
+            if (Random.value <= 0.3f)
+            {
+                PokerGameManager.Instance.BetAnimForCheck(this, 0);
+                SoundManager.Instance.ThreeBetSound();
+                UpdateBotBalanceAndText();
+                Debug.Log("BET AMOUNT POKER +>" + 0);
+                // PokerGameManager.Instance.MatchBet(playerNo, 0);
+                SendBotBetNo(num, playerNo, 0);
+                isCheck = true;
+                PokerGameManager.Instance.lastPlayerdub = playerNo;
+
+                PokerGameManager.Instance.prePlayerTurn = playerNo;
+                PokerGameManager.Instance.ChangePlayerTurn(playerNo);
+                _isFunctionCalled = true;
+
+                return;
+            }
+        }
         UpdateBotBalanceAndText();
         Debug.Log("BET AMOUNT POKER +>" + currentBotBetAmount);
-
+        PokerGameManager.Instance.MatchBet(playerNo, currentBotBetAmount);
         SendBotBetNo(num, playerNo, currentBotBetAmount);
         switch (num)
         {
@@ -315,6 +379,7 @@ public class PokerPlayer : MonoBehaviour
         // }
     }
 
+
     public void PlaceBotStartingBet(float amount)
     {
         if (!CheckSufficientFunds())
@@ -328,11 +393,14 @@ public class PokerPlayer : MonoBehaviour
             return;
         }
         Debug.Log("BET AMOUNT POKER +>" + amount);
+        PokerGameManager.Instance.MatchBet(playerNo, amount);
 
         SendBotBetNo(1, playerNo, amount);
+        PokerGameManager.Instance.MatchBet(playerNo, amount);
         PokerGameManager.Instance.BetAnim(this, amount);
         SoundManager.Instance.ThreeBetSound();
         UpdateBotBalanceAndText();
+
     }
 
     private bool CheckSufficientFunds()

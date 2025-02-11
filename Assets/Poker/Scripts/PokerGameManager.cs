@@ -68,6 +68,7 @@ public class PokerGameManager : MonoBehaviour
     public GameObject allInOnObj;
     public GameObject flodBtn;
     public GameObject callBtn;
+    public GameObject checkbtn;
     public GameObject allInBtn;
     public GameObject raiseBtn;
     public Text callPriceTxt;
@@ -542,14 +543,34 @@ public class PokerGameManager : MonoBehaviour
         secondScreenObj.SetActive(true);
     }
     public int prePlayerTurn;
+    public int lastPlayerdub;
     public void OpenOnScreen()
     {
+        Debug.Log("lastPlayerdub   =>  " + prePlayerTurn);
+        if (prePlayerTurn > 0)
+        {
+            if (playerSquList[prePlayerTurn - 1].isCheck)
+            {
+                checkbtn.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                checkbtn.GetComponent<Button>().interactable = false;
+
+            }
+        }
+        if (prePlayerTurn == -1)
+        {
+            checkbtn.GetComponent<Button>().interactable = true;
+        }
+
         downObjectOnObj.SetActive(true);
         downObjectOff.SetActive(false);
         allInOnObj.SetActive(false);
 
         float callPrice = GetCallAmount();
         Debug.Log("GetCallAmount  " + callPrice);
+        Debug.Log("last player   " + callPrice);
 
         //callPriceTxt.text = lastPrice.ToString();
         callPriceTxt.text = "Call : " + callPrice.ToString();
@@ -573,7 +594,8 @@ public class PokerGameManager : MonoBehaviour
         }
         else if (isCheck_Off && FindPrevPlayerCHECK())
         {
-            ChangePlayerTurn(player1.playerNo);
+
+            Second_Check_ButtonCLick();
         }
         else if (isCall_Off && FindPrevPlayerCALL())
         {
@@ -747,7 +769,15 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
-
+    public void Second_Check_ButtonCLick()
+    {
+        SoundManager.Instance.ButtonClick();
+        PokerGameManager.Instance.BetAnimForCheck(player1, 0);
+        SendPokerBet(player1.playerNo, 0, "check");
+        player1.isCheck = true;
+        prePlayerTurn = player1.playerNo;
+        ChangePlayerTurn(player1.playerNo);
+    }
 
     public void Second_Fold_ButtonClick()
     {
@@ -772,12 +802,138 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ThreeBetSound();
         BetAnim(player1, callAmount);
         DataManager.Instance.DebitAmount((callAmount).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 1);
+        MatchBet(player1.playerNo, callAmount);
         Debug.Log("BET AMOUNT POKER +>" + callAmount);
 
         SendPokerBet(player1.playerNo, callAmount, "call");
         ChangePlayerTurn(player1.playerNo);
         DisplayCurrentBalance();
     }
+    public List<float> playerAmounts = new List<float>();  // Players ki amount list
+    private List<bool> playerBetsMade = new List<bool>();    // Players ki bet status list
+    public int currentRound = 1;  // Current round
+    public int currentPlayerIndex = 0;  // Current player index
+
+
+    // Ensure list size before accessing index
+    public void MatchBet(int playerNo, float amount)
+    {
+        // Ensure playerAmounts list has sufficient capacity
+        EnsurePlayerListSize(playerNo);
+
+        // Amount ko update karo
+        playerAmounts[playerNo] = amount;
+        playerBetsMade[playerNo] = true;
+
+        // Jab player apni bet dalta hai, to check karo ki sab bets match ho gayi hain ya nahi
+        if (CheckAmountsMatch())
+        {
+            Debug.Log("ALL AMOUNT MATCH");
+            ProceedToNextRoundOrPlayer();
+        }
+    }
+
+    // Function jo check karega ki sab amounts match ho rahe hain ya nahi
+    private bool CheckAmountsMatch()
+    {
+        float targetAmount = playerAmounts[0];  // Match karne ke liye pehle player ka amount
+
+        // Check all players' amounts
+        for (int i = 1; i < playerAmounts.Count; i++)
+        {
+            if (playerAmounts[i] != targetAmount || !playerBetsMade[i])
+            {
+                return false;  // Agar kisi ka amount match nahi ho raha ya bet nahi ki gayi
+            }
+        }
+
+        return true;  // Agar saare amounts match karte hain
+    }
+
+    // Function to ensure playerAmounts and playerBetsMade have enough size
+    private void EnsurePlayerListSize(int playerNo)
+    {
+        // Agar playerNo ka index current list size se bada hai, toh list ko extend karo
+        while (playerAmounts.Count <= playerNo)
+        {
+            playerAmounts.Add(0);  // Default value for new player
+            playerBetsMade.Add(false);  // Default value for new player's bet status
+        }
+    }
+
+    // Round complete karne ke liye aur next player ka turn dene ke liye
+    private void ProceedToNextRoundOrPlayer()
+    {
+        if (currentRound == 1)
+        {
+            // Pehla round complete ho gaya hai, agla round shuru karna
+            currentRound = 2;
+            ResetForNewRound();
+            Debug.Log("Round " + currentRound + " starts now.");
+        }
+        else
+        {
+            if (currentPlayerIndex < playerAmounts.Count - 1)
+            {
+                // Next player ka turn
+                currentPlayerIndex++;
+                Debug.Log("Player " + (currentPlayerIndex + 1) + "'s turn.");
+            }
+            else
+            {
+                // Sab players ke bets complete ho gaye, round reset karo
+                Debug.Log("Round " + currentRound + " complete.");
+                currentRound++;
+                ResetForNewRound();
+            }
+        }
+    }
+
+    // Function jo round complete hone par reset karega
+    private void ResetForNewRound()
+    {
+        // Player bets reset karna
+        playerAmounts.Clear();
+        playerBetsMade.Clear();
+
+        // Round ke liye player amounts ko initialize karo
+        for (int i = 0; i < 5; i++) // Assuming 5 players
+        {
+            playerAmounts.Add(0);   // Amounts reset karenge
+            playerBetsMade.Add(false);  // Bet status reset
+        }
+
+        // Round ko start karne ke liye initial setup
+        if (currentRound == 2)
+        {
+            // SB aur BB ko pehle round ke according set karenge
+            playerAmounts[0] = sbAmount;  // SB
+            playerAmounts[1] = bbAmount;   // BB
+            playerBetsMade[0] = true; // SB player ne bet di
+            playerBetsMade[1] = true; // BB player ne bet di
+        }
+
+        // First player ka turn set karna
+        currentPlayerIndex = 2; // Agle player ka turn shuru hoga
+        Debug.Log("Player " + (currentPlayerIndex + 1) + "'s turn to bet.");
+    }
+
+    // Function jo round start karega (first round setup)
+    public void StartRound()
+    {
+        ResetForNewRound(); // Reset for new round
+
+        Debug.Log("Round " + currentRound + " started.");
+
+        // Round start karte waqt pehle players ko SB aur BB amounts set karna
+        playerAmounts[0] = sbAmount; // SB player amount
+        playerAmounts[1] = bbAmount;  // BB player amount
+        playerBetsMade[0] = true;  // SB player ne apni bet di
+        playerBetsMade[1] = true;  // BB player ne apni bet di
+
+        currentPlayerIndex = 2;  // Agle player ka turn shuru hoga
+    }
+
 
     public void Second_Raise_ButtonClick()
     {
@@ -798,8 +954,16 @@ public class PokerGameManager : MonoBehaviour
             return;
         }
         Debug.Log("BET AMOUNT POKER +>" + raisePrice);
+        if (raisePrice == float.Parse(player1.playerBalanceTxt.text))
+        {
+            Debug.Log("ITS A ALL IN");
+            SendPokerBet(player1.playerNo, raisePrice, "AllIn");
+        }
+        else
+        {
+            SendPokerBet(player1.playerNo, raisePrice, "raise");
 
-        SendPokerBet(player1.playerNo, raisePrice, "raise");
+        }
         SoundManager.Instance.ThreeBetSound();
         lastPrice = raisePrice;
         BetAnim(player1, raisePrice);
@@ -1127,143 +1291,196 @@ public class PokerGameManager : MonoBehaviour
         //CheckBetAmount();
     }
 
+    /*  public void CheckBetAmount()
+      {
+
+          bool equal = true;
+          float betAmount = 0f;
+          bool isFirstPlayer = true;
+
+          foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
+          {
+
+              if (playerSquare.isCheck== true)
+              {
+                  equal = false;
+                  break;
+              }
+              if (isFirstPlayer)
+              {
+                  betAmount = playerSquare.betAmount;
+                  isFirstPlayer = false;
+              }
+              else
+              {
+                  if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
+                  {
+                      equal = false;
+                      break;
+                  }
+              }
+          }
+
+          // If not all non-folded players have bet the same amount, exit the method
+          if (!equal) return;
+
+          // If no non-folded player has bet anything, exit the method
+          if (betAmount <= 0f) return;
+
+          // Switch on the game state based on which cards have been shown
+          switch (_allBetEqual)
+          {
+              case false:
+                  StartCoroutine(FlopCardShow());
+                  _allBetEqual = true;
+                  Player1BetIn();
+                  Player2BetIn();
+                  Player3BetIn();
+                  Player4BetIn();
+                  Player5BetIn();
+                  ResetBetAmount();
+                  break;
+              case true when !_isFlopShowDone:
+                  StartCoroutine(TurnCardShow());
+                  _isFlopShowDone = true;
+                  Player1BetIn();
+                  Player2BetIn();
+                  Player3BetIn();
+                  Player4BetIn();
+                  Player5BetIn();
+                  ResetBetAmount();
+                  break;
+              case true when (_isFlopShowDone && !_isRiverShowDone):
+                  //isGameStop = false;
+                  StartCoroutine(RiverCardShow());
+                  _isRiverShowDone = true;
+                  Player1BetIn();
+                  Player2BetIn();
+                  Player3BetIn();
+                  Player4BetIn();
+                  Player5BetIn();
+                  ResetBetAmount();
+                  //WinPoker();
+                  break;
+              case true when _isFlopShowDone && _isRiverShowDone && !_isResultAnnounced:
+                  AnnounceResults();
+                  _isResultAnnounced = true;
+                  break;
+              default:
+                  print("All values are equal");
+                  break;
+          }
+      }*/
+
     public void CheckBetAmount()
     {
-        /*bool equal = true;
-        float betAmount = playerSquList[0].betAmount;
-        for (int i = 1; i < playerSquList.Count; i++)
+        bool allEqual = true;
+        bool allCheckSame = true; // Track if all isCheck values are the same
+        float betAmount = -1f;
+        bool? firstCheckValue = null;
+        bool allPlayersChecked = true; // Flag to check if all players have checked
+
+        foreach (var playerSquare in playerSquList.Where(player => !player.isFold))
         {
-            if (!Mathf.Approximately(playerSquList[i].betAmount ,betAmount))
+            // Track first player's isCheck value
+            if (firstCheckValue == null)
             {
-                equal = false;
-                break;
+                firstCheckValue = playerSquare.isCheck;
             }
-        }
-        // if (player1BetAmount != player2BetAmount || player2BetAmount != player3BetAmount ||
-        //     player3BetAmount != player4BetAmount || player4BetAmount != player5BetAmount) return;
-        if (!equal) return;
-        if (!(player1BetAmount > 0)) return;
+            else if (firstCheckValue != playerSquare.isCheck)
+            {
+                allCheckSame = false; // If any isCheck value is different
+            }
 
-        switch (_allBetEqual)
-        {
-            case false:
-                StartCoroutine(FlopCardShow());
-                _allBetEqual = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                return;
-            case true when !_isFlopShowDone:
-                StartCoroutine(TurnCardShow());
-                _isFlopShowDone = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                return;
-            case true when (_isFlopShowDone && !_isRiverShowDone):
-                isGameStop = false;
-                StartCoroutine(RiverCardShow());
-                _isRiverShowDone = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                WinPoker();
-                return;
-            default:
-                print("All values are equal");
-                break;
-        }*/
+            // Track if any player has not checked
+            if (playerSquare.isCheck == false)
+            {
+                allPlayersChecked = false;
+            }
 
-        // Check if all non-folded players have bet the same amount
-        bool equal = true;
-        float betAmount = 0f;
-        bool isFirstPlayer = true;
-        foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
-        {
-            if (isFirstPlayer)
+            // Track first player's betAmount
+            if (betAmount == -1f)
             {
                 betAmount = playerSquare.betAmount;
-                isFirstPlayer = false;
             }
-            else
+            else if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
             {
-                if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
-                {
-                    equal = false;
-                    break;
-                }
+                allEqual = false; // If any betAmount is different
             }
         }
 
-        // If not all non-folded players have bet the same amount, exit the method
-        if (!equal) return;
+        // Debug logs for tracking
+        //Debug.Log($"All Bet Amounts Equal: {allEqual}, All Checks Equal: {allCheckSame}, All Players Checked: {allPlayersChecked}");
 
-        // If no non-folded player has bet anything, exit the method
-        if (betAmount <= 0f) return;
-
-        // Switch on the game state based on which cards have been shown
-        switch (_allBetEqual)
+        // If all players have checked (betAmount = 0) and bets are the same, skip bet logic and move forward
+        if (allPlayersChecked)
         {
-            case false:
-                StartCoroutine(FlopCardShow());
-                _allBetEqual = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                break;
-            case true when !_isFlopShowDone:
-                StartCoroutine(TurnCardShow());
-                _isFlopShowDone = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                break;
-            case true when (_isFlopShowDone && !_isRiverShowDone):
-                //isGameStop = false;
-                StartCoroutine(RiverCardShow());
-                _isRiverShowDone = true;
-                Player1BetIn();
-                Player2BetIn();
-                Player3BetIn();
-                Player4BetIn();
-                Player5BetIn();
-                ResetBetAmount();
-                //WinPoker();
-                break;
-            case true when _isFlopShowDone && _isRiverShowDone && !_isResultAnnounced:
-                AnnounceResults();
-                _isResultAnnounced = true;
-                break;
-            default:
-                print("All values are equal");
-                break;
+            // Proceed to next stage since all have checked (no betting required)
+            ProcessNextGameStage();
+            return;
         }
+
+        // If bet amounts are not equal or check values are different, exit
+        if (!allEqual || !allCheckSame || betAmount <= 0f) return;
+
+        // Proceed with game progression
+        ProcessNextGameStage();
     }
 
+    private void ProcessNextGameStage()
+    {
+        if (!_allBetEqual)
+        {
+            StartCoroutine(FlopCardShow());
+            _allBetEqual = true;
+        }
+        else if (!_isFlopShowDone)
+        {
+            StartCoroutine(TurnCardShow());
+            _isFlopShowDone = true;
+        }
+        else if (!_isRiverShowDone)
+        {
+            StartCoroutine(RiverCardShow());
+            _isRiverShowDone = true;
+        }
+        else if (!_isResultAnnounced)
+        {
+            AnnounceResults();
+            _isResultAnnounced = true;
+        }
+        else
+        {
+            print("All values are equal");
+        }
+
+        // Reset players' betting state after each stage
+        ResetAllPlayersBetState();
+    }
+
+    private void ResetAllPlayersBetState()
+    {
+        Player1BetIn();
+        Player2BetIn();
+        Player3BetIn();
+        Player4BetIn();
+        Player5BetIn();
+        ResetBetAmount();
+    }
 
     public void ResetBetAmount()
     {
         foreach (var activePlayers in playerSquList)
         {
+            // Reset bet amount to 0 if needed
             activePlayers.betAmount = 0f;
             activePlayers.betTxt.text = activePlayers.betAmount.ToString();
+
+            // Optionally reset the isCheck value if needed for the next round
+            activePlayers.isCheck = false;
         }
     }
+
 
     public IEnumerator FlopCardShow()
     {
@@ -1398,6 +1615,18 @@ public class PokerGameManager : MonoBehaviour
 
         });
         yield return new WaitForSeconds(2f);
+    }
+    public PokerPlayer GetPlayer(int playerNo)
+    {
+        switch (playerNo)
+        {
+            case 1: return player1;
+            case 2: return player2;
+            case 3: return player3;
+            case 4: return player4;
+            case 5: return player5;
+            default: return null;
+        }
     }
     public IEnumerator RiverCardShow()
     {
@@ -4382,7 +4611,8 @@ public class PokerGameManager : MonoBehaviour
         }
 
     }
-
+    public int firstPlayer;
+    public int lastPlayer;
     private void StartTheTurn()
     {
         int playerCount = pokerPlayers.Count;
@@ -4393,6 +4623,10 @@ public class PokerGameManager : MonoBehaviour
             PokerPlayer nextPlayer = pokerPlayers[(i + 1) % playerCount];
 
             if (!currentPlayer.isBB) continue;
+            Debug.Log("nextPlayer  =>   " + nextPlayer);
+            firstPlayer = nextPlayer.playerNo;
+            lastPlayer = (nextPlayer.playerNo == 1) ? 5 : nextPlayer.playerNo - 1;
+
             nextPlayer.isTurn = true;
 
             if (nextPlayer.playerId == DataManager.Instance.playerData._id)
