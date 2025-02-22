@@ -7905,7 +7905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.6707454}
   m_AnchorMax: {x: 0.5, y: 0.6707454}
-  m_AnchoredPosition: {x: 8, y: -68.4}
+  m_AnchoredPosition: {x: 8, y: -68.399994}
   m_SizeDelta: {x: 226.1, y: 48.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494519689
@@ -15326,6 +15326,9 @@ MonoBehaviour:
   playerAmounts: []
   currentRound: 1
   currentPlayerIndex: 0
+  firstround: 0
+  secondRound: 0
+  thirdRound: 0
   sidePotParent: {fileID: 1329530717}
   sidePotPrefab: {fileID: 7564830593183589343, guid: d3df7169e75aa2944bc8d16abc09847a, type: 3}
   sidepotAdded: []

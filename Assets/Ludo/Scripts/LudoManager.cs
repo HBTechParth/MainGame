@@ -433,7 +433,7 @@ public class LudoManager : MonoBehaviour
     void Timer()
     {
         secondsCount -= Time.deltaTime;
-        float minutes = Mathf.Floor(secondsCount / 5);
+        float minutes = Mathf.Floor(secondsCount / 60);
         float seconds = secondsCount % 60;
 
 
