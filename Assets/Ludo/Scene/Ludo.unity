@@ -38338,7 +38338,7 @@ MonoBehaviour:
   timerFillImg2: {fileID: 678671401}
   timerFillImg3: {fileID: 1934509171}
   timerFillImg4: {fileID: 1191049492}
-  timerSpeed: 20
+  timerSpeed: 100
   isClickAvaliableDice: 0
   shadowOff: {r: 0, g: 0, b: 0, a: 0}
   timerObject: {fileID: 1550574317}

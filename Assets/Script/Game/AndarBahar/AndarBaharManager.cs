@@ -266,7 +266,10 @@ public class AndarBaharManager : MonoBehaviour
         {
             Debug.Log("data == " + data);
             if (winList.Count != 0)
+            {
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+
+            }
         }
 
 

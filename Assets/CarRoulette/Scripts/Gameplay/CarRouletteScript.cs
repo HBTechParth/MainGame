@@ -928,7 +928,7 @@ public class CarRouletteScript : MonoBehaviour
         // Use the car and winAmount variables as needed
         print("Car Name: " + car + ", Win Amount: " + winAmount);
         float adminPercentage = carRouletteAdminCommission;
-      //  float adminPercentage = DataManager.Instance.adminPercentage;
+        //  float adminPercentage = DataManager.Instance.adminPercentage;
 
         float winnningAmount = winAmount;
         float adminCommssion = (adminPercentage / 100);
@@ -1218,8 +1218,11 @@ public class CarRouletteScript : MonoBehaviour
         if (data != "")
         {
             if (winList.Count != 0)
+            {
                 Debug.Log("winList  =  " + winList.Count);
-            winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+                winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
+
+            }
         }
 
         int childCount = PounCarrier.transform.childCount;

@@ -155,7 +155,7 @@ public class DataManager : MonoBehaviour
 
         isTournamentLoaded = false;
     }
-
+   
     [Obsolete("Obsolete")]
     private void Start()
     {

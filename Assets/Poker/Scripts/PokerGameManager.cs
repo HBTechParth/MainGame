@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -311,7 +312,7 @@ public class PokerGameManager : MonoBehaviour
 
     private void CheckBalance()
     {
-        if (!float.TryParse(DataManager.Instance.playerData.balance, out float playerBalance)) return;
+        if (!float.TryParse(DataManager.Instance.joinPlayerDatas[0].balance, out float playerBalance)) return;
         if (!(playerBalance <= 10)) return;
         lowBalanceError.gameObject.SetActive(true);
         Time.timeScale = 0f;
@@ -336,7 +337,7 @@ public class PokerGameManager : MonoBehaviour
 
     public GameObject textPrefab;
     public Transform traTextPrefeb;
-    void WinBeforeAllDataManage()
+    void WinBeforeAllDataManage(bool isallin)
     {
         CancelInvoke(nameof(CheckBetAmount));
 
@@ -396,13 +397,28 @@ public class PokerGameManager : MonoBehaviour
                 {
                     SetPokerWonData(winner.player.playerId);
                     ShowWinAmount(winner.player.playerId, splitAmount.ToString("F2"));
+
                 }
             }
             else
             {
                 Debug.Log("Final Winner: " + finalWinner.player.name);
                 SetPokerWonData(finalWinner.player.playerId);
+                Debug.Log("WIn Amount =>  " + totalBetAmount);
+
                 ShowWinAmount(finalWinner.player.playerId, totalBetAmount.ToString());
+
+            }
+            if (isallin)
+            {
+                if (finalWinners.Count > 1)
+                {
+                    DistributePotsToWinner(finalWinners[0].player.playerId);
+                }
+                else
+                {
+                    DistributePotsToWinner(finalWinner.player.playerId);
+                }
             }
         }
 
@@ -412,6 +428,8 @@ public class PokerGameManager : MonoBehaviour
     // ShowWinAmount remains the same
     public void ShowWinAmount(string winnerId, string amount)
     {
+
+        Debug.Log("WIn Amount =>  " + amount);
         PokerPlayer winner = playerSquList.Find(player => player.playerId == winnerId);
         if (winner == null)
         {
@@ -509,6 +527,7 @@ public class PokerGameManager : MonoBehaviour
         var winningData = playerSquList.Find(player => player.playerId == winnerPlayerId);
         if (winningData != null)
         {
+            Debug.Log("PLNO  => " + winningData.playerNo + "   pla = " + playerNo);
             if (winningData.playerNo == playerNo)
             {
                 SetPokerWon(winningData.playerNo.ToString());
@@ -558,13 +577,28 @@ public class PokerGameManager : MonoBehaviour
                 checkbtn.GetComponent<Button>().interactable = false;
 
             }
+            if (playerSquList[prePlayerTurn - 1].isAllIn)
+            {
+                callBtn.GetComponent<Button>().interactable = false;
+                secondUpBtnObj.GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                callBtn.GetComponent<Button>().interactable = true;
+                secondUpBtnObj.GetComponent<Button>().interactable = true;
+
+            }
         }
-        if (prePlayerTurn == -1)
+        if (prePlayerTurn == -1 )
         {
             checkbtn.GetComponent<Button>().interactable = true;
+        } 
+        if ( prePlayerTurn == 0)
+        {
+            callBtn.GetComponent<Button>().interactable = true;
         }
-
-        downObjectOnObj.SetActive(true);
+        if (!_isResultAnnounced)
+            downObjectOnObj.SetActive(true);
         downObjectOff.SetActive(false);
         allInOnObj.SetActive(false);
 
@@ -573,9 +607,32 @@ public class PokerGameManager : MonoBehaviour
         Debug.Log("last player   " + callPrice);
 
         //callPriceTxt.text = lastPrice.ToString();
-        callPriceTxt.text = "Call : " + callPrice.ToString();
-        raisePriceTxt.text = "Raise : " + lastPrice.ToString();
-        raisePrice = lastPrice;
+        if (prePlayerTurn > 0)
+        {
+            if (playerSquList[prePlayerTurn - 1].isAllIn)
+            {
+                Debug.Log("INININIINININININIININIININININIINIINININIIIN  ");
+                callPriceTxt.text = "Call";
+                raisePriceTxt.text = "ALLIN : " + player1.playerBalanceTxt.text;
+                raisePrice = float.Parse(player1.playerBalanceTxt.text);
+                Debug.Log("raisePrice  -------------->  " + raisePrice);
+
+            }
+            else
+            {
+
+                callPriceTxt.text = "Call : " + callPrice.ToString();
+                raisePriceTxt.text = "Raise : " + lastPrice.ToString();
+                raisePrice = lastPrice;
+
+            }
+        }
+        else
+        {
+            callPriceTxt.text = "Call : " + callPrice.ToString();
+            raisePriceTxt.text = "Raise : " + lastPrice.ToString();
+            raisePrice = lastPrice;
+        }
         Debug.Log("isFold_Off  => " + isFold_Off);
         Debug.Log("isAllIn  => " + isAllIn);
         Debug.Log("isCheck_Off  => " + isCheck_Off);
@@ -697,6 +754,11 @@ public class PokerGameManager : MonoBehaviour
 
         isGameStarted = false;
         yield return new WaitForSeconds(6f);
+        ResetAmountAfterAllin();
+        ResetRound();
+        CheckAllPlayerIsValidOrNot();
+        yield return new WaitForSeconds(1f);
+
 
         //print("Enther The Generate Player");
         CheckBalance();
@@ -710,7 +772,99 @@ public class PokerGameManager : MonoBehaviour
 
         }
     }
+    public void CheckAllPlayerIsValidOrNot()
+    {
+        for (int j = 0; j < DataManager.Instance.joinPlayerDatas.Count; j++)
+        {
+            // Convert balance from string to float
+            if (DataManager.Instance.joinPlayerDatas[j].userId != player1.playerId)
+            {
 
+                int num = UnityEngine.Random.Range(0, 10);
+                Debug.Log("NUM  =>  " + num);
+                if (num > 2)
+                {
+
+                    if (float.TryParse(DataManager.Instance.joinPlayerDatas[j].balance, out float balanceValue))
+                    {
+                        if (balanceValue < bbAmount) // If balance is too low, assign new bot data
+                        {
+                            // Assign a random balance
+                            DataManager.Instance.joinPlayerDatas[j].balance = UnityEngine.Random.Range(1000, 5000).ToString();
+
+                            // Assign a random bot name
+                            int randomIndex = UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count);
+                            DataManager.Instance.joinPlayerDatas[j].userName = BotManager.Instance.botUserName[randomIndex];
+
+                            // Assign a random avatar URL
+                            int randomIndex1 = UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count);
+                            string avatarUrl = BotManager.Instance.botUser_Profile_URL[randomIndex1];
+                            DataManager.Instance.joinPlayerDatas[j].avtar = avatarUrl;
+                            // Update Player UI
+                            for (int i = 0; i < playerSquList.Count; i++)
+                            {
+                                if (DataManager.Instance.joinPlayerDatas[j].userId == playerSquList[i].playerId)
+                                {
+                                    playerSquList[i].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[j].balance;
+                                    playerSquList[i].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[j].userName;
+                                    playerSquList[i].avatar = avatarUrl;
+                                    // Start coroutine to load image from URL
+                                    StartCoroutine(LoadAvatarFromURL(avatarUrl, playerSquList[i].avatarImg));
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DataManager.Instance.joinPlayerDatas[j].balance = UnityEngine.Random.Range(1000, 5000).ToString();
+
+                    // Assign a random bot name
+                    int randomIndex = UnityEngine.Random.Range(0, BotManager.Instance.botUserName.Count);
+                    DataManager.Instance.joinPlayerDatas[j].userName = BotManager.Instance.botUserName[randomIndex];
+
+                    // Assign a random avatar URL
+                    int randomIndex1 = UnityEngine.Random.Range(0, BotManager.Instance.botUser_Profile_URL.Count);
+                    string avatarUrl = BotManager.Instance.botUser_Profile_URL[randomIndex1];
+                    DataManager.Instance.joinPlayerDatas[j].avtar = avatarUrl;
+                    // Update Player UI
+                    for (int i = 0; i < playerSquList.Count; i++)
+                    {
+                        if (DataManager.Instance.joinPlayerDatas[j].userId == playerSquList[i].playerId)
+                        {
+                            playerSquList[i].playerBalanceTxt.text = DataManager.Instance.joinPlayerDatas[j].balance;
+                            playerSquList[i].playerNameTxt.text = DataManager.Instance.joinPlayerDatas[j].userName;
+                            playerSquList[i].avatar = avatarUrl;
+                            // Start coroutine to load image from URL
+                            StartCoroutine(LoadAvatarFromURL(avatarUrl, playerSquList[i].avatarImg));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Coroutine to download the avatar image and set it as a sprite
+    private IEnumerator LoadAvatarFromURL(string url, UnityEngine.UI.Image avatarImage)
+    {
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                if (texture != null)
+                {
+                    avatarImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to load avatar image: " + request.error);
+            }
+        }
+    }
     public void OpenOffScreen()
     {
         downObjectOnObj.SetActive(false);
@@ -802,7 +956,7 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ThreeBetSound();
         BetAnim(player1, callAmount);
         DataManager.Instance.DebitAmount((callAmount).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 1);
-        MatchBet(player1.playerNo, callAmount);
+
         Debug.Log("BET AMOUNT POKER +>" + callAmount);
 
         SendPokerBet(player1.playerNo, callAmount, "call");
@@ -816,123 +970,8 @@ public class PokerGameManager : MonoBehaviour
 
 
     // Ensure list size before accessing index
-    public void MatchBet(int playerNo, float amount)
-    {
-        // Ensure playerAmounts list has sufficient capacity
-        EnsurePlayerListSize(playerNo);
 
-        // Amount ko update karo
-        playerAmounts[playerNo] = amount;
-        playerBetsMade[playerNo] = true;
 
-        // Jab player apni bet dalta hai, to check karo ki sab bets match ho gayi hain ya nahi
-        if (CheckAmountsMatch())
-        {
-            Debug.Log("ALL AMOUNT MATCH");
-            ProceedToNextRoundOrPlayer();
-        }
-    }
-
-    // Function jo check karega ki sab amounts match ho rahe hain ya nahi
-    private bool CheckAmountsMatch()
-    {
-        float targetAmount = playerAmounts[0];  // Match karne ke liye pehle player ka amount
-
-        // Check all players' amounts
-        for (int i = 1; i < playerAmounts.Count; i++)
-        {
-            if (playerAmounts[i] != targetAmount || !playerBetsMade[i])
-            {
-                return false;  // Agar kisi ka amount match nahi ho raha ya bet nahi ki gayi
-            }
-        }
-
-        return true;  // Agar saare amounts match karte hain
-    }
-
-    // Function to ensure playerAmounts and playerBetsMade have enough size
-    private void EnsurePlayerListSize(int playerNo)
-    {
-        // Agar playerNo ka index current list size se bada hai, toh list ko extend karo
-        while (playerAmounts.Count <= playerNo)
-        {
-            playerAmounts.Add(0);  // Default value for new player
-            playerBetsMade.Add(false);  // Default value for new player's bet status
-        }
-    }
-
-    // Round complete karne ke liye aur next player ka turn dene ke liye
-    private void ProceedToNextRoundOrPlayer()
-    {
-        if (currentRound == 1)
-        {
-            // Pehla round complete ho gaya hai, agla round shuru karna
-            currentRound = 2;
-            ResetForNewRound();
-            Debug.Log("Round " + currentRound + " starts now.");
-        }
-        else
-        {
-            if (currentPlayerIndex < playerAmounts.Count - 1)
-            {
-                // Next player ka turn
-                currentPlayerIndex++;
-                Debug.Log("Player " + (currentPlayerIndex + 1) + "'s turn.");
-            }
-            else
-            {
-                // Sab players ke bets complete ho gaye, round reset karo
-                Debug.Log("Round " + currentRound + " complete.");
-                currentRound++;
-                ResetForNewRound();
-            }
-        }
-    }
-
-    // Function jo round complete hone par reset karega
-    private void ResetForNewRound()
-    {
-        // Player bets reset karna
-        playerAmounts.Clear();
-        playerBetsMade.Clear();
-
-        // Round ke liye player amounts ko initialize karo
-        for (int i = 0; i < 5; i++) // Assuming 5 players
-        {
-            playerAmounts.Add(0);   // Amounts reset karenge
-            playerBetsMade.Add(false);  // Bet status reset
-        }
-
-        // Round ko start karne ke liye initial setup
-        if (currentRound == 2)
-        {
-            // SB aur BB ko pehle round ke according set karenge
-            playerAmounts[0] = sbAmount;  // SB
-            playerAmounts[1] = bbAmount;   // BB
-            playerBetsMade[0] = true; // SB player ne bet di
-            playerBetsMade[1] = true; // BB player ne bet di
-        }
-
-        // First player ka turn set karna
-        currentPlayerIndex = 2; // Agle player ka turn shuru hoga
-        Debug.Log("Player " + (currentPlayerIndex + 1) + "'s turn to bet.");
-    }
-
-    // Function jo round start karega (first round setup)
-    public void StartRound()
-    {
-        ResetForNewRound(); // Reset for new round
-
-        Debug.Log("Round " + currentRound + " started.");
-
-        // Round start karte waqt pehle players ko SB aur BB amounts set karna
-        playerAmounts[0] = sbAmount; // SB player amount
-        playerAmounts[1] = bbAmount;  // BB player amount
-        playerBetsMade[0] = true;  // SB player ne apni bet di
-        playerBetsMade[1] = true;  // BB player ne apni bet di
-
-        currentPlayerIndex = 2;  // Agle player ka turn shuru hoga
-    }
 
 
     public void Second_Raise_ButtonClick()
@@ -954,23 +993,47 @@ public class PokerGameManager : MonoBehaviour
             return;
         }
         Debug.Log("BET AMOUNT POKER +>" + raisePrice);
+        Debug.Log("player1.playerBalanceTxt.text +>" + float.Parse(player1.playerBalanceTxt.text));
         if (raisePrice == float.Parse(player1.playerBalanceTxt.text))
         {
             Debug.Log("ITS A ALL IN");
             SendPokerBet(player1.playerNo, raisePrice, "AllIn");
+            PokerGameManager.Instance.AddPlayerBet(player1, raisePrice);
+            player1.isAllIn = true;
         }
         else
         {
             SendPokerBet(player1.playerNo, raisePrice, "raise");
 
         }
+        prePlayerTurn = player1.playerNo;
         SoundManager.Instance.ThreeBetSound();
         lastPrice = raisePrice;
         BetAnim(player1, raisePrice);
         DataManager.Instance.DebitAmount((raisePrice).ToString(), DataManager.Instance.gameId, "Poker-Bet-" + DataManager.Instance.gameId, "game", 2);
-        ChangePlayerTurn(player1.playerNo);
+        if (!AreAllPlayersAllIn1())
+        {
+            ChangePlayerTurn(player1.playerNo);
+        }
+        else
+        {
+            ResetFillLines();
+        }
         DisplayCurrentBalance();
     }
+    public bool AreAllPlayersAllIn1()
+    {
+        foreach (PokerPlayer player in playerSquList)
+        {
+            if (!player.isAllIn) // Check if any player is not all-in
+            {
+                return false; // Return false if any player is not all-in
+            }
+        }
+
+        return true; // Return true if all players are all-in
+    }
+
 
     public void Second_AllIn_ButtonClick()
     {
@@ -1154,6 +1217,8 @@ public class PokerGameManager : MonoBehaviour
         if (raisePrice > 10)
         {
             raisePrice -= 10;
+            Debug.Log("raisePrice   => " + raisePrice);
+
             UpdateUI();
         }
     }
@@ -1223,6 +1288,8 @@ public class PokerGameManager : MonoBehaviour
             case 2:
                 // Pot All In
                 raisePrice = float.Parse(DataManager.Instance.playerData.balance);
+                Debug.Log("raisePrice   => " + raisePrice);
+                Debug.Log("DataManager.Instance.playerData.balance   => " + DataManager.Instance.playerData.balance);
                 break;
             case 3:
                 // ×3
@@ -1239,6 +1306,7 @@ public class PokerGameManager : MonoBehaviour
                 raisePrice = (raisePrice >= 10) ? 10 : 0; // or set a minimum value
                 break;
         }
+        Debug.Log("raisePrice   => " + raisePrice);
 
         UpdateUI();
     }
@@ -1253,23 +1321,35 @@ public class PokerGameManager : MonoBehaviour
         plusBtn.interactable = (raisePrice < 100);*/
 
         float playerBalance = float.Parse(DataManager.Instance.playerData.balance);
-        raisePrice = Mathf.RoundToInt(sliderValue.value * playerBalance);
+        decimal preciseRaisePrice = Math.Round((decimal)(sliderValue.value * playerBalance), 2, MidpointRounding.AwayFromZero);
+        raisePrice = (float)preciseRaisePrice;
+        Debug.Log("raisePrice   => " + raisePrice);
+
+
         UpdateUI();
     }
 
     private void UpdateUI()
     {
+        Debug.Log("update ui  ---   : ");
         float playerBalance = float.Parse(DataManager.Instance.playerData.balance);
 
-        raisePrice = Mathf.Clamp(raisePrice, 10, playerBalance); // Ensure raisePrice stays within valid range
-        Debug.Log("Raise Price : " + raisePrice);
+        // Ensure raisePrice is clamped and rounded to 2 decimal places
+        decimal roundedValue = Math.Round((decimal)raisePrice, 2, MidpointRounding.AwayFromZero);
+        raisePrice = (float)roundedValue;
 
-        raisePriceTxt.text = "Raise : " + raisePrice.ToString();
+
+        Debug.Log("Raise Price  ---   : " + raisePrice);
+
+        // Display with exactly 2 decimal places
+        raisePriceTxt.text = "Raise : " + raisePrice.ToString("F2");
+
         sliderValue.value = raisePrice / playerBalance;
 
         minusBtn.interactable = (raisePrice > 10);
         plusBtn.interactable = (raisePrice < playerBalance);
     }
+
 
     #endregion
 
@@ -1372,13 +1452,151 @@ public class PokerGameManager : MonoBehaviour
           }
       }*/
 
+    /* public void CheckBetAmount()
+     {
+         bool allEqual = true;
+         bool allCheckSame = true; // Track if all isCheck values are the same
+         bool allAllInSame = true; // Track if all isAllIn values are the same
+         float betAmount = -1f;
+         bool? firstCheckValue = null;
+         bool? firstAllInValue = null;
+         bool allPlayersChecked = true; // Flag to check if all players have checked
+         bool allPlayersAllIn = true;   // Flag to check if all players are All-In
+
+         foreach (var playerSquare in playerSquList.Where(player => !player.isFold))
+         {
+             // Track first player's isCheck value
+             if (firstCheckValue == null)
+             {
+                 firstCheckValue = playerSquare.isCheck;
+             }
+             else if (firstCheckValue != playerSquare.isCheck)
+             {
+                 allCheckSame = false; // If any isCheck value is different
+             }
+
+             // Track first player's isAllIn value
+             if (firstAllInValue == null)
+             {
+                 firstAllInValue = playerSquare.isAllIn;
+             }
+             else if (firstAllInValue != playerSquare.isAllIn)
+             {
+                 allAllInSame = false; // If any isAllIn value is different
+             }
+
+             // Check if all players are All-In
+             if (!playerSquare.isAllIn)
+             {
+                 allPlayersAllIn = false;
+             }
+
+             // Check if all players have checked
+             if (!playerSquare.isCheck)
+             {
+                 allPlayersChecked = false;
+             }
+
+             // Track first player's betAmount
+             if (betAmount == -1f)
+             {
+                 betAmount = playerSquare.betAmount;
+             }
+             else if (!Mathf.Approximately(playerSquare.betAmount, betAmount))
+             {
+                 allEqual = false; // If any betAmount is different
+             }
+         }
+
+         // If all active players are All-In, process the next game stage
+         if (allPlayersAllIn)
+         {
+             ProcessNextGameStage();
+             return;
+         }
+
+         // If all players have checked (betAmount = 0) and bets are the same, skip bet logic and move forward
+         if (allPlayersChecked)
+         {
+             ProcessNextGameStage();
+             return;
+         }
+
+         // If bet amounts are not equal or check values are different, exit
+         if (!allEqual || !allCheckSame || betAmount <= 0f) return;
+
+         // Proceed with game progression
+         ProcessNextGameStage();
+     }
+
+
+     private void ProcessNextGameStage()
+     {
+         if (!_allBetEqual)
+         {
+             StartCoroutine(FlopCardShow());
+             _allBetEqual = true;
+         }
+         else if (!_isFlopShowDone)
+         {
+             StartCoroutine(TurnCardShow());
+             _isFlopShowDone = true;
+         }
+         else if (!_isRiverShowDone)
+         {
+             StartCoroutine(RiverCardShow());
+             _isRiverShowDone = true;
+         }
+         else if (!_isResultAnnounced)
+         {
+             AnnounceResults();
+             _isResultAnnounced = true;
+         }
+         else
+         {
+             print("All values are equal");
+         }
+
+         // Reset players' betting state after each stage
+         ResetAllPlayersBetState();
+     }
+
+     private void ResetAllPlayersBetState()
+     {
+
+         Debug.Log("ResetAllPlayersBetState()");
+         Player1BetIn();
+         Player2BetIn();
+         Player3BetIn();
+         Player4BetIn();
+         Player5BetIn();
+         ResetBetAmount();
+     }
+
+     public void ResetBetAmount()
+     {
+         foreach (var activePlayers in playerSquList)
+         {
+             // Reset bet amount to 0 if needed
+             activePlayers.betAmount = 0f;
+             activePlayers.betTxt.text = activePlayers.betAmount.ToString();
+
+             // Optionally reset the isCheck value if needed for the next round
+             activePlayers.isCheck = false;
+         }
+     }
+ */
+
     public void CheckBetAmount()
     {
         bool allEqual = true;
         bool allCheckSame = true; // Track if all isCheck values are the same
+        bool allAllInSame = true; // Track if all isAllIn values are the same
         float betAmount = -1f;
         bool? firstCheckValue = null;
+        bool? firstAllInValue = null;
         bool allPlayersChecked = true; // Flag to check if all players have checked
+        bool allPlayersAllIn = true;   // Flag to check if all players are All-In
 
         foreach (var playerSquare in playerSquList.Where(player => !player.isFold))
         {
@@ -1392,8 +1610,24 @@ public class PokerGameManager : MonoBehaviour
                 allCheckSame = false; // If any isCheck value is different
             }
 
-            // Track if any player has not checked
-            if (playerSquare.isCheck == false)
+            // Track first player's isAllIn value
+            if (firstAllInValue == null)
+            {
+                firstAllInValue = playerSquare.isAllIn;
+            }
+            else if (firstAllInValue != playerSquare.isAllIn)
+            {
+                allAllInSame = false; // If any isAllIn value is different
+            }
+
+            // Check if all players are All-In
+            if (!playerSquare.isAllIn)
+            {
+                allPlayersAllIn = false;
+            }
+
+            // Check if all players have checked
+            if (!playerSquare.isCheck)
             {
                 allPlayersChecked = false;
             }
@@ -1409,13 +1643,41 @@ public class PokerGameManager : MonoBehaviour
             }
         }
 
-        // Debug logs for tracking
-        //Debug.Log($"All Bet Amounts Equal: {allEqual}, All Checks Equal: {allCheckSame}, All Players Checked: {allPlayersChecked}");
+        // If all players are All-In, process the next game stages
+        if (allPlayersAllIn)
+        {
+            // If FlopCardShow hasn't been done yet, call all stages (Flop, Turn, River)
+            if (!_allBetEqual)
+            {
+                StartCoroutine(FlopCardShow());
+                _allBetEqual = true; // Ensure bet animation happens only once
+            }
+            // If FlopCardShow is already done, only call Turn and River
+            else if (!_isFlopShowDone)
+            {
+                StartCoroutine(TurnCardShow());
+                _isFlopShowDone = true;
+            }
+            else if (!_isRiverShowDone)
+            {
+                StartCoroutine(RiverCardShow());
+                _isRiverShowDone = true;
+            }
+            else if (!_isResultAnnounced)
+            {
+                _isResultAnnounced = true;
+                CreateSidePotsAndDistribute();
+                AnnounceResultsFOrALLIN();
+            }
+
+            // After all stages are done, reset players' betting state
+            //   ResetAllPlayersBetState();
+            return; // Exit early as the stages have already been processed
+        }
 
         // If all players have checked (betAmount = 0) and bets are the same, skip bet logic and move forward
         if (allPlayersChecked)
         {
-            // Proceed to next stage since all have checked (no betting required)
             ProcessNextGameStage();
             return;
         }
@@ -1454,12 +1716,55 @@ public class PokerGameManager : MonoBehaviour
             print("All values are equal");
         }
 
-        // Reset players' betting state after each stage
-        ResetAllPlayersBetState();
+        // Check if all players are All-In; if they are, skip resetting bet states
+        if (!AreAllPlayersAllIn()) // Calls ResetAllPlayersBetState() only if NOT All-In
+        {
+            ResetAllPlayersBetState();
+        }
     }
 
+    // Function to check if all active players are All-In
+    private bool AreAllPlayersAllIn()
+    {
+        foreach (var player in playerSquList.Where(p => !p.isFold))
+        {
+            if (!player.isAllIn)
+            {
+                return false; // If any player is NOT All-In, return false
+            }
+        }
+        return true; // All players are All-In
+    }
+    private bool AreAllPlayersFoldedExceptOne()
+    {
+        // Count total folded players
+        int foldedCount = playerSquList.Count(p => p.isFold);
+
+        // Check if exactly one player is NOT folded
+        return foldedCount == playerSquList.Count - 1;
+    }
+    public void AllPlayerFoldAndShowWin()
+    {
+        if (AreAllPlayersFoldedExceptOne())
+        {
+            if (!firstround)
+            {
+                FlopCardShow();
+            }
+            else if(!secondRound)
+            {
+                TurnCardShow();
+            }else if (!thirdRound)
+            {
+                RiverCardShow();
+            }
+            AnnounceResults();
+            _isResultAnnounced = true;
+        }
+    }
     private void ResetAllPlayersBetState()
     {
+        Debug.Log("ResetAllPlayersBetState() called");
         Player1BetIn();
         Player2BetIn();
         Player3BetIn();
@@ -1467,23 +1772,39 @@ public class PokerGameManager : MonoBehaviour
         Player5BetIn();
         ResetBetAmount();
     }
-
+    public bool firstround;
+    public bool secondRound;
+    public bool thirdRound;
     public void ResetBetAmount()
     {
-        foreach (var activePlayers in playerSquList)
+        foreach (var activePlayer in playerSquList)
         {
-            // Reset bet amount to 0 if needed
-            activePlayers.betAmount = 0f;
-            activePlayers.betTxt.text = activePlayers.betAmount.ToString();
-
-            // Optionally reset the isCheck value if needed for the next round
-            activePlayers.isCheck = false;
+            activePlayer.betAmount = 0f;
+            activePlayer.betTxt.text = activePlayer.betAmount.ToString();
+            activePlayer.isCheck = false;
         }
     }
+    public void ResetBetAmountForALLINReset()
+    {
+        foreach (var activePlayer in playerSquList)
+        {
+            activePlayer.betAmount = 0f;
+            activePlayer.betTxt.text = activePlayer.betAmount.ToString();
+            activePlayer.isCheck = false;
+            activePlayer.isAllIn = false;
+            activePlayer.currentBotBetAmount = 0;
+        }
+        prePlayerTurn = 0;
+        firstround = false;
+        secondRound = false;
+        thirdRound = false;
+    }
+
 
 
     public IEnumerator FlopCardShow()
     {
+        firstround = true;
         GameObject obj = Instantiate(commonCard, card1Pos.transform);
         prePlayerTurn = -1;
 
@@ -1585,6 +1906,7 @@ public class PokerGameManager : MonoBehaviour
     }
     public IEnumerator TurnCardShow()
     {
+        secondRound = true;
         GameObject obj = Instantiate(commonCard, card4Pos.transform);
         prePlayerTurn = -1;
 
@@ -1630,6 +1952,7 @@ public class PokerGameManager : MonoBehaviour
     }
     public IEnumerator RiverCardShow()
     {
+        thirdRound = true;
         GameObject obj = Instantiate(commonCard, card5Pos.transform);
         prePlayerTurn = -1;
         SoundManager.Instance.CasinoCardMoveSound();
@@ -1663,12 +1986,16 @@ public class PokerGameManager : MonoBehaviour
 
     private void AnnounceResults()
     {
+        Debug.Log("ISgame Stop  " + isGameStop);
         isGameStop = false;
+        Debug.Log("ISgame Stop  " + isGameStop);
         Player1BetIn();
         Player2BetIn();
         Player3BetIn();
         Player4BetIn();
         Player5BetIn();
+
+
         /*// Reveal cards for all active players
         foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
         {
@@ -1677,9 +2004,476 @@ public class PokerGameManager : MonoBehaviour
 
         ResetBetAmount();
 
-        WinPoker();
+        WinPoker(false);
     }
 
+    private void AnnounceResultsFOrALLIN()
+    {
+        Debug.Log("ISgame Stop  " + isGameStop);
+
+        isGameStop = false;
+        Debug.Log("ISgame Stop  " + isGameStop);
+        ResetAmountAfterAllin();
+
+        ResetBetAmountForALLINReset();
+        /*// Reveal cards for all active players
+        foreach (var playerSquare in playerSquList.Where(playerSquare => !playerSquare.isFold))
+        {
+            playerSquare.DisplayPlayerCard();
+        }*/
+
+
+        WinPoker(true);
+    }
+
+
+   
+    #region SIDE POT LOGIC
+
+    public Transform sidePotParent;
+    public GameObject sidePotPrefab;
+
+    private List<PokerPlayer> players = new List<PokerPlayer>();
+    private List<float> betAmounts = new List<float>();
+    string playerId;
+    public void AddPlayerBet(PokerPlayer player, float betAmount)
+    {
+        // Add player and their bet
+        players.Add(player);
+        betAmounts.Add(betAmount);
+        Debug.Log($"Player {player.name} with ID {player.playerId} placed a bet of ${betAmount:F2}");
+    }
+    Dictionary<string, List<float>> sidePotHistory = new Dictionary<string, List<float>>();
+
+    public void CreateSidePotsAndDistribute()
+    {
+        Debug.Log("CreateSidePotsAndDistribute called");
+
+        if (betAmounts.Count == 0) return; // No bets placed
+
+        List<int> sortedIndexes = new List<int>();
+        for (int i = 0; i < betAmounts.Count; i++)
+        {
+            sortedIndexes.Add(i);
+        }
+        sortedIndexes.Sort((i1, i2) => betAmounts[i1].CompareTo(betAmounts[i2]));
+
+        float totalMainPot = betAmounts[sortedIndexes[0]];
+        List<float> sidePots = new List<float>();
+
+        float lastBet = totalMainPot;
+
+        foreach (int index in sortedIndexes)
+        {
+            if (index >= 0 && index < playerSquList.Count)
+            {
+                playerId = playerSquList[index].playerId;
+                Debug.Log("Player ID: " + playerId);
+            }
+            else
+            {
+                Debug.LogError("Invalid index! Out of range: " + index);
+                continue;
+            }
+
+            float currentBet = betAmounts[index];
+
+            if (currentBet > lastBet)
+            {
+                float potContribution = 0;
+                List<float> contributions = new List<float>();
+
+                foreach (int otherIndex in sortedIndexes)
+                {
+                    if (betAmounts[otherIndex] >= lastBet)
+                    {
+                        float individualContribution = Mathf.Min(currentBet - lastBet, betAmounts[otherIndex] - lastBet);
+                        contributions.Add(individualContribution);
+                        potContribution += individualContribution;
+                    }
+                }
+
+                if (potContribution > 0)
+                {
+                    sidePots.Add(potContribution);
+                    Debug.Log($"[DEBUG] New Side Pot Created: {potContribution}");
+
+                    if (!sidePotHistory.ContainsKey(playerId))
+                    {
+                        sidePotHistory[playerId] = new List<float>();
+                    }
+                    sidePotHistory[playerId].Add(potContribution);
+                }
+
+                lastBet = currentBet;
+            }
+        }
+
+        foreach (var entry in sidePotHistory)
+        {
+            Debug.Log($"SidePotHistory -> Player: {entry.Key}, Pots: {string.Join(", ", entry.Value)}");
+        }
+
+        // **NEW FUNCTION: Add Side Pots to UI**
+        AddSidePotsToUI(sidePots, totalMainPot);
+    }
+
+    private void AddSidePotsToUI(List<float> sidePotAmounts, float mainPotAmount)
+    {
+        Debug.Log($"Main Pot Amount: ${mainPotAmount}");
+        potAmount += mainPotAmount;
+        potTxt.text = "" + potAmount;
+        totalBetAmount = potAmount;
+
+        // Destroy existing side pots before creating new ones
+        foreach (Transform child in sidePotParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Instantiate and display new side pots
+        foreach (float amount in sidePotAmounts)
+        {
+            GameObject sidePot = Instantiate(sidePotPrefab, sidePotParent);
+            sidepotAdded.Add(sidePot);
+            sidePot.GetComponent<Text>().text = $"{amount}";
+        }
+    }
+
+    public List<GameObject> sidepotAdded = new List<GameObject>();
+
+    public void DistributePotsToWinner(string winnerId)
+    {
+        Debug.Log($"DistributePotsToWinner called for Winner ID: {winnerId}");
+
+        float totalWinningAmount = 0;
+        totalWinningAmount += potAmount;
+        Debug.Log($"Main Pot Winner: Player {winnerId} won Main Pot: {potAmount}");
+
+        Dictionary<string, List<float>> sidePotWinners = new Dictionary<string, List<float>>();
+        sidePotWinners.Clear();
+
+        foreach (var entry in sidePotHistory)
+        {
+            string playerId = entry.Key;
+            List<float> playerSidePots = entry.Value;
+
+            foreach (float sidePot in playerSidePots)
+            {
+                if (!sidePotWinners.ContainsKey(playerId))
+                {
+                    sidePotWinners[playerId] = new List<float>();
+                }
+                sidePotWinners[playerId].Add(sidePot);
+
+                if (playerId != winnerId)
+                {
+                    Debug.Log($"Side Pot Winner: Player {playerId} won Side Pot: {sidePot}");
+                }
+            }
+        }
+
+
+
+        Debug.Log($"Final Winning Amount for {winnerId}: {totalWinningAmount}");
+
+        foreach (var entry in sidePotWinners)
+        {
+            Debug.Log($"[DEBUG] Side Pot Distribution: Player {entry.Key} -> {string.Join(", ", entry.Value)}");
+        }
+
+        // **NEW FUNCTION: Move Side Pots to Winners**
+        MoveSidePotsToWinners(sidePotWinners);
+
+        WinnerResult result = new WinnerResult()
+        {
+            WinnerId = winnerId,
+            MainPotAmount = potAmount,
+            SidePotDetails = sidePotWinners
+        };
+    }
+
+    public void MoveSidePotsToWinners(Dictionary<string, List<float>> sidePotWinners)
+    {
+        Dictionary<float, List<string>> sidePotWinnersByAmount = new Dictionary<float, List<string>>();
+        sidePotWinnersByAmount.Clear();
+        // Group winners by side pot amount
+        foreach (var entry in sidePotWinners)
+        {
+            string winnerId = entry.Key;
+            List<float> wonAmounts = entry.Value;
+
+            foreach (float amount in wonAmounts)
+            {
+                if (!sidePotWinnersByAmount.ContainsKey(amount))
+                {
+                    sidePotWinnersByAmount[amount] = new List<string>();
+                }
+                sidePotWinnersByAmount[amount].Add(winnerId);
+            }
+        }
+
+        // Process each side pot amount
+        foreach (var entry in sidePotWinnersByAmount)
+        {
+            float potAmount = entry.Key;
+            List<string> winners = entry.Value;
+
+            List<GameObject> matchingSidePots = sidepotAdded.FindAll(pot => pot.GetComponent<Text>().text == potAmount.ToString());
+
+            if (matchingSidePots.Count < winners.Count)
+            {
+                Debug.LogWarning($"[WARNING] Not enough side pots found for amount {potAmount}!");
+                continue;
+            }
+
+            for (int i = 0; i < winners.Count; i++)
+            {
+                if (i < matchingSidePots.Count)
+                {
+                    MoveSidePotToWinner(winners[i], potAmount, matchingSidePots[i]);
+                }
+            }
+        }
+    }
+
+    private void SplitAndMoveSidePot(List<string> winners, float totalAmount)
+    {
+        float splitAmount = totalAmount / winners.Count;
+
+        // Find the original side pot
+        GameObject originalSidePot = sidepotAdded.Find(pot => pot.GetComponent<Text>().text == totalAmount.ToString());
+        if (originalSidePot == null)
+        {
+            Debug.LogWarning($"[WARNING] No matching Side Pot found for amount {totalAmount}!");
+            return;
+        }
+
+        List<GameObject> newSplitPots = new List<GameObject>();
+        newSplitPots.Clear();
+        // Create new prefabs for split amounts
+        foreach (string winnerId in winners)
+        {
+            GameObject newPot = Instantiate(sidePotPrefab, originalSidePot.transform.parent);
+            newPot.GetComponent<Text>().text = splitAmount.ToString();
+            newSplitPots.Add(newPot);
+
+            MoveSidePotToWinner(winnerId, splitAmount, newPot);
+        }
+
+        // Destroy original pot after split
+        Destroy(originalSidePot);
+        sidepotAdded.Remove(originalSidePot);
+    }
+
+
+    private void MoveSidePotToWinner(string winnerId, float amount, GameObject sidePot)
+    {
+        PokerPlayer winner = playerSquList.Find(player => player.playerId == winnerId);
+        if (winner == null)
+        {
+            Debug.LogError($"[ERROR] Winner {winnerId} not found in MoveSidePotToWinner!");
+            return;
+        }
+
+        // **Check if winner is folded**
+        if (winner.isFold) // Assuming isFolded is a boolean in PokerPlayer
+        {
+            Debug.Log($"[INFO] Player {winnerId} is folded. Destroying side pot instead of moving.");
+            Destroy(sidePot);
+            sidepotAdded.Remove(sidePot);
+            return;
+        }
+
+        // Move Side Pot to Winner's Position
+        sidePot.transform.DOMove(winner.transform.position, 1.5f).SetEase(Ease.InOutQuad)
+            .OnComplete(() =>
+            {
+                Destroy(sidePot);
+                sidepotAdded.Remove(sidePot);
+            });
+
+        // Balance update
+        for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
+        {
+            if (DataManager.Instance.joinPlayerDatas[i].userId == winnerId)
+            {
+                float currentBalance = float.Parse(DataManager.Instance.joinPlayerDatas[i].balance);
+                currentBalance += amount;
+                DataManager.Instance.joinPlayerDatas[i].balance = currentBalance.ToString();
+                if (DataManager.Instance.joinPlayerDatas[0].userId == winnerId)
+                {
+                    DataManager.Instance.AddAmount((float)(currentBalance), DataManager.Instance.gameId, "Poker-Win-" + DataManager.Instance.gameId, "won", (float)(0), player1.playerNo);
+                }
+                winner.playerBalanceTxt.text = currentBalance.ToString("G");
+            }
+        }
+    }
+
+
+
+    // Class to store winner details
+    public class WinnerResult
+    {
+        public string WinnerId { get; set; }
+        public float MainPotAmount { get; set; }
+        public Dictionary<string, List<float>> SidePotDetails { get; set; }
+    }
+    public void ResetRound()
+    {
+        Debug.Log("Resetting round...");
+
+        // Clear player bets and side pot history
+        players.Clear();
+        betAmounts.Clear();
+        sidePotHistory.Clear();
+        sidepotAdded.Clear();
+
+        // Reset main pot amount
+        potAmount = 0;
+        totalBetAmount = 0;
+        potTxt.text = "0";
+
+        // Destroy all side pot UI elements
+        foreach (Transform child in sidePotParent)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (PokerPlayer player in playerSquList)
+        {
+            player.sbIcon.SetActive(false);
+            player.bbIcon.SetActive(false);
+            player.isBB = false;
+            player.isSB = false;
+        }
+        // Reset player balances UI (optional, if needed)
+
+        Debug.Log("Round reset complete.");
+    }
+
+
+
+    /* public void DisplayPlayerContributionsInSidePots(string winnerId)
+     {
+         Debug.Log("\n===== Side Pot Distribution =====");
+
+         // Step 1: Prepare the tracking dictionaries for pot amounts and eligible players
+         Dictionary<int, float> potAmounts = new Dictionary<int, float>();
+         Dictionary<int, List<string>> potEligiblePlayers = new Dictionary<int, List<string>>();
+
+         // Step 2: Loop through sidePotHistory and populate potAmounts and potEligiblePlayers
+         foreach (var entry in sidePotHistory)
+         {
+             string playerId = entry.Key;
+             List<float> contributions = entry.Value;
+
+             // Loop through all contributions (side pots) for this player
+             for (int i = 0; i < contributions.Count; i++)
+             {
+                 // Ensure each pot index is tracked
+                 if (!potAmounts.ContainsKey(i + 1))
+                 {
+                     potAmounts[i + 1] = 0;
+                     potEligiblePlayers[i + 1] = new List<string>();
+                 }
+
+                 // Add contribution to the respective pot
+                 potAmounts[i + 1] += contributions[i];
+
+                 // Add player to the list of eligible players for this pot
+                 if (!potEligiblePlayers[i + 1].Contains(playerId))
+                 {
+                     potEligiblePlayers[i + 1].Add(playerId);
+                 }
+             }
+         }
+
+         // Step 3: Display the pot distributions and handle winner's eligibility
+         foreach (var pot in potAmounts.OrderBy(p => p.Key)) // Sort by pot index
+         {
+             int potIndex = pot.Key;
+             float potValue = pot.Value;
+             List<string> playersInPot = potEligiblePlayers[potIndex];
+
+             Debug.Log($"\nSide Pot {potIndex}: Amount = ${potValue:F2}");
+             Debug.Log("Eligible Players: " + string.Join(", ", playersInPot));
+
+             // Now, check if the winner is eligible for this pot
+             if (playersInPot.Contains(winnerId))
+             {
+                 // If the winner is eligible for this pot
+                 Debug.Log($"✅ Winner {winnerId} wins ${potValue:F2} from Side Pot {potIndex}");
+             }
+             else
+             {
+                 // If the winner is NOT eligible for this pot
+                 Debug.Log($"❌ Winner {winnerId} is NOT eligible for Side Pot {potIndex}, pot split among remaining players");
+
+                 // Split the pot value among eligible players (excluding winner if they're not eligible)
+                 float amountPerPlayer = potValue / playersInPot.Count;
+                 foreach (string player in playersInPot)
+                 {
+                     Debug.Log($"💰 Player {player} receives ${amountPerPlayer:F2} from Side Pot {potIndex}");
+                 }
+             }
+         }
+
+         Debug.Log("\n===== Distribution Complete =====");
+     }*/
+
+
+
+
+
+
+
+
+    // New function to distribute side pot winnings
+    public void DistributeSidePots(List<string> winnerIds)
+    {
+        // Distribute winnings to each winner
+        for (int i = 0; i < winnerIds.Count; i++)
+        {
+            string winnerId = winnerIds[i];
+
+            if (i < betAmounts.Count) // Ensure we don't go out of bounds
+            {
+                float amount = betAmounts[i]; // Winner gets their bet amount from side pot
+                                              // ShowWinAmount(winnerId, amount.ToString("F2"));
+            }
+        }
+    }
+
+    // Function to distribute the winnings to the winners based on side pot
+    public void DistributeWinnings(string winnerId)
+    {
+        // Find the winner's bet and distribute the winnings
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].playerId == winnerId) // Match based on the winner's ID
+            {
+                float winnings = CalculateWinnings(betAmounts[i]);
+                Debug.Log($"Player {players[i].name} with ID {players[i].playerId} wins ${winnings:F2} from the side pots");
+                // Here, you can add the winnings to the player's chips (e.g., UpdatePlayerChips(players[i], winnings))
+            }
+        }
+    }
+
+    // Calculate the winnings based on the bet amount (simplified logic for now)
+    private float CalculateWinnings(float betAmount)
+    {
+        // Example calculation: Winner gets all the side pots plus their bet (can be modified as needed)
+        float totalWinnings = 0;
+        foreach (float bet in betAmounts)
+        {
+            totalWinnings += bet;
+        }
+        return totalWinnings;
+    }
+
+
+
+    #endregion
 
     public PokerWinDataMaintain MatchResult(params CardSuffle[] cards)
     {
@@ -1863,1019 +2657,7 @@ public class PokerGameManager : MonoBehaviour
 
 
 
-    /*public PokerWinDataMaintain MatchResult(CardSuffle cards1, CardSuffle cards2, CardSuffle cards3, CardSuffle cards4, CardSuffle cards5, CardSuffle card6, CardSuffle card7)
-    {
-        //CardSuffle suffles1 = new CardSuffle();
-        //suffles1.cardNo = 10;
-        //suffles1.color = CardColorType.Clubs;
-        //CardSuffle suffles2 = new CardSuffle();
-        //suffles2.cardNo = 13;
-        //suffles2.color = CardColorType.Diamonds;
-        //CardSuffle suffles3 = new CardSuffle();
-        //suffles3.cardNo = 10;
-        //suffles3.color = CardColorType.Diamonds;
-        //CardSuffle suffles4 = new CardSuffle();
-        //suffles4.cardNo = 13;
-        //suffles4.color = CardColorType.Clubs;
-        //CardSuffle suffles5 = new CardSuffle();
-        //suffles5.cardNo = 10;
-        //suffles5.color = CardColorType.Hearts;
-
-
-        //CardSuffle suffles6 = new CardSuffle();
-        //suffles6.cardNo = 5;
-        //suffles6.color = CardColorType.Clubs;
-
-        //CardSuffle suffles7 = new CardSuffle();
-        //suffles7.cardNo = 5;
-        //suffles7.color = CardColorType.Spades;
-
-        //c
-
-        PokerWinDataMaintain pokerWinData = new PokerWinDataMaintain();
-        List<CardSuffle> newData = new List<CardSuffle>();
-        newData.Add(cards1);
-        newData.Add(cards2);
-        newData.Add(cards3);
-        newData.Add(cards4);
-        newData.Add(cards5);
-        newData.Add(card6);
-        newData.Add(card7);
-
-        newCardSS = newData;
-
-        newCardSS1 = NewSort(newData);
-        bool isColor = IsColorMatch(newCardSS1);
-
-        List<CardSuffle> getRonList = ConvertCardNo(RonValue(newCardSS1));
-        List<CardSuffle> getRonColorList = ConvertCardNo(RonColorValue(newCardSS1, GetFindColor(newCardSS1)));
-
-        List<CardSuffle> sameCardList = SameCardGet(newCardSS1);
-
-        List<CardSuffle> getFourCards = GetFourCard(sameCardList, newCardSS1);
-        List<CardSuffle> getThreeTwoCards = GetThreeTwoCard(sameCardList, newCardSS1);
-        List<CardSuffle> getTwoTwoCards = GetTwoTwoCard(sameCardList, newCardSS1);
-        List<CardSuffle> getThreeCards = GetThreeCard(sameCardList, newCardSS1);
-        List<CardSuffle> getTwoCards = GetTwoCard(sameCardList, newCardSS1);
-        List<CardSuffle> getHighCard = GetHighCard(newCardSS1);
-
-        List<CardSuffle> colorCardList = new List<CardSuffle>();
-
-        if (isColor)
-        {
-            colorCardList = GetHighColorCard(newCardSS1, GetFindColor(newCardSS1));
-        }
-
-
-        //print("getRonColorList : " + getRonColorList.Count);
-
-        cardResult = getThreeTwoCards;
-        if (getRonColorList.Count == 5)
-        {
-            print("Enjoy");//Rules1
-
-            pokerWinData.ruleNo = 1;
-            pokerWinData.winList = getRonColorList;
-
-        }
-        else if (getFourCards.Count == 5)
-        {
-            //Rule2
-
-            pokerWinData.ruleNo = 2;
-            pokerWinData.winList = getFourCards;
-        }
-        else if (getThreeTwoCards.Count == 5)
-        {
-            //Rule3
-            pokerWinData.ruleNo = 3;
-            pokerWinData.winList = getThreeTwoCards;
-        }
-        else if (colorCardList.Count == 5)
-        {
-            //Rule4
-            pokerWinData.ruleNo = 4;
-            pokerWinData.winList = colorCardList;
-        }
-        else if (getRonList.Count == 5)
-        {
-            //Rule5
-            pokerWinData.ruleNo = 5;
-            pokerWinData.winList = getRonList;
-        }
-        else if (getThreeCards.Count == 5)
-        {
-            //Rule6
-            pokerWinData.ruleNo = 6;
-            pokerWinData.winList = getThreeCards;
-        }
-        else if (getTwoTwoCards.Count == 5)
-        {
-            //Rule 7
-            pokerWinData.ruleNo = 7;
-            pokerWinData.winList = getTwoTwoCards;
-        }
-        else if (getTwoCards.Count == 5)
-        {
-            //Rule 8
-            pokerWinData.ruleNo = 8;
-            pokerWinData.winList = getTwoCards;
-        }
-        else if (getHighCard.Count == 5)
-        {
-            // Rule 9
-            pokerWinData.ruleNo = 9;
-            pokerWinData.winList = getHighCard;
-        }
-        return pokerWinData;
-    }
-
-
-    List<CardSuffle> ConvertCardNo(List<CardSuffle> cards)
-    {
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].cardNo == 1)
-            {
-                cards[i].cardNo = 14;
-            }
-            else if (cards[i].cardNo == 13)
-            {
-                cards[i].cardNo = 11;
-            }
-            else if (cards[i].cardNo == 11)
-            {
-                cards[i].cardNo = 13;
-            }
-        }
-        return cards;
-    }
-
-
-    bool IsColorMatch(List<CardSuffle> cards)
-    {
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int cnt3 = 0;
-        int cnt4 = 0;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].color == CardColorType.Clubs)
-            {
-                cnt1++;
-            }
-            else if (cards[i].color == CardColorType.Diamonds)
-            {
-                cnt2++;
-            }
-            else if (cards[i].color == CardColorType.Spades)
-            {
-                cnt3++;
-            }
-            else if (cards[i].color == CardColorType.Hearts)
-            {
-                cnt4++;
-            }
-        }
-
-        if (cnt1 >= 5 || cnt2 >= 5 || cnt3 >= 5 || cnt4 >= 5)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    CardColorType GetFindColor(List<CardSuffle> cards)
-    {
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int cnt3 = 0;
-        int cnt4 = 0;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if (cards[i].color == CardColorType.Clubs)
-            {
-                cnt1++;
-            }
-            else if (cards[i].color == CardColorType.Diamonds)
-            {
-                cnt2++;
-            }
-            else if (cards[i].color == CardColorType.Spades)
-            {
-                cnt3++;
-            }
-            else if (cards[i].color == CardColorType.Hearts)
-            {
-                cnt4++;
-            }
-        }
-
-        if (cnt1 >= 5)
-        {
-            return CardColorType.Clubs;
-        }
-        else if (cnt2 >= 5)
-        {
-            return CardColorType.Diamonds;
-        }
-        else if (cnt3 >= 5)
-        {
-            return CardColorType.Spades;
-        }
-        else if (cnt4 >= 5)
-        {
-            return CardColorType.Hearts;
-        }
-        return CardColorType.Clubs;
-    }
-
-    List<CardSuffle> GetHighColorCard(List<CardSuffle> cards, CardColorType cardColor)
-    {
-
-        List<CardSuffle> highCard = new List<CardSuffle>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            if (highCard.Count < 5 && cards[i].color == cardColor)
-            {
-                highCard.Add(cards[i]);
-            }
-        }
-        if (highCard.Count != 5)
-        {
-            highCard.Clear();
-        }
-        return highCard;
-
-    }
-
-
-    List<CardSuffle> RonColorValue(List<CardSuffle> cards, CardColorType cardColor)
-    {
-        print("    Card Coolor :   " + cardColor);
-        //x
-        List<CardSuffle> cardUnique = new List<CardSuffle>();
-        List<CardSuffle> ronList = new List<CardSuffle>();
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            int xNo = cards[i].cardNo;
-            bool isEnter = false;
-            for (int j = 0; j < cardUnique.Count; j++)
-            {
-                if (xNo == cardUnique[j].cardNo)
-                {
-                    isEnter = true;
-                }
-            }
-            if (!isEnter && cards[i].color == cardColor)
-            {
-                cardUnique.Add(cards[i]);
-            }
-        }
-        //for (int i = 0; i < cardUnique.Count; i++)
-        //{
-        //    print("Unique Card No : " + cardUnique[i].cardNo + "----" + cardUnique[i].color.ToString());
-        //}
-
-        print("Card Unique Count : " + cardUnique.Count + " Card Color : " + cardColor);
-        //for (int i = 0; i < cardUnique.Count; i++)
-        //{
-        //    if (cardUnique[i].color != cardColor)
-        //    {
-        //        print("Card Color : " + cardColor);
-        //        cardUnique.Remove(cardUnique[i]);
-        //    }
-        //}
-
-
-        if (cardUnique.Count == 5)
-        {
-            int no = cardUnique[0].cardNo;
-            int cnt = 0;
-            for (int i = 0; i < cardUnique.Count; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-
-            }
-        }
-        else if (cardUnique.Count == 6)
-        {
-            int no = cardUnique[0].cardNo;
-            int no1 = cardUnique[1].cardNo;
-            int cnt = 0;
-            int cnt1 = 0;
-            for (int i = 0; i < cardUnique.Count - 1; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            for (int i = 1; i < cardUnique.Count; i++)
-            {
-                if (no1 + (i - 1) == cardUnique[i].cardNo)
-                {
-                    cnt1++;
-                }
-            }
-
-            print("cnt : " + cnt);
-            print("cnt1 : " + cnt1);
-            if (cnt1 == 5)
-            {
-                for (int i = 1; i < cardUnique.Count; i++)
-                {
-                    if (ronList.Count < 5)
-                    {
-                        ronList.Add(cardUnique[i]);
-                    }
-                }
-            }
-            else if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    if (ronList.Count < 5)
-                    {
-                        ronList.Add(cardUnique[i]);
-                    }
-                }
-            }
-        }
-        else if (cardUnique.Count == 7)
-        {
-            int no = cardUnique[0].cardNo;
-            int no1 = cardUnique[1].cardNo;
-            int no2 = cardUnique[2].cardNo;
-            int cnt = 0;
-            int cnt1 = 0;
-            int cnt2 = 0;
-            for (int i = 0; i < cardUnique.Count - 2; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            for (int i = 1; i < cardUnique.Count - 1; i++)
-            {
-                if (no1 + (i - 1) == cardUnique[i].cardNo)
-                {
-                    cnt1++;
-                }
-            }
-            for (int i = 2; i < cardUnique.Count; i++)
-            {
-                if (no2 + (i - 2) == cardUnique[i].cardNo)
-                {
-                    cnt2++;
-                }
-            }
-            if (cnt2 == 5)
-            {
-                for (int i = 2; i < cardUnique.Count; i++)
-                {
-                    if (ronList.Count < 5)
-                    {
-                        ronList.Add(cardUnique[i]);
-                    }
-                }
-            }
-            else if (cnt1 == 5)
-            {
-                for (int i = 1; i < cardUnique.Count; i++)
-                {
-                    if (ronList.Count < 5)
-                    {
-                        ronList.Add(cardUnique[i]);
-                    }
-                }
-            }
-            else if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    if (ronList.Count < 5)
-                    {
-                        ronList.Add(cardUnique[i]);
-                    }
-                }
-            }
-        }
-
-
-
-
-
-        List<int> ronCustomList = new List<int>();
-        ronCustomList.Add(2);
-        ronCustomList.Add(3);
-        ronCustomList.Add(4);
-        ronCustomList.Add(5);
-        ronCustomList.Add(14);
-        ronCustomList.Add(1);
-        int cntLast = 0;
-        if (cardUnique.Count >= 5)
-        {
-
-            for (int i = 0; i < cardUnique.Count; i++)
-            {
-                if (ronCustomList.Contains(cardUnique[i].cardNo))
-                {
-                    cntLast++;
-                }
-            }
-        }
-
-        print("ron Liost : " + ronList.Count);
-        print("cntLast 111: " + cntLast);
-
-        if (cntLast == 5)
-        {
-            if (ronList.Count != 0)
-            {
-                if (ronList[0].cardNo == 10)
-                {
-                    return ronList;
-                }
-            }
-
-            ronList.Clear();
-            ronList.Add(cardUnique[0]);
-            ronList.Add(cardUnique[1]);
-            ronList.Add(cardUnique[2]);
-            ronList.Add(cardUnique[3]);
-            for (int i = 4; i < cardUnique.Count; i++)
-            {
-                if ((cardUnique[i].cardNo == 14 || cardUnique[i].cardNo == 1) && ronList.Count < 5)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-        }
-
-        return ronList;
-    }
-
-    List<CardSuffle> RonValue(List<CardSuffle> cards)
-    {
-
-
-        List<CardSuffle> cardUnique = new List<CardSuffle>();
-        List<CardSuffle> ronList = new List<CardSuffle>();
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            int xNo = cards[i].cardNo;
-            bool isEnter = false;
-            for (int j = 0; j < cardUnique.Count; j++)
-            {
-                if (xNo == cardUnique[j].cardNo)
-                {
-                    isEnter = true;
-                }
-            }
-            if (!isEnter)
-            {
-                cardUnique.Add(cards[i]);
-            }
-        }
-        if (cardUnique.Count == 5)
-        {
-            int no = cardUnique[0].cardNo;
-            int cnt = 0;
-            for (int i = 0; i < cardUnique.Count; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-
-            }
-        }
-        else if (cardUnique.Count == 6)
-        {
-            int no = cardUnique[0].cardNo;
-            int no1 = cardUnique[1].cardNo;
-            int cnt = 0;
-            int cnt1 = 0;
-            for (int i = 0; i < cardUnique.Count - 1; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            for (int i = 1; i < cardUnique.Count; i++)
-            {
-                if (no1 + (i - 1) == cardUnique[i].cardNo)
-                {
-                    cnt1++;
-                }
-            }
-            if (cnt1 == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-            else if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-        }
-        else if (cardUnique.Count == 7)
-        {
-            int no = cardUnique[0].cardNo;
-            int no1 = cardUnique[1].cardNo;
-            int no2 = cardUnique[2].cardNo;
-            int cnt = 0;
-            int cnt1 = 0;
-            int cnt2 = 0;
-            for (int i = 0; i < cardUnique.Count - 2; i++)
-            {
-                if (no + i == cardUnique[i].cardNo)
-                {
-                    cnt++;
-                }
-            }
-            for (int i = 1; i < cardUnique.Count - 1; i++)
-            {
-                if (no1 + (i - 1) == cardUnique[i].cardNo)
-                {
-                    cnt1++;
-                }
-            }
-            for (int i = 2; i < cardUnique.Count; i++)
-            {
-                if (no2 + (i - 2) == cardUnique[i].cardNo)
-                {
-                    cnt2++;
-                }
-            }
-            if (cnt2 == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-            else if (cnt1 == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-            else if (cnt == 5)
-            {
-                for (int i = 0; i < cardUnique.Count; i++)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-        }
-
-
-        List<int> ronCustomList = new List<int>();
-        ronCustomList.Add(2);
-        ronCustomList.Add(3);
-        ronCustomList.Add(4);
-        ronCustomList.Add(5);
-        ronCustomList.Add(14);
-        int cntLast = 0;
-        if (cardUnique.Count >= 5)
-        {
-            for (int i = 0; i < cardUnique.Count; i++)
-            {
-                if (ronCustomList.Contains(cardUnique[i].cardNo))
-                {
-                    cntLast++;
-                }
-            }
-        }
-
-
-
-        if (cntLast == 5)
-        {
-            if (ronList.Count != 0)
-            {
-                if (ronList[0].cardNo == 10)
-                {
-                    return ronList;
-                }
-            }
-
-            ronList.Clear();
-            ronList.Add(cardUnique[0]);
-            ronList.Add(cardUnique[1]);
-            ronList.Add(cardUnique[2]);
-            ronList.Add(cardUnique[3]);
-
-            for (int i = 4; i < cardUnique.Count; i++)
-            {
-                if (cardUnique[i].cardNo == 14)
-                {
-                    ronList.Add(cardUnique[i]);
-                }
-            }
-        }
-        return ronList;
-    }
-
-    List<CardSuffle> NewSort(List<CardSuffle> cards)
-    {
-        List<CardSuffle> newCards = new List<CardSuffle>();
-        //newCards = cards;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            for (int j = 0; j < cardSufflesSort.Count; j++)
-            {
-                if (cardSufflesSort[j].cardNo == cards[i].cardNo && cardSufflesSort[j].color == cards[i].color)
-                {
-                    CardSuffle c = new CardSuffle();
-                    c.cardNo = cardSufflesSort[j].cardNo;
-                    c.color = cardSufflesSort[j].color;
-                    c.cardSprite = cardSufflesSort[j].cardSprite;
-                    //newCards.Add(cardSufflesSort[i]);
-                    newCards.Add(c);
-                    break;
-                }
-            }
-        }
-
-        for (int i = 0; i < newCards.Count; i++)
-        {
-            if (newCards[i].cardNo == 1)
-            {
-                newCards[i].cardNo = 14;
-            }
-            else if (newCards[i].cardNo == 11)
-            {
-                newCards[i].cardNo = 13;
-            }
-            else if (newCards[i].cardNo == 13)
-            {
-                newCards[i].cardNo = 11;
-
-            }
-        }
-
-        return newCards;
-    }
-
-    List<CardSuffle> SameCardGet(List<CardSuffle> cards)
-    {
-        List<CardSuffle> sameCards = new List<CardSuffle>();
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            int no = cards[i].cardNo;
-            for (int j = 0; j < cards.Count; j++)
-            {
-                if (cards[j].cardNo == no)
-                {
-                    sameCards.Add(cards[i]);
-                    break;
-                }
-            }
-        }
-
-
-
-        return sameCards;
-    }
-
-    List<CardSuffle> GetFourCard(List<CardSuffle> cards, List<CardSuffle> sortCard)
-    {
-
-
-        List<CardSuffle> fourListSuffle = new List<CardSuffle>();
-        List<int> noGet = new List<int>();
-        for (int i = 0; i < cards.Count; i++)
-        {
-            int firstCardNo = cards[i].cardNo;
-            if (!noGet.Contains(firstCardNo))
-            {
-                int cnt = 0;
-                for (int j = 0; j < cards.Count; j++)
-                {
-                    if (cards[j].cardNo == firstCardNo)
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt >= 4)
-                {
-                    noGet.Add(firstCardNo);
-                }
-            }
-        }
-        if (noGet.Count > 0)
-        {
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[j] == cards[i].cardNo && fourListSuffle.Count < 4)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-
-
-            for (int i = sortCard.Count - 1; i > 0; i--)
-            {
-                if (fourListSuffle.Count < 5 && fourListSuffle[0].cardNo != sortCard[i].cardNo)
-                {
-                    fourListSuffle.Add(sortCard[i]);
-                }
-            }
-
-        }
-        return fourListSuffle;
-
-    }
-
-    List<CardSuffle> GetThreeTwoCard(List<CardSuffle> cards, List<CardSuffle> sortCard)
-    {
-        List<CardSuffle> fourListSuffle = new List<CardSuffle>();
-        List<int> noGet = new List<int>();
-        List<int> noGet1 = new List<int>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            int firstCardNo = cards[i].cardNo;
-            if (!noGet.Contains(firstCardNo))
-            {
-                int cnt = 0;
-                for (int j = 0; j < cards.Count; j++)
-                {
-                    if (cards[j].cardNo == firstCardNo)
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt == 3)
-                {
-                    noGet.Add(firstCardNo);
-                }
-                else if (cnt == 2)
-                {
-                    noGet1.Add(firstCardNo);
-                }
-            }
-        }
-        if (noGet.Count > 0)
-        {
-
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[j] == cards[i].cardNo && fourListSuffle.Count < 3)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-        }
-        if (noGet1.Count > 0)
-        {
-
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet1.Count; j++)
-                {
-                    if (noGet1[j] == cards[i].cardNo && fourListSuffle.Count < 5)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-        }
-        if (fourListSuffle.Count > 0)
-        {
-            for (int i = sortCard.Count - 1; i > 0; i--)
-            {
-                if (fourListSuffle.Count < 5 && fourListSuffle[0].cardNo != sortCard[i].cardNo)
-                {
-                    fourListSuffle.Add(sortCard[i]);
-
-                }
-            }
-        }
-
-        return fourListSuffle;
-    }
-
-    List<CardSuffle> GetTwoTwoCard(List<CardSuffle> cards, List<CardSuffle> sortCard)
-    {
-        List<CardSuffle> fourListSuffle = new List<CardSuffle>();
-        List<int> noGet = new List<int>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            int firstCardNo = cards[i].cardNo;
-            if (!noGet.Contains(firstCardNo) && noGet.Count < 2)
-            {
-                int cnt = 0;
-                for (int j = 0; j < cards.Count; j++)
-                {
-                    if (cards[j].cardNo == firstCardNo)
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt == 2)
-                {
-                    noGet.Add(firstCardNo);
-                }
-            }
-        }
-        if (noGet.Count == 2)
-        {
-
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[0] == cards[i].cardNo && fourListSuffle.Count < 2)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[1] == cards[i].cardNo && fourListSuffle.Count < 4)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-
-        }
-
-        if (fourListSuffle.Count > 0)
-        {
-            for (int i = sortCard.Count - 1; i > 0; i--)
-            {
-                if (fourListSuffle.Count < 5 && noGet[0] != sortCard[i].cardNo && noGet[1] != sortCard[i].cardNo)
-                {
-                    fourListSuffle.Add(sortCard[i]);
-
-                }
-            }
-        }
-
-        return fourListSuffle;
-    }
-
-    List<CardSuffle> GetThreeCard(List<CardSuffle> cards, List<CardSuffle> sortCard)
-    {
-
-
-        List<CardSuffle> fourListSuffle = new List<CardSuffle>();
-        List<int> noGet = new List<int>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            int firstCardNo = cards[i].cardNo;
-            if (!noGet.Contains(firstCardNo))
-            {
-                int cnt = 0;
-                for (int j = 0; j < cards.Count; j++)
-                {
-                    if (cards[j].cardNo == firstCardNo)
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt >= 3)
-                {
-                    noGet.Add(firstCardNo);
-                }
-            }
-        }
-        if (noGet.Count > 0)
-        {
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[j] == cards[i].cardNo && fourListSuffle.Count < 3)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-
-
-            for (int i = sortCard.Count - 1; i > 0; i--)
-            {
-                if (fourListSuffle.Count < 5 && fourListSuffle[0].cardNo != sortCard[i].cardNo)
-                {
-                    fourListSuffle.Add(sortCard[i]);
-                }
-            }
-
-        }
-
-        return fourListSuffle;
-
-    }
-
-    List<CardSuffle> GetTwoCard(List<CardSuffle> cards, List<CardSuffle> sortCard)
-    {
-
-
-        List<CardSuffle> fourListSuffle = new List<CardSuffle>();
-        List<int> noGet = new List<int>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            int firstCardNo = cards[i].cardNo;
-            if (!noGet.Contains(firstCardNo))
-            {
-                int cnt = 0;
-                for (int j = 0; j < cards.Count; j++)
-                {
-                    if (cards[j].cardNo == firstCardNo)
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt >= 2)
-                {
-                    noGet.Add(firstCardNo);
-                }
-            }
-        }
-        if (noGet.Count > 0)
-        {
-            for (int i = 0; i < cards.Count; i++)
-            {
-                for (int j = 0; j < noGet.Count; j++)
-                {
-                    if (noGet[j] == cards[i].cardNo && fourListSuffle.Count < 2)
-                    {
-                        fourListSuffle.Add(cards[i]);
-                    }
-                }
-            }
-
-
-            for (int i = sortCard.Count - 1; i > 0; i--)
-            {
-                if (fourListSuffle.Count < 5 && fourListSuffle[0].cardNo != sortCard[i].cardNo)
-                {
-                    fourListSuffle.Add(sortCard[i]);
-                }
-            }
-
-        }
-        return fourListSuffle;
-
-    }
-
-    List<CardSuffle> GetHighCard(List<CardSuffle> cards)
-    {
-
-        List<CardSuffle> highCard = new List<CardSuffle>();
-        for (int i = cards.Count - 1; i > 0; i--)
-        {
-            if (highCard.Count < 5)
-            {
-                highCard.Add(cards[i]);
-            }
-        }
-        return highCard;
-
-    }*/
+   
     #endregion
 
 
@@ -2899,7 +2681,7 @@ public class PokerGameManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         OpenMenuScreen();
     }
-    
+
     public void MenuCloseButtonClick()
     {
         SoundManager.Instance.ButtonClick();
@@ -2928,7 +2710,7 @@ public class PokerGameManager : MonoBehaviour
     {
         menuScreenObj.SetActive(true);
     }
-    
+
     void CloseMenuScreen()
     {
         menuScreenObj.SetActive(false);
@@ -3043,6 +2825,9 @@ public class PokerGameManager : MonoBehaviour
                     genBetObj.transform.GetChild(1).GetComponent<Text>().text = winnerAmount.ToString();
                     genBetObj.transform.position = targetBetObj.transform.position;
                     totalBetAmount = 0;
+                    Debug.Log($"Main Pot after  : ${ potTxt.text}");
+                    Debug.Log($"Main Pot after winnerAmount : ${ winnerAmount}");
+
                     potTxt.text = winnerAmount.ToString();
                     if (playerSquList[j].playerNo == player1.playerNo)
                     {
@@ -3198,6 +2983,7 @@ public class PokerGameManager : MonoBehaviour
 
     public void ChangePlayerTurn(int pNo)
     {
+
         Debug.Log("PLAYER TURN => " + pNo);
 
         JSONObject obj = new JSONObject();
@@ -3477,6 +3263,7 @@ public class PokerGameManager : MonoBehaviour
             pokerPlayers[i].isOneTimeEnter = false;
             pokerPlayers[i].isFold = false;
             pokerPlayers[i].isTurn = false;
+            Debug.Log("Player =>  " + pokerPlayers[i].name + "   pokerPlayers[i].isTurn  => " + pokerPlayers[i].isTurn);
             pokerPlayers[i].isCalled = false;
             pokerPlayers[i].isBot = false;
             pokerPlayers[i].cardImg1.gameObject.SetActive(false);
@@ -3492,6 +3279,8 @@ public class PokerGameManager : MonoBehaviour
 
         totalBetAmount = 0f;
         potAmount = 0f;
+        Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
         potTxt.text = potAmount.ToString();
         _allBetEqual = false;
         _isFlopShowDone = false;
@@ -4302,186 +4091,10 @@ public class PokerGameManager : MonoBehaviour
 
         DisplayAndSetDealer();
 
-        /*for (int i = 0; i < playerSquList.Count; i++)
-        {
-            if (playerSquList[i].playerNo == gameDealerNo)
-            {
-                playerSquList[i].delearObj.SetActive(true);
-                playerSquList[i].isTurn = true;
-            }
-            else
-            {
-                playerSquList[i].delearObj.SetActive(false);
-            }
-        }*/
+
 
         bool isSB = false;
         bool isBB = false;
-        /*if (gameDealerNo == 1 && player1.playerNo != gameDealerNo)
-        {
-            if (DataManager.Instance.joinPlayerDatas.Count == 2)
-            {
-                if (player1.playerNo == 2)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 3 || DataManager.Instance.joinPlayerDatas.Count == 4 || DataManager.Instance.joinPlayerDatas.Count == 5)
-            {
-                if (player1.playerNo == 2)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 3)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-            }
-        }
-        else if (gameDealerNo == 2 && player1.playerNo != gameDealerNo)
-        {
-            if (DataManager.Instance.joinPlayerDatas.Count == 2)
-            {
-                if (player1.playerNo == 1)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 3)
-            {
-                if (player1.playerNo == 1)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-                if (player1.playerNo == 3)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 4)
-            {
-                if (player1.playerNo == 3)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                if (player1.playerNo == 4)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-            }
-
-        }
-        else if (gameDealerNo == 3 && player1.playerNo != gameDealerNo)
-        {
-            if (DataManager.Instance.joinPlayerDatas.Count == 3)
-            {
-                if (player1.playerNo == 1)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 2)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 4)
-            {
-                if (player1.playerNo == 4)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 1)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 5)
-            {
-                if (player1.playerNo == 4)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 5)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-            }
-        }
-        else if (gameDealerNo == 4 && player1.playerNo != gameDealerNo)
-        {
-            if (DataManager.Instance.joinPlayerDatas.Count == 4)
-            {
-                if (player1.playerNo == 1)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 2)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-
-            }
-            if (DataManager.Instance.joinPlayerDatas.Count == 5)
-            {
-                if (player1.playerNo == 5)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 1)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-
-            }
-        }
-        else if (gameDealerNo == 5 && player1.playerNo != gameDealerNo)
-        {
-            if (DataManager.Instance.joinPlayerDatas.Count == 5)
-            {
-                if (player1.playerNo == 1)
-                {
-                    isSB = true;
-                    isBB = false;
-                }
-                else if (player1.playerNo == 2)
-                {
-                    isSB = false;
-                    isBB = true;
-                }
-
-            }
-        }
-
-        //float betAmount = 0;
-        if (isSB == true)
-        {
-            // single bet
-           // player1.PlayerSetBet(sbAmount, "start");
-        }
-        else if (isBB == true)
-        {
-            // double bet
-            //player1.PlayerSetBet(bbAmount, "start");
-        }*/
 
         SetSBAndBBFlags(gameDealerNo);
 
@@ -4502,30 +4115,11 @@ public class PokerGameManager : MonoBehaviour
             OpenOffScreen();
         }
 
-        //for (int i = 0; i < playerSquList.Count; i++)
-        //{
-        //    if (playerSquList[i].playerNo == 1)
-        //    {
-        //        playerSquList[i].RestartFillLine();
-        //        if (playerSquList[i].playerNo == player1.playerNo)
-        //        {
-        //            //bottomBox.SetActive(true);
-        //        }
-        //        else
-        //        {
-        //            //bottomBox.SetActive(false);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        playerSquList[i].NotATurn();
-        //    }
-        //}
+
 
         ResetChecks();
         ResetFillLines();
 
-        StartTheTurn();
 
         for (int i = 0; i < playerSquList.Count; i++)
         {
@@ -4540,9 +4134,12 @@ public class PokerGameManager : MonoBehaviour
         //StartCoroutine(RiverCardShow());
 
         player1.DisplayPlayerCard();
+        Debug.Log("isGameStop  => " + isGameStop);
         isGameStop = true;
+        Debug.Log("isGameStop  => " + isGameStop);
         ActivateBotPlayers();
         PlaceInitialSB_BBBets();
+        StartTheTurn();
 
     }
 
@@ -4587,6 +4184,8 @@ public class PokerGameManager : MonoBehaviour
     public void GetSBAndBBFlags(int sbPlayerNo, int bbPlayerNo)
     {
         int playerCount = pokerPlayers.Count;
+        sbPlayerNo = 3;
+        bbPlayerNo = 4;
         for (int i = 0; i < playerCount; i++)
         {
             pokerPlayers[i].isSB = false;
@@ -4626,8 +4225,9 @@ public class PokerGameManager : MonoBehaviour
             Debug.Log("nextPlayer  =>   " + nextPlayer);
             firstPlayer = nextPlayer.playerNo;
             lastPlayer = (nextPlayer.playerNo == 1) ? 5 : nextPlayer.playerNo - 1;
-
+            Debug.Log("lastPlayer  =>  " + lastPlayer);
             nextPlayer.isTurn = true;
+            Debug.Log(" nextPlayer.isTurn  =>  " + nextPlayer.isTurn);
 
             if (nextPlayer.playerId == DataManager.Instance.playerData._id)
             {
@@ -4764,6 +4364,19 @@ public class PokerGameManager : MonoBehaviour
             player.betTxt.text = player.betAmount.ToString();
         });
     }
+    public void BetAnimForAllIn(PokerPlayer player, float amount)
+    {
+        GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
+        genBetObj.transform.GetChild(1).GetComponent<Text>().text = amount.ToString();
+        genBetObj.transform.position = player.avatarImg.transform.position;
+        genBetObj.transform.DOMove(player.betObj.transform.position, 0.3f).OnComplete(() =>
+        {
+            Destroy(genBetObj);
+            player.betAmount += amount;
+
+            player.betTxt.text = player.betAmount.ToString();
+        });
+    }
     public void BetAnimForCheck(PokerPlayer player, float amount)
     {
         GameObject genBetObj = Instantiate(betPrefab, prefabParent.transform);
@@ -4777,7 +4390,14 @@ public class PokerGameManager : MonoBehaviour
             player.betTxt.text = "✓";
         });
     }
-
+    public void ResetAmountAfterAllin()
+    {
+        for (int i = 0; i < playerSquList.Count; i++)
+        {
+            playerSquList[i].betTxt.text = "" + 0;
+            playerSquList[i].betAmount = 0f;
+        }
+    }
     public void Player1BetIn()
     {
         GameObject genBetObj = Instantiate(betPrefab, player1.betObj.transform);
@@ -4787,6 +4407,8 @@ public class PokerGameManager : MonoBehaviour
         {
             Destroy(genBetObj);
             potAmount = totalBetAmount;
+            Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
             potTxt.text = potAmount.ToString();
         });
 
@@ -4800,6 +4422,8 @@ public class PokerGameManager : MonoBehaviour
         {
             Destroy(genBetObj);
             potAmount = totalBetAmount;
+            Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
             potTxt.text = potAmount.ToString();
         });
 
@@ -4813,6 +4437,8 @@ public class PokerGameManager : MonoBehaviour
         {
             Destroy(genBetObj);
             potAmount = totalBetAmount;
+            Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
             potTxt.text = potAmount.ToString();
         });
 
@@ -4826,6 +4452,8 @@ public class PokerGameManager : MonoBehaviour
         {
             Destroy(genBetObj);
             potAmount = totalBetAmount;
+            Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
             potTxt.text = potAmount.ToString();
         });
 
@@ -4839,6 +4467,8 @@ public class PokerGameManager : MonoBehaviour
         {
             Destroy(genBetObj);
             potAmount = totalBetAmount;
+            Debug.Log($"Main Pot after  : ${ potTxt.text}");
+
             potTxt.text = potAmount.ToString();
         });
 
@@ -4875,6 +4505,8 @@ public class PokerGameManager : MonoBehaviour
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
         obj.AddField("FoldPlayerId", foldPlayer);
         TestSocketIO.Instace.Senddata("PokerSendFlodData", obj);
+
+        AllPlayerFoldAndShowWin();
     }
 
     public void SetPokerWonData(string winnerPlayerId)
@@ -4935,9 +4567,9 @@ public class PokerGameManager : MonoBehaviour
 
     #region Win
 
-    public void WinPoker()
+    public void WinPoker(bool isallin)
     {
-        WinBeforeAllDataManage();
+        WinBeforeAllDataManage(isallin);
     }
 
     #endregion
@@ -5010,7 +4642,7 @@ public class PokerGameManager : MonoBehaviour
 
         if (DataManager.Instance.joinPlayerDatas.Count == 1)
         {
-            WinPoker();
+            WinPoker(false);
         }
 
 

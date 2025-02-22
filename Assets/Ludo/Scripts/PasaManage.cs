@@ -1530,6 +1530,7 @@ public class PasaManage : MonoBehaviour
 
     public void MoveStart(int listNo, int move)
     {
+        Debug.Log("List Num =>  " + listNo + "   Move => " + move);
         List<GameObject> numberObj = new List<GameObject>();
         //playerstart
         isMoving = true;
@@ -1567,6 +1568,7 @@ public class PasaManage : MonoBehaviour
             LudoManager.Instance.RestartTimer();
 
             List<GameObject> findObj = CheckAvaliableObjectSamePos(orgNo, true);
+            Debug.Log("IN  =>  "+ findObj.Count);
             if (findObj.Count == 0)
             {
                 Vector3 pos = numberObj[pasaCurrentNo - 1].transform.position;
@@ -2095,8 +2097,8 @@ public class PasaManage : MonoBehaviour
         }
         else
         {
-            LudoManager.Instance.BotStopDice(DataManager.Instance.joinPlayerDatas[LudoManager.Instance.playerRoundChecker - 1].userId);
             print("Enter The Move Bot Player");
+            LudoManager.Instance.BotStopDice(DataManager.Instance.joinPlayerDatas[LudoManager.Instance.playerRoundChecker - 1].userId);
             Move_Increment_Steps_Bot(move, listNo);
             LudoManager.Instance.MoveBot(playerSubNo, move, DataManager.Instance.joinPlayerDatas[LudoManager.Instance.playerRoundChecker - 1].userId, LudoManager.Instance.playerRoundChecker);
         }

@@ -47,7 +47,7 @@ public class Shop : MonoBehaviour
         {
             SoundManager.Instance.ButtonClick();
 
-            StartCoroutine(CallDebitAmountApi(amount.ToString()));
+            StartCoroutine(CallDebitAmountApi(amount.ToString(),bonusAmount.ToString()));
 
 
             /*if(amount >= 50)
@@ -61,15 +61,20 @@ public class Shop : MonoBehaviour
 
     }
     public TextMeshProUGUI alertMsg;
-    IEnumerator CallDebitAmountApi(string amount)
+
+    IEnumerator CallDebitAmountApi(string amount,string bonusAmount)
     {
         WWWForm form = new WWWForm();
         form.AddField("amount", amount.ToString());
+        form.AddField("bonusAmount", bonusAmount.ToString());
         form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
 
         print("Send OTP Amount : " + amount.ToString());
-
+        MainMenuManager.Instance.paymentGo = false;
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/create", form);
+
+        MainMenuManager.Instance.rotateOb.SetActive(true);
+        MainMenuManager.Instance.RotateobForPaymentAdd();
 
         yield return request.SendWebRequest();
 
@@ -129,12 +134,21 @@ public class Shop : MonoBehaviour
             {
                 // Extract the `payment_url` from the nested structure
                 string url = values["data"]["response"]["result"]["payment_url"];
+                string prl = values["data"]["Transaction_id"];
+                MainMenuManager.Instance.amount_id = amount;
+                MainMenuManager.Instance.bonus_id = bonusAmount;
+                MainMenuManager.Instance.tra_id = prl;
+                MainMenuManager.Instance.orderId = values["data"]["response"]["result"]["orderId"];
 
+                Debug.Log("orderId  =>  " + MainMenuManager.Instance.orderId);
+                Debug.Log("prl  = >  " + prl);
                 if (!string.IsNullOrEmpty(url))
                 {
                     Debug.Log("Payment URL: " + url);
 
                     // Open the payment URL
+                    MainMenuManager.Instance.rotateOb.SetActive(false);
+                    MainMenuManager.Instance.paymentGo = true;
                     Application.OpenURL(url);
                 }
                 else

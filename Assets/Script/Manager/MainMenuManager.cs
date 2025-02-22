@@ -122,6 +122,9 @@ public class MainMenuManager : MonoBehaviour
 
     public bool ludoBotPlayersLoaded = false;
 
+
+    public GameObject rotateOb;
+    public Transform obrotate;
     //bool isPressJoin;
 
 
@@ -153,6 +156,100 @@ public class MainMenuManager : MonoBehaviour
 
     }
 
+    void OnApplicationPause(bool isPaused)
+    {
+        if (isPaused)
+        {
+            //Debug.Log("🛑 App background me chali gayi (Paused)!");
+        }
+        else
+        {
+            Debug.Log("✅ App foreground me aa gayi (Resumed)!");
+        }
+    }
+
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+           // Debug.Log("🛑 App background me chali gayi (Lost Focus)!");
+        }
+        else
+        {
+           // Debug.Log("✅ App foreground me aa gayi (Gained Focus)!");
+            //Debug.Log("paymentGo  => !" + paymentGo);
+            if (paymentGo)
+            {
+                StartCoroutine(CallForPaymentCOnfirmUrl());
+
+            }
+        }
+    }
+    public string orderId;
+    public string amount_id;
+    public string bonus_id;
+    public string tra_id;
+    public bool paymentGo;
+    public GameObject paymentStatusgameob;
+    public TextMeshProUGUI paymentStatusText;
+    IEnumerator CallForPaymentCOnfirmUrl()
+    {
+        paymentGo = false;
+        WWWForm form = new WWWForm();
+        form.AddField("orderId", orderId);
+        form.AddField("amount", amount_id);
+        form.AddField("bonusAmount", bonus_id);
+        form.AddField("TransactionId", tra_id);
+       // form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
+
+        Debug.Log("orderId  =>  " + orderId);
+        Debug.Log("amount_id  =>  " + amount_id);
+        Debug.Log("tra_id  =>  " + tra_id);
+
+        UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/webhook", form);
+
+        yield return request.SendWebRequest();
+
+
+        if (request.error == null && !request.isNetworkError)
+        {
+            // Log the full response for debugging
+            string responseText = request.downloadHandler.text;
+            Debug.Log("Response: " + responseText);
+
+            // Parse the JSON response
+            JSONNode values = JSON.Parse(responseText);
+            if (values["success"])
+            {
+                Debug.Log("success");
+                StartCoroutine(ActivateForSeconds((values["message"]),false));
+
+            }
+            else
+            {
+                Debug.Log("false");
+                StartCoroutine(ActivateForSeconds((values["message"]),true));
+            }
+
+        }
+        else
+        {
+            // Log the network error
+            Debug.LogError("Network Error: " + request.error);
+        }
+    }
+    private IEnumerator ActivateForSeconds(string paymentstatustext, bool red)
+    {
+        DestroyShop();
+        if (red)
+            paymentStatusText.text = $"<color=red>{paymentstatustext}</color>";
+        else
+            paymentStatusText.text = $"<color=green>{paymentstatustext}</color>";
+
+        paymentStatusgameob.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        paymentStatusgameob.SetActive(false);
+    }
 
     public void UpdateAllData()
     {
@@ -202,7 +299,12 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #region Home
-
+    public void RotateobForPaymentAdd()
+    {
+        obrotate.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+          .SetEase(Ease.Linear)
+          .SetLoops(-1, LoopType.Restart);
+    }
     public void ProfileButtonClick()
     {
         //SoundManager.Instance.ButtonClick();
@@ -220,7 +322,7 @@ public class MainMenuManager : MonoBehaviour
         SoundManager.Instance.ButtonClick();
         //Application.OpenURL("mailto: " + "support@teenpattiblack.com" + " ? subject = " + "subject" + " & body = " + "body");
         string url = "https://wa.link/7uozb0";
-      //  string url = "https://wa.link/hyrndh";
+        //  string url = "https://wa.link/hyrndh";
         Application.OpenURL(url);
         //GenerateContactUs();
     }
@@ -2033,12 +2135,13 @@ public class MainMenuManager : MonoBehaviour
                     .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "TeenPatti";
                 DataManager.Instance.AddRoomUser(userId, botUserName,
                     DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                    UnityEngine.Random.Range(10000, 100000).ToString(), i, avatar);
+                    UnityEngine.Random.Range(10000, 50000).ToString(), i, avatar);
 
                 Debug.Log("TeenPatti BOT Called - --- - - - - - -");
             }
         }
     }
+
 
 
     public void LoadLudoBotPlayers()

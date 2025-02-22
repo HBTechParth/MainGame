@@ -98,6 +98,7 @@ public class SpinManager : MonoBehaviour
                     break;
                 }
             }
+            Debug.Log("LAst date =>  " + lastDate);
             if ((lastDate + 1) == DataManager.Instance.thisMonthDays)
             {
                 //Clear Playerprefs
@@ -110,6 +111,7 @@ public class SpinManager : MonoBehaviour
                 //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
 
                 DataManager.Instance.BonusDebitAmount_Credit((winMoney / 1).ToString(), "Spin Reward", "won");
+                Debug.Log("winMoney  =>  " + (winMoney / 1));
 
             }
             else
