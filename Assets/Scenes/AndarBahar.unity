@@ -48157,6 +48157,8 @@ MonoBehaviour:
   historySprite:
   - {fileID: 21300000, guid: 670f0540f852bbb41aa0e9878b6919bb, type: 3}
   - {fileID: 21300000, guid: 1a737af45981ca244a489f5fb988e994, type: 3}
+  baharButton: {fileID: 10487984}
+  anderButton: {fileID: 1326744578}
 --- !u!1 &1615442428
 GameObject:
   m_ObjectHideFlags: 0

@@ -63,7 +63,7 @@ public class TournamentLoadPanel : MonoBehaviour
 
         if (float.Parse(DataManager.Instance.playerData.bonus) <= 0)
         {
-            DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney).ToString(), TestSocketIO.Instace.roomid, "Ludo-Bet-" + TestSocketIO.Instace.roomid, "game", 0);
+            DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney).ToString(), DataManager.Instance.gameId, "Ludo-Bet-" + DataManager.Instance.gameId, "game", 0);
             //print("Enter the Total Balance 1  : " + DataManager.Instance.tourEntryMoney);
         }
         else
@@ -74,14 +74,14 @@ public class TournamentLoadPanel : MonoBehaviour
             {
                 print("Enter the Total Balance 2 : " + DataManager.Instance.tourEntryMoney);
 
-                DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney).ToString(), TestSocketIO.Instace.roomid, "Ludo-Bet-" + TestSocketIO.Instace.roomid, "game", 0);
+                DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney).ToString(), DataManager.Instance.gameId, "Ludo-Bet-" + DataManager.Instance.gameId, "game", 0);
             }
             else
             {
                 print("Enter the Cut Money Else : " + cutMoney);
                 print("Total Balanace Else : " + (DataManager.Instance.tourEntryMoney - cutMoney));
 
-                DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney - cutMoney).ToString(), TestSocketIO.Instace.roomid, "Ludo-Bet-" + TestSocketIO.Instace.roomid, "game",0);
+                DataManager.Instance.DebitAmount((DataManager.Instance.tourEntryMoney - cutMoney).ToString(), DataManager.Instance.gameId, "Ludo-Bet-" + DataManager.Instance.gameId, "game",0);
             }
 
         }

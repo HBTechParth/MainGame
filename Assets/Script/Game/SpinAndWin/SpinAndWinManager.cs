@@ -385,7 +385,7 @@ public class SpinAndWinManager : MonoBehaviour
     public void GetUpdatedHistory(string data)
     {
         if (isAdmin) return;
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
@@ -403,7 +403,7 @@ public class SpinAndWinManager : MonoBehaviour
 
     public void HistoryLoader(string data)
     {
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
@@ -463,7 +463,7 @@ public class SpinAndWinManager : MonoBehaviour
         winNo = 0;
         if (cardSuffle1.cardNo == cardSuffle2.cardNo)
         {
-            winNo = 3; // tie
+            winNo = 1; // tie
         }
         else if (cardSuffle1.cardNo > cardSuffle2.cardNo)
         {
@@ -471,7 +471,7 @@ public class SpinAndWinManager : MonoBehaviour
         }
         else if (cardSuffle1.cardNo < cardSuffle2.cardNo)
         {
-            winNo = 1; // tiger
+            winNo = 3; // tiger
         }
 
         print("Win No : " + winNo);

@@ -368,7 +368,7 @@ public class DragonTigerManager : MonoBehaviour
     public void GetUpdatedHistory(string data)
     {
         if (isAdmin) return;
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));

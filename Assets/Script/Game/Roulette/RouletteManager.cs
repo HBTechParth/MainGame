@@ -1248,7 +1248,7 @@ public class RouletteManager : MonoBehaviour
 
     public void HistoryLoader(string data)
     {
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             Debug.Log("winList => " + winList.Count);
             if (winList.Count != 0)

@@ -1170,6 +1170,10 @@ public class DataManager : MonoBehaviour
             if (SpinAndWinManager.Instance.delayObjectForNextBet.activeInHierarchy)
                 SpinAndWinManager.Instance.delayObjectForNextBet.SetActive(false);
         }
+        if (JhandiMundaManager.Instance != null)
+        {
+            JhandiMundaManager.Instance.FalseRoundOb();
+        }
     }
 
     public bool CheckNullOrEmpty(string value)

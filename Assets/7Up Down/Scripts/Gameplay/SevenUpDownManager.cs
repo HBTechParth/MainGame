@@ -1243,9 +1243,9 @@ public class SevenUpDownManager : MonoBehaviour
 
     public void HistoryLoader(string data, string diceData)
     {
-        if (diceData != "")
+        if (!string.IsNullOrEmpty(diceData))
             diceResultList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));

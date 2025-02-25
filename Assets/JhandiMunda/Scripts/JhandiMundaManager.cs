@@ -36,7 +36,7 @@ public class JhandiMundaManager : MonoBehaviour
     public int downBetValue;
     public int upBetValue;
     public int onBetValue;
-    
+
     public int[] betValueOnSymbols;//this array will store the value player has betted on from each of the 6 symbols individually
     public Text[] betText;
     public Text[] totalBetText;
@@ -124,32 +124,32 @@ public class JhandiMundaManager : MonoBehaviour
     private float max7Downx;//600 for down // -100 for up
     private float min7Downy;
     private float max7Downy;
-    
+
     public float minFirstSymbolX = 0f;//0
     public float maxFirstSymbolX = 725f;//725
     public float minFirstSymbolY = -45;//-45
     public float maxFirstSymbolY = 113;//113
-    
+
     public float minSecondSymbolX = -420f;//-420
     public float maxSecondSymbolX = 420f;//420
     public float minSecondSymbolY = -75f;//-75
     public float maxSecondSymbolY = 113f;//113
-    
+
     public float minThirdSymbolX = -725f;//-725
     public float maxThirdSymbolX = -45f;//-45
     public float minThirdSymbolY = -75f;//-75
     public float maxThirdSymbolY = 113f;//113
-    
+
     public float minFourthSymbolX = 0f;//0
     public float maxFourthSymbolX = 725f;//725
     public float minFourthSymbolY = -150f;//-150
     public float maxFourthSymbolY = 150f;//150
-    
+
     public float minFifthSymbolX = -420f;//-420
     public float maxFifthSymbolX = 420f;//420
     public float minFifthSymbolY = -200f;//-200
     public float maxFifthSymbolY = 115f;//115
-    
+
     public float minSixthSymbolX = -725f;//-725
     public float maxSixthSymbolX = -45f;//-45
     public float minSixthSymbolY = -150f;//-150
@@ -331,9 +331,18 @@ public class JhandiMundaManager : MonoBehaviour
         else
             return true;
     }
+    public void FalseRoundOb()
+    {
+        playerBalanceText.text = DataManager.Instance.playerData.balance.ToString();
 
+        if (delayObjectForNextBet.activeInHierarchy)
+        {
+            delayObjectForNextBet.SetActive(false);
+        }
+    }
     public void PlaceBetButton(int number)
     {
+        Debug.Log("_isClickAvailable =>  " + _isClickAvailable);
         if (_isClickAvailable == false)
             return;
 
@@ -344,6 +353,8 @@ public class JhandiMundaManager : MonoBehaviour
             OpenErrorScreen();
             return;
         }
+        delayObjectForNextBet.SetActive(true);
+        RoundAni();
         switch (number)//0 = 1st symbol// 1 = 2nd symbol and so on
         {
             case 0:
@@ -447,7 +458,15 @@ public class JhandiMundaManager : MonoBehaviour
         JhandiMundaBet(number, selectedChipNo);//SocketEvent to send to admin/other players
         UpdateBalance();
     }
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
 
+    public void RoundAni()
+    {
+        roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
+    }
     public void ChipButtonClick(int no)
     {
         selectedChipNo = no;
@@ -467,7 +486,7 @@ public class JhandiMundaManager : MonoBehaviour
         {
 
 
-            
+
             diceRollObject.transform.DOShakePosition(1.5f, 10, 10, 60, true, true, ShakeRandomnessMode.Harmonic).OnComplete(() =>
             {
                 diceRollObject.SetActive(false);
@@ -486,7 +505,7 @@ public class JhandiMundaManager : MonoBehaviour
         //dice2.GetComponent<Animator>().enabled = true;
         foreach (var item in dice)
             item.GetComponent<Animator>().enabled = true;
-        
+
 
         Invoke(nameof(GenerateDiceNumbers), 3f);
     }
@@ -541,16 +560,16 @@ public class JhandiMundaManager : MonoBehaviour
         //    }
         //}
         List<GameObject> tempList = new List<GameObject>();
-        
-            for (int j = 0; j < dice.Length; j++)
-            {
-                if (dice[j].GetComponent<Image>().sprite == diceNumbers[diceResult])
-                {
-                    tempList.Add(dice[j]);
-                print("sprite name while adding to the list " + dice[j].GetComponent<Image>().sprite.name + " compared with = " + diceNumbers[diceResults[diceResult]].name);
-                }
 
+        for (int j = 0; j < dice.Length; j++)
+        {
+            if (dice[j].GetComponent<Image>().sprite == diceNumbers[diceResult])
+            {
+                tempList.Add(dice[j]);
+                print("sprite name while adding to the list " + dice[j].GetComponent<Image>().sprite.name + " compared with = " + diceNumbers[diceResults[diceResult]].name);
             }
+
+        }
         for (int i = 0; i < tempList.Count; i++)
         {
             tempList[i].transform.DOMove(symbolArea[i].transform.position, 0.3f);
@@ -589,7 +608,7 @@ public class JhandiMundaManager : MonoBehaviour
         }
 
 
-        
+
 
         StartCoroutine(RoundOverAnimation(winnerList));
     }
@@ -600,8 +619,8 @@ public class JhandiMundaManager : MonoBehaviour
         diceRollObject.SetActive(false);
         float animationSpeed = 0.2f;
 
-        
-        
+
+
 
 
         if (winnerList[0] < 2)
@@ -658,7 +677,7 @@ public class JhandiMundaManager : MonoBehaviour
                 symbolArea[5].transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        
+
 
         //float investPrice = 0;
         //float betPrice = 0;
@@ -682,24 +701,24 @@ public class JhandiMundaManager : MonoBehaviour
             else if (betValueOnSymbols[i] > 0 && winnerList[i] == 6)
                 winAmount += betValueOnSymbols[i] * 100;
 
-            if(winnerList[i] >= 2)
+            if (winnerList[i] >= 2)
                 winObjects[i].SetActive(true);
-            
-            
+
+
         }
 
-        
+
 
         float adminPercentage = jhandiMundaAdminCommission;
         Debug.Log("adminPercentage => " + adminPercentage);
-      //  float adminPercentage = DataManager.Instance.adminPercentage;
-        if(winAmount > 0)//if player wins anything
+        //  float adminPercentage = DataManager.Instance.adminPercentage;
+        if (winAmount > 0)//if player wins anything
         {
             float adminCommission = adminPercentage / 100;
             float winReward = winAmount - (winAmount * adminCommission);
             winAnimationTxt.gameObject.SetActive(true);
             winAnimationTxt.text = "+" + winReward;
-        Debug.Log("winAmount => " + winReward);
+            Debug.Log("winAmount => " + winReward);
             Invoke(nameof(WinAmountTextOff), 1.25f);
             //winning animation and credit amount
             GameObject particleEffect = Instantiate(DataManager.Instance.winParticles, winParticleParent);
@@ -710,7 +729,7 @@ public class JhandiMundaManager : MonoBehaviour
 
         }
 
-        
+
         yield return new WaitForSeconds(3f);
         //resetting the dice values, positions, everything for new round
 
@@ -860,7 +879,7 @@ public class JhandiMundaManager : MonoBehaviour
 
     #region Socket Events
 
-    public void GetResultData(List <int> dice)
+    public void GetResultData(List<int> dice)
     {
         if (isAdmin)
             return;
@@ -1017,12 +1036,12 @@ public class JhandiMundaManager : MonoBehaviour
             //dice2Result = Random.Range(1, 7);
             for (int i = 0; i < diceResults.Length; i++)
                 diceResults[i] = Random.Range(0, 6);
-            
+
             SetRoomData(diceResults);
             //SetDiceData(dice1Result, dice2Result);//testing to see if it works without this function call
             TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
         }
-      //  yield return new WaitForSeconds(0.2f);
+        //  yield return new WaitForSeconds(0.2f);
         startBetObj.SetActive(true);
         SoundManager.Instance.PlaceYourBetSound();
 
@@ -1040,7 +1059,7 @@ public class JhandiMundaManager : MonoBehaviour
         DataManager.Instance.UserTurnVibrate();
         _isClickAvailable = false;
         isEnterBetStop = true;
-     //   yield return new WaitForSeconds(0.2f);
+        //   yield return new WaitForSeconds(0.2f);
         stopBetObj.SetActive(true);
         SoundManager.Instance.StopBettingSound();
 
@@ -1056,7 +1075,7 @@ public class JhandiMundaManager : MonoBehaviour
                 diceResults[i] = Random.Range(0, 6);
                 Debug.Log("DICE RESULT = >   " + diceResults[i]);
             }
-            
+
             SetDiceData(diceResults);
             //}
         }
@@ -1106,7 +1125,7 @@ public class JhandiMundaManager : MonoBehaviour
     {
         for (int i = 0; i < betValueOnSymbols.Length; i++)
             betValueOnSymbols[i] = 0;
-        
+
 
         timerValue = fixTimerValue;
         secondsCount = timerValue;
@@ -1283,10 +1302,10 @@ public class JhandiMundaManager : MonoBehaviour
         for (int i = 0; i < historyHolder.Length; i++)
         {
 
-        if (historyHolder[i].childCount == maxWinListCount)
-            Destroy(historyHolder[i].GetChild(0).gameObject);
-        var chip = Instantiate(resultPrefab, historyHolder[i]);
-        chip.GetComponent<JhandiMundaResult>().ChipDetails(win);
+            if (historyHolder[i].childCount == maxWinListCount)
+                Destroy(historyHolder[i].GetChild(0).gameObject);
+            var chip = Instantiate(resultPrefab, historyHolder[i]);
+            chip.GetComponent<JhandiMundaResult>().ChipDetails(win);
         }
 
     }
@@ -1355,9 +1374,9 @@ public class JhandiMundaManager : MonoBehaviour
 
     public void HistoryLoader(string data, string diceData)
     {
-        if (diceData != "")
+        if (!string.IsNullOrEmpty(diceData))
             diceResultList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));

@@ -46,7 +46,7 @@ public class LudoManager : MonoBehaviour
 
     public int playerRoundChecker;
     public Text winAmount;
-    
+
     public Image pasaImage1;
     public RectTransform pasa1;
     public Image pasaImage2;
@@ -145,8 +145,8 @@ public class LudoManager : MonoBehaviour
     public GameObject idelPasa2;
     public GameObject idelPasa3;
     public GameObject idelPasa4;
-    
-    
+
+
     public GameObject ludo1;
     public GameObject ludo2;
     public GameObject ludo3;
@@ -201,10 +201,10 @@ public class LudoManager : MonoBehaviour
     private Coroutine blinkCoroutine; // Reference to the blinking coroutine
     private Coroutine blinkCoroutine2; // Reference to the blinking coroutine
     float blinkDuration = 0.25f;
-    
+
     public GameObject turnGenObj;
     public GameObject turnObj;
-    
+
     bool isEntered = false;
     public int botPlayerNo = 0;
     public bool isAdmin = false;
@@ -254,8 +254,8 @@ public class LudoManager : MonoBehaviour
         //    }
         //}
         //else
-            StartGamePlay();
-        
+        StartGamePlay();
+
         //for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
         //{
         //    if(DataManager.Instance.joinPlayerDatas[i].userId.Contains())
@@ -285,7 +285,7 @@ public class LudoManager : MonoBehaviour
                 // Insufficient balance in bonus, cut the available bonus balance
                 float bonusBalance = float.Parse(DataManager.Instance.playerData.bonus);
                 DataManager.Instance.BonusDebitAmount(bonusBalance.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
-    
+
                 float remainingMoney = cutMoney - bonusBalance;
                 DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);
             }
@@ -298,7 +298,7 @@ public class LudoManager : MonoBehaviour
                 // Sufficient balance in bonus after applying tour bonus cut
                 var cutMoney = DataManager.Instance.tourBonusCut;
                 var remainingMoney = DataManager.Instance.tourEntryMoney - cutMoney;
-                DataManager.Instance.BonusDebitAmount(cutMoney.ToString(), DataManager.Instance.gameId ,"Game Play " +   DataManager.Instance.gameId, "game");
+                DataManager.Instance.BonusDebitAmount(cutMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
                 DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);
             }
             else
@@ -312,14 +312,14 @@ public class LudoManager : MonoBehaviour
                 {
                     float bonusBalance = float.Parse(DataManager.Instance.playerData.bonus);
                     DataManager.Instance.BonusDebitAmount(bonusBalance.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
-    
+
                     float remainingMoney = DataManager.Instance.tourEntryMoney - bonusBalance;
                     DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);
                 }
-                
+
             }
         }
-        
+
     }
 
 
@@ -353,7 +353,7 @@ public class LudoManager : MonoBehaviour
 
             //subPasaParentImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index1].avtar];
             //subPasaParentImg[2].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index2].avtar];
-            
+
             DataManager.Instance.LoadProfileImage(DataManager.Instance.joinPlayerDatas[index1].avtar, subPasaParentImg[0]);
             StartCoroutine(DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[index2].avtar, subPasaParentImg[2]));
         }
@@ -377,7 +377,7 @@ public class LudoManager : MonoBehaviour
                 index3 = 3;
                 index4 = 0;
             }
-            else if(DataManager.Instance.playerNo == 3)
+            else if (DataManager.Instance.playerNo == 3)
             {
                 index1 = 2;
                 index2 = 3;
@@ -399,20 +399,20 @@ public class LudoManager : MonoBehaviour
             player3Id.text = DataManager.Instance.joinPlayerDatas[index3].userId;
             player4Txt.text = UserNameStringManage(DataManager.Instance.joinPlayerDatas[index4].userName);
             player4Id.text = DataManager.Instance.joinPlayerDatas[index4].userId;
-            
+
             //subPasaParentImg[0].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index1].avtar];
             //subPasaParentImg[1].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index2].avtar];
             //subPasaParentImg[2].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index1].avtar];
             //subPasaParentImg[3].sprite = profileSprite[DataManager.Instance.joinPlayerDatas[index2].avtar];
-            
+
             DataManager.Instance.LoadProfileImage(DataManager.Instance.joinPlayerDatas[index1].avtar, subPasaParentImg[0]);
             StartCoroutine(DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[index2].avtar, subPasaParentImg[1]));
             StartCoroutine(DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[index3].avtar, subPasaParentImg[2]));
             StartCoroutine(DataManager.Instance.GetImages(DataManager.Instance.joinPlayerDatas[index4].avtar, subPasaParentImg[3]));
-            
+
         }
     }
-    
+
     public string UserNameStringManage(string name)
     {
         if (name != null && name != "")
@@ -472,14 +472,14 @@ public class LudoManager : MonoBehaviour
     {
         winScreen.SetActive(true);
     }
-    
+
     public void ClearAllData()
     {
         pasaSocketList.Clear();
         currentPlayerPasaList.Clear();
         pasaObjects.Clear();
     }
-    
+
     public void PlayerJoined()
     {
         Time.timeScale = 1;
@@ -495,6 +495,7 @@ public class LudoManager : MonoBehaviour
     public void StartGamePlay()
     {
         //print("Play Time : " + TestSocketIO.Instace.playTime);
+
         secondsCount = (TestSocketIO.Instace.playTime * 60);
         if (DataManager.Instance.isFourPlayer)
             isAdmin = DataManager.Instance.joinPlayerDatas[0].userId.Equals(DataManager.Instance.playerData._id);
@@ -519,9 +520,9 @@ public class LudoManager : MonoBehaviour
         {
             SetInitialTurn();
         }
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
-            if(DataManager.Instance.playerNo == 1)
+            if (DataManager.Instance.playerNo == 1)
             {
                 SetInitialTurn();
             }
@@ -535,22 +536,22 @@ public class LudoManager : MonoBehaviour
                 DataManager.Instance.isTimeAuto = false;
             }
         }
-        
+
         if (DataManager.Instance.playerNo == 1)
         {
             DataManager.Instance.isDiceClick = true;
             isClickAvaliableDice = 0;
         }
-        else if(isAdmin == true && BotManager.Instance.isConnectBot)
+        else if (isAdmin == true && BotManager.Instance.isConnectBot)
         {
             //print("Enter First Enter Bot");
             GenerateDiceNumberStart_Bot(true);
         }
-        else if(DataManager.Instance.isTwoPlayer && DataManager.Instance.playerNo != 1)
+        else if (DataManager.Instance.isTwoPlayer && DataManager.Instance.playerNo != 1)
         {
             DataManager.Instance.isDiceClick = false;
         }
-        
+
 
         if (DataManager.Instance.playerNo == 1)
         {
@@ -601,7 +602,7 @@ public class LudoManager : MonoBehaviour
                 pasaNoTxt3.color = colorOn;
             }
         }
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
             if (DataManager.Instance.modeType == 1 || DataManager.Instance.modeType == 2)
             {
@@ -644,7 +645,7 @@ public class LudoManager : MonoBehaviour
     public void ShowStartGamePopup()
     {
         startGamePopup.SetActive(true);
-        
+
         startGamePopup.transform.localScale = Vector3.zero;
         startGamePopup.transform.DOScale(Vector3.one, 0.25f)
             .SetEase(Ease.OutBack)
@@ -656,10 +657,10 @@ public class LudoManager : MonoBehaviour
                     .OnComplete(() => { startGamePopup.SetActive(false); });
             });
     }
-    
+
     private void SetInitialTurn()
     {
-        
+
         if (DataManager.Instance.playerNo == 1)
         {
             playerRoundChecker = 1;
@@ -673,29 +674,29 @@ public class LudoManager : MonoBehaviour
             switch (DataManager.Instance.playerNo)
             {
                 case 2:
-                {
-                    playerRoundChecker = 2;
-                    ActivePlayer = 2;
-                    rollingPlayer = 2;
-                    //DataManager.Instance.isDiceClick = true;
-                    break;
-                }
+                    {
+                        playerRoundChecker = 2;
+                        ActivePlayer = 2;
+                        rollingPlayer = 2;
+                        //DataManager.Instance.isDiceClick = true;
+                        break;
+                    }
                 case 3:
-                {
-                    playerRoundChecker = 3;
-                    ActivePlayer = 3;
-                    rollingPlayer = 3;
-                    //DataManager.Instance.isDiceClick = true;
-                    break;
-                }
+                    {
+                        playerRoundChecker = 3;
+                        ActivePlayer = 3;
+                        rollingPlayer = 3;
+                        //DataManager.Instance.isDiceClick = true;
+                        break;
+                    }
                 case 4:
-                {
-                    playerRoundChecker = 4;
-                    ActivePlayer = 4;
-                    rollingPlayer = 4;
-                    //DataManager.Instance.isDiceClick = true;
-                    break;
-                }
+                    {
+                        playerRoundChecker = 4;
+                        ActivePlayer = 4;
+                        rollingPlayer = 4;
+                        //DataManager.Instance.isDiceClick = true;
+                        break;
+                    }
             }
             //ActivePlayer = 3;
             //print("Enter First Enter Bot");
@@ -763,7 +764,7 @@ public class LudoManager : MonoBehaviour
                 idelPasa3.gameObject.SetActive(true);
                 idelPasa4.gameObject.SetActive(false);
             }
-            else if(DataManager.Instance.isFourPlayer)
+            else if (DataManager.Instance.isFourPlayer)
             {
                 ludo1.gameObject.SetActive(true);
                 ludo2.gameObject.SetActive(false);
@@ -803,7 +804,7 @@ public class LudoManager : MonoBehaviour
             shadow2.enabled = true;
             shadow3.enabled = false;
             shadow4.enabled = false;*/
-            
+
             shadow1.enabled = false;
             shadow2.enabled = false;
             shadow3.enabled = false;
@@ -866,7 +867,7 @@ public class LudoManager : MonoBehaviour
                 idelPasa3.gameObject.SetActive(true);
                 idelPasa4.gameObject.SetActive(false);
             }
-            else if(DataManager.Instance.isFourPlayer)
+            else if (DataManager.Instance.isFourPlayer)
             {
                 ludo1.gameObject.SetActive(false);
                 ludo2.gameObject.SetActive(false);
@@ -905,7 +906,7 @@ public class LudoManager : MonoBehaviour
             shadow2.enabled = false;
             shadow3.enabled = false;
             shadow4.enabled = true;*/
-            
+
             shadow1.enabled = false;
             shadow2.enabled = true;
             shadow3.enabled = false;
@@ -1078,10 +1079,10 @@ public class LudoManager : MonoBehaviour
         Debug.Log("adminCommission => " + TestSocketIO.Instace.adminCommission);
         ludoAdminCommission = TestSocketIO.Instace.adminCommission;
     }
-    
+
     public void AddBetAmount()
     {
-        
+
         DataManager.Instance.DebitAmount((DataManager.Instance.betPrice).ToString(), DataManager.Instance.gameId/*DataManager.Instance.gameId*/, "Ludo-Bet-" + DataManager.Instance.gameId/*DataManager.Instance.gameId*/, "game", 0);
     }
 
@@ -1108,7 +1109,7 @@ public class LudoManager : MonoBehaviour
         }
         //print("Restart Timer : ");
     }
-    
+
     public void ChangeTurn()
     {
         switch (DataManager.Instance.joinPlayerDatas.Count)
@@ -1154,7 +1155,7 @@ public class LudoManager : MonoBehaviour
         isBotTurn = false;
         SoundManager.Instance.TickTimerStop();
         print("Playerchangeturn called " + playerRoundChecker);
-        if ( LudoUIManager.Instance.bottomOneLineParent.transform.childCount >= 0)
+        if (LudoUIManager.Instance.bottomOneLineParent.transform.childCount >= 0)
         {
             if (DataManager.Instance.modeType == 3 && playerRoundChecker == DataManager.Instance.playerNo && DataManager.Instance.isFourPlayer)
                 Destroy(LudoUIManager.Instance.bottomOneLineParent.transform.GetChild(0).gameObject);
@@ -1169,8 +1170,8 @@ public class LudoManager : MonoBehaviour
             //    GameUIManager.Instance.FirstNumberRemove();
 
         }
-        
-        if(DataManager.Instance.isTwoPlayer)
+
+        if (DataManager.Instance.isTwoPlayer)
         {
             isClickAvaliableDice = 1;
             DataManager.Instance.isDiceClick = false;
@@ -1188,7 +1189,7 @@ public class LudoManager : MonoBehaviour
             isClickAvaliableDice = 0;
             DataManager.Instance.isDiceClick = true;
         }
-        else if(DataManager.Instance.modeType != 3 && DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.modeType != 3 && DataManager.Instance.isFourPlayer)
         {
             isClickAvaliableDice = 1;
             DataManager.Instance.isDiceClick = false;
@@ -1205,7 +1206,7 @@ public class LudoManager : MonoBehaviour
                 //return;
             }
         }
-        else if(DataManager.Instance.modeType == 3 && DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.modeType == 3 && DataManager.Instance.isFourPlayer)
         {
             DataManager.Instance.isDiceClick = false;
             isClickAvaliableDice = 1;
@@ -1265,7 +1266,7 @@ public class LudoManager : MonoBehaviour
                 DecreaseFillImageTime(timerFillImg1);
                 DecreaseFillImageTime(timerFillImg3);
             }
-            else if(DataManager.Instance.isFourPlayer)
+            else if (DataManager.Instance.isFourPlayer)
             {
                 DecreaseFillImageTime(timerFillImg1);
                 DecreaseFillImageTime(timerFillImg2);
@@ -1280,7 +1281,7 @@ public class LudoManager : MonoBehaviour
         //    WinUserShow();
         //}
     }
-    
+
     private void DecreaseFillImageTime(Image fillImage)
     {
         fillImage.fillAmount -= 1.0f / timerSpeed * Time.deltaTime;
@@ -1293,7 +1294,7 @@ public class LudoManager : MonoBehaviour
                     DataManager.Instance.isDiceClick = true;
                     isClickAvaliableDice = 0;
                 }
-                if(!DataManager.Instance.isFourPlayer || isAdmin)
+                if (!DataManager.Instance.isFourPlayer || isAdmin)
                     LifeDecrease();
             }
         }
@@ -1313,12 +1314,12 @@ public class LudoManager : MonoBehaviour
     public int cntPlayer4 = 0;
     public void LifeDecrease()
     {
-        if(isAdmin && DataManager.Instance.isFourPlayer)
+        if (isAdmin && DataManager.Instance.isFourPlayer)
             DecreaseLife();
-        
+
         isPathClickAvaliable = false;
         isClickAvaliableDice = 1;
-        
+
         SoundManager.Instance.TickTimerStop();
         if (DataManager.Instance.isTwoPlayer && isLifeEnter == false)
         {
@@ -1381,12 +1382,12 @@ public class LudoManager : MonoBehaviour
                     break;
                 }
             }
-            if(colour == -1)
+            if (colour == -1)
             {
                 foreach (var item in box1Token)
                 {
                     var pasa = item.GetComponent<PasaManage>();
-                    if(playerRoundChecker == pasa.updatedPlayerNo)
+                    if (playerRoundChecker == pasa.updatedPlayerNo)
                     {
                         colour = pasa.orgParentNo;
                         break;
@@ -1440,7 +1441,7 @@ public class LudoManager : MonoBehaviour
                             ChangeAdmin(playerRoundChecker);
                             return;
                         }
-                        else if(isAdmin == false /*&& isOtherPlayerPause && (cntPlayer1 == 2 || cntPlayer2 == 2 || cntPlayer3 == 2)*/ )
+                        else if (isAdmin == false /*&& isOtherPlayerPause && (cntPlayer1 == 2 || cntPlayer2 == 2 || cntPlayer3 == 2)*/ )
                         {
                             //DataManager.Instance.joinPlayerDatas.RemoveAt(playerRoundChecker - 1);
                             //for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
@@ -1448,7 +1449,7 @@ public class LudoManager : MonoBehaviour
                             //ChangeAdmin(playerRoundChecker);
                             //return;
                         }
-                        else if(isAdmin && colour == 2 ? cntPlayer2 == 2 : colour == 3 ? cntPlayer3 == 2 : colour == 4 ? cntPlayer4 == 2 : false)
+                        else if (isAdmin && colour == 2 ? cntPlayer2 == 2 : colour == 3 ? cntPlayer3 == 2 : colour == 4 ? cntPlayer4 == 2 : false)
                         {
                             //DataManager.Instance.joinPlayerDatas.RemoveAt(playerRoundChecker - 1);
                             //for (int i = 0; i < DataManager.Instance.joinPlayerDatas.Count; i++)
@@ -1457,11 +1458,11 @@ public class LudoManager : MonoBehaviour
                             isOtherPlayerPause = false;
                             return;
                         }
-                            DataManager.Instance.isDiceClick = false;
+                        DataManager.Instance.isDiceClick = false;
                         SoundManager.Instance.TimeOutSound();
                         if ((isAdmin || !hasEmptyPlayerSpace) && !isAdminPause)
                         {
-                            
+
                             switch (isAdmin ? colour : playerRoundChecker)
                             {
                                 //case 1 when cntPlayer1 == 2:
@@ -1469,7 +1470,7 @@ public class LudoManager : MonoBehaviour
                                 //    isOtherPlayLeft = false;
                                 //    WinUserShow();
                                 //    break;
-                                    
+
                                 case 1:
                                     switch (DataManager.Instance.playerNo)
                                     {
@@ -1701,7 +1702,7 @@ public class LudoManager : MonoBehaviour
                                 //GameUIManager.Instance.Setting_LeaveMatch_ButtonClick();//WinUserShow();
                                 WinUserShow();//game ended for losing player
                                 Invoke(nameof(KickPlayerForInactivity), 1f);
-                                
+
                                 break;
                             case 1:
                                 box1Lifes[cntPlayer1].color = lifeOffColor;
@@ -1752,7 +1753,7 @@ public class LudoManager : MonoBehaviour
         //SoundManager.Instance.StartBackgroundMusic();
         DataManager.Instance.hasCalledOpenTournamentLoadScreen = false;
     }
-    
+
     #region Admin Maintain
 
     public void ChangeAdmin(int playerNo)
@@ -1774,7 +1775,7 @@ public class LudoManager : MonoBehaviour
             if (DataManager.Instance.joinPlayerDatas.Any(x => x.userId.Contains("Ludo")))
                 BotManager.Instance.isConnectBot = true;
         }
-        else if(!DataManager.Instance.playerData._id.Equals(DataManager.Instance.joinPlayerDatas[0].userId))
+        else if (!DataManager.Instance.playerData._id.Equals(DataManager.Instance.joinPlayerDatas[0].userId))
             isAdmin = false;
         foreach (var item in pasaBotPlayer)
         {
@@ -1800,7 +1801,7 @@ public class LudoManager : MonoBehaviour
                 shadow1.enabled = false;
                 foreach (var item in box1Token)
                     Destroy(item.gameObject);
-                
+
                 break;
             case 2:
                 playerScoreCnt2 = -1;
@@ -1902,7 +1903,7 @@ public class LudoManager : MonoBehaviour
             timerFillImg1.fillAmount = 0;
             timerFillImg3.fillAmount = 0;
         }
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
             timerFillImg1.fillAmount = 0;
             timerFillImg2.fillAmount = 0;
@@ -1927,7 +1928,7 @@ public class LudoManager : MonoBehaviour
             if (timerFillImg1.fillAmount != 0 && timerFillImg3.fillAmount != 0 && DataManager.Instance.isTimeAuto == false && DataManager.Instance.isDiceClick == true)
                 TickSound();
         }
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
             if (timerFillImg1.fillAmount != 0 && timerFillImg2.fillAmount != 0 &&
                 timerFillImg3.fillAmount != 0 && timerFillImg4.fillAmount != 0 &&
@@ -1970,7 +1971,7 @@ public class LudoManager : MonoBehaviour
                 pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
                 pasaImage2.gameObject.GetComponent<Animator>().enabled = true;
             }
-            else if(DataManager.Instance.isFourPlayer)
+            else if (DataManager.Instance.isFourPlayer)
             {
                 pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
                 pasaImage2.gameObject.GetComponent<Animator>().enabled = true;
@@ -1997,13 +1998,13 @@ public class LudoManager : MonoBehaviour
             //    clickCounter++;
 
             //}
-            if(currentPlayerPasaList.Count <= 2 && currentPlayerPasaList.Any(x => x.pasaCurrentNo >= 52 ) && DataManager.Instance.joinPlayerDatas.Any(x => x.userId.Contains("Ludo")))
+            if (currentPlayerPasaList.Count <= 2 && currentPlayerPasaList.Any(x => x.pasaCurrentNo >= 52) && DataManager.Instance.joinPlayerDatas.Any(x => x.userId.Contains("Ludo")))
             {
                 foreach (var item in currentPlayerPasaList)
                 {
-                    if(item.pasaCurrentNo >= 52)
+                    if (item.pasaCurrentNo >= 52)
                     {
-                        List<int> numberList = new List<int>() { 1, 2, 3, 4, 5, 6};
+                        List<int> numberList = new List<int>() { 1, 2, 3, 4, 5, 6 };
                         numberList.Remove(57 - item.pasaCurrentNo);
                         int index = UnityEngine.Random.Range(0, numberList.Count);
                         pasaCurrentNo = numberList[index];
@@ -2062,7 +2063,7 @@ public class LudoManager : MonoBehaviour
     }
 
     public void DiceLessPasaButton()
-     {
+    {
         if (DataManager.Instance.isDiceClick == true && isClickAvaliableDice == 0 && DataManager.Instance.modeType == 3)
         {
 
@@ -2165,7 +2166,7 @@ public class LudoManager : MonoBehaviour
             PlayerDice(pasaCurrentNo);
 
             //Invoke(nameof(GenerateDiceNumber), 0f);
-            
+
             StartCoroutine(GenerateDiceNumber());
 
         }
@@ -2217,8 +2218,8 @@ public class LudoManager : MonoBehaviour
 
         }
 
-            yield return new WaitForSeconds(0.75f);
-        
+        yield return new WaitForSeconds(0.75f);
+
         CheckPasaThePlayer();
 
         bool isBotChangeTurn = false;
@@ -2283,7 +2284,7 @@ public class LudoManager : MonoBehaviour
                             }
                         }
                         isCheckEnter = false;
-                        
+
                     }
                     else if (DataManager.Instance.isFourPlayer)
                     {
@@ -2368,12 +2369,12 @@ public class LudoManager : MonoBehaviour
 
                         //if (BotManager.Instance.isConnectBot == false)///////////////////////////////////////////
                         //{
-                            PlayerStopDice();
+                        PlayerStopDice();
 
-                            MovePlayer(pasaCollectList[0].playerSubNo, pasaCurrentNo);
+                        MovePlayer(pasaCollectList[0].playerSubNo, pasaCurrentNo);
                         //}
                     }
-                    else if(pasaCollectList.Count > 1)
+                    else if (pasaCollectList.Count > 1)
                     {
                         int moveAble = 0;
                         int index = -1;
@@ -2381,7 +2382,7 @@ public class LudoManager : MonoBehaviour
                         int currentPosition = -1;
                         for (int i = 0; i < pasaCollectList.Count; i++)
                         {
-                            
+
                             if (pasaCollectList[i].pasaCurrentNo + pasaCurrentNo <= 57)
                             {
                                 moveAble++;
@@ -2451,9 +2452,9 @@ public class LudoManager : MonoBehaviour
                             //}
                             //else
                             //{
-                                isBotChangeTurn = true;
-                                CheckThePasaBool();
-                                PlayerStopDice();
+                            isBotChangeTurn = true;
+                            CheckThePasaBool();
+                            PlayerStopDice();
                             //}
 
 
@@ -2682,13 +2683,13 @@ public class LudoManager : MonoBehaviour
     }
 
     #endregion*/
-    
+
     #region Shadown Maintain
     public void OurShadowMaintain()
     {
         /*StartPlayerBlinking(blinkDuration);///////////////////////////////////////////////////////
         StopBotBlinking();*/
-        
+
         int colour = -1;
         foreach (var item in pasaBotPlayer)
         {
@@ -2698,13 +2699,13 @@ public class LudoManager : MonoBehaviour
                 break;
             }
         }
-        
+
         if (DataManager.Instance.isTwoPlayer)
         {
             shadow1.enabled = true;
             shadow3.GetComponent<Image>().color = shadowOff;
             shadow3.enabled = false;
-            
+
             ludo1.gameObject.SetActive(true);
             ludo3.gameObject.SetActive(false);
 
@@ -2916,7 +2917,7 @@ public class LudoManager : MonoBehaviour
 
     private void HighlightSecondPosition()
     {
-        
+
         if (shadow2 != null)
             shadow2.enabled = true;
 
@@ -3151,7 +3152,7 @@ public class LudoManager : MonoBehaviour
                 shadow1.enabled = false;
                 shadow1.GetComponent<Image>().color = shadowOff;
                 shadow3.enabled = true;
-                
+
                 ludo1.gameObject.SetActive(false);
                 ludo3.gameObject.SetActive(true);
                 if (DataManager.Instance.playerNo == 1)
@@ -3223,7 +3224,7 @@ public class LudoManager : MonoBehaviour
                 shadow4.enabled = false;
             }
         }*/
-        else if(DataManager.Instance.isFourPlayer)
+        else if (DataManager.Instance.isFourPlayer)
         {
             switch (playerRoundChecker)
             {
@@ -3342,7 +3343,7 @@ public class LudoManager : MonoBehaviour
         }
         TestSocketIO.Instace.Senddata("LudoData", obj);
     }
-    
+
     public void MoveBot(int pasaNo, int diceNo, string playerId, int playerNo)
     {
         JSONObject obj = new JSONObject();
@@ -3385,7 +3386,7 @@ public class LudoManager : MonoBehaviour
 
         TestSocketIO.Instace.Senddata("LudoDiceData", obj);
     }
-    
+
     public void BotDice(int diceNo, string playerId, int playerNo, int diceManageCnt)
     {
         JSONObject obj = new JSONObject();
@@ -3399,11 +3400,11 @@ public class LudoManager : MonoBehaviour
         print("Calling bot dice");
         TestSocketIO.Instace.Senddata("LudoDiceData", obj);
     }
-    
+
     public void DecreaseLife()
     {
         JSONObject obj = new JSONObject();
-        
+
         obj.AddField("TournamentID", DataManager.Instance.tournamentID);
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
 
@@ -3418,7 +3419,7 @@ public class LudoManager : MonoBehaviour
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
         TestSocketIO.Instace.Senddata("LudoDiceStopData", obj);
     }
-    
+
     public void BotStopDice(string playerID)
     {
         JSONObject obj = new JSONObject();
@@ -3438,7 +3439,7 @@ public class LudoManager : MonoBehaviour
         obj.AddField("PlayerNo", DataManager.Instance.playerNo);
         TestSocketIO.Instace.Senddata("PauseRequest", obj);
     }
-    
+
     public void PauseDataSendRequest()
     {
         JSONObject obj = new JSONObject();
@@ -3453,7 +3454,7 @@ public class LudoManager : MonoBehaviour
         //obj.AddField("users", new JSONObject(users));
         TestSocketIO.Instace.Senddata("PauseSend", obj);
     }
-    
+
     public void ResumeDataSendRequest()
     {
         JSONObject obj = new JSONObject();
@@ -3482,7 +3483,7 @@ public class LudoManager : MonoBehaviour
             {
                 noSend = 2;
             }
-            
+
             if (DataManager.Instance.isFourPlayer)
             {
                 noSend = playerRoundChecker;
@@ -3512,7 +3513,7 @@ public class LudoManager : MonoBehaviour
             noSend = playerRoundChecker;//1 was default value
         }
         print("changing turn when playerRoundChecker = " + playerRoundChecker);
-        
+
 
         obj.AddField("PlayerNo", noSend);
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
@@ -3523,7 +3524,7 @@ public class LudoManager : MonoBehaviour
 
 
     }
-    
+
     public void BotDiceChange(string playerId, int playerNo, bool calledByPlayer)
     {
         JSONObject obj = new JSONObject();
@@ -3561,7 +3562,7 @@ public class LudoManager : MonoBehaviour
         obj.AddField("RoomId", TestSocketIO.Instace.roomid);
         obj.AddField("PlayerRoundChecker", playerRoundChecker);
         Debug.Log("roundChecker = " + playerRoundChecker);
-        print("turn change by bot "+calledByPlayer);
+        print("turn change by bot " + calledByPlayer);
         if (calledByPlayer == true)
             TestSocketIO.Instace.Senddata("LudoDiceChangeData", obj);
         else
@@ -3569,7 +3570,7 @@ public class LudoManager : MonoBehaviour
 
     }
 
-    
+
     #endregion
 
     #region Receive
@@ -3589,7 +3590,7 @@ public class LudoManager : MonoBehaviour
                 PlayerChangeTurn();
             }
             RestartTimer();
-            
+
         }
         else if (DataManager.Instance.isFourPlayer)
         {
@@ -3627,7 +3628,7 @@ public class LudoManager : MonoBehaviour
 
         // print("Change Data Pass");
     }
-    
+
     private void AddUserData(JSONObject users, Image[] token, JSONObject[] tokenNo)
     {
         for (int i = 0; i < token.Length; i++)
@@ -3635,7 +3636,7 @@ public class LudoManager : MonoBehaviour
             var pasa = token[i].GetComponent<PasaManage>();
             tokenNo[i] = new JSONObject();
             users.AddField("updatedPlayerNo", pasa.updatedPlayerNo);
-            
+
             tokenNo[i].AddField("playerSubNo", pasa.playerSubNo);
             tokenNo[i].AddField("pasaCurrentNo", pasa.pasaCurrentNo);
             if (pasa.isSafe)
@@ -3681,14 +3682,14 @@ public class LudoManager : MonoBehaviour
         JSONObject[] token2 = new JSONObject[4];
         JSONObject[] token3 = new JSONObject[4];
         JSONObject[] token4 = new JSONObject[4];
-        
+
         for (int i = 0; i < users.Length; i++)
             users[i] = new JSONObject();
 
         AddUserData(users[0], box1Token, token1);
         users[0].AddField("lifeLost", cntPlayer1);
         users[0].AddField("score", playerScoreCnt1);
-        
+
         if (box2Img.transform.GetChild(0).gameObject.activeInHierarchy)
         {
             AddUserData(users[1], box2Token, token2);
@@ -3881,10 +3882,10 @@ public class LudoManager : MonoBehaviour
                 GenerateDiceNumber_SocketDiceLess(no, pNo, pNo1);
             else
                 StartCoroutine(GenerateDiceNumber_Socket(no, pNo, pNo1));
-            if(DataManager.Instance.modeType != 3)
+            if (DataManager.Instance.modeType != 3)
                 SoundManager.Instance.RollDice_Start_Sound();
-                pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
-                pasaImage3.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage3.gameObject.GetComponent<Animator>().enabled = true;
         }
         else if (DataManager.Instance.isFourPlayer)
         {
@@ -3893,13 +3894,13 @@ public class LudoManager : MonoBehaviour
                 GenerateDiceNumber_SocketDiceLess(no, pNo, pNo1);
             else
                 StartCoroutine(GenerateDiceNumber_Socket(no, pNo, pNo1));
-            
-            if(DataManager.Instance.modeType != 3)
+
+            if (DataManager.Instance.modeType != 3)
                 SoundManager.Instance.RollDice_Start_Sound();
-                pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
-                pasaImage2.gameObject.GetComponent<Animator>().enabled = true;
-                pasaImage3.gameObject.GetComponent<Animator>().enabled = true;
-                pasaImage4.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage1.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage2.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage3.gameObject.GetComponent<Animator>().enabled = true;
+            pasaImage4.gameObject.GetComponent<Animator>().enabled = true;
 
 
         }
@@ -4002,7 +4003,7 @@ public class LudoManager : MonoBehaviour
 
 
     #region  Application Pause
-    
+
     private void OnEnable()
     {
         Application.runInBackground = true; // Allow the game to run in the background
@@ -4186,7 +4187,7 @@ public class LudoManager : MonoBehaviour
         }
 
     }
-    
+
     private bool IsBotPlaying()
     {
         foreach (var playerData in DataManager.Instance.joinPlayerDatas)
@@ -4349,9 +4350,9 @@ public class LudoManager : MonoBehaviour
             pasaImage3.gameObject.GetComponent<Animator>().enabled = true;
             pasaImage4.gameObject.GetComponent<Animator>().enabled = true;
         }
-            // print("Pasa Bot Con 1");
-            //isPathClick = false;
-            isClickAvaliableDice = 1;
+        // print("Pasa Bot Con 1");
+        //isPathClick = false;
+        isClickAvaliableDice = 1;
         pasaCurrentNo = botMove.moveNo;
         BotDice(botMove.moveNo, DataManager.Instance.joinPlayerDatas[playerRoundChecker - 1].userId, playerRoundChecker, 0);
         StartCoroutine(GenerateDiceNumber_Bot(botMove));
@@ -4471,7 +4472,7 @@ public class LudoManager : MonoBehaviour
                     //GenerateDiceNumberStart_Bot(false);
                     Invoke(nameof(WaitAfterTurnChangeNotOut), 0f);
                 }
-                else if(DataManager.Instance.isFourPlayer && playerRoundChecker == 4)
+                else if (DataManager.Instance.isFourPlayer && playerRoundChecker == 4)
                 {
                     print("!!!!!!!!!!!!!!!!!!! Condision passed!!!!!!!!!!!!!!!!!!!!!!");
                     Invoke(nameof(WaitAfterTurnChangeNotOut), 0f);//next turn is player
@@ -4551,13 +4552,13 @@ public class LudoManager : MonoBehaviour
             {
                 case 2:
                     {
-                        
+
                         botPlayerNo = playerRoundChecker;
                         //if (isPlayer2Left && isPlayer3Left)
                         //    botPlayerNo = 4;
                         //else if(isPlayer2Left)
                         //    botPlayerNo = 3;
-                        if(hasEmptyPlayerSpace || isAdminPause)
+                        if (hasEmptyPlayerSpace || isAdminPause)
                         {
                             foreach (var item in pasaBotPlayer)
                             {
@@ -4612,7 +4613,7 @@ public class LudoManager : MonoBehaviour
 
         }
     }
-    
+
     public void AddingPasaCollectionList(int botPlayerNo)
     {
         for (int i = 0; i < pasaBotPlayer.Count; i++)
@@ -4633,7 +4634,7 @@ public class LudoManager : MonoBehaviour
         List<PasaManage> moveBotPlayer = MoveablePlayer();
         List<PasaManage> homeBotPlayer = HomePlayerBot();
         List<PasaManage> safeBotPlayer = SafePlayerBot();
-        
+
         if (moveBotPlayer.Count > 0)
         {
             if (homeBotPlayer.Count > 0)
@@ -4677,7 +4678,7 @@ public class LudoManager : MonoBehaviour
 
         return botMoveTokeStore;
     }
-    
+
     BotMoveTokeStore GetBotMoveForMedium()
     {
         BotMoveTokeStore botMoveTokeStore = new BotMoveTokeStore();
@@ -4916,7 +4917,7 @@ public class LudoManager : MonoBehaviour
         //rGen = 1;
         return rGen;
     }
-    
+
     public void OnceTimeTurnBot()
     {
         RestartTimer();
@@ -5109,13 +5110,13 @@ public class LudoManager : MonoBehaviour
         print("WaitTurnChangeAfter");
         GenerateDiceNumberStart_Bot(false);
     }
-    
+
     public bool isPlayerNextTurn()
     {
         int index = playerRoundChecker;
         //if (playerRoundChecker == 0)
         //    playerRoundChecker = 1;
-        if(DataManager.Instance.joinPlayerDatas.Count == playerRoundChecker)
+        if (DataManager.Instance.joinPlayerDatas.Count == playerRoundChecker)
             index = 0;
         //if (playerRoundChecker == 4)
         //    index = 0;
@@ -5139,7 +5140,7 @@ public class LudoManager : MonoBehaviour
         if (DataManager.Instance.modeType == 3 && playerRoundChecker == DataManager.Instance.playerNo && DataManager.Instance.isFourPlayer)
         {
             Destroy(LudoUIManager.Instance.bottomOneLineParent.transform.GetChild(0).gameObject);
-            
+
         }
         if (DataManager.Instance.isFourPlayer)
         {
@@ -5147,7 +5148,7 @@ public class LudoManager : MonoBehaviour
         }
         if (DataManager.Instance.isFourPlayer)
         {
-            if(DataManager.Instance.joinPlayerDatas[playerRoundChecker - 1].userId.Contains("Ludo"))
+            if (DataManager.Instance.joinPlayerDatas[playerRoundChecker - 1].userId.Contains("Ludo"))
             {
                 isSendBot = false;
                 isSendPlayer = true;
@@ -5160,8 +5161,8 @@ public class LudoManager : MonoBehaviour
         }
         if (isSendPlayer)
         {
-            
-            
+
+
             if (DataManager.Instance.isTwoPlayer && DataManager.Instance.modeType == 3 && dicelessPlayerNo == 1)
             {
                 Destroy(LudoUIManager.Instance.bottomOneLineParent.transform.GetChild(0).gameObject);
@@ -5172,8 +5173,8 @@ public class LudoManager : MonoBehaviour
             {
                 dicelessPlayerNo = 1;
             }
-            
-                isBotTurn = true;
+
+            isBotTurn = true;
             //botSixManage = false;
             BotDiceChange(DataManager.Instance.joinPlayerDatas[playerRoundChecker - 1].userId, DataManager.Instance.joinPlayerDatas[playerRoundChecker - 1].playerNo, false);//comment if there is conflict in 2 player
             botSixCounter = 0;
@@ -5210,19 +5211,19 @@ public class LudoManager : MonoBehaviour
                 DataManager.Instance.isDiceClick = true;
                 //DataManager.Instance.isTimeAuto = true;
             }
-            else if(DataManager.Instance.isFourPlayer)
+            else if (DataManager.Instance.isFourPlayer)
             {
                 DataManager.Instance.isDiceClick = false;
                 isClickAvaliableDice = 1;
             }
-            else if(DataManager.Instance.isTwoPlayer)
+            else if (DataManager.Instance.isTwoPlayer)
             {
                 isClickAvaliableDice = 0;
                 DataManager.Instance.isDiceClick = true;
             }
             //if(DataManager.Instance.modeType != 3)
             print("Changing turn before moving");
-                PlayerDiceChange();
+            PlayerDiceChange();
             isCheckEnter = false;
             isClickAvaliableDice = 0;
             OurShadowMaintain();

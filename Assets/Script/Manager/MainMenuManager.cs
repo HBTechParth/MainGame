@@ -172,11 +172,11 @@ public class MainMenuManager : MonoBehaviour
     {
         if (!hasFocus)
         {
-           // Debug.Log("🛑 App background me chali gayi (Lost Focus)!");
+            // Debug.Log("🛑 App background me chali gayi (Lost Focus)!");
         }
         else
         {
-           // Debug.Log("✅ App foreground me aa gayi (Gained Focus)!");
+            // Debug.Log("✅ App foreground me aa gayi (Gained Focus)!");
             //Debug.Log("paymentGo  => !" + paymentGo);
             if (paymentGo)
             {
@@ -200,7 +200,7 @@ public class MainMenuManager : MonoBehaviour
         form.AddField("amount", amount_id);
         form.AddField("bonusAmount", bonus_id);
         form.AddField("TransactionId", tra_id);
-       // form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
+        // form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
 
         Debug.Log("orderId  =>  " + orderId);
         Debug.Log("amount_id  =>  " + amount_id);
@@ -222,13 +222,13 @@ public class MainMenuManager : MonoBehaviour
             if (values["success"])
             {
                 Debug.Log("success");
-                StartCoroutine(ActivateForSeconds((values["message"]),false));
+                StartCoroutine(ActivateForSeconds((values["message"]), false));
 
             }
             else
             {
                 Debug.Log("false");
-                StartCoroutine(ActivateForSeconds((values["message"]),true));
+                StartCoroutine(ActivateForSeconds((values["message"]), true));
             }
 
         }
@@ -2133,9 +2133,13 @@ public class MainMenuManager : MonoBehaviour
                     BotManager.Instance.botUserName[randomNames[i]];
                 string userId = DataManager.Instance.joinPlayerDatas[i].userId
                     .Substring(0, DataManager.Instance.joinPlayerDatas[i].userId.Length - 1) + "TeenPatti";
+
+
                 DataManager.Instance.AddRoomUser(userId, botUserName,
-                    DataManager.Instance.joinPlayerDatas[i].lobbyId,
-                    UnityEngine.Random.Range(10000, 50000).ToString(), i, avatar);
+               DataManager.Instance.joinPlayerDatas[i].lobbyId,
+               UnityEngine.Random.Range(5000, 5000).ToString(), i, avatar);
+
+
 
                 Debug.Log("TeenPatti BOT Called - --- - - - - - -");
             }
@@ -2147,6 +2151,7 @@ public class MainMenuManager : MonoBehaviour
     public void LoadLudoBotPlayers()
     {
         print("---------------Load Bot For Ludo-----------------");
+        TestSocketIO.Instace.SetGameId(DataManager.Instance.tournamentID);
 
         if (DataManager.Instance.isTwoPlayer)
         {

@@ -218,6 +218,8 @@ public class CarRouletteScript : MonoBehaviour
 
     public void UpdateNameBalance()
     {
+        delayObjectForNextBet.SetActive(false);
+       
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
         Debug.Log("baal => " + DataManager.Instance.playerData.balance.ToString());
         balanceTxt.text = "₹ " + DataManager.Instance.playerData.balance.ToString();
@@ -556,11 +558,14 @@ public class CarRouletteScript : MonoBehaviour
         //StopSelection();
         _isTimesUp = true;
     }
-
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
     #region Betting
     public void GameBetBoxClick(int no)
     {
         if (!_isClickAvailable) return;
+
+       
         switch (no)
         {
             case 1:// lamborghini
@@ -749,10 +754,17 @@ public class CarRouletteScript : MonoBehaviour
                 }
 
         }
+        delayObjectForNextBet.SetActive(true);
+        RoundAni();
         UpdateBoardPrice();
         SendCarRouletteBet(no, selectChipNo);
     }
-
+    public void RoundAni()
+    {
+        roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
+    }
     private Vector3 GetRandomPosInBoxCollider2D(BoxCollider2D boxCollider)
     {
         Bounds bounds = boxCollider.bounds;
@@ -1214,12 +1226,18 @@ public class CarRouletteScript : MonoBehaviour
     public void HistoryLoader(string data)
     {
         if (winList.Count == 0) return;
+        Debug.Log("adata =  " + data);
 
-        if (data != "")
+        if (!string.IsNullOrEmpty(data))
         {
             if (winList.Count != 0)
             {
-                Debug.Log("winList  =  " + winList.Count);
+                for (int i = 0; i < winList.Count; i++)
+                {
+                Debug.Log("winList  =  " + winList[i]);
+                    
+                }
+                Debug.Log("adata =  " + data);
                 winList = new List<int>(data.Split(',').Select(x => int.Parse(x)));
 
             }

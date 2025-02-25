@@ -172,6 +172,7 @@ public class AndarBaharManager : MonoBehaviour
     {
 
         mainPriceTxt.text = DataManager.Instance.playerData.balance.ToString();
+        TrueFalseAnderBaharButton(true);
     }
 
 
@@ -1282,12 +1283,14 @@ public class AndarBaharManager : MonoBehaviour
             //    Destroy(coinObj);
             //});
             float andarPrice = float.Parse(andarPriceTxt.text);
+
             if (CheckMoney(andarPrice) == false)
             {
                 SoundManager.Instance.ButtonClick();
                 OpenErrorScreen();
                 return;
             }
+            TrueFalseAnderBaharButton(false);
             SoundManager.Instance.ThreeBetSound();
             totalInvestAndar += andarPrice;
             DataManager.Instance.DebitAmount((andarPrice).ToString(), DataManager.Instance.gameId, "AndarBahar-Bet-" + DataManager.Instance.gameId, "game", 1);
@@ -1374,6 +1377,8 @@ public class AndarBaharManager : MonoBehaviour
             }
         }
     }
+    public Button baharButton;
+    public Button anderButton;
     public void Bahar_ButtonClick()
     {
         if (isPlaceBet)
@@ -1401,12 +1406,14 @@ public class AndarBaharManager : MonoBehaviour
             //    Destroy(coinObj);
             //});
             float baharPrice = float.Parse(baharPriceTxt.text);
+            Debug.Log("baharPrice   = >" + baharPrice);
             if (CheckMoney(baharPrice) == false)
             {
                 SoundManager.Instance.ButtonClick();
                 OpenErrorScreen();
                 return;
             }
+            TrueFalseAnderBaharButton(false);
 
 
             SoundManager.Instance.ThreeBetSound();
@@ -1419,7 +1426,11 @@ public class AndarBaharManager : MonoBehaviour
     }
 
 
-
+    public void TrueFalseAnderBaharButton(bool isTrue)
+    {
+        anderButton.interactable = isTrue;
+        baharButton.interactable = isTrue;
+    }
     public void PlaceBet(bool isAndar, bool isBahar, float value, string playerID)
     {
         AndarBaharPlaceBet placeBet = new AndarBaharPlaceBet();
@@ -1557,7 +1568,9 @@ public class AndarBaharManager : MonoBehaviour
     public bool CheckMoney(float money)
     {
 
+        Debug.Log("money  => " + money);
         float currentBalance = float.Parse(DataManager.Instance.playerData.balance);
+        Debug.Log("currentBalance  => " + currentBalance);
         if ((currentBalance - money) < 0)
         {
             return false;
