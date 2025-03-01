@@ -2137,7 +2137,7 @@ public class MainMenuManager : MonoBehaviour
 
                 DataManager.Instance.AddRoomUser(userId, botUserName,
                DataManager.Instance.joinPlayerDatas[i].lobbyId,
-               UnityEngine.Random.Range(5000, 5000).ToString(), i, avatar);
+               UnityEngine.Random.Range(500, 4500).ToString(), i, avatar);
 
 
 

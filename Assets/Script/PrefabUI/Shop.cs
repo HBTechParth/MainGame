@@ -154,17 +154,23 @@ public class Shop : MonoBehaviour
                 else
                 {
                     Debug.LogError("Error: 'payment_url' not found in the response.");
+                    MainMenuManager.Instance.rotateOb.SetActive(false);
+
                 }
             }
             else
             {
                 Debug.LogError("Error: 'success' is false or missing in the response.");
+                MainMenuManager.Instance.rotateOb.SetActive(false);
+
             }
         }
         else
         {
             // Log the network error
             Debug.LogError("Network Error: " + request.error);
+            MainMenuManager.Instance.rotateOb.SetActive(false);
+
         }
 
 

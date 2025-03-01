@@ -956,6 +956,9 @@ public class DataManager : MonoBehaviour
         form.AddField("amount", amount);
         form.AddField("note", note);
         form.AddField("logType", logType);
+        Debug.Log("amount => " + amount);
+        Debug.Log("note => " + note);
+        Debug.Log("logType => " + logType);
         BonusDebitAmount_Send_Credit(form);
     }
 

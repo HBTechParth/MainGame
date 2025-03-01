@@ -6473,7 +6473,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 877402377}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9555,7 +9555,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 877402377}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15154,12 +15154,13 @@ RectTransform:
   - {fileID: 7917466258492114539}
   - {fileID: 3407715438387375249}
   - {fileID: 5188329616509286676}
-  - {fileID: 6464886153755176157}
   - {fileID: 1879966207}
-  - {fileID: 5129000915143503809}
   - {fileID: 6942036119057753528}
   - {fileID: 320845071}
   - {fileID: 486945545}
+  - {fileID: 6690228917324734055}
+  - {fileID: 6464886153755176157}
+  - {fileID: 5129000915143503809}
   m_Father: {fileID: 1769171899}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30749,7 +30750,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 877402377}
-  - {fileID: 6690228917324734055}
   m_Father: {fileID: 1602726227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32708,7 +32708,7 @@ RectTransform:
   m_Children:
   - {fileID: 254482435}
   m_Father: {fileID: 877402377}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -36309,7 +36309,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 30 players
+  m_Text: 6 players
 --- !u!222 &2121606000
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36537,7 +36537,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 8.3, y: -29.357}
+  m_AnchoredPosition: {x: 8.3, y: -29.357002}
   m_SizeDelta: {x: 328.91, y: 32.62}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2143592685
@@ -37762,7 +37762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 48af9ab7b77eef544ac100bb617494a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59cebd73e936c4b48bc79a522083e162, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -38178,7 +38178,7 @@ RectTransform:
   m_Children:
   - {fileID: 5129000914478199268}
   m_Father: {fileID: 877402377}
-  m_RootOrder: 13
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -38775,7 +38775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.39, y: -34.645}
+  m_AnchoredPosition: {x: 1.39, y: -34.644997}
   m_SizeDelta: {x: 98.52, y: 22.043}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6464886152856276000
@@ -39039,7 +39039,7 @@ RectTransform:
   m_Children:
   - {fileID: 6464886152590429811}
   m_Father: {fileID: 877402377}
-  m_RootOrder: 11
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -39261,14 +39261,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6690228917324734054}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6690228919314806594}
-  m_Father: {fileID: 1769171899}
-  m_RootOrder: 1
+  m_Father: {fileID: 877402377}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -40387,7 +40387,7 @@ RectTransform:
   m_Children:
   - {fileID: 6942036119319175817}
   m_Father: {fileID: 877402377}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

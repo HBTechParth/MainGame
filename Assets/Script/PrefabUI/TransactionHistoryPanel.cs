@@ -47,10 +47,14 @@ public class TransactionHistoryPanel : MonoBehaviour
     #region Transaction
     public void GetTransaction()
     {
+       
         pleaseWaitScreen.SetActive(true);
         waitTxt.text = "Please Wait...";
         StartCoroutine(GetTransactions());
     }
+
+   
+
     IEnumerator GetTransactions()
     {
         UnityWebRequest request = UnityWebRequest.Get(DataManager.Instance.url + "/api/v1/transactions/player");
@@ -70,6 +74,7 @@ public class TransactionHistoryPanel : MonoBehaviour
             else
             {
                 pleaseWaitScreen.SetActive(false);
+               
                 for (int i = 0; i < data.Count; i++)
                 {
                     Transaction t = new Transaction();
@@ -81,7 +86,6 @@ public class TransactionHistoryPanel : MonoBehaviour
                     t.note = data[i]["note"];
                     t.createdAt = data[i]["createdAt"];
                     transactions.Add(t);
-
                     GameObject tObj = Instantiate(tranPrefab, scorllParent.transform);
                     Text t1 = tObj.transform.GetChild(0).GetComponent<Text>();
                     Text t2 = tObj.transform.GetChild(1).GetComponent<Text>();

@@ -50,7 +50,7 @@ public class RouletteButtonData : MonoBehaviour
         SendRouletteBet(chipNo);
         Debug.Log("BEtBtn Call");
         SendBetNo(chipNo, RouletteManager.Instance.GetPrice(passBetClass.betImgNo).ToString());
-        
+
         //RouletteManager.Instance.totalBetPrice += RouletteManager.Instance.GetPrice(passBetClass.betImgNo);
         RouletteManager.Instance.totalBetPrice += passBetClass.betTotalAmount;
         RouletteManager.Instance.userBetTxt.text = RouletteManager.Instance.totalBetPrice.ToString(CultureInfo.InvariantCulture);
@@ -63,7 +63,7 @@ public class RouletteButtonData : MonoBehaviour
         RouleteeBetClass betClass = new RouleteeBetClass();
         int betChipNo = passBetClass.betImgNo;
         betClass.placeNo = chipNo;
-        betClass.betImgNo = betChipNo; 
+        betClass.betImgNo = betChipNo;
         betClass.betTotalAmount = RouletteManager.Instance.chipsValue[betChipNo];
         betClass.chipObj = chipGenObj;
         betClass.rouletteButtonData = this;
@@ -147,17 +147,17 @@ public class RouletteButtonData : MonoBehaviour
                 return;
             }
             //print("bool isExists : " + isExist);
-
+         
             SoundManager.Instance.ThreeBetSound();
             GameObject chipGenObj = Instantiate(RouletteManager.Instance.chipPrefab, btnParent.transform);
             SendRouletteBet(chipNo);
-            Debug.Log("BEtBtn Call"+ RouletteManager.Instance.betChipNo);
+            Debug.Log("BEtBtn Call" + RouletteManager.Instance.betChipNo);
             SendBetNo(chipNo, RouletteManager.Instance.GetPrice(RouletteManager.Instance.betChipNo).ToString());
 
             RouletteManager.Instance.totalCurrentInvest += RouletteManager.Instance.GetPrice(RouletteManager.Instance.betChipNo);
 
             DataManager.Instance.DebitAmount((RouletteManager.Instance.GetPrice(RouletteManager.Instance.betChipNo)).ToString(), DataManager.Instance.gameId, "Roulette-Bet-" + DataManager.Instance.gameId, "game", chipNo);
-            
+
             RouletteManager.Instance.UpdateBetPrice();
 
 
@@ -227,10 +227,17 @@ public class RouletteButtonData : MonoBehaviour
 
             });
         }
+        RouletteManager.Instance.delayObjectForNextBet.SetActive(true);
+        RoundAni();
         RouletteManager.Instance.ActivateButtons();
     }
 
-
+    public void RoundAni()
+    {
+        RouletteManager.Instance.roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
+    }
     public void Add_Socket_Chip(Sprite blankS)
     {
         GameObject chipGenObj = Instantiate(RouletteManager.Instance.chipPrefab, btnParent.transform);
@@ -265,7 +272,7 @@ public class RouletteButtonData : MonoBehaviour
         obj.AddField("chipNo", chipNo);
         TestSocketIO.Instace.Senddata("RouletteSendBetData", obj);
     }
-    
+
     public void SendBetNo(int chipNo, string betAmount)
     {
         if (betAmount == "1")

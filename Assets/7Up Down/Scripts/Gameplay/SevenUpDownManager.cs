@@ -147,6 +147,7 @@ public class SevenUpDownManager : MonoBehaviour
     }
     public void UpdateBalance()
     {
+        delayObjectForNextBet.SetActive(false);
         playerBalanceText.text = DataManager.Instance.playerData.balance.ToString();
     }
     // Start is called before the first frame update
@@ -256,6 +257,9 @@ public class SevenUpDownManager : MonoBehaviour
             return true;
     }
 
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
+
     public void PlaceBetButton(int number)
     {
         if (_isClickAvailable == false)
@@ -268,6 +272,10 @@ public class SevenUpDownManager : MonoBehaviour
             OpenErrorScreen();
             return;
         }
+        Debug.Log("CLICK");
+        delayObjectForNextBet.SetActive(true);
+        Debug.Log("CLICK= "+ delayObjectForNextBet.activeInHierarchy);
+        RoundAni();
         switch (number)//1 = 7 Down //2 = 7 Up //3 = 7
         {
             case 1:
@@ -316,9 +324,16 @@ public class SevenUpDownManager : MonoBehaviour
                     break;
                 }
         }
+       
         totalBetText.text = totalBet.ToString();
         SendSevenUpDownBet(number, selectedChipNo);//SocketEvent to send to admin/other players
         UpdateBalance();
+    }
+    public void RoundAni()
+    {
+        roundobj.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+           .SetEase(Ease.Linear)
+           .SetLoops(-1, LoopType.Restart);
     }
     public Vector3 GetRandomPositionWithinTransform(Transform targetTransform)
     {

@@ -243,10 +243,13 @@ public class RouletteManager : MonoBehaviour
         userBetTxt.text = totalBetPrice.ToString(CultureInfo.InvariantCulture);
     }
 
-
+    public GameObject delayObjectForNextBet;
+    public Transform roundobj;
 
     public void UpdateNameBalance()
     {
+        delayObjectForNextBet.SetActive(false);
+       
         userNameTxt.text = DataManager.Instance.playerData.firstName.ToString();
         balanceTxt.text = "₹ " + DataManager.Instance.playerData.balance.ToString();
     }
