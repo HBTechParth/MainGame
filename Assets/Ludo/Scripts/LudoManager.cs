@@ -278,13 +278,13 @@ public class LudoManager : MonoBehaviour
             if (float.Parse(DataManager.Instance.playerData.bonus) >= cutMoney)
             {
                 // Sufficient balance in bonus, cut from bonus
-                DataManager.Instance.BonusDebitAmount(cutMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
+                DataManager.Instance.BonusDebitAmount(cutMoney.ToString());
             }
             else
             {
                 // Insufficient balance in bonus, cut the available bonus balance
                 float bonusBalance = float.Parse(DataManager.Instance.playerData.bonus);
-                DataManager.Instance.BonusDebitAmount(bonusBalance.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
+                DataManager.Instance.BonusDebitAmount(bonusBalance.ToString());
 
                 float remainingMoney = cutMoney - bonusBalance;
                 DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);
@@ -298,7 +298,7 @@ public class LudoManager : MonoBehaviour
                 // Sufficient balance in bonus after applying tour bonus cut
                 var cutMoney = DataManager.Instance.tourBonusCut;
                 var remainingMoney = DataManager.Instance.tourEntryMoney - cutMoney;
-                DataManager.Instance.BonusDebitAmount(cutMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
+                DataManager.Instance.BonusDebitAmount(cutMoney.ToString());
                 DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);
             }
             else
@@ -311,7 +311,7 @@ public class LudoManager : MonoBehaviour
                 else
                 {
                     float bonusBalance = float.Parse(DataManager.Instance.playerData.bonus);
-                    DataManager.Instance.BonusDebitAmount(bonusBalance.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game");
+                    DataManager.Instance.BonusDebitAmount(bonusBalance.ToString());
 
                     float remainingMoney = DataManager.Instance.tourEntryMoney - bonusBalance;
                     DataManager.Instance.DebitAmount(remainingMoney.ToString(), DataManager.Instance.gameId, "Game Play " + DataManager.Instance.gameId, "game", 0);

@@ -1474,7 +1474,7 @@ public class MainMenuManager : MonoBehaviour
             ShowSpinWheelScreen();
         }
     }
-
+  
 
     private void ShowSpinWheelScreen()
     {

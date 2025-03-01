@@ -815,7 +815,43 @@ public class DataManager : MonoBehaviour
 
         }
     }
+    public void AddAmountBonus(float amount)
+    {
+        Debug.Log("WIn Money =  >  " + amount);
+        StartCoroutine(SendWonamountBonus(amount));
+    }
 
+    IEnumerator SendWonamountBonus(float amount)
+    {
+        print("Win Amount : " + amount);
+        WWWForm form = new WWWForm();
+        form.AddField("amount", amount.ToString());
+        form.AddField("playerId", playerData._id);
+       
+        UnityWebRequest request = UnityWebRequest.Post(url + "/api/v1/players/creditBalance/Bonus", form);
+        request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
+
+        yield return request.SendWebRequest();
+        if (request.error == null)
+        {
+            print("Data Credit : " + request.downloadHandler.text.ToString());
+            JSONNode values = JSON.Parse(request.downloadHandler.text.ToString());
+            if (values["success"] == true)
+            {
+                JSONNode data = JSON.Parse(values["data"].ToString());
+                Setplayerdata(data);
+                //playerData.balance = data[nameof(DataManager.Instance.playerData.balance)].ToString().Trim('"');
+                //playerData.deposit = data[nameof(DataManager.Instance.playerData.deposit)];
+                //playerData.winings = data[nameof(DataManager.Instance.playerData.winings)];
+                //playerData.bonus = data[nameof(DataManager.Instance.playerData.bonus)];
+            }
+        }
+        else
+        {
+            print("Data Credit : " + request.error);
+
+        }
+    }
     public void ReverseAmount(float amount, string roomid, string note, string log, int betNo)
     {
         StartCoroutine(ReverseBetAmount(amount, roomid, note, log, betNo));
@@ -919,13 +955,14 @@ public class DataManager : MonoBehaviour
 
     #region Bonus
 
-    public void BonusDebitAmount(string amount, string roomId, string note, string logType)
+    public void BonusDebitAmount(string amount)
     {
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
-        form.AddField("gameId", roomId);
+        form.AddField("playerId", playerData._id);
+      /*  form.AddField("gameId", roomId);
         form.AddField("note", note);
-        form.AddField("logType", logType);
+        form.AddField("logType", logType);*/
         BonusDebitAmount_Send(form);
     }
 
