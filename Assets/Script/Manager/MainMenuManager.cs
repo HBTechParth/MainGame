@@ -1430,6 +1430,12 @@ public class MainMenuManager : MonoBehaviour
     //#region API Calling
 
     #region DailySpin
+    public GameObject bonusPanel;
+    public void OpenBonusScreen()
+    {
+        bonusPanel.SetActive(true);
+       SpinManagerBonus.instance.LoadCooldown();
+    }
 
     public void GenerateSpinDialogPrefab(int wonAmount)
     {
@@ -1474,7 +1480,7 @@ public class MainMenuManager : MonoBehaviour
             ShowSpinWheelScreen();
         }
     }
-  
+
 
     private void ShowSpinWheelScreen()
     {

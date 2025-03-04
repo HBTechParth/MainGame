@@ -2,32 +2,44 @@
 using UnityEngine;
 using EasyUI.PickerWheelUIBonus;
 using UnityEngine.UI;
-
+using System;
 
 public class SpinManagerBonus : MonoBehaviour
 {
+
+    public static SpinManagerBonus instance;
+
     [SerializeField] private Button uiSpinButton;
-    [SerializeField] private Text uiSpinButtonText;
+   // [SerializeField] private Text uiSpinButtonText;
 
     [SerializeField] private PickerWheelBonus pickerWheel;
     private int _numberOfTurns;
     public Text turnsText;
     public GameObject popupObject;
 
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(instance);
+    }
 
     private void Start()
     {
-        _numberOfTurns = PlayerPrefs.GetInt("RemainingTurns", 3);
-        UpdateTurnsText();
+        // _numberOfTurns = PlayerPrefs.GetInt("RemainingTurns", 3);
+        // UpdateTurnsText();
 
         uiSpinButton.onClick.AddListener(() =>
         {
-            Debug.Log("Click");
+            Debug.Log("Click Bonus  => "+ DataManager.Instance.playerData.bonus);
+            if (DataManager.Instance.playerData.bonus == 0.ToString()) return;
+            if (IsCooldownActive()) return;
             DataManager.Instance.BonusDebitAmount(50.ToString());
 
             SoundManager.Instance.ButtonClick();
             uiSpinButton.interactable = false;
-            uiSpinButtonText.text = "";
+           // uiSpinButtonText.text = "";
 
             pickerWheel.OnSpinEnd(wheelPiece =>
             {
@@ -37,7 +49,7 @@ public class SpinManagerBonus : MonoBehaviour
                 );
                 UserEarnManage(wheelPiece.Index);
                 uiSpinButton.interactable = true;
-                uiSpinButtonText.text = "SPIN";
+               // uiSpinButtonText.text = "SPIN";
             });
 
             pickerWheel.Spin();
@@ -132,7 +144,7 @@ public class SpinManagerBonus : MonoBehaviour
             // DataManager.Instance.BonusDebitAmount_Credit((winMoney / 1).ToString(), "Spin Reward", "won");
 
             DataManager.Instance.AddAmountBonus((float)((winMoney / 1)));
-
+            StartCooldown();
             Debug.Log("winMoney  =>  " + (winMoney / 1));
 
         }
@@ -142,11 +154,11 @@ public class SpinManagerBonus : MonoBehaviour
             DataManager.Instance.SetDayRewardValue(lastDate + 1, winMoney);
             //DailyReward.Instance.ClaimButton();
             MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney);
-           DataManager.Instance.AddAmountBonus((float)((winMoney / 1)));
-
+            DataManager.Instance.AddAmountBonus((float)((winMoney / 1)));
+            StartCooldown();
             //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
         }
-        SetTurnsToZeroOnWin();
+        //  SetTurnsToZeroOnWin();
 
     }
 
@@ -192,4 +204,49 @@ public class SpinManagerBonus : MonoBehaviour
         UpdateTurnsText();
     }
 
+
+    public Button spinButton;   // UI Spin Button
+    public Text timerText;      // UI Timer Text
+
+    private DateTime nextSpinTime;
+    public GameObject timertextOb;
+    void Update()
+    {
+        if (IsCooldownActive())
+        {
+            timertextOb.SetActive(true);
+            TimeSpan timeLeft = nextSpinTime - DateTime.Now;
+            timerText.text = $"Next spin in: {timeLeft.Hours}h : {timeLeft.Minutes}m : {timeLeft.Seconds}s";
+            spinButton.interactable = false;
+        }
+        else
+        {
+            // timerText.text = "Spin Ready!";
+            timertextOb.SetActive(false);
+            spinButton.interactable = true;
+        }
+    }
+    void StartCooldown()
+    {
+        nextSpinTime = DateTime.Now.AddHours(3);
+        PlayerPrefs.SetString("NextSpinTime", nextSpinTime.ToString());
+        PlayerPrefs.Save();
+    }
+
+    bool IsCooldownActive()
+    {
+        return DateTime.Now < nextSpinTime;
+    }
+
+    public void LoadCooldown()
+    {
+        if (PlayerPrefs.HasKey("NextSpinTime"))
+        {
+            nextSpinTime = DateTime.Parse(PlayerPrefs.GetString("NextSpinTime"));
+        }
+        else
+        {
+            nextSpinTime = DateTime.Now;
+        }
+    }
 }
