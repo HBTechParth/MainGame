@@ -616,5 +616,6 @@ public class BotManager : MonoBehaviour
         {
             botUserName.Add(botUserName_Bengali[i]);
         }
+        Debug.Log("MY NA<ME");
     }
 }
