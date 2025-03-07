@@ -1434,15 +1434,23 @@ public class MainMenuManager : MonoBehaviour
     public void OpenBonusScreen()
     {
         bonusPanel.SetActive(true);
-       SpinManagerBonus.instance.LoadCooldown();
+        SpinManagerBonus.instance.LoadCooldown();
     }
 
-    public void GenerateSpinDialogPrefab(int wonAmount)
+    public void GenerateSpinDialogPrefab(int wonAmount, bool isbonus)
     {
         GameObject dialog = Instantiate(spinDialogObj, prefabParent.transform);
         SpinDialogPanel spin = dialog.GetComponent<SpinDialogPanel>();
         spin.earnAmount = wonAmount;
-        spin.DisplayText();
+        if (isbonus)
+        {
+            spin.DisplayText("Balance");
+        }
+        else
+        {
+            spin.DisplayText("Bonus");
+
+        }
     }
 
     public void OpenSpinWheelScreen()

@@ -347,7 +347,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "You are Lucky you won \u20B910 add your bonus."
+  m_Text: "You are Lucky you won \u20B910 "
 --- !u!1 &4847890924424579471
 GameObject:
   m_ObjectHideFlags: 0

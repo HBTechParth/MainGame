@@ -10,7 +10,7 @@ public class SpinManagerBonus : MonoBehaviour
     public static SpinManagerBonus instance;
 
     [SerializeField] private Button uiSpinButton;
-   // [SerializeField] private Text uiSpinButtonText;
+    // [SerializeField] private Text uiSpinButtonText;
 
     [SerializeField] private PickerWheelBonus pickerWheel;
     private int _numberOfTurns;
@@ -32,14 +32,14 @@ public class SpinManagerBonus : MonoBehaviour
 
         uiSpinButton.onClick.AddListener(() =>
         {
-            Debug.Log("Click Bonus  => "+ DataManager.Instance.playerData.bonus);
-            if (DataManager.Instance.playerData.bonus == 0.ToString()) return;
+            Debug.Log("Click Bonus  => " + DataManager.Instance.playerData.bonus);
+            if (int.Parse(DataManager.Instance.playerData.bonus) < 50) return;
             if (IsCooldownActive()) return;
             DataManager.Instance.BonusDebitAmount(50.ToString());
 
             SoundManager.Instance.ButtonClick();
             uiSpinButton.interactable = false;
-           // uiSpinButtonText.text = "";
+            // uiSpinButtonText.text = "";
 
             pickerWheel.OnSpinEnd(wheelPiece =>
             {
@@ -49,7 +49,7 @@ public class SpinManagerBonus : MonoBehaviour
                 );
                 UserEarnManage(wheelPiece.Index);
                 uiSpinButton.interactable = true;
-               // uiSpinButtonText.text = "SPIN";
+                // uiSpinButtonText.text = "SPIN";
             });
 
             pickerWheel.Spin();
@@ -138,7 +138,7 @@ public class SpinManagerBonus : MonoBehaviour
                 DataManager.Instance.SetDayValue(i, 0);
             }
             //DailyReward.Instance.ClaimButton();
-            MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney);
+            MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney, true);
             //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
 
             // DataManager.Instance.BonusDebitAmount_Credit((winMoney / 1).ToString(), "Spin Reward", "won");
@@ -153,7 +153,7 @@ public class SpinManagerBonus : MonoBehaviour
             DataManager.Instance.SetDayValue(lastDate + 1, 1);
             DataManager.Instance.SetDayRewardValue(lastDate + 1, winMoney);
             //DailyReward.Instance.ClaimButton();
-            MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney);
+            MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney, true);
             DataManager.Instance.AddAmountBonus((float)((winMoney / 1)));
             StartCooldown();
             //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
@@ -214,6 +214,7 @@ public class SpinManagerBonus : MonoBehaviour
     {
         if (IsCooldownActive())
         {
+            timerText.text = "";
             timertextOb.SetActive(true);
             TimeSpan timeLeft = nextSpinTime - DateTime.Now;
             timerText.text = $"Next spin in: {timeLeft.Hours}h : {timeLeft.Minutes}m : {timeLeft.Seconds}s";
@@ -224,6 +225,17 @@ public class SpinManagerBonus : MonoBehaviour
             // timerText.text = "Spin Ready!";
             timertextOb.SetActive(false);
             spinButton.interactable = true;
+        }
+
+        if (int.Parse(DataManager.Instance.playerData.bonus) < 50)
+        {
+            timerText.text = "";
+            timertextOb.SetActive(true);
+            timerText.text = "Bonus is low, Minimum 50 bonus is required.";
+        }
+        else
+        {
+            timertextOb.SetActive(false);
         }
     }
     void StartCooldown()

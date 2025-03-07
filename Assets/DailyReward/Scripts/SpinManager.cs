@@ -107,7 +107,7 @@ public class SpinManager : MonoBehaviour
                     DataManager.Instance.SetDayValue(i, 0);
                 }
                 //DailyReward.Instance.ClaimButton();
-                MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney);
+                MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney,false);
                 //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
 
                 DataManager.Instance.BonusDebitAmount_Credit((winMoney / 1).ToString(), "Spin Reward", "won");
@@ -119,7 +119,7 @@ public class SpinManager : MonoBehaviour
                 DataManager.Instance.SetDayValue(lastDate + 1, 1);
                 DataManager.Instance.SetDayRewardValue(lastDate + 1, winMoney);
                 //DailyReward.Instance.ClaimButton();
-                MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney);
+                MainMenuManager.Instance.GenerateSpinDialogPrefab(winMoney,false);
                 DataManager.Instance.BonusDebitAmount_Credit((winMoney / 1).ToString(), "Spin Reward", "won");
                 //DataManager.Instance.AddAmount(winMoney, "spinwin", "Spin Reward", "won", 0, 0);
             }

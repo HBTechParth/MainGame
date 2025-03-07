@@ -15,9 +15,9 @@ public class SpinDialogPanel : MonoBehaviour
         //titleTxt.text = "";
     }
 
-    public void DisplayText()
+    public void DisplayText(string contain)
     {
-        middleTxt.text = "You are Lucky you won "+ earnAmount+" Coin add your bonus.";
+        middleTxt.text = "You are Lucky you won "+ earnAmount+" Coin add your "+contain+".";
     }
 
 
