@@ -35,7 +35,8 @@ public class Splash : MonoBehaviour
                 //SceneManager.LoadScene("Login");
                 isEnter = true;
                 Debug.Log("Log  =  >  " + DataManager.Instance.GetLoginValue().ToString());
-                if (DataManager.Instance.GetLoginValue() == "Y")
+                PlayInstallRef.instance.PlayInRef();
+                /*if (DataManager.Instance.GetLoginValue() == "Y")
                 {
                     print("___________________This is called in splash__________");
                     //OpenPinDialog(2);
@@ -52,7 +53,7 @@ public class Splash : MonoBehaviour
                     //SceneManager.LoadScene("Splash");
                    // Debug.LogWarning("fill bar to Login");
 
-                }
+                }*/
             }
 
         }

@@ -43,6 +43,12 @@ public class TestSocketIO : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+       
+    }
+
+
+    public void CallSocket()
+    {
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
         DontDestroyOnLoad(go);
@@ -51,9 +57,6 @@ public class TestSocketIO : MonoBehaviour
         socket.On("close", TestClose);
         socket.On("res", HandelEvents);
     }
-
-
-
 
     public void TestOpen(SocketIOEvent e)
     {

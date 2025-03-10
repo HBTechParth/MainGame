@@ -166,6 +166,10 @@ public class DataManager : MonoBehaviour
         LoadProfile();
     }
 
+    public void WorkOnStart()
+    {
+
+    }
     #region TapParticals
 
     private void Update()

@@ -2,13 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Ugi.PlayInstallReferrerPlugin;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayInstallRef : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public static PlayInstallRef instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+            Destroy(instance);
+    }
     void Start()
     {
-        PlayInRef();
     }
 
     // Update is called once per frame
@@ -39,7 +50,40 @@ public class PlayInstallRef : MonoBehaviour
             // print install referrer details
             if (installReferrerDetails.InstallReferrer != null)
             {
-                Debug.Log("Install referrer: " + installReferrerDetails.InstallReferrer);
+                string referrer = installReferrerDetails.InstallReferrer;
+                Debug.Log("Install Referrer: " + referrer);
+
+                // Check if "gclid" exists in the referrer string
+                if (!string.IsNullOrEmpty(referrer) && referrer.Contains("mjhgfy"))
+                {
+                    Debug.Log(" gclid found in Install Referrer!");
+                    Debug.Log("Log  =  >  " + DataManager.Instance.GetLoginValue().ToString());
+
+                    if (DataManager.Instance.GetLoginValue() == "Y")
+                    {
+                        print("___________________This is called in splash__________");
+                        //OpenPinDialog(2);
+                        //LudoSignFirstScreen();
+                        TestSocketIO.Instace.CallSocket();
+                        SceneManager.LoadScene("Main");
+
+                        PlayerPrefs.SetInt("OpenReffer", 1);
+                        //LoadSceneMainMenu();
+                    }
+                    else
+                    {
+                        //PlayerPrefs.DeleteAll();
+                        SceneManager.LoadScene("Login");
+                        //SceneManager.LoadScene("Splash");
+                        // Debug.LogWarning("fill bar to Login");
+
+                    }
+                }
+                else
+                {
+                    Debug.Log(" gclid NOT found in Install Referrer.");
+                    SceneManager.LoadScene("InstallRefFake");
+                }
             }
             if (installReferrerDetails.ReferrerClickTimestampSeconds != null)
             {

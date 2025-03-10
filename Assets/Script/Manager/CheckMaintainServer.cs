@@ -15,9 +15,11 @@ public class CheckMaintainServer : MonoBehaviour
         GetMaintanance();
         Screen.orientation = ScreenOrientation.AutoRotation;
 
+    }
+    public void WorkOnStart()
+    {
 
     }
-
     public void GetMaintanance()
     {
         if (Application.internetReachability != NetworkReachability.NotReachable)
