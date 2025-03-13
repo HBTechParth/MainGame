@@ -43,7 +43,7 @@ public class InternetPanel : MonoBehaviour
             TestSocketIO.Instace.LeaveRoom();
             /*var scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.ToString());*/
-            SceneManager.LoadScene("Main"); 
+            SceneManager.LoadScene("Main");
             // SoundManager.Instance.StartBackgroundMusic();
             // to load the current scene
         }
@@ -57,13 +57,13 @@ public class InternetPanel : MonoBehaviour
         {
             MainMenuManager.Instance.screenObj.Remove(this.gameObject);
         }
-
-        Application.OpenURL("https://blackteenpatti.com");
+        if (DataManager.Instance.isWebApk)
+            Application.OpenURL("https://blackteenpatti.com");
 
         Application.Quit();
-        
+
     }
-  public  void QuitGame()
+    public void QuitGame()
     {
 #if UNITY_EDITOR
         // If you are running in the Unity editor, stop playing the scene

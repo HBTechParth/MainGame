@@ -11,14 +11,14 @@ public class Splash : MonoBehaviour
     public float waitTime = 10f;
     public double percantage = 0;
 
-   
+
     private void Start()
     {
         fillImg.value = 0;
         isEnter = false;
-       
+
     }
-  
+
 
     private void Update()
     {
@@ -35,7 +35,7 @@ public class Splash : MonoBehaviour
                 //SceneManager.LoadScene("Login");
                 isEnter = true;
                 Debug.Log("Log  =  >  " + DataManager.Instance.GetLoginValue().ToString());
-                PlayInstallRef.instance.PlayInRef();
+                StartCoroutine(PlayInstallRef.instance.CallApiFOrPlayInRef());
                 /*if (DataManager.Instance.GetLoginValue() == "Y")
                 {
                     print("___________________This is called in splash__________");

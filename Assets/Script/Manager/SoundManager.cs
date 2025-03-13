@@ -133,7 +133,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        StartBackgroundMusic();
+       // StartBackgroundMusic();
         /*if (DataManager.Instance.GetSound() == 0)
         {
         }

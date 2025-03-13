@@ -62,6 +62,8 @@ public class DataManager : MonoBehaviour
     public string appVersion;
     public string appUrl;
     public int currentPNo;
+    public bool isWebApk;
+    public bool isPlayStoreApk;
 
     [Header("---Tournament---")]
     public float tourEntryMoney;
@@ -159,9 +161,10 @@ public class DataManager : MonoBehaviour
     [Obsolete("Obsolete")]
     private void Start()
     {
-        GetVersionUpdate();
+        StartCoroutine(DataManager.Instance.NewAPKVerify());
+        //  GetVersionUpdate();
         GetTournament();
-        StartCoroutine(NewAPKVerify());
+        //StartCoroutine(NewAPKVerify());
         //MainMenuManager.Instance.GetTran();
         LoadProfile();
     }
@@ -500,15 +503,37 @@ public class DataManager : MonoBehaviour
 
     #region Version Update
 
-    IEnumerator NewAPKVerify()
+   public IEnumerator NewAPKVerify()
     {
         WWWForm form = new WWWForm();
 
         Debug.Log("Application.version  =>  " + Application.version);
         form.AddField("version", Application.version);
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
+        print("Get Request Message : " + request.downloadHandler.text);
 
         yield return request.SendWebRequest();
+
+       
+
+        if (request.result == UnityWebRequest.Result.Success) // Check for success
+        {
+            string responseText = request.downloadHandler.text;
+            Debug.Log("Data Credit : " + responseText);
+
+            JSONNode values = JSON.Parse(responseText);
+
+            if (values["success"].AsBool)  // Convert "success" to bool properly
+            {
+               
+
+              //  PlayInRef(trueOrFalse, isString);
+            }
+        }
+        else
+        {
+            Debug.LogError("API Error: " + request.error);
+        }
     }
 
     public void GetVersionUpdate()
