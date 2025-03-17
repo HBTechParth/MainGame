@@ -2796,8 +2796,8 @@ MonoBehaviour:
   appVersion: 
   appUrl: https://blackteenpatti.com/Teenpatti-Black.apk
   currentPNo: 0
-  isWebApk: 1
-  isPlayStoreApk: 0
+  isWebApk: 0
+  isPlayStoreApk: 1
   tourEntryMoney: 0
   winAmount: 0
   tournamentID: 

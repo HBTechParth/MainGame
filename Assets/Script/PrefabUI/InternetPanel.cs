@@ -59,7 +59,8 @@ public class InternetPanel : MonoBehaviour
         }
         if (DataManager.Instance.isWebApk)
             Application.OpenURL("https://blackteenpatti.com");
-
+        if (DataManager.Instance.isPlayStoreApk)
+            Application.OpenURL("https://play.google.com/store/apps/details?id=com.enixo.blackteenpatti");
         Application.Quit();
 
     }

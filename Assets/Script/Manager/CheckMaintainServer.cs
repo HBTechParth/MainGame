@@ -41,8 +41,11 @@ public class CheckMaintainServer : MonoBehaviour
 
             Debug.Log("VERSION  =  " + JSON.Parse(value["data"]["latestGameVersion"].ToString()));
             if (DataManager.Instance.isWebApk)
+            {
                 DataManager.Instance.versionBUild = JSON.Parse(value["data"]["latestGameVersion"].ToString());
-            Debug.Log("VERSION  =  " + DataManager.Instance.versionBUild);
+                Debug.Log("VERSION  =  " + DataManager.Instance.versionBUild);
+
+            }
             // InternetManager.Instance.CheckUpdate();
             BotManager.Instance.botUser_Profile_URL.Clear();
             for (int i = 0; i < botPr.Count; i++)

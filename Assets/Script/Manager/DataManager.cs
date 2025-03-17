@@ -161,7 +161,6 @@ public class DataManager : MonoBehaviour
     [Obsolete("Obsolete")]
     private void Start()
     {
-        StartCoroutine(DataManager.Instance.NewAPKVerify());
         //  GetVersionUpdate();
         GetTournament();
         //StartCoroutine(NewAPKVerify());
@@ -525,9 +524,10 @@ public class DataManager : MonoBehaviour
 
             if (values["success"].AsBool)  // Convert "success" to bool properly
             {
-               
 
-              //  PlayInRef(trueOrFalse, isString);
+                DataManager.Instance.versionBUild = JSON.Parse(values["latestVersion"].ToString());
+                Debug.Log("DataManager.Instance.versionBUild => " + DataManager.Instance.versionBUild);
+                //  PlayInRef(trueOrFalse, isString);
             }
         }
         else
