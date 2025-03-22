@@ -63,7 +63,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SpinAndWin.unity
     guid: 84213e922e797f044adfbc8dba3c2613
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scenes/ROGame.unity
     guid: b6a08e8fc2b4f084b9068c6b2385964b
   - enabled: 1
     path: Assets/Scenes/GameReward.unity
