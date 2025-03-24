@@ -158,7 +158,7 @@ public class DataManager : MonoBehaviour
 
         isTournamentLoaded = false;
     }
-   
+
     [Obsolete("Obsolete")]
     private void Start()
     {
@@ -503,7 +503,7 @@ public class DataManager : MonoBehaviour
 
     #region Version Update
 
-   public IEnumerator NewAPKVerify()
+    public IEnumerator NewAPKVerify()
     {
         WWWForm form = new WWWForm();
 
@@ -512,14 +512,15 @@ public class DataManager : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
         form.AddField("packageName", PlayerSettings.applicationIdentifier);
-#endif
+#else
         form.AddField("packageName", Application.identifier);
+#endif
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
         print("Get Request Message : " + request.downloadHandler.text);
 
         yield return request.SendWebRequest();
 
-       
+
 
         if (request.result == UnityWebRequest.Result.Success) // Check for success
         {
@@ -568,10 +569,10 @@ public class DataManager : MonoBehaviour
 
     }
 
-    #endregion
+#endregion
 
 
-    #region Tournaments
+#region Tournaments
 
     [Obsolete("Obsolete")]
     public void GetTournament()
@@ -677,18 +678,18 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    #endregion
+#endregion
 
 
-    #region Null Maintain
+#region Null Maintain
     public bool IsNullOrEmpty(string value)
     {
         return value == null || value.Length == 0;
     }
 
-    #endregion
+#endregion
 
-    #region User Maintain
+#region User Maintain
 
 
     public void AddRoomUser(string userId, string userName, string lobbyId, string balance, int playerNo, string avtar)
@@ -798,14 +799,14 @@ public class DataManager : MonoBehaviour
         return false;
     }
 
-    #endregion
+#endregion
 
 
-    #region Debit and Credit Player Manage
+#region Debit and Credit Player Manage
 
 
 
-    #region Credit
+#region Credit
 
     //float com = (float)(bid.amount * Datamanger.Intance.data.commission) / 100;
     //LocalPlayer.Instace.addamount(bid.amount, TestSocketIO.Instace.roomid, "Internal Bid Won", "won", com);
@@ -862,7 +863,7 @@ public class DataManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("amount", amount.ToString());
         form.AddField("playerId", playerData._id);
-       
+
         UnityWebRequest request = UnityWebRequest.Post(url + "/api/v1/players/creditBalance/Bonus", form);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
 
@@ -927,9 +928,9 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    #endregion
+#endregion
 
-    #region Debit
+#region Debit
 
     public void DebitAmount(string amount, string roomId, string note, string logType, int betNo)
     {
@@ -986,18 +987,18 @@ public class DataManager : MonoBehaviour
 
 
 
-    #endregion
+#endregion
 
-    #region Bonus
+#region Bonus
 
     public void BonusDebitAmount(string amount)
     {
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
         form.AddField("playerId", playerData._id);
-      /*  form.AddField("gameId", roomId);
-        form.AddField("note", note);
-        form.AddField("logType", logType);*/
+        /*  form.AddField("gameId", roomId);
+          form.AddField("note", note);
+          form.AddField("logType", logType);*/
         BonusDebitAmount_Send(form);
     }
 
@@ -1071,7 +1072,7 @@ public class DataManager : MonoBehaviour
     }
 
 
-    #endregion
+#endregion
 
     public void SendLeaderBoardData(string winPlayerId, float amountWon, string tourId, int winner, string gameId, string note, string players)
     {
@@ -1273,7 +1274,7 @@ public class DataManager : MonoBehaviour
         return PlayerPrefs.GetInt("LoginEmailCheck", 0);
     }
 
-    #region Recently Manage
+#region Recently Manage
 
     public void SetRecent1(string gameName)
     {
@@ -1318,9 +1319,9 @@ public class DataManager : MonoBehaviour
     {
         return PlayerPrefs.GetString("GameNameRecent4", "none");
     }
-    #endregion
+#endregion
 
-    #endregion
+#endregion
 
     public IEnumerator GetImages(string URl, Image image)
     {
