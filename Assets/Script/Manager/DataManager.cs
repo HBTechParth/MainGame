@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 
 public enum GameType
 {
@@ -157,7 +158,7 @@ public class DataManager : MonoBehaviour
 
         isTournamentLoaded = false;
     }
-   
+
     [Obsolete("Obsolete")]
     private void Start()
     {
@@ -502,18 +503,24 @@ public class DataManager : MonoBehaviour
 
     #region Version Update
 
-   public IEnumerator NewAPKVerify()
+    public IEnumerator NewAPKVerify()
     {
         WWWForm form = new WWWForm();
 
         Debug.Log("Application.version  =>  " + Application.version);
         form.AddField("version", Application.version);
+#if UNITY_EDITOR
+        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
+        form.AddField("packageName", PlayerSettings.applicationIdentifier);
+#endif
+        form.AddField("packageName", Application.identifier);
+
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
         print("Get Request Message : " + request.downloadHandler.text);
 
         yield return request.SendWebRequest();
 
-       
+
 
         if (request.result == UnityWebRequest.Result.Success) // Check for success
         {
@@ -856,7 +863,7 @@ public class DataManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("amount", amount.ToString());
         form.AddField("playerId", playerData._id);
-       
+
         UnityWebRequest request = UnityWebRequest.Post(url + "/api/v1/players/creditBalance/Bonus", form);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("token"));
 
@@ -989,9 +996,9 @@ public class DataManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("amount", amount);
         form.AddField("playerId", playerData._id);
-      /*  form.AddField("gameId", roomId);
-        form.AddField("note", note);
-        form.AddField("logType", logType);*/
+        /*  form.AddField("gameId", roomId);
+          form.AddField("note", note);
+          form.AddField("logType", logType);*/
         BonusDebitAmount_Send(form);
     }
 

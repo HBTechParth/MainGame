@@ -2,6 +2,7 @@ using SimpleJSON;
 using System.Collections;
 using System.Collections.Generic;
 using Ugi.PlayInstallReferrerPlugin;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -32,6 +33,7 @@ public class PlayInstallRef : MonoBehaviour
 
     public IEnumerator CallApiFOrPlayInRef()
     {
+        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
         WWWForm form = new WWWForm();
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/auth/checkBeta", form);
         yield return request.SendWebRequest();
