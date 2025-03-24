@@ -512,8 +512,9 @@ public class DataManager : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
         form.AddField("packageName", PlayerSettings.applicationIdentifier);
-#endif
+#else
         form.AddField("packageName", Application.identifier);
+#endif
 
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
         print("Get Request Message : " + request.downloadHandler.text);
