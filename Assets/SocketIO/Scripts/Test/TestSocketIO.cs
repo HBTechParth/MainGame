@@ -13,6 +13,8 @@ using UnityEngine.UI;
 
 public class TestSocketIO : MonoBehaviour
 {
+/*packageName
+*/
     private SocketIOComponent socket;
     public static TestSocketIO Instace;
     public GameObject connectServerObj;

@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 
 public enum GameType
 {
@@ -508,6 +509,11 @@ public class DataManager : MonoBehaviour
 
         Debug.Log("Application.version  =>  " + Application.version);
         form.AddField("version", Application.version);
+#if UNITY_EDITOR
+        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
+        form.AddField("packageName", PlayerSettings.applicationIdentifier);
+#endif
+        form.AddField("packageName", Application.identifier);
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/checkversion", form);
         print("Get Request Message : " + request.downloadHandler.text);
 
