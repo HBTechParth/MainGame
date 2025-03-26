@@ -33,8 +33,13 @@ public class PlayInstallRef : MonoBehaviour
 
     public IEnumerator CallApiFOrPlayInRef()
     {
-        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
         WWWForm form = new WWWForm();
+#if UNITY_EDITOR
+        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
+        form.AddField("packageName", PlayerSettings.applicationIdentifier);
+#else
+        form.AddField("packageName", Application.identifier);
+#endif
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/auth/checkBeta", form);
         yield return request.SendWebRequest();
 
@@ -50,7 +55,7 @@ public class PlayInstallRef : MonoBehaviour
                 JSONNode data = values["data"];  // Directly access "data" (no need to re-parse)
                 bool trueOrFalse = data["TrueOrFalse"].AsBool;  // Use .AsBool for bool conversion
                 string isString = data["IsString"];  // Directly access string
-
+                DataManager.Instance.versionBUild = data["version"];
                 Debug.Log("TrueOrFalse: " + trueOrFalse);
                 Debug.Log("IsString: " + isString);
 
@@ -106,8 +111,7 @@ public class PlayInstallRef : MonoBehaviour
                                 //LudoSignFirstScreen();
                                 SoundManager.Instance.StartBackgroundMusic();
                                 if (DataManager.Instance.isPlayStoreApk)
-                                    StartCoroutine(DataManager.Instance.NewAPKVerify());
-                                DataManager.Instance.GetVersionUpdate();
+                                    DataManager.Instance.GetVersionUpdate();
 
                                 TestSocketIO.Instace.CallSocket();
                                 SceneManager.LoadScene("Main");
@@ -137,7 +141,8 @@ public class PlayInstallRef : MonoBehaviour
                         //OpenPinDialog(2);
                         //LudoSignFirstScreen();
                         SoundManager.Instance.StartBackgroundMusic();
-
+                        if (DataManager.Instance.isPlayStoreApk)
+                            DataManager.Instance.GetVersionUpdate();
                         TestSocketIO.Instace.CallSocket();
                         SceneManager.LoadScene("Main");
 

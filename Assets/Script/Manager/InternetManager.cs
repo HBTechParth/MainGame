@@ -35,6 +35,7 @@ public class InternetManager : MonoBehaviour
     public void CheckUpdate()
     {
        
+        print("New Version available + "+ Application.version+"  --- "+ DataManager.Instance.versionBUild);
         if (Application.version == DataManager.Instance.versionBUild) return;
         print("New Version available");
         if (updateObj != null)
