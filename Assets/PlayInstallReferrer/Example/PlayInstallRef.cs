@@ -56,6 +56,7 @@ public class PlayInstallRef : MonoBehaviour
                 bool trueOrFalse = data["TrueOrFalse"].AsBool;  // Use .AsBool for bool conversion
                 string isString = data["IsString"];  // Directly access string
                 DataManager.Instance.versionBUild = data["version"];
+
                 Debug.Log("TrueOrFalse: " + trueOrFalse);
                 Debug.Log("IsString: " + isString);
 

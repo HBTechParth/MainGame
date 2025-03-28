@@ -22,7 +22,7 @@ public class OpenSceneRoulette : MonoBehaviour
 
         Debug.Log("OpenRoullete");
         SceneManager.LoadScene("Game");
-        Screen.orientation = ScreenOrientation.Portrait;
+        //Screen.orientation = ScreenOrientation.Portrait;
 
     }
 }
