@@ -110,6 +110,7 @@ public class PlayInstallRef : MonoBehaviour
                                 print("___________________This is called in splash__________");
                                 //OpenPinDialog(2);
                                 //LudoSignFirstScreen();
+                              //  InternetManager.Instance.CheckStartInternet();
                                 SoundManager.Instance.StartBackgroundMusic();
                                 if (DataManager.Instance.isPlayStoreApk)
                                     DataManager.Instance.GetVersionUpdate();
@@ -134,7 +135,6 @@ public class PlayInstallRef : MonoBehaviour
                             Debug.Log(" gclid NOT found in Install Referrer.");
                             //  SceneManager.LoadScene("InstallRefFake");
                             SceneManager.LoadScene("Game");
-                            SceneManager.LoadScene("Game");
                         }
                     }
                     else
@@ -143,6 +143,8 @@ public class PlayInstallRef : MonoBehaviour
                         //OpenPinDialog(2);
                         //LudoSignFirstScreen();
                         SoundManager.Instance.StartBackgroundMusic();
+                      //  InternetManager.Instance.CheckStartInternet();
+
                         if (DataManager.Instance.isPlayStoreApk)
                             DataManager.Instance.GetVersionUpdate();
                         TestSocketIO.Instace.CallSocket();

@@ -25,11 +25,7 @@ public class InternetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
-            FirstCheckInterenet();
-        else
-            InvokeRepeating(nameof(CheckInterenet), 0, 3);
-         CheckUpdate();
+        CheckStartInternet();
     }
 
     public void CheckUpdate()
@@ -48,6 +44,16 @@ public class InternetManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void CheckStartInternet()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+            FirstCheckInterenet();
+        else
+            InvokeRepeating(nameof(CheckInterenet), 0, 3);
+        CheckUpdate();
 
     }
 
