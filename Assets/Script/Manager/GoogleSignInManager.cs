@@ -14,7 +14,8 @@ public class GoogleSignInManager : MonoBehaviour
     public static GoogleSignInManager Instance;
 
     public string infoText;
-    public string webClientId = "<your client id here>";
+    public string webClientId = "411203716713-tvnl9fp94of00k94br50pq55v06qm19q.apps.googleusercontent.com";
+
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -40,6 +41,7 @@ public class GoogleSignInManager : MonoBehaviour
             Instance = this;
         }
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
+        Debug.Log("WEBCLIENT ID + > " + webClientId);
         CheckFirebaseDependencies();
     }
 
@@ -102,10 +104,12 @@ public class GoogleSignInManager : MonoBehaviour
         }
     }
 
+    // Sign-Out method
     public void SignOutFromGoogle()
     {
         AddToInformation("Calling SignOut");
         GoogleSignIn.DefaultInstance.SignOut();
+        FirebaseAuth.DefaultInstance.SignOut(); // Firebase sign out as well
     }
 
     private void OnSignIn()
@@ -117,18 +121,6 @@ public class GoogleSignInManager : MonoBehaviour
         AddToInformation("Calling SignIn");
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
-    }
-
-    private void OnSignOut()
-    {
-        AddToInformation("Calling SignOut");
-        GoogleSignIn.DefaultInstance.SignOut();
-    }
-
-    public void OnDisconnect()
-    {
-        AddToInformation("Calling Disconnect");
-        GoogleSignIn.DefaultInstance.Disconnect();
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -155,8 +147,8 @@ public class GoogleSignInManager : MonoBehaviour
         else
         {
             print("Google Sign-In succeeded");
-
             print("IdToken: " + task.Result.IdToken);
+
             string firebaseToken = task.Result.IdToken;
             print("ImageUrl: " + task.Result.ImageUrl.ToString());
 
@@ -179,6 +171,8 @@ public class GoogleSignInManager : MonoBehaviour
                 }
 
                 user = auth.CurrentUser;
+
+                // Ensure user email and name from new Firebase project
                 LoginManager.Instance.googleUserEmail = user.Email.ToString();
                 LoginManager.Instance.googleUserName = user.DisplayName.ToString();
 
@@ -189,25 +183,7 @@ public class GoogleSignInManager : MonoBehaviour
         }
     }
 
-    private void SignInWithGoogleOnFirebase(string idToken)
-    {
-        Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
-
-        auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
-        {
-            AggregateException ex = task.Exception;
-            if (ex != null)
-            {
-                if (ex.InnerExceptions[0] is FirebaseException inner && (inner.ErrorCode != 0))
-                    AddToInformation("\nError code = " + inner.ErrorCode + " Message = " + inner.Message);
-            }
-            else
-            {
-                AddToInformation("Sign In Successful.");
-            }
-        });
-    }
-
+    // Sign in silently, without interaction, if the user is already signed in
     public void OnSignInSilently()
     {
         GoogleSignIn.Configuration = configuration;
@@ -252,7 +228,7 @@ public class GoogleSignInManager : MonoBehaviour
             {
                 Debug.Log("Verification completed automatically");
                 SignInWithPhoneAuthCredential(credential); // Automatically sign in if verification completes
-        },
+            },
             verificationFailed: (error) =>
             {
                 Debug.LogError("Verification failed: " + error);
@@ -261,9 +237,9 @@ public class GoogleSignInManager : MonoBehaviour
             {
                 verificationID = id;
                 Debug.Log("Code sent. Verification ID: " + verificationID);
-            // You can automatically request user to input OTP
-            // Show a UI element to input the OTP
-        },
+                // You can automatically request user to input OTP
+                // Show a UI element to input the OTP
+            },
             codeAutoRetrievalTimeOut: (id) =>
             {
                 Debug.LogWarning("Code auto-retrieval timeout. Verification ID: " + id);
@@ -313,5 +289,5 @@ public class GoogleSignInManager : MonoBehaviour
         });
     }
 
+    #endregion
 }
-#endregion
