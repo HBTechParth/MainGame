@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "411203716713",
+    "project_id": "solitaire-37cb8",
+    "storage_bucket": "solitaire-37cb8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411203716713:android:32c0ff5f8549dba0e4c4f8",
+        "android_client_info": {
+          "package_name": "com.enixo.solitaire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411203716713-rc1o0hg795ttvoeu1nlss2vertic5i8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enixo.solitaire",
+            "certificate_hash": "a93427b02cba8e26500a83bd0070f162db1fc88f"
+          }
+        },
+        {
+          "client_id": "411203716713-a0rao8ln3g5et58h39obmvbj9b2qtn3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn5Mja83gjozQr9pFT_eOupVnqUmHfO3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411203716713-2s2kmfae3k2fub2e9jrn2tuoro6qa04g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
