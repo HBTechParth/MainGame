@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">220114234051</string>
-  <string name="google_storage_bucket" translatable="false">newsolitaire-82ce1.firebasestorage.app</string>
-  <string name="project_id" translatable="false">newsolitaire-82ce1</string>
-  <string name="google_api_key" translatable="false">AIzaSyB26wJbISq6DDDo8PiknENjn1ztf4K7x60</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB26wJbISq6DDDo8PiknENjn1ztf4K7x60</string>
-  <string name="google_app_id" translatable="false">1:220114234051:android:01c71a68bbff95b40a9076</string>
-  <string name="default_android_client_id" translatable="false">220114234051-8fg1v0fefi44elomr2sb07g48ui8rfv5.apps.googleusercontent.com</string>
-  <string name="default_web_client_id" translatable="false">220114234051-ren7u1hs38qbpis8j9hb14d3rr5er9i5.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">759627203756</string>
+  <string name="google_storage_bucket" translatable="false">updatedsolitaire.firebasestorage.app</string>
+  <string name="project_id" translatable="false">updatedsolitaire</string>
+  <string name="google_api_key" translatable="false">AIzaSyAbV3ZJK0HKG9suJpVBU7EiuQm4BRbflqU</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAbV3ZJK0HKG9suJpVBU7EiuQm4BRbflqU</string>
+  <string name="google_app_id" translatable="false">1:759627203756:android:ae54fc37ce15ba479bcb09</string>
+  <string name="default_android_client_id" translatable="false">759627203756-hq67h6fg1kokqdtifsjuatu3su8qlnsb.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">759627203756-7gfrr7e0doi6trdajdq6al0b8ca4h0cf.apps.googleusercontent.com</string>
 </resources>
