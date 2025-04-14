@@ -14,7 +14,7 @@ public class GoogleSignInManager : MonoBehaviour
     public static GoogleSignInManager Instance;
 
     public string infoText;
-    public string webClientId = "411203716713-a0rao8ln3g5et58h39obmvbj9b2qtn3v.apps.googleusercontent.com";
+    public string webClientId = "220114234051-ren7u1hs38qbpis8j9hb14d3rr5er9i5.apps.googleusercontent.com";
 
 
     private FirebaseAuth auth;

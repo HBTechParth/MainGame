@@ -81,7 +81,7 @@ public class LoginManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (DataManager.Instance.GetLoginValue() == "Y")
+      /*  if (DataManager.Instance.GetLoginValue() == "Y")
         {
             //OpenPinDialog(2);
             //LudoSignFirstScreen();
@@ -97,7 +97,7 @@ public class LoginManager : MonoBehaviour
         {
             //LudoSignFirstScreen()
 
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -1087,19 +1087,22 @@ public class LoginManager : MonoBehaviour
     {
             DataManager.Instance.SetLoginValue("Y");
             print("___________________This is called in Loginmanager__________");
-            //loadingPanel.SetActive(true);
-            //panelMobileLogin.SetActive(false);
-            SceneManager.LoadScene("Main");
-            //SceneManager.LoadScene("Splash");
-            /*if (DataManager.Instance.isTournamentLoaded)
-            {
-            }
-            else
-            {
-                //PlayerPrefs.DeleteAll();
-                SceneManager.LoadScene("Splash");
-                Debug.LogWarning("Login manager to spalsh");
-            }*/
+        //loadingPanel.SetActive(true);
+        //panelMobileLogin.SetActive(false);
+        SoundManager.Instance.StartBackgroundMusic();
+        TestSocketIO.Instace.CallSocket();
+        SceneManager.LoadScene("Main");
+
+        //SceneManager.LoadScene("Splash");
+        /*if (DataManager.Instance.isTournamentLoaded)
+        {
+        }
+        else
+        {
+            //PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene("Splash");
+            Debug.LogWarning("Login manager to spalsh");
+        }*/
     }
 
 
