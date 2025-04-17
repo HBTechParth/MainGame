@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "411203716713-rc1o0hg795ttvoeu1nlss2vertic5i8q.apps.googleusercontent.com",
+          "client_id": "411203716713-e7b6ngmj7pgfkhsuca834c8c8532kg0c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.enixo.solitaire",
-            "certificate_hash": "a93427b02cba8e26500a83bd0070f162db1fc88f"
+            "certificate_hash": "d6b20adc4d973fc5fc3f862548c2343bc094344e"
+          }
+        },
+        {
+          "client_id": "411203716713-o495piciv10rdfqgk308m60glqo75ipt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enixo.solitaire",
+            "certificate_hash": "a9c5396b4133edf8a8ceaa545633cbfd75243a3e"
           }
         },
         {
