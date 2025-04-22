@@ -69,7 +69,9 @@ public class Shop : MonoBehaviour
         form.AddField("bonusAmount", bonusAmount.ToString());
         form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
 
-        print("Send OTP Amount : " + amount.ToString());
+        print("Send  Amount : " + amount.ToString());
+        print("bonusAmount : " + bonusAmount.ToString());
+        print("playerId : " + DataManager.Instance.playerData._id.ToString());
         MainMenuManager.Instance.paymentGo = false;
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/create", form);
 
