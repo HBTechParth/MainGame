@@ -134,7 +134,7 @@ public class PlayInstallRef : MonoBehaviour
                         {
                             Debug.Log(" gclid NOT found in Install Referrer.");
                             //  SceneManager.LoadScene("InstallRefFake");
-                            SceneManager.LoadScene("Game");
+                            SceneManager.LoadScene("Start");
                         }
                     }
                     else
@@ -182,7 +182,7 @@ public class PlayInstallRef : MonoBehaviour
         else
         {
             //  SceneManager.LoadScene("InstallRefFake");
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("Start");
 
         }
         /* if (DataManager.Instance.GetLoginValue() == "Y")
