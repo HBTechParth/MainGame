@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">411203716713</string>
-  <string name="google_storage_bucket" translatable="false">solitaire-37cb8.firebasestorage.app</string>
-  <string name="project_id" translatable="false">solitaire-37cb8</string>
-  <string name="google_api_key" translatable="false">AIzaSyAn5Mja83gjozQr9pFT_eOupVnqUmHfO3Y</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAn5Mja83gjozQr9pFT_eOupVnqUmHfO3Y</string>
-  <string name="google_app_id" translatable="false">1:411203716713:android:32c0ff5f8549dba0e4c4f8</string>
-  <string name="default_android_client_id" translatable="false">411203716713-e7b6ngmj7pgfkhsuca834c8c8532kg0c.apps.googleusercontent.com</string>
-  <string name="default_web_client_id" translatable="false">411203716713-a0rao8ln3g5et58h39obmvbj9b2qtn3v.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">711966586785</string>
+  <string name="google_storage_bucket" translatable="false">unomain-8ffa7.firebasestorage.app</string>
+  <string name="project_id" translatable="false">unomain-8ffa7</string>
+  <string name="google_api_key" translatable="false">AIzaSyBA3NhNiVcxIURQc3T_FnfCBBL9pm1zm9s</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBA3NhNiVcxIURQc3T_FnfCBBL9pm1zm9s</string>
+  <string name="google_app_id" translatable="false">1:711966586785:android:7c7434cbabe6931a747de0</string>
+  <string name="default_android_client_id" translatable="false">711966586785-npadmjjbgdl578s4b7bhlij2ckf7cjb9.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">711966586785-6abfvcq5n8mroid456u18nk7ikd5apb1.apps.googleusercontent.com</string>
 </resources>

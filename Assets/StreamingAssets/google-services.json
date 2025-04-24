@@ -1,49 +1,41 @@
 {
   "project_info": {
-    "project_number": "411203716713",
-    "project_id": "solitaire-37cb8",
-    "storage_bucket": "solitaire-37cb8.firebasestorage.app"
+    "project_number": "711966586785",
+    "project_id": "unomain-8ffa7",
+    "storage_bucket": "unomain-8ffa7.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:411203716713:android:32c0ff5f8549dba0e4c4f8",
+        "mobilesdk_app_id": "1:711966586785:android:7c7434cbabe6931a747de0",
         "android_client_info": {
-          "package_name": "com.enixo.solitaire"
+          "package_name": "com.enixo.uno"
         }
       },
       "oauth_client": [
         {
-          "client_id": "411203716713-e7b6ngmj7pgfkhsuca834c8c8532kg0c.apps.googleusercontent.com",
+          "client_id": "711966586785-npadmjjbgdl578s4b7bhlij2ckf7cjb9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.enixo.solitaire",
-            "certificate_hash": "d6b20adc4d973fc5fc3f862548c2343bc094344e"
+            "package_name": "com.enixo.uno",
+            "certificate_hash": "b4889f4307f88a3a5fe3936c4e5d8ed95eec538e"
           }
         },
         {
-          "client_id": "411203716713-o495piciv10rdfqgk308m60glqo75ipt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.enixo.solitaire",
-            "certificate_hash": "a9c5396b4133edf8a8ceaa545633cbfd75243a3e"
-          }
-        },
-        {
-          "client_id": "411203716713-a0rao8ln3g5et58h39obmvbj9b2qtn3v.apps.googleusercontent.com",
+          "client_id": "711966586785-6abfvcq5n8mroid456u18nk7ikd5apb1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAn5Mja83gjozQr9pFT_eOupVnqUmHfO3Y"
+          "current_key": "AIzaSyBA3NhNiVcxIURQc3T_FnfCBBL9pm1zm9s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "411203716713-2s2kmfae3k2fub2e9jrn2tuoro6qa04g.apps.googleusercontent.com",
+              "client_id": "711966586785-6abfvcq5n8mroid456u18nk7ikd5apb1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -367,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &68081103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2786,7 +2786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &684503689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3636,7 +3636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoText: 
-  webClientId: 411203716713-a0rao8ln3g5et58h39obmvbj9b2qtn3v.apps.googleusercontent.com
+  webClientId: 711966586785-6abfvcq5n8mroid456u18nk7ikd5apb1.apps.googleusercontent.com
   userName: 
   userEmail: 
   phoneNumber: {fileID: 158849399}
