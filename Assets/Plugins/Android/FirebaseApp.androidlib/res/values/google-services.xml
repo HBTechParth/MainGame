@@ -6,6 +6,6 @@
   <string name="google_api_key" translatable="false">AIzaSyBA3NhNiVcxIURQc3T_FnfCBBL9pm1zm9s</string>
   <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBA3NhNiVcxIURQc3T_FnfCBBL9pm1zm9s</string>
   <string name="google_app_id" translatable="false">1:711966586785:android:7c7434cbabe6931a747de0</string>
-  <string name="default_android_client_id" translatable="false">711966586785-npadmjjbgdl578s4b7bhlij2ckf7cjb9.apps.googleusercontent.com</string>
+  <string name="default_android_client_id" translatable="false">711966586785-ho8o7jqp0des5ri1ru4b6dd36dac9vo4.apps.googleusercontent.com</string>
   <string name="default_web_client_id" translatable="false">711966586785-6abfvcq5n8mroid456u18nk7ikd5apb1.apps.googleusercontent.com</string>
 </resources>

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "711966586785-ho8o7jqp0des5ri1ru4b6dd36dac9vo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enixo.uno",
+            "certificate_hash": "b54997ef1682c9a1ceab3a3a7de052845055722c"
+          }
+        },
+        {
           "client_id": "711966586785-npadmjjbgdl578s4b7bhlij2ckf7cjb9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
