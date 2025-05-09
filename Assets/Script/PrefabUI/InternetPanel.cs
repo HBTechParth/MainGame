@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -60,7 +61,14 @@ public class InternetPanel : MonoBehaviour
         if (DataManager.Instance.isWebApk)
             Application.OpenURL("https://blackteenpatti.com");
         if (DataManager.Instance.isPlayStoreApk)
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.enixo.blackteenpatti");
+        {
+#if UNITY_EDITOR
+            Application.OpenURL("https://play.google.com/store/apps/details?id=" + PlayerSettings.applicationIdentifier);
+#else
+                    Application.OpenURL("https://play.google.com/store/apps/details?id="+ Application.identifier);
+
+#endif
+        }
         Application.Quit();
 
     }

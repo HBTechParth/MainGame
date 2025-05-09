@@ -189,6 +189,7 @@ public class MainMenuManager : MonoBehaviour
     public string amount_id;
     public string bonus_id;
     public string tra_id;
+    public string merchantOrderId;
     public bool paymentGo;
     public GameObject paymentStatusgameob;
     public TextMeshProUGUI paymentStatusText;
@@ -199,12 +200,15 @@ public class MainMenuManager : MonoBehaviour
         form.AddField("orderId", orderId);
         form.AddField("amount", amount_id);
         form.AddField("bonusAmount", bonus_id);
+        form.AddField("merchantOrderId", merchantOrderId);
         form.AddField("TransactionId", tra_id);
         // form.AddField("playerId", DataManager.Instance.playerData._id.ToString());
 
         Debug.Log("orderId  =>  " + orderId);
         Debug.Log("amount_id  =>  " + amount_id);
+        Debug.Log("bonus_id  =>  " + bonus_id);
         Debug.Log("tra_id  =>  " + tra_id);
+        Debug.Log("merchantOrderId  =>  " + merchantOrderId);
 
         UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/payments/paymentfastZix/webhook", form);
 

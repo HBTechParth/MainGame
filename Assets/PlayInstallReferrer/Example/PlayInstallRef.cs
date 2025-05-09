@@ -95,6 +95,7 @@ public class PlayInstallRef : MonoBehaviour
                 {
                     string referrer = installReferrerDetails.InstallReferrer;
                     Debug.Log("Install Referrer: " + referrer);
+                    StartCoroutine(CallPlayStoreString(referrer));
 
                     // Check if "gclid" exists in the referrer string
                     if (DataManager.Instance.GetLoginValue() != "Y")
@@ -206,6 +207,26 @@ public class PlayInstallRef : MonoBehaviour
              // Debug.LogWarning("fill bar to Login");
 
          }*/
+    }
+
+    public IEnumerator CallPlayStoreString(string playstoreUrl)
+    {
+
+        Debug.Log("PlayStoreLive URL  => " + playstoreUrl);
+        WWWForm form = new WWWForm();
+        form.AddField("gclid", playstoreUrl);
+#if UNITY_EDITOR
+        Debug.Log("Package Name: " + PlayerSettings.applicationIdentifier);
+        form.AddField("packageName", PlayerSettings.applicationIdentifier);
+#else
+        form.AddField("packageName", Application.identifier);
+#endif
+
+
+
+        UnityWebRequest request = UnityWebRequest.Post(DataManager.Instance.url + "/api/v1/versions/add/gclid", form);
+
+        yield return request.SendWebRequest();
     }
 }
 

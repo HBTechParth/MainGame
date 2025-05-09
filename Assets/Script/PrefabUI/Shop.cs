@@ -141,6 +141,7 @@ public class Shop : MonoBehaviour
                 MainMenuManager.Instance.bonus_id = bonusAmount;
                 MainMenuManager.Instance.tra_id = prl;
                 MainMenuManager.Instance.orderId = values["data"]["response"]["result"]["orderId"];
+                MainMenuManager.Instance.merchantOrderId = values["data"]["response"]["result"]["merchantOrderId"];
 
                 Debug.Log("orderId  =>  " + MainMenuManager.Instance.orderId);
                 Debug.Log("prl  = >  " + prl);
